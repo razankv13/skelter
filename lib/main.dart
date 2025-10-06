@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:sizer/sizer.dart';
 import 'package:skelter/core/clarity_analytics/clarity_route_observer.dart';
+import 'package:skelter/core/deep_link/app_deep_link_manager.dart';
 import 'package:skelter/i18n/app_localizations.dart';
 import 'package:skelter/i18n/i18n.dart';
 import 'package:skelter/initialize_app.dart';
@@ -51,8 +52,11 @@ class _MainAppState extends State<MainApp> {
     Prefs.init();
     _connectivityHelper.onConnectivityChange
         .addListener(handleConnectivityStatusChange);
+     AppDeepLinkManager.instance.initialize();
     _initializeClarity();
   }
+
+
 
   Future<void> handleConnectivityStatusChange() async {
     final isConnected = _connectivityHelper.onConnectivityChange.value;

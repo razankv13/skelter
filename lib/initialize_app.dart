@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:skelter/core/deep_link/app_deep_link_manager.dart';
 import 'package:skelter/core/services/injection_container.dart';
 import 'package:skelter/firebase_options_dev.dart' as dev;
 import 'package:skelter/firebase_options_prod.dart' as prod;
@@ -51,4 +52,6 @@ Future<void> initializeApp({FirebaseAuth? firebaseAuth, Dio? dio}) async {
   await dotenv.load();
 
   await configureDependencies(firebaseAuth: firebaseAuth, dio: dio);
+
+
 }
