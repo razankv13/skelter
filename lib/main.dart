@@ -52,7 +52,9 @@ class _MainAppState extends State<MainApp> {
     Prefs.init();
     _connectivityHelper.onConnectivityChange
         .addListener(handleConnectivityStatusChange);
-     AppDeepLinkManager.instance.initialize();
+    Future.microtask(() async {
+      await AppDeepLinkManager.instance.initialize();
+    });
     _initializeClarity();
   }
 

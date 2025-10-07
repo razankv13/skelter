@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:skelter/core/deep_link/app_deep_link_manager.dart';
 import 'package:skelter/presentation/force_update/constants/force_update_constants.dart';
 import 'package:skelter/presentation/login/models/login_details.dart';
 import 'package:skelter/routes.gr.dart';
@@ -49,17 +50,23 @@ class _InitialScreenState extends State<InitialScreen> {
       await showOptionalUpdate(context: context);
     }
 
-    await _checkAuthStatus(context);
+    await _checkAuthAndHandleDeepLink();
   }
 
-  Future<void> _checkAuthStatus(BuildContext context) async {
+  Future<void> _checkAuthAndHandleDeepLink() async {
     final userDetailsJson = await Prefs.getString(PrefKeys.kUserDetails);
     final userDetails = LoginDetails.fromJson(
       json.decode(userDetailsJson ?? '{}'),
     );
 
+    if (!mounted) return;
+
     if ((userDetails.uid ?? '').haveContent()) {
-      await context.router.replace(const HomeRoute());
+      if (AppDeepLinkManager.instance.hasPendingDeepLink) {
+        await AppDeepLinkManager.instance.processPendingDeepLink(context);
+      } else {
+        await context.router.replace(const HomeRoute());
+      }
     } else {
       await context.router.replace(LoginWithPhoneNumberRoute());
     }
