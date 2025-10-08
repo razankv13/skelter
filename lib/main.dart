@@ -52,13 +52,11 @@ class _MainAppState extends State<MainApp> {
     Prefs.init();
     _connectivityHelper.onConnectivityChange
         .addListener(handleConnectivityStatusChange);
-    Future.microtask(() async {
+    _initializeClarity();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       await AppDeepLinkManager.instance.initialize();
     });
-    _initializeClarity();
   }
-
-
 
   Future<void> handleConnectivityStatusChange() async {
     final isConnected = _connectivityHelper.onConnectivityChange.value;
