@@ -67,18 +67,10 @@ class AppDeepLinkManager {
         'DeepLink -> Path: $path, QueryParams: ${uri.queryParameters}',
       );
 
-      final currentStack =
-          context.router.stack.map((route) => route.name).toList();
-
-      if (path == ChatRoute.name) {
-        if (!currentStack.contains(HomeRoute.name)) {
-          await context.router.replaceAll([
-            const HomeRoute(),
-            const ChatRoute(),
-          ]);
-        } else if (currentStack.last != ChatRoute.name) {
-          await context.router.push(const ChatRoute());
-        }
+      if (path == HomeRoute.name) {
+        await context.router.replaceAll([
+          const HomeRoute(),
+        ]);
       } else {
         debugPrint('Unhandled deep link path: $path');
       }
