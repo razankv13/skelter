@@ -15,9 +15,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get add => 'Add';
 
   @override
-  String get and => 'and';
-
-  @override
   String get camera => 'Camera';
 
   @override
@@ -158,10 +155,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get signup_keys => '================ SIGNUP KEYS ================';
 
   @override
-  String get agreement_info =>
-      'By continuing, you are acknowledge and accept our';
-
-  @override
   String get already_have_account => 'Already have an account? ';
 
   @override
@@ -274,9 +267,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get poor => 'Poor';
-
-  @override
-  String get privacy_policy => 'Privacy Policy';
 
   @override
   String get sign_up => 'Sign up';

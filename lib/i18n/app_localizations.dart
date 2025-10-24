@@ -106,12 +106,6 @@ abstract class AppLocalizations {
   /// **'Add'**
   String get add;
 
-  /// No description provided for @and.
-  ///
-  /// In en, this message translates to:
-  /// **'and'**
-  String get and;
-
   /// No description provided for @camera.
   ///
   /// In en, this message translates to:
@@ -364,12 +358,6 @@ abstract class AppLocalizations {
   /// **'================ SIGNUP KEYS ================'**
   String get signup_keys;
 
-  /// No description provided for @agreement_info.
-  ///
-  /// In en, this message translates to:
-  /// **'By continuing, you are acknowledge and accept our'**
-  String get agreement_info;
-
   /// No description provided for @already_have_account.
   ///
   /// In en, this message translates to:
@@ -585,12 +573,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Poor'**
   String get poor;
-
-  /// No description provided for @privacy_policy.
-  ///
-  /// In en, this message translates to:
-  /// **'Privacy Policy'**
-  String get privacy_policy;
 
   /// No description provided for @sign_up.
   ///

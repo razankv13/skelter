@@ -1,7 +1,6 @@
 {
   "common_keys":"================ COMMON KEYS ================",
   "add":"Add",
-  "and":"and",
   "camera":"Camera",
   "gallery":"Gallery",
   "next":"Next",
@@ -110,7 +109,6 @@
       }
     }
   },
-  "agreement_info":"By continuing, you are acknowledge and accept our",
   "already_have_account":"Already have an account? ",
   "back_to_login":"Back to login",
   "confirm_password":"Confirm password",
@@ -147,7 +145,6 @@
   "phone_no_verified":"Phone number verified!",
   "phone_no_verified_info":"Your Phone number has been successfully verified. You can now complete your profile.",
   "poor":"Poor",
-  "privacy_policy":"Privacy Policy",
   "sign_up":"Sign up",
   "sign_up_with_apple":"Sign up with Apple",
   "sign_up_with_email":"Sign up with Email",
