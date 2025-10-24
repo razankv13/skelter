@@ -81,7 +81,7 @@ class MoreLoginOptionsButton extends StatelessWidget {
           if (Platform.isIOS) ...[
             const SizedBox(height: 16),
             AppButton(
-              label: context.localization.login_continue_with_apple,
+              label: context.localization.continue_with_apple,
               shouldSetFullWidth: true,
               style: AppButtonStyle.outline,
               leftIconPath: Assets.icons.apple,
