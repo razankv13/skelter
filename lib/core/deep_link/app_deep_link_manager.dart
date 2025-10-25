@@ -38,13 +38,11 @@ class AppDeepLinkManager {
 
     final context = rootNavigatorKey.currentContext;
     if (context == null) {
-      // Context not ready → store deep link
       _pendingDeepLink = uri;
       debugPrint('[DeepLink] Context not ready, storing deep link');
       return;
     }
 
-    // Context ready → process deep link
     await _processDeepLink(uri, context);
   }
 
