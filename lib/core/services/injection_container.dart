@@ -12,10 +12,12 @@ import 'package:skelter/presentation/home/domain/repositories/product_repository
 import 'package:skelter/presentation/home/domain/usecases/get_products.dart';
 import 'package:skelter/routes.gr.dart';
 import 'package:skelter/services/firebase_auth_services.dart';
+import 'package:skelter/shared_pref/prefs.dart';
 import 'package:skelter/utils/app_flavor_env.dart';
 import 'package:skelter/utils/cache_manager.dart';
 
 final sl = GetIt.instance;
+bool _isForceLoggingOutUser = false;
 
 Future<void> configureDependencies({
   FirebaseAuth? firebaseAuth,
@@ -64,6 +66,7 @@ void _registerDioInterceptor(Dio dio) {
       callFollowingErrorInterceptor: true,
     ),
     _sslPinningErrorInterceptor,
+    _authErrorInterceptor(),
   ]);
 }
 
@@ -81,6 +84,44 @@ InterceptorsWrapper get _sslPinningErrorInterceptor {
     },
   );
 }
+
+InterceptorsWrapper _authErrorInterceptor() => InterceptorsWrapper(
+      onError: (DioException dioError, ErrorInterceptorHandler handler) async {
+        final statusCode = dioError.response?.statusCode ?? 0;
+
+        debugPrint(
+          '[AuthErrorInterceptor] status: $statusCode',
+        );
+
+        final shouldLogout =
+            !_isForceLoggingOutUser && (statusCode == 401 || statusCode == 403);
+
+        if (shouldLogout) {
+          _isForceLoggingOutUser = true;
+          try {
+            await Prefs.clear();
+            await sl<CacheManager>().clearCachedApiResponse();
+            await sl<FirebaseAuthService>().signOut();
+
+            final currentContext = rootNavigatorKey.currentContext;
+            if (currentContext != null) {
+              await currentContext.router
+                  .replaceAll([LoginWithPhoneNumberRoute()]);
+            } else {
+              debugPrint(
+                '[AuthErrorInterceptor] No navigator context available',
+              );
+            }
+          } catch (e) {
+            debugPrint('[AuthErrorInterceptor] Logout failed: $e');
+          } finally {
+            _isForceLoggingOutUser = false;
+          }
+        }
+
+        handler.next(dioError);
+      },
+    );
 
 String _getCertHash() {
   final certificateHash = AppConfig.getDioCertHash();
