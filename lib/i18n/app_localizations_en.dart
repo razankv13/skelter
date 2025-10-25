@@ -313,19 +313,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get account => 'Account';
 
   @override
-  String get account_and_privacy => 'Account & Privacy';
-
-  @override
   String get add_a_profile_picture => 'Add a profile picture';
-
-  @override
-  String get change_password => 'Change Password';
 
   @override
   String get personal_details => 'Personal Details';
 
   @override
   String get profile => 'Profile';
+
+  @override
+  String get help_and_support => 'Help & Support';
 
   @override
   String get edit => 'Edit';
@@ -344,6 +341,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get done => 'Done';
+
+  @override
+  String get community => 'Community';
+
+  @override
+  String get feedback_and_ratings => 'Feedback & Ratings';
+
+  @override
+  String get notifications => 'Notifications';
 
   @override
   String get delete_account_keys =>
@@ -570,9 +576,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get home_keys => '================ HOME KEYS ================';
 
   @override
-  String get explore_products => 'Explore Products';
-
-  @override
   String get home => 'Home';
 
   @override
@@ -629,9 +632,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get you => 'You';
 
   @override
-  String get community => 'Community';
-
-  @override
   String get message => 'Message';
 
   @override
@@ -686,9 +686,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'One or more selected files exceed the 5MB limit.';
 
   @override
-  String get help_and_support => 'Help & Support';
-
-  @override
   String get pick_file_error =>
       'Something went wrong while picking files. Please try again.';
 
@@ -729,12 +726,6 @@ class AppLocalizationsEn extends AppLocalizations {
       '================ NOTIFICATIONS KEYS ================';
 
   @override
-  String get notification_settings => 'Notification Settings';
-
-  @override
-  String get notifications => 'Notifications';
-
-  @override
   String get notifications_delete_successfully =>
       'Notification Delete Successfully';
 
@@ -745,13 +736,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_keys => '================ SETTINGS KEYS ================';
 
   @override
+  String get settings => 'Settings';
+
+  @override
+  String get notification_settings => 'Notification Settings';
+
+  @override
+  String get change_password => 'Change Password';
+
+  @override
   String get choose_app_theme => 'Choose App Theme';
 
   @override
-  String get feedback_and_ratings => 'Feedback & Ratings';
-
-  @override
-  String get settings => 'Settings';
+  String get account_and_privacy => 'Account & Privacy';
 
   @override
   String get saved_cards_keys =>
@@ -763,6 +760,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get empty_cards_list_title => 'No Saved Card';
+
+  @override
+  String get explore_products => 'Explore Products';
 
   @override
   String get save => 'Save';

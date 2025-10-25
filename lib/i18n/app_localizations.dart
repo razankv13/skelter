@@ -658,23 +658,11 @@ abstract class AppLocalizations {
   /// **'Account'**
   String get account;
 
-  /// No description provided for @account_and_privacy.
-  ///
-  /// In en, this message translates to:
-  /// **'Account & Privacy'**
-  String get account_and_privacy;
-
   /// No description provided for @add_a_profile_picture.
   ///
   /// In en, this message translates to:
   /// **'Add a profile picture'**
   String get add_a_profile_picture;
-
-  /// No description provided for @change_password.
-  ///
-  /// In en, this message translates to:
-  /// **'Change Password'**
-  String get change_password;
 
   /// No description provided for @personal_details.
   ///
@@ -687,6 +675,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Profile'**
   String get profile;
+
+  /// No description provided for @help_and_support.
+  ///
+  /// In en, this message translates to:
+  /// **'Help & Support'**
+  String get help_and_support;
 
   /// No description provided for @edit.
   ///
@@ -723,6 +717,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Done'**
   String get done;
+
+  /// No description provided for @community.
+  ///
+  /// In en, this message translates to:
+  /// **'Community'**
+  String get community;
+
+  /// No description provided for @feedback_and_ratings.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback & Ratings'**
+  String get feedback_and_ratings;
+
+  /// No description provided for @notifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notifications;
 
   /// No description provided for @delete_account_keys.
   ///
@@ -1120,12 +1132,6 @@ abstract class AppLocalizations {
   /// **'================ HOME KEYS ================'**
   String get home_keys;
 
-  /// No description provided for @explore_products.
-  ///
-  /// In en, this message translates to:
-  /// **'Explore Products'**
-  String get explore_products;
-
   /// No description provided for @home.
   ///
   /// In en, this message translates to:
@@ -1228,12 +1234,6 @@ abstract class AppLocalizations {
   /// **'You'**
   String get you;
 
-  /// No description provided for @community.
-  ///
-  /// In en, this message translates to:
-  /// **'Community'**
-  String get community;
-
   /// No description provided for @message.
   ///
   /// In en, this message translates to:
@@ -1330,12 +1330,6 @@ abstract class AppLocalizations {
   /// **'One or more selected files exceed the 5MB limit.'**
   String get file_too_large_error;
 
-  /// No description provided for @help_and_support.
-  ///
-  /// In en, this message translates to:
-  /// **'Help & Support'**
-  String get help_and_support;
-
   /// No description provided for @pick_file_error.
   ///
   /// In en, this message translates to:
@@ -1402,18 +1396,6 @@ abstract class AppLocalizations {
   /// **'================ NOTIFICATIONS KEYS ================'**
   String get notifications_keys;
 
-  /// No description provided for @notification_settings.
-  ///
-  /// In en, this message translates to:
-  /// **'Notification Settings'**
-  String get notification_settings;
-
-  /// No description provided for @notifications.
-  ///
-  /// In en, this message translates to:
-  /// **'Notifications'**
-  String get notifications;
-
   /// No description provided for @notifications_delete_successfully.
   ///
   /// In en, this message translates to:
@@ -1432,23 +1414,35 @@ abstract class AppLocalizations {
   /// **'================ SETTINGS KEYS ================'**
   String get settings_keys;
 
+  /// No description provided for @settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
+
+  /// No description provided for @notification_settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification Settings'**
+  String get notification_settings;
+
+  /// No description provided for @change_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Password'**
+  String get change_password;
+
   /// No description provided for @choose_app_theme.
   ///
   /// In en, this message translates to:
   /// **'Choose App Theme'**
   String get choose_app_theme;
 
-  /// No description provided for @feedback_and_ratings.
+  /// No description provided for @account_and_privacy.
   ///
   /// In en, this message translates to:
-  /// **'Feedback & Ratings'**
-  String get feedback_and_ratings;
-
-  /// No description provided for @settings.
-  ///
-  /// In en, this message translates to:
-  /// **'Settings'**
-  String get settings;
+  /// **'Account & Privacy'**
+  String get account_and_privacy;
 
   /// No description provided for @saved_cards_keys.
   ///
@@ -1467,6 +1461,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No Saved Card'**
   String get empty_cards_list_title;
+
+  /// No description provided for @explore_products.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore Products'**
+  String get explore_products;
 
   /// No description provided for @save.
   ///
