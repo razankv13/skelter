@@ -863,4 +863,26 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get try_again => 'Try Again';
+
+  @override
+  String get product_detail_keys =>
+      '================ Product Detail Keys ================';
+
+  @override
+  String get product_information => 'Product Information';
+
+  @override
+  String get add_to_cart => 'Add to cart';
+
+  @override
+  String get mark_favorite => 'Mark Favorite';
+
+  @override
+  String get inclusive_of_taxes => '(incl. of all taxes)';
+
+  @override
+  String get product_photos => 'Product Photos';
+
+  @override
+  String get view_product_reviews => 'View Product Reviews';
 }

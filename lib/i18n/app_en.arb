@@ -369,5 +369,14 @@
   "platform_not_supported":"Platform not supported",
   "secure_connection_failed_message":"We couldn't connect securely to our server. Please try again later, or check if app update available.",
   "secure_connection_failed_title":"Secure Connection Failed!",
-  "try_again":"Try Again"
+  "try_again":"Try Again",
+
+  "product_detail_keys": "================ Product Detail Keys ================",
+  "product_information": "Product Information",
+  "add_to_cart": "Add to cart",
+  "mark_favorite" : "Mark Favorite",
+  "inclusive_of_taxes": "(incl. of all taxes)",
+  "product_photos": "Product Photos",
+  "view_product_reviews": "View Product Reviews"
+
 }
