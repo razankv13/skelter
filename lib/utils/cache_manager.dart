@@ -7,14 +7,6 @@ import 'package:http_cache_file_store/http_cache_file_store.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:skelter/constants/constants.dart';
 
-/// Cache Implementation:
-///
-/// CURRENT Implementation: Basic time-based caching
-/// (cache expires after set duration)
-///
-/// SMART CACHE: Server tells client when data actually changed
-/// (not supported by mock APIs) Requires backend conditional requests
-
 class CacheManager {
   late final CacheOptions _defaultCacheOptions;
   late final String _cacheDirectoryPath;
@@ -29,9 +21,9 @@ class CacheManager {
       store: store,
       policy: CachePolicy.forceCache,
       maxStale: const Duration(hours: 1),
-      //hitCacheOnErrorCodes: [304], // Enable Smart cache: Use cached data on
-      // 304 Not Modified. Requires backend conditional requests
-      // (If-None-Match, If-Modified-Since)
+      // hitCacheOnErrorCodes: [304], // Enable Smart Cache: Returns cached data
+      // when the server responds with 304 (Not Modified).
+      // This leverages backend conditional requests.
     );
   }
 

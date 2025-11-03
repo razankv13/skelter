@@ -22,8 +22,6 @@ class ProductRemoteDataSrcImpl implements ProductRemoteDatasource {
     try {
       final response = await _dio.get(
         kGetProductEndpoint,
-        // Note: Current implementation time-based caching
-        // [cache expires after set duration]
         options: sl<CacheManager>().defaultCacheOptions.toOptions(),
       );
 
