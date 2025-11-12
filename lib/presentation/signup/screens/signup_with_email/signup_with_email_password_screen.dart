@@ -17,7 +17,9 @@ import 'package:skelter/routes.gr.dart';
 
 @RoutePage()
 class SignupWithEmailPasswordScreen extends StatefulWidget {
-  const SignupWithEmailPasswordScreen({super.key});
+  const SignupWithEmailPasswordScreen({super.key, this.signupBloc});
+
+  final SignupBloc? signupBloc;
 
   @override
   State<SignupWithEmailPasswordScreen> createState() =>
@@ -31,7 +33,9 @@ class _SignupWithEmailPasswordScreenState
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SignupBloc(localizations: appLocalizations),
+      create: widget.signupBloc != null
+          ? (_) => widget.signupBloc!
+          : (context) => SignupBloc(localizations: appLocalizations),
       child: Builder(
         builder: (context) {
           return PopScope(
