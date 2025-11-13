@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skelter/constants/integration_test_keys.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/signup/bloc/signup_bloc.dart';
 import 'package:skelter/presentation/signup/bloc/signup_event.dart';
@@ -22,6 +23,7 @@ class EmailNextButton extends StatelessWidget {
     );
 
     return AppButton(
+      key: keys.signupPage.signupEmailNextButton,
       label: context.localization.next,
       shouldSetFullWidth: true,
       size: AppButtonSize.large,

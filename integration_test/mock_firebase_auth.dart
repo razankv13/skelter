@@ -67,6 +67,12 @@ class MockFirebaseAuthService extends Mock implements FirebaseAuthService {
   bool loginWithAppleShouldFail = false;
   String loginWithAppleError = 'Apple sign-in failed';
 
+  bool signupWithEmailShouldFail = false;
+  String signupWithEmailError = 'Email already in use';
+  User? signupWithEmailUser;
+  String? signupWithEmailUserEmail;
+  bool? signupWithEmailUserVerified;
+
   @override
   Future<void> verifyFBAuthPhoneNumber({
     required String phoneNumber,
@@ -137,6 +143,26 @@ class MockFirebaseAuthService extends Mock implements FirebaseAuthService {
       return null;
     }
     return MockUserCredential(MockUser(email: 'apple@example.com'));
+  }
+
+  @override
+  Future<UserCredential?> signupWithEmailAndPassword(
+    String email,
+    String password, {
+    required Function(String, {StackTrace? stackTrace}) onError,
+  }) async {
+    if (signupWithEmailShouldFail) {
+      onError(signupWithEmailError);
+      return null;
+    }
+    final user = signupWithEmailUser ??
+        (signupWithEmailUserEmail != null || signupWithEmailUserVerified != null
+            ? MockUser(
+                email: signupWithEmailUserEmail ?? email,
+                emailVerified: signupWithEmailUserVerified ?? false,
+              )
+            : MockUser(email: email));
+    return MockUserCredential(user);
   }
 }
 
