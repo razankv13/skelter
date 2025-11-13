@@ -44,7 +44,7 @@ class MoreLoginOptionsButton extends StatelessWidget {
             size: AppButtonSize.extraLarge,
             onPressed: () {
               if (isSignup) {
-                context.pushRoute(const SignupWithEmailPasswordRoute());
+                context.pushRoute(SignupWithEmailPasswordRoute());
               } else {
                 context
                     .read<LoginBloc>()
