@@ -61,8 +61,8 @@ void main() {
 
       await $(keys.signupPage.signupEmailTextField)
           .enterText('newuser@example.com');
-      await $.pumpAndSettle(timeout: const Duration(seconds: 2));
-
+      await Future.delayed(const Duration(milliseconds: 500));
+      await $.pumpAndSettle();
       await $(keys.signupPage.signupEmailNextButton).tap();
       await $.pumpAndSettle();
 
