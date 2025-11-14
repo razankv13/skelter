@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
+import 'package:skelter/constants/integration_test_keys.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/login/bloc/login_bloc.dart';
 import 'package:skelter/presentation/login/bloc/login_events.dart';
@@ -25,6 +26,11 @@ class _EmailPasswordTextFieldsState extends State<EmailPasswordTextFields> {
   @override
   void initState() {
     super.initState();
+    final emailPasswordLoginState =
+        context.read<LoginBloc>().state.emailPasswordLoginState;
+
+    _emailController.text = emailPasswordLoginState?.email ?? '';
+    _passwordController.text = emailPasswordLoginState?.password ?? '';
     _emailController.addListener(() {
       _emailControllerListener();
     });
@@ -62,6 +68,7 @@ class _EmailPasswordTextFieldsState extends State<EmailPasswordTextFields> {
           const SizedBox(height: 16),
           ClarityMask(
             child: TextField(
+              key: keys.signInPage.emailTextField,
               controller: _emailController,
               decoration: InputDecoration(
                 hintText: context.localization.email_hint,
@@ -84,6 +91,7 @@ class _EmailPasswordTextFieldsState extends State<EmailPasswordTextFields> {
           const SizedBox(height: 8),
           ClarityMask(
             child: TextField(
+              key: keys.signInPage.passwordTextField,
               controller: _passwordController,
               obscureText: !isPasswordVisible,
               decoration: InputDecoration(
