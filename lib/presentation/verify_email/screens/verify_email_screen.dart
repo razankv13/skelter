@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_fgbg/flutter_fgbg.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
+import 'package:skelter/core/services/injection_container.dart';
 import 'package:skelter/gen/assets.gen.dart';
 import 'package:skelter/i18n/app_localizations.dart';
 import 'package:skelter/i18n/localization.dart';
@@ -75,9 +76,9 @@ class _VerifyEmailScreenBody extends StatefulWidget {
 
 class _VerifyEmailScreenBodyState extends State<_VerifyEmailScreenBody> {
   Timer? _verificationListenTimer, _resendVerificationMailTimer;
+  late final FirebaseAuth _firebaseAuth = sl<FirebaseAuth>();
 
-  bool _isEmailVerified() =>
-      FirebaseAuth.instance.currentUser?.emailVerified ?? false;
+  bool _isEmailVerified() => _firebaseAuth.currentUser?.emailVerified ?? false;
 
   @override
   void initState() {
@@ -148,7 +149,7 @@ class _VerifyEmailScreenBodyState extends State<_VerifyEmailScreenBody> {
 
   void checkIfEmailVerified(BuildContext context) async {
     _verificationListenTimer?.cancel();
-    await FirebaseAuth.instance.currentUser?.reload();
+    await _firebaseAuth.currentUser?.reload();
     if (_isEmailVerified()) {
       context.read<VerifyEmailBloc>().add(
             const ChangeUserDetailsInputStatusEvent(
@@ -157,7 +158,7 @@ class _VerifyEmailScreenBodyState extends State<_VerifyEmailScreenBody> {
           );
       if (widget.isSignUp) {
         await context.read<VerifyEmailBloc>().storeLoginDetailsInPrefs(
-              FirebaseAuth.instance.currentUser,
+              _firebaseAuth.currentUser,
             );
         context.read<VerifyEmailBloc>().add(NavigateToHomeEvent());
       }

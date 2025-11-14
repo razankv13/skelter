@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:patrol/patrol.dart';
@@ -17,6 +18,7 @@ class MockDioResponse<T> extends Mock implements Response<T> {}
 void main() {
   final mockDio = MockDio();
   final mockFirebaseAuthService = MockFirebaseAuthService();
+  final mockFirebaseAuth = MockFirebaseAuth();
 
   setUpAll(() {
     final mockResponse = MockDioResponse<List<dynamic>>();
@@ -37,6 +39,7 @@ void main() {
     framePolicy: LiveTestWidgetsFlutterBindingFramePolicy.fullyLive,
     ($) async {
       await initializeApp(
+        firebaseAuth: mockFirebaseAuth,
         firebaseAuthService: mockFirebaseAuthService,
         dio: mockDio,
       );
@@ -80,14 +83,28 @@ void main() {
 
       expect(find.text('Verify your email'), findsOneWidget);
 
-      final NavigatorState navigator = $.tester.state(find.byType(Navigator));
-      navigator.pop();
-      navigator.pop();
-      await $.pump();
+      mockFirebaseAuth.testUser.setEmailVerified(isEmailVerified: true);
+      await $.pump(const Duration(seconds: 6));
+      await $.pumpAndSettle();
+
+      expect(find.text('Premium Wireless Headphones'), findsOneWidget);
+      expect(find.text('Smart Fitness Watch'), findsOneWidget);
+      expect(find.byKey(keys.homePage.productCardKey), findsExactly(2));
+
+      await $(TablerIcons.user).tap();
+      await $.pumpAndSettle();
+      await $('Sign out').scrollTo().tap();
+      await $.pumpAndSettle();
 
       // SCENARIO 2: Email already in use error
       mockFirebaseAuthService.signupWithEmailShouldFail = true;
       mockFirebaseAuthService.signupWithEmailError = 'Email already in use';
+
+      await $('Sign up').tap();
+      await $.pumpAndSettle();
+
+      await $(keys.signupPage.signupWithEmailButton).tap();
+      await $.pumpAndSettle();
 
       await $(keys.signupPage.signupEmailTextField)
           .enterText('existing@example.com');
@@ -112,20 +129,17 @@ void main() {
 
       expect(find.text('Email already in use'), findsOneWidget);
 
+      final NavigatorState navigator = $.tester.state(find.byType(Navigator));
       navigator.pop();
       await $.pump();
 
       // SCENARIO 3: Invalid email validation
       await $(keys.signupPage.signupEmailTextField).enterText('invalidemail');
-      await $.pumpAndSettle(timeout: const Duration(seconds: 2));
+      await $.pumpAndSettle();
 
       await $(keys.signupPage.signupEmailNextButton).tap();
       await $.pumpAndSettle();
-
-      expect(
-        find.text('Please enter a valid email address'),
-        findsOneWidget,
-      );
+      expect(find.text('Please enter a valid email address'), findsOneWidget);
     },
   );
 }

@@ -12,6 +12,8 @@ class MockFirebaseAuth extends Mock implements FirebaseAuth {
 
   final MockUser _mockUser = MockUser();
 
+  MockUser get testUser => _mockUser;
+
   @override
   User? get currentUser => _mockUser;
 
@@ -181,13 +183,17 @@ class MockUser extends Mock implements User {
         _emailVerified = emailVerified;
 
   final String? _email;
-  final bool _emailVerified;
+  bool _emailVerified;
 
   @override
   String? get email => _email;
 
   @override
   bool get emailVerified => _emailVerified;
+
+  void setEmailVerified({required bool isEmailVerified}) {
+    _emailVerified = isEmailVerified;
+  }
 
   @override
   String get uid => 'mock-user-id';
@@ -198,5 +204,10 @@ class MockUser extends Mock implements User {
   @override
   Future<String> getIdToken([bool forceRefresh = false]) {
     return Future.value('mock-firebase-id-token');
+  }
+
+  @override
+  Future<void> reload() async {
+    debugPrint('emailVerified: $_emailVerified');
   }
 }
