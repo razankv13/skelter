@@ -207,7 +207,5 @@ class MockUser extends Mock implements User {
   }
 
   @override
-  Future<void> reload() async {
-    debugPrint('emailVerified: $_emailVerified');
-  }
+  Future<void> reload() async {}
 }
