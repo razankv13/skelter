@@ -57,6 +57,11 @@ class EmptyViewsScreen extends StatelessWidget {
                   context.pushRoute(const SavedCardRoute());
                 },
               ),
+              const SizedBox(height: 16),
+              AppButton(
+                label: context.localization.subscription,
+                onPressed: () => context.pushRoute(const SubscriptionRoute()),
+              ),
             ],
           ),
         ),

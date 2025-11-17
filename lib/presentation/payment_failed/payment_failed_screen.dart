@@ -1,0 +1,35 @@
+import 'package:flutter/material.dart';
+import 'package:skelter/presentation/payment_failed/widgets/go_to_home_screen_button.dart';
+import 'package:skelter/presentation/payment_failed/widgets/payment_failed_icon.dart';
+import 'package:skelter/presentation/payment_failed/widgets/payment_failed_message.dart';
+import 'package:skelter/presentation/payment_failed/widgets/retry_payment_button.dart';
+
+class PaymentFailedScreen extends StatelessWidget {
+  const PaymentFailedScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const PopScope(
+      canPop: false,
+      child: Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                PaymentFailedIcon(),
+                SizedBox(height: 24),
+                PaymentFailedMessage(),
+                SizedBox(height: 32),
+                RetryPaymentButton(),
+                SizedBox(height: 8),
+                GoToHomeScreenButton(),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

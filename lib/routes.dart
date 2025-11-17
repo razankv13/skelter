@@ -68,6 +68,8 @@ class AppRouter extends RootStackRouter {
       //Settings
       SettingsRoute.page,
 
+      // Subscription
+      SubscriptionRoute.page,
       //Delete Account
       DeleteAccountRoute.page,
       AccountDeleteSuccessRoute.page,

@@ -1,0 +1,41 @@
+import 'package:flutter/material.dart';
+import 'package:skelter/common/theme/text_style/app_text_styles.dart';
+import 'package:skelter/gen/assets.gen.dart';
+import 'package:skelter/i18n/localization.dart';
+import 'package:skelter/widgets/styling/app_colors.dart';
+
+class ProIconText extends StatelessWidget {
+  const ProIconText({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Image.asset(
+          Assets.icons.proIcon.path,
+          height: 80,
+          width: 80,
+          fit: BoxFit.fill,
+        ),
+        const SizedBox(height: 24),
+        Text(
+          context.localization.unlock_access,
+          style: AppTextStyles.h2Bold,
+          textAlign: TextAlign.center,
+        ),
+        Text(
+          context.localization.app_name,
+          style: AppTextStyles.h4SemiBold.copyWith(
+            color: AppColors.bgBrandDefault,
+          ),
+        ),
+        const SizedBox(height: 12),
+        Text(
+          context.localization.plan_description,
+          style: AppTextStyles.p2Medium,
+          textAlign: TextAlign.center,
+        ),
+      ],
+    );
+  }
+}

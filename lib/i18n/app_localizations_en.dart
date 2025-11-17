@@ -783,6 +783,103 @@ class AppLocalizationsEn extends AppLocalizations {
   String get empty_order_title => 'No Orders Found';
 
   @override
+  String get subscription_keys =>
+      '================ SUBSCRIPTION KEYS ================';
+
+  @override
+  String get subscription => 'Subscription';
+
+  @override
+  String get no_subscription_available => 'No subscription plans available.';
+
+  @override
+  String get failed_to_load_subscriptions =>
+      'Failed to load subscription plans.';
+
+  @override
+  String get store_login_required =>
+      'Please log into your App Store or Play Store account.';
+
+  @override
+  String get unexpected_error_occurred => 'An unexpected error occurred.';
+
+  @override
+  String get user_purchase_cancelled => 'You cancelled the purchase.';
+
+  @override
+  String get restore_subscription => 'Restore Subscription';
+
+  @override
+  String get restore_success => 'Purchases restored successfully!';
+
+  @override
+  String get no_active_subscriptions => 'No active subscriptions found.';
+
+  @override
+  String get restore_error => 'Error restoring purchases: ';
+
+  @override
+  String get monthly_plan => 'Monthly Plan';
+
+  @override
+  String get yearly_plan => 'Yearly Plan';
+
+  @override
+  String get monthly_duration => 'per month';
+
+  @override
+  String get monthly_renewal => 'Auto-renews every month';
+
+  @override
+  String get yearly_duration => 'per year';
+
+  @override
+  String get yearly_renewal => 'Best value – Auto-renews yearly';
+
+  @override
+  String get subscription_renew =>
+      'Your subscription will automatically renew unless canceled at least 24 hours before the end of the current period';
+
+  @override
+  String get continue_to_payment => 'Continue to Payment';
+
+  @override
+  String get unlock_access => 'Unlock Full Access to';
+
+  @override
+  String get app_name => 'Skelter Pro';
+
+  @override
+  String get plan_description => '🚀 Get unlimited access to skelter';
+
+  @override
+  String get processing_your_payment => 'Processing Your Payment';
+
+  @override
+  String get payment_processing_message =>
+      'Please wait while we process your payment. This may take a few seconds.';
+
+  @override
+  String get subscription_activated_title => 'Subscription Activated!';
+
+  @override
+  String get subscription_activated_message =>
+      'Your subscription is now active. You have full access to the skelter';
+
+  @override
+  String get payment_failed => 'Payment failed.';
+
+  @override
+  String get payment_failed_message =>
+      'Please try again or update your payment details.';
+
+  @override
+  String get retry_payment => 'Retry Payment';
+
+  @override
+  String get go_to_home => 'Go to Home';
+
+  @override
   String get force_update_keys =>
       '================ FORCE UPDATE KEYS ================';
 

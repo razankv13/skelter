@@ -77,4 +77,5 @@ flutter {
 
 dependencies {
     androidTestUtil "androidx.test:orchestrator:1.5.1"
+    implementation platform('com.android.billingclient:billing:7.0.0')
 }
