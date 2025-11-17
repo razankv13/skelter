@@ -43,7 +43,7 @@ class AppDeepLinkManager {
       return;
     }
 
-    await _processDeepLink(uri, context);
+    await _handleDeepLink(uri, context);
   }
 
   Future<void> handlePendingDeepLink(BuildContext context) async {
@@ -51,31 +51,59 @@ class AppDeepLinkManager {
 
     _isProcessingDeepLink = true;
     try {
-      await _processDeepLink(_pendingDeepLink!, context);
+      await _handleDeepLink(_pendingDeepLink!, context);
     } finally {
       _pendingDeepLink = null;
       _isProcessingDeepLink = false;
     }
   }
 
-  Future<void> _processDeepLink(Uri uri, BuildContext context) async {
-    try {
-      final path = uri.path.replaceFirst('/', '');
-      debugPrint(
-        'DeepLink -> Path: $path, QueryParams: ${uri.queryParameters}',
-      );
+  Future<void> _handleDeepLink(Uri uri, BuildContext context) async {
+    final segments = uri.pathSegments;
 
-      if (path == HomeRoute.name) {
-        await context.router.replaceAll([
-          const HomeRoute(),
-        ]);
-      } else {
-        debugPrint('Unhandled deep link path: $path');
-      }
-    } catch (e) {
-      debugPrint('[AppDeepLinkManager] : Error processing deep link: $e');
-    } finally {
-      _pendingDeepLink = null;
+    if (segments.length < 2) {
+      debugPrint('[DeepLink] Invalid path: $uri');
+      return;
     }
+
+    final routeSegment = segments[0].toLowerCase();
+    final productId = segments[1];
+    final router = context.router;
+
+    const routeMap = {
+      'product-detail': ProductDetailRoute.name,
+      'home': HomeRoute.name,
+    };
+
+    final routeName = routeMap[routeSegment];
+    if (routeName == null) {
+      debugPrint('[DeepLink] Unhandled route: $routeSegment');
+      return;
+    }
+
+    debugPrint('[DeepLink] route=$routeName, productId=$productId');
+
+    final currentRoute = router.current;
+    if (currentRoute.name == ProductDetailRoute.name &&
+        currentRoute.args is ProductDetailRouteArgs &&
+        (currentRoute.args! as ProductDetailRouteArgs).productId == productId) {
+      debugPrint(
+        '[DeepLink] Already on product $productId, skipping navigation',
+      );
+      return;
+    }
+
+    // App cold start from deep link: reset navigation stack
+    if (!router.stack.any((route) => route.name == HomeRoute.name)) {
+      await router.replaceAll([
+        const HomeRoute(),
+        ProductDetailRoute(productId: productId),
+      ]);
+      return;
+    }
+
+    // App already running: check and navigate safely to product detail
+    router.popUntilRouteWithName(HomeRoute.name);
+    await router.push(ProductDetailRoute(productId: productId));
   }
 }
