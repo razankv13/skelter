@@ -62,7 +62,7 @@ import 'app_localizations_en.dart';
 /// property.
 abstract class AppLocalizations {
   AppLocalizations(String locale)
-    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -85,11 +85,11 @@ abstract class AppLocalizations {
   /// of delegates is preferred or required.
   static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
       <LocalizationsDelegate<dynamic>>[
-        delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ];
+    delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[Locale('en')];
@@ -1549,13 +1549,13 @@ abstract class AppLocalizations {
   /// No description provided for @restore_success.
   ///
   /// In en, this message translates to:
-  /// **'Purchases restored successfully!'**
+  /// **'Your purchases have been restored successfully.'**
   String get restore_success;
 
   /// No description provided for @no_active_subscriptions.
   ///
   /// In en, this message translates to:
-  /// **'No active subscriptions found.'**
+  /// **'No active subscriptions were found on your account.'**
   String get no_active_subscriptions;
 
   /// No description provided for @restore_error.

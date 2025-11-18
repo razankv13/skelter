@@ -810,10 +810,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get restore_subscription => 'Restore Subscription';
 
   @override
-  String get restore_success => 'Purchases restored successfully!';
+  String get restore_success =>
+      'Your purchases have been restored successfully.';
 
   @override
-  String get no_active_subscriptions => 'No active subscriptions found.';
+  String get no_active_subscriptions =>
+      'No active subscriptions were found on your account.';
 
   @override
   String get restore_error => 'Error restoring purchases: ';

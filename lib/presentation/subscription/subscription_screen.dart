@@ -14,6 +14,7 @@ import 'package:skelter/presentation/subscription/widgets/subscription_plan_fetc
 import 'package:skelter/presentation/subscription/widgets/subscription_plans.dart';
 import 'package:skelter/presentation/subscription/widgets/subscription_renew_text.dart';
 import 'package:skelter/presentation/subscription_activated/subscription_activated_screen.dart';
+import 'package:skelter/utils/extensions/build_context_ext.dart';
 
 @RoutePage()
 class SubscriptionScreen extends StatelessWidget {
@@ -28,23 +29,38 @@ class SubscriptionScreen extends StatelessWidget {
       },
       child: Scaffold(
         body: SafeArea(
-          child: BlocBuilder<SubscriptionBloc, SubscriptionState>(
-            builder: (context, state) {
-              if (state is FetchSubscriptionPlanLoadingState) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (state is FetchSubscriptionPlanFailureState) {
-                return const SubscriptionPlanFetchError();
-              } else if (state is FetchSubscriptionPlanLoadedState) {
-                return const SubscriptionScreenBody();
-              } else if (state is SubscriptionPaymentProcessingState) {
-                return const PaymentProcessingScreen();
-              } else if (state is SubscriptionPaymentSuccessState) {
-                return const SubscriptionActivatedScreen();
-              } else if (state is SubscriptionPaymentFailureState) {
-                return const PaymentFailedScreen();
-              }
-              return const SizedBox.shrink();
+          child: BlocListener<SubscriptionBloc, SubscriptionState>(
+            listenWhen: (previous, current) {
+              return current is FetchSubscriptionPlanLoadedState &&
+                  current.snackBarMessage != null;
             },
+            listener: (context, state) {
+              if (state is FetchSubscriptionPlanLoadedState &&
+                  state.snackBarMessage != null) {
+                context.showSnackBar(state.snackBarMessage!);
+                context
+                    .read<SubscriptionBloc>()
+                    .add(const ClearSnackBarMessageEvent());
+              }
+            },
+            child: BlocBuilder<SubscriptionBloc, SubscriptionState>(
+              builder: (context, state) {
+                if (state is FetchSubscriptionPlanLoadingState) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state is FetchSubscriptionPlanFailureState) {
+                  return const SubscriptionPlanFetchError();
+                } else if (state is FetchSubscriptionPlanLoadedState) {
+                  return const SubscriptionScreenBody();
+                } else if (state is SubscriptionPaymentProcessingState) {
+                  return const PaymentProcessingScreen();
+                } else if (state is SubscriptionPaymentSuccessState) {
+                  return const SubscriptionActivatedScreen();
+                } else if (state is SubscriptionPaymentFailureState) {
+                  return const PaymentFailedScreen();
+                }
+                return const SizedBox.shrink();
+              },
+            ),
           ),
         ),
         bottomNavigationBar: BlocBuilder<SubscriptionBloc, SubscriptionState>(

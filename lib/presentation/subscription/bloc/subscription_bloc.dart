@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:skelter/constants/constants.dart';
@@ -13,6 +14,8 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     on<FetchSubscriptionPackagesEvent>(_onFetchSubscriptionPackagesEvent);
     on<PurchaseSubscriptionEvent>(_onPurchaseSubscriptionEvent);
     on<SelectSubscriptionPlanEvent>(_onSelectSubscriptionPlanEvent);
+    on<RestoreSubscriptionEvent>(_onRestoreSubscriptionEvent);
+    on<ClearSnackBarMessageEvent>(_onClearSnackBarMessageEvent);
   }
 
   Future<void> _onFetchSubscriptionPackagesEvent(
@@ -94,5 +97,43 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         selectedPackage: event.selectedPackage,
       ),
     );
+  }
+
+  Future<void> _onRestoreSubscriptionEvent(
+    RestoreSubscriptionEvent event,
+    Emitter<SubscriptionState> emit,
+  ) async {
+    if (state is! FetchSubscriptionPlanLoadedState) return;
+    final loadedState = state as FetchSubscriptionPlanLoadedState;
+
+    emit(loadedState.copyWith(isRestoring: true));
+
+    try {
+      final customerInfo = await Purchases.restorePurchases();
+      final hasEntitlement = customerInfo.entitlements.active.isNotEmpty;
+      final message = hasEntitlement
+          ? localization.restore_success
+          : localization.no_active_subscriptions;
+
+      emit(
+        loadedState.copyWith(isRestoring: false, snackBarMessage: message),
+      );
+    } on PlatformException catch (e) {
+      emit(
+        loadedState.copyWith(
+          isRestoring: false,
+          snackBarMessage: '${localization.restore_error} ${e.message}',
+        ),
+      );
+    }
+  }
+
+  void _onClearSnackBarMessageEvent(
+    ClearSnackBarMessageEvent event,
+    Emitter<SubscriptionState> emit,
+  ) {
+    if (state is! FetchSubscriptionPlanLoadedState) return;
+    final loadedState = state as FetchSubscriptionPlanLoadedState;
+    emit(loadedState.copyWith(clearSnackBar: true));
   }
 }

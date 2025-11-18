@@ -11,9 +11,8 @@ class PaymentLoadingIndicator extends StatelessWidget {
         height: 80,
         width: 80,
         child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(AppColors.bgBrandDefault),
-          backgroundColor: AppColors.bgBrandDefault,
-          strokeWidth: 6.25,
+          color: AppColors.bgBrandDefault,
+          strokeWidth: 6,
         ),
       ),
     );

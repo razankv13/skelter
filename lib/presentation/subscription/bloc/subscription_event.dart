@@ -36,3 +36,17 @@ class PurchaseSubscriptionEvent extends SubscriptionEvent {
   @override
   List<Object> get props => [package];
 }
+
+class RestoreSubscriptionEvent extends SubscriptionEvent {
+  const RestoreSubscriptionEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
+class ClearSnackBarMessageEvent extends SubscriptionEvent {
+  const ClearSnackBarMessageEvent();
+
+  @override
+  List<Object> get props => [];
+}
