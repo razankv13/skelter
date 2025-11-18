@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:skelter/core/deep_link/app_deep_link_manager.dart';
+import 'package:skelter/core/services/injection_container.dart';
 import 'package:skelter/presentation/force_update/constants/force_update_constants.dart';
 import 'package:skelter/presentation/login/models/login_details.dart';
 import 'package:skelter/routes.gr.dart';
@@ -61,9 +62,11 @@ class _InitialScreenState extends State<InitialScreen> {
 
     if (!mounted) return;
 
+    final deepLinkManager = sl<AppDeepLinkManager>();
+
     if ((userDetails.uid ?? '').haveContent()) {
-      if (AppDeepLinkManager.instance.hasPendingDeepLink) {
-        await AppDeepLinkManager.instance.handlePendingDeepLink(context);
+      if (deepLinkManager.hasPendingDeepLink) {
+        await deepLinkManager.handlePendingDeepLink(context);
       } else {
         await context.router.replace(const HomeRoute());
       }

@@ -10,6 +10,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:sizer/sizer.dart';
 import 'package:skelter/core/clarity_analytics/clarity_route_observer.dart';
 import 'package:skelter/core/deep_link/app_deep_link_manager.dart';
+import 'package:skelter/core/services/injection_container.dart';
 import 'package:skelter/i18n/app_localizations.dart';
 import 'package:skelter/i18n/i18n.dart';
 import 'package:skelter/initialize_app.dart';
@@ -54,7 +55,7 @@ class _MainAppState extends State<MainApp> {
         .addListener(handleConnectivityStatusChange);
     _initializeClarity();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await AppDeepLinkManager.instance.initializeDeepLink();
+      await sl<AppDeepLinkManager>().initializeDeepLink();
     });
   }
 
@@ -87,7 +88,7 @@ class _MainAppState extends State<MainApp> {
         kIsWeb) {
       debugPrint(
         'Clarity not initialized for flavor: '
-            '${AppConfig.appFlavor.name} or in test environment',
+        '${AppConfig.appFlavor.name} or in test environment',
       );
       return;
     }
@@ -95,8 +96,6 @@ class _MainAppState extends State<MainApp> {
     final config = ClarityConfig(projectId: projectId);
     Clarity.initialize(context, config);
   }
-
-
 
   @override
   Widget build(BuildContext context) {

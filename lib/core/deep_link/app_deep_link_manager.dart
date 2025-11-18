@@ -7,9 +7,7 @@ import 'package:skelter/main.dart';
 import 'package:skelter/routes.gr.dart';
 
 class AppDeepLinkManager {
-  AppDeepLinkManager._internal();
-
-  static final AppDeepLinkManager instance = AppDeepLinkManager._internal();
+  AppDeepLinkManager();
 
   final AppLinks _appLinks = AppLinks();
   StreamSubscription<Uri?>? _linkSubscription;
