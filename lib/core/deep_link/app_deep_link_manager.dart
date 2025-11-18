@@ -8,6 +8,7 @@ import 'package:skelter/routes.gr.dart';
 
 class AppDeepLinkManager {
   AppDeepLinkManager._internal();
+
   static final AppDeepLinkManager instance = AppDeepLinkManager._internal();
 
   final AppLinks _appLinks = AppLinks();
@@ -25,10 +26,7 @@ class AppDeepLinkManager {
       _linkSubscription = _appLinks.uriLinkStream.listen(
         _onRuntimeDeepLinkReceived,
         onError: (err) => debugPrint('[DeepLink] Error: $err'),
-        onDone: () {
-          debugPrint('[DeepLink] Stream closed');
-        },
-
+        onDone: disposeDeepLinkListener,
       );
     } on PlatformException catch (e) {
       debugPrint('[DeepLink] PlatformException: $e');
