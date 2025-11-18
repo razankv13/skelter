@@ -2,19 +2,21 @@ import 'package:equatable/equatable.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
 abstract class SubscriptionEvent extends Equatable {
-  @override
-  List<Object> get props => [];
-}
-
-class FetchSubscriptionPackages extends SubscriptionEvent {
-  FetchSubscriptionPackages();
+  const SubscriptionEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class SelectSubscriptionPlan extends SubscriptionEvent {
-  SelectSubscriptionPlan({
+class FetchSubscriptionPackagesEvent extends SubscriptionEvent {
+  const FetchSubscriptionPackagesEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
+class SelectSubscriptionPlanEvent extends SubscriptionEvent {
+  const SelectSubscriptionPlanEvent({
     required this.selectedPackage,
     required this.packages,
   });
@@ -26,8 +28,8 @@ class SelectSubscriptionPlan extends SubscriptionEvent {
   List<Object> get props => [selectedPackage, packages];
 }
 
-class PurchaseSubscription extends SubscriptionEvent {
-  PurchaseSubscription({required this.package});
+class PurchaseSubscriptionEvent extends SubscriptionEvent {
+  const PurchaseSubscriptionEvent({required this.package});
 
   final Package package;
 

@@ -15,8 +15,9 @@ class RetryPaymentButton extends StatelessWidget {
       label: context.localization.retry_payment,
       shouldSetFullWidth: true,
       size: AppButtonSize.extraLarge,
-      onPressed: () =>
-          context.read<SubscriptionBloc>().add(FetchSubscriptionPackages()),
+      onPressed: () => context
+          .read<SubscriptionBloc>()
+          .add(const FetchSubscriptionPackagesEvent()),
     );
   }
 }

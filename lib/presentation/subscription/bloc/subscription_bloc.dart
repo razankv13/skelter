@@ -9,17 +9,17 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   final AppLocalizations localization;
 
   SubscriptionBloc({required this.localization})
-      : super(FetchSubscriptionPlanLoading()) {
-    on<FetchSubscriptionPackages>(_onFetchPackages);
-    on<PurchaseSubscription>(_onPurchaseSubscription);
-    on<SelectSubscriptionPlan>(_onSelectSubscriptionPlan);
+      : super(const FetchSubscriptionPlanLoadingState()) {
+    on<FetchSubscriptionPackagesEvent>(_onFetchSubscriptionPackagesEvent);
+    on<PurchaseSubscriptionEvent>(_onPurchaseSubscriptionEvent);
+    on<SelectSubscriptionPlanEvent>(_onSelectSubscriptionPlanEvent);
   }
 
-  Future<void> _onFetchPackages(
-    FetchSubscriptionPackages event,
+  Future<void> _onFetchSubscriptionPackagesEvent(
+    FetchSubscriptionPackagesEvent event,
     Emitter<SubscriptionState> emit,
   ) async {
-    emit(FetchSubscriptionPlanLoading());
+    emit(const FetchSubscriptionPlanLoadingState());
 
     try {
       final offerings = await Purchases.getOfferings();
@@ -27,7 +27,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
 
       if (availablePackages.isEmpty) {
         emit(
-          FetchSubscriptionPlanFailure(
+          FetchSubscriptionPlanFailureState(
             localization.no_subscription_available,
           ),
         );
@@ -35,7 +35,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       }
 
       emit(
-        FetchSubscriptionPlanLoaded(
+        FetchSubscriptionPlanLoadedState(
           packages: availablePackages,
           selectedPackage: availablePackages.firstWhere(
             (pkg) => pkg.storeProduct.identifier == revenueCatMonthly,
@@ -44,31 +44,37 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       );
     } on Exception {
       emit(
-        FetchSubscriptionPlanFailure(
+        FetchSubscriptionPlanFailureState(
           localization.failed_to_load_subscriptions,
         ),
       );
     }
   }
 
-  Future<void> _onPurchaseSubscription(
-    PurchaseSubscription event,
+  Future<void> _onPurchaseSubscriptionEvent(
+    PurchaseSubscriptionEvent event,
     Emitter<SubscriptionState> emit,
   ) async {
-    emit(SubscriptionPaymentProcessing());
+    emit(const SubscriptionPaymentProcessingState());
 
     try {
       await Purchases.purchasePackage(event.package);
 
-      emit(SubscriptionPaymentSuccess());
+      emit(const SubscriptionPaymentSuccessState());
     } on PurchasesError catch (e) {
-      emit(SubscriptionPaymentFailure(_getErrorMessage(e.code)));
+      emit(
+        SubscriptionPaymentFailureState(
+          _getPaymentFailureErrorMessage(e.code),
+        ),
+      );
     } on Exception {
-      emit(SubscriptionPaymentFailure(localization.unexpected_error_occurred));
+      emit(
+        SubscriptionPaymentFailureState(localization.unexpected_error_occurred),
+      );
     }
   }
 
-  String _getErrorMessage(PurchasesErrorCode code) {
+  String _getPaymentFailureErrorMessage(PurchasesErrorCode code) {
     return switch (code) {
       PurchasesErrorCode.storeProblemError => localization.store_login_required,
       PurchasesErrorCode.purchaseCancelledError =>
@@ -78,12 +84,12 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     };
   }
 
-  Future<void> _onSelectSubscriptionPlan(
-    SelectSubscriptionPlan event,
+  Future<void> _onSelectSubscriptionPlanEvent(
+    SelectSubscriptionPlanEvent event,
     Emitter<SubscriptionState> emit,
   ) async {
     emit(
-      FetchSubscriptionPlanLoaded(
+      FetchSubscriptionPlanLoadedState(
         packages: event.packages,
         selectedPackage: event.selectedPackage,
       ),

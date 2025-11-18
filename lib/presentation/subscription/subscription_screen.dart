@@ -24,23 +24,23 @@ class SubscriptionScreen extends StatelessWidget {
     return BlocProvider(
       create: (_) {
         return SubscriptionBloc(localization: context.localization)
-          ..add(FetchSubscriptionPackages());
+          ..add(const FetchSubscriptionPackagesEvent());
       },
       child: Scaffold(
         body: SafeArea(
           child: BlocBuilder<SubscriptionBloc, SubscriptionState>(
             builder: (context, state) {
-              if (state is FetchSubscriptionPlanLoading) {
+              if (state is FetchSubscriptionPlanLoadingState) {
                 return const Center(child: CircularProgressIndicator());
-              } else if (state is FetchSubscriptionPlanFailure) {
+              } else if (state is FetchSubscriptionPlanFailureState) {
                 return const SubscriptionPlanFetchError();
-              } else if (state is FetchSubscriptionPlanLoaded) {
+              } else if (state is FetchSubscriptionPlanLoadedState) {
                 return const SubscriptionScreenBody();
-              } else if (state is SubscriptionPaymentProcessing) {
+              } else if (state is SubscriptionPaymentProcessingState) {
                 return const PaymentProcessingScreen();
-              } else if (state is SubscriptionPaymentSuccess) {
+              } else if (state is SubscriptionPaymentSuccessState) {
                 return const SubscriptionActivatedScreen();
-              } else if (state is SubscriptionPaymentFailure) {
+              } else if (state is SubscriptionPaymentFailureState) {
                 return const PaymentFailedScreen();
               }
               return const SizedBox.shrink();
@@ -49,7 +49,7 @@ class SubscriptionScreen extends StatelessWidget {
         ),
         bottomNavigationBar: BlocBuilder<SubscriptionBloc, SubscriptionState>(
           builder: (context, state) {
-            if (state is FetchSubscriptionPlanLoaded) {
+            if (state is FetchSubscriptionPlanLoadedState) {
               return const SubscriptionBottomNavBar();
             }
             return const SizedBox.shrink();

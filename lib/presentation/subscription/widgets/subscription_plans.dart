@@ -15,7 +15,7 @@ class SubscriptionPlans extends StatelessWidget {
     final packages = context.select<SubscriptionBloc, List<Package>>(
       (bloc) {
         final state = bloc.state;
-        if (state is FetchSubscriptionPlanLoaded) return state.packages;
+        if (state is FetchSubscriptionPlanLoadedState) return state.packages;
         return const <Package>[];
       },
     );
@@ -23,7 +23,7 @@ class SubscriptionPlans extends StatelessWidget {
     final selectedPlan = context.select<SubscriptionBloc, Package?>(
       (bloc) {
         final state = bloc.state;
-        return state is FetchSubscriptionPlanLoaded
+        return state is FetchSubscriptionPlanLoadedState
             ? state.selectedPackage
             : null;
       },
@@ -49,7 +49,7 @@ class SubscriptionPlans extends StatelessWidget {
               : context.localization.yearly_renewal,
           isSelected: isSelected,
           onTap: () => context.read<SubscriptionBloc>().add(
-                SelectSubscriptionPlan(
+                SelectSubscriptionPlanEvent(
                   packages: packages,
                   selectedPackage: package,
                 ),

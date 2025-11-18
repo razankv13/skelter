@@ -17,7 +17,7 @@ class SubscriptionBottomNavBar extends StatelessWidget {
     final selectedPackage = context.select<SubscriptionBloc, Package?>(
       (bloc) {
         final state = bloc.state;
-        return state is FetchSubscriptionPlanLoaded
+        return state is FetchSubscriptionPlanLoadedState
             ? state.selectedPackage
             : null;
       },
@@ -34,7 +34,7 @@ class SubscriptionBottomNavBar extends StatelessWidget {
             onPressed: selectedPackage == null
                 ? null
                 : () => context.read<SubscriptionBloc>().add(
-                      PurchaseSubscription(package: selectedPackage),
+                      PurchaseSubscriptionEvent(package: selectedPackage),
                     ),
           ),
           const SizedBox(height: 8),

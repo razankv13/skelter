@@ -10,7 +10,7 @@ class SubscriptionPlanFetchError extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final errorMessage = context.select<SubscriptionBloc, String>(
-      (bloc) => (bloc.state as FetchSubscriptionPlanFailure).error,
+      (bloc) => (bloc.state as FetchSubscriptionPlanFailureState).error,
     );
 
     return Center(

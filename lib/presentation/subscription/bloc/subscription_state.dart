@@ -2,12 +2,14 @@ import 'package:equatable/equatable.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
 abstract class SubscriptionState extends Equatable {
+  const SubscriptionState();
+
   @override
   List<Object> get props => [];
 }
 
-class SubscriptionPlanSelected extends SubscriptionState {
-  SubscriptionPlanSelected(this.package);
+class SubscriptionPlanSelectedState extends SubscriptionState {
+  const SubscriptionPlanSelectedState(this.package);
 
   final Package package;
 
@@ -15,12 +17,16 @@ class SubscriptionPlanSelected extends SubscriptionState {
   List<Object> get props => [package];
 }
 
-class SubscriptionPaymentProcessing extends SubscriptionState {}
+class SubscriptionPaymentProcessingState extends SubscriptionState {
+  const SubscriptionPaymentProcessingState();
+}
 
-class SubscriptionPaymentSuccess extends SubscriptionState {}
+class SubscriptionPaymentSuccessState extends SubscriptionState {
+  const SubscriptionPaymentSuccessState();
+}
 
-class SubscriptionPaymentFailure extends SubscriptionState {
-  SubscriptionPaymentFailure(this.error);
+class SubscriptionPaymentFailureState extends SubscriptionState {
+  const SubscriptionPaymentFailureState(this.error);
 
   final String error;
 
@@ -28,10 +34,12 @@ class SubscriptionPaymentFailure extends SubscriptionState {
   List<Object> get props => [error];
 }
 
-class FetchSubscriptionPlanLoading extends SubscriptionState {}
+class FetchSubscriptionPlanLoadingState extends SubscriptionState {
+  const FetchSubscriptionPlanLoadingState();
+}
 
-class FetchSubscriptionPlanLoaded extends SubscriptionState {
-  FetchSubscriptionPlanLoaded({
+class FetchSubscriptionPlanLoadedState extends SubscriptionState {
+  const FetchSubscriptionPlanLoadedState({
     required this.packages,
     required this.selectedPackage,
   });
@@ -43,8 +51,8 @@ class FetchSubscriptionPlanLoaded extends SubscriptionState {
   List<Object> get props => [packages, selectedPackage];
 }
 
-class FetchSubscriptionPlanFailure extends SubscriptionState {
-  FetchSubscriptionPlanFailure(this.error);
+class FetchSubscriptionPlanFailureState extends SubscriptionState {
+  const FetchSubscriptionPlanFailureState(this.error);
 
   final String error;
 
