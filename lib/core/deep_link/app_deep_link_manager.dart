@@ -8,38 +8,39 @@ import 'package:skelter/routes.gr.dart';
 
 class AppDeepLinkManager {
   AppDeepLinkManager._internal();
-  static final AppDeepLinkManager _instance = AppDeepLinkManager._internal();
-  static AppDeepLinkManager get instance => _instance;
+  static final AppDeepLinkManager instance = AppDeepLinkManager._internal();
 
   final AppLinks _appLinks = AppLinks();
-  StreamSubscription<Uri?>? _linkStreamSubscription;
+  StreamSubscription<Uri?>? _linkSubscription;
   Uri? _pendingDeepLink;
   bool _isProcessingDeepLink = false;
 
   bool get hasPendingDeepLink => _pendingDeepLink != null;
 
-  Future<void> initialize() async {
+  Future<void> initializeDeepLink() async {
     try {
       final initialUri = await _appLinks.getInitialLink();
       if (initialUri != null) _pendingDeepLink = initialUri;
 
-      _linkStreamSubscription = _appLinks.uriLinkStream.listen(
-        _handleRuntimeDeepLink,
-        onError: (err) => debugPrint('[AppDeepLinkManager] Error: $err'),
-        onDone: () => _linkStreamSubscription?.cancel(),
+      _linkSubscription = _appLinks.uriLinkStream.listen(
+        _onRuntimeDeepLinkReceived,
+        onError: (err) => debugPrint('[DeepLink] Error: $err'),
+        onDone: () {
+          debugPrint('[DeepLink] Stream closed');
+        },
+
       );
     } on PlatformException catch (e) {
-      debugPrint('[AppDeepLinkManager] PlatformException: $e');
+      debugPrint('[DeepLink] PlatformException: $e');
     }
   }
 
-  Future<void> _handleRuntimeDeepLink(Uri? uri) async {
+  Future<void> _onRuntimeDeepLinkReceived(Uri? uri) async {
     if (uri == null) return;
 
     final context = rootNavigatorKey.currentContext;
     if (context == null) {
       _pendingDeepLink = uri;
-      debugPrint('[DeepLink] Context not ready, storing deep link');
       return;
     }
 
@@ -60,40 +61,37 @@ class AppDeepLinkManager {
 
   Future<void> _handleDeepLink(Uri uri, BuildContext context) async {
     final segments = uri.pathSegments;
+    if (segments.length < 2) return;
 
-    if (segments.length < 2) {
-      debugPrint('[DeepLink] Invalid path: $uri');
-      return;
-    }
+    final routeKey = segments[0].toLowerCase();
+    final routeArg = segments[1];
 
-    final routeSegment = segments[0].toLowerCase();
-    final productId = segments[1];
     final router = context.router;
+    final routeName = _deepLinkRoutes[routeKey];
 
-    const routeMap = {
-      'product-detail': ProductDetailRoute.name,
-      'home': HomeRoute.name,
-    };
+    if (routeName == null) return;
 
-    final routeName = routeMap[routeSegment];
-    if (routeName == null) {
-      debugPrint('[DeepLink] Unhandled route: $routeSegment');
-      return;
-    }
+    if (_isOnProductDetail(router, routeArg)) return;
 
-    debugPrint('[DeepLink] route=$routeName, productId=$productId');
+    await _navigateToProductDetail(router, routeArg);
+  }
 
-    final currentRoute = router.current;
-    if (currentRoute.name == ProductDetailRoute.name &&
-        currentRoute.args is ProductDetailRouteArgs &&
-        (currentRoute.args! as ProductDetailRouteArgs).productId == productId) {
-      debugPrint(
-        '[DeepLink] Already on product $productId, skipping navigation',
-      );
-      return;
-    }
+  final Map<String, String> _deepLinkRoutes = {
+    'product-detail': ProductDetailRoute.name,
+    'home': HomeRoute.name,
+  };
 
-    // App cold start from deep link: reset navigation stack
+  bool _isOnProductDetail(StackRouter router, String productId) {
+    final current = router.current;
+    return current.name == ProductDetailRoute.name &&
+        current.args is ProductDetailRouteArgs &&
+        (current.args! as ProductDetailRouteArgs).productId == productId;
+  }
+
+  Future<void> _navigateToProductDetail(
+    StackRouter router,
+    String productId,
+  ) async {
     if (!router.stack.any((route) => route.name == HomeRoute.name)) {
       await router.replaceAll([
         const HomeRoute(),
@@ -102,8 +100,9 @@ class AppDeepLinkManager {
       return;
     }
 
-    // App already running: check and navigate safely to product detail
     router.popUntilRouteWithName(HomeRoute.name);
     await router.push(ProductDetailRoute(productId: productId));
   }
+
+  void disposeDeepLinkListener() => _linkSubscription?.cancel();
 }

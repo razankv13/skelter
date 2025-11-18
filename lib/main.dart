@@ -54,7 +54,7 @@ class _MainAppState extends State<MainApp> {
         .addListener(handleConnectivityStatusChange);
     _initializeClarity();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await AppDeepLinkManager.instance.initialize();
+      await AppDeepLinkManager.instance.initializeDeepLink();
     });
   }
 
