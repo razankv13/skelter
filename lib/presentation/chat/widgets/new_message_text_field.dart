@@ -4,7 +4,7 @@ import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/gen/assets.gen.dart';
 import 'package:skelter/i18n/localization.dart';
-import 'package:skelter/widgets/styling/app_colors.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class NewMessageTextField extends StatefulWidget {
   const NewMessageTextField({super.key});
@@ -28,39 +28,46 @@ class _NewMessageTextFieldState extends State<NewMessageTextField> {
       child: Row(
         children: [
           const SizedBox(width: 8),
-          const Icon(
+          Icon(
             TablerIcons.plus,
-            color: AppColors.neutral400,
+            color: context.currentTheme.iconNeutralPressed,
           ),
           const SizedBox(width: 16),
           Expanded(
             child: TextField(
               controller: _fullNameController,
+              style: AppTextStyles.p3Medium
+                  .copyWith(color: context.currentTheme.textNeutralPrimary),
               decoration: InputDecoration(
                 hintText: context.localization.send_a_new_message,
                 hintStyle: AppTextStyles.p3Medium.copyWith(
-                  color: AppColors.textNeutralDisable,
+                  color: context.currentTheme.textNeutralDisable,
                 ),
                 errorStyle: AppTextStyles.p3Regular,
                 errorMaxLines: 2,
                 counterText: '',
-                fillColor: AppColors.bgNeutralLight50,
+                fillColor: context.currentTheme.bgNeutralLight50,
                 filled: true,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide: const BorderSide(color: AppColors.transparent),
+                  borderSide: BorderSide(
+                    color: context.currentTheme.textNeutralLight,
+                  ),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide: const BorderSide(color: AppColors.transparent),
+                  borderSide:
+                      BorderSide(color: context.currentTheme.textNeutralLight),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide: const BorderSide(color: AppColors.transparent),
+                  borderSide:
+                      BorderSide(color: context.currentTheme.textNeutralLight),
                 ),
                 errorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide: const BorderSide(color: AppColors.transparent),
+                  borderSide:
+                      BorderSide(color: context.currentTheme.textErrorLight),
                 ),
               ),
               textInputAction: TextInputAction.send,
@@ -69,8 +76,10 @@ class _NewMessageTextFieldState extends State<NewMessageTextField> {
           const SizedBox(width: 8),
           SvgPicture.asset(
             Assets.icons.send,
-            colorFilter:
-                const ColorFilter.mode(AppColors.brand500, BlendMode.srcIn),
+            colorFilter: ColorFilter.mode(
+              context.currentTheme.bgBrandHover,
+              BlendMode.srcIn,
+            ),
           ),
         ],
       ),

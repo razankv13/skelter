@@ -7,8 +7,8 @@ import 'package:skelter/presentation/contact_us/bloc/contact_us_bloc.dart';
 import 'package:skelter/presentation/contact_us/bloc/contact_us_event.dart';
 import 'package:skelter/presentation/contact_us/constant/contact_us_constants.dart';
 import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 import 'package:skelter/validators/validators.dart';
-import 'package:skelter/widgets/styling/app_colors.dart';
 
 class ContactUsMessageSection extends StatefulWidget {
   const ContactUsMessageSection({super.key});
@@ -61,23 +61,33 @@ class _ContactUsMessageSectionState extends State<ContactUsMessageSection> {
       children: [
         Text(
           context.localization.message,
-          style: AppTextStyles.p3Medium,
+          style: AppTextStyles.p3Medium.copyWith(
+            color: context.currentTheme.textNeutralPrimary,
+          ),
         ),
         const SizedBox(height: 6),
         ClarityMask(
           child: TextFormField(
             controller: _messageController,
+            style: AppTextStyles.p3Medium.copyWith(
+              color: context.currentTheme.textNeutralPrimary,
+            ),
             decoration: InputDecoration(
+              filled: true,
+              fillColor: context.currentTheme.bgSurfaceBase2,
               hintText: context.localization.message_description,
               hintStyle: AppTextStyles.p3Regular
-                  .copyWith(color: AppColors.textNeutralDisable),
+                  .copyWith(color: context.currentTheme.textNeutralDisable),
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
               errorText: errorMessage.isNullOrEmpty() ? null : errorMessage,
-              counterText:
-                  '${description.length}/$kMessageMaxLength',
+              counterText: '${description.length}/$kMessageMaxLength',
               counterStyle: AppTextStyles.p4Regular
-                  .copyWith(color: AppColors.textNeutralDisable),
+                  .copyWith(color: context.currentTheme.textNeutralDisable),
+              border: buildOutlineInputBorder(hasFocus: false),
+              enabledBorder: buildOutlineInputBorder(hasFocus: false),
+              focusedBorder: buildOutlineInputBorder(hasFocus: true),
+              errorBorder: buildOutlineInputBorder(isErrorBorder: true),
             ),
             maxLines: 4,
             autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -90,6 +100,22 @@ class _ContactUsMessageSectionState extends State<ContactUsMessageSection> {
           ),
         ),
       ],
+    );
+  }
+
+  OutlineInputBorder buildOutlineInputBorder({
+    bool? hasFocus,
+    bool? isErrorBorder,
+  }) {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8),
+      borderSide: BorderSide(
+        color: isErrorBorder ?? false
+            ? context.currentTheme.strokeErrorDefault
+            : hasFocus ?? false
+                ? context.currentTheme.strokeBrandHover
+                : context.currentTheme.strokeNeutralLight200,
+      ),
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:sizer/sizer.dart';
-import 'package:skelter/widgets/styling/app_colors.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class ShimmerCircularImage extends StatelessWidget {
   const ShimmerCircularImage({super.key, required this.size});
@@ -14,7 +14,7 @@ class ShimmerCircularImage extends StatelessWidget {
       child: Container(
         height: size.w,
         width: size.w,
-        color: AppColors.white,
+        color: context.currentTheme.bgShadesWhite,
       ),
     );
   }

@@ -11,18 +11,22 @@ class HomeScreenBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      child: const Scaffold(
-        appBar: HomeAppBar(),
-        body: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            children: [
-              SizedBox(height: 16),
-              ProductSearchBar(),
-              ProductsHeadlineBar(),
-              TopProductGrid(),
-            ],
-          ),
+      child: const SingleChildScrollView(
+        child: Column(
+          children: [
+            HomeAppBar(),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                children: [
+                  SizedBox(height: 16),
+                  ProductSearchBar(),
+                  ProductsHeadlineBar(),
+                  TopProductGrid(),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

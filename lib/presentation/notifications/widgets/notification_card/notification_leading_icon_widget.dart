@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:skelter/presentation/notifications/model/notification_model.dart';
-import 'package:skelter/widgets/styling/app_colors.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class NotificationLeadingIconWidget extends StatelessWidget {
   const NotificationLeadingIconWidget({
@@ -17,7 +17,7 @@ class NotificationLeadingIconWidget extends StatelessWidget {
         CircleAvatar(
           radius: 16.0,
           backgroundColor: notificationModel.notificationType.getBgColor,
-          foregroundColor: AppColors.white,
+          foregroundColor: context.currentTheme.bgShadesWhite,
           child: notificationModel.notificationType.getIcon,
         ),
         if (!notificationModel.isSeen) ...[
@@ -27,8 +27,8 @@ class NotificationLeadingIconWidget extends StatelessWidget {
           Container(
             height: 8.0,
             width: 8.0,
-            decoration: const BoxDecoration(
-              color: AppColors.brand500,
+            decoration: BoxDecoration(
+              color: context.currentTheme.bgBrandHover,
               shape: BoxShape.circle,
             ),
           ),

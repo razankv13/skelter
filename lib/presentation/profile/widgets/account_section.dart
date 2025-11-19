@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/profile/widgets/personal_details.dart';
-import 'package:skelter/widgets/styling/app_colors.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class AccountSection extends StatelessWidget {
   const AccountSection({super.key});
@@ -12,11 +12,17 @@ class AccountSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(context.localization.account, style: AppTextStyles.h6SemiBold),
+        Text(
+          context.localization.account,
+          style: AppTextStyles.h6SemiBold.copyWith(
+            color: context.currentTheme.textNeutralPrimary,
+          ),
+        ),
         const SizedBox(height: 12.0),
         Container(
           decoration: BoxDecoration(
-            border: Border.all(color: AppColors.strokeNeutralLight200),
+            border:
+                Border.all(color: context.currentTheme.strokeNeutralLight200),
             borderRadius: BorderRadius.circular(12.0),
           ),
           child: const Column(

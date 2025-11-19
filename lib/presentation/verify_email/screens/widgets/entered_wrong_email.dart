@@ -7,7 +7,7 @@ import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/login/screens/login_with_phone_number/login_with_phone_number_screen.dart';
 import 'package:skelter/presentation/verify_email/bloc/verify_email_bloc.dart';
 import 'package:skelter/routes.gr.dart';
-import 'package:skelter/widgets/styling/app_colors.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class EnteredWrongEmail extends StatelessWidget {
   const EnteredWrongEmail({super.key});
@@ -25,15 +25,16 @@ class EnteredWrongEmail extends StatelessWidget {
         textAlign: TextAlign.center,
         text: TextSpan(
           style: AppTextStyles.p2Medium
-              .copyWith(color: AppColors.textNeutralSecondary),
+              .copyWith(color: context.currentTheme.textNeutralSecondary),
           children: [
             TextSpan(
               text: context.localization.entered_wrong_email,
             ),
             TextSpan(
               text: context.localization.change_email,
-              style: AppTextStyles.p2Bold
-                  .copyWith(color: AppColors.textBrandSecondary),
+              style: AppTextStyles.p2Bold.copyWith(
+                color: context.currentTheme.textBrandSecondary,
+              ),
               recognizer: TapGestureRecognizer()
                 ..onTap = () async {
                   if (isSignup) {

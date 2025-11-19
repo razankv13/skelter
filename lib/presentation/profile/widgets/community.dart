@@ -3,7 +3,7 @@ import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/utils/extensions/build_context_ext.dart';
-import 'package:skelter/widgets/styling/app_colors.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class Community extends StatelessWidget {
   const Community({super.key});
@@ -11,17 +11,26 @@ class Community extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: const Icon(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(8),
+          bottomRight: Radius.circular(8),
+        ),
+      ),
+      tileColor: context.currentTheme.bgSurfaceBase2,
+      leading: Icon(
         TablerIcons.users,
-        color: AppColors.iconNeutralDefault,
+        color: context.currentTheme.iconNeutralDefault,
       ),
       title: Text(
         context.localization.community,
-        style: AppTextStyles.h6SemiBold,
+        style: AppTextStyles.h6SemiBold.copyWith(
+          color: context.currentTheme.textNeutralPrimary,
+        ),
       ),
-      trailing: const Icon(
+      trailing: Icon(
         TablerIcons.chevron_right,
-        color: AppColors.iconNeutralDefault,
+        color: context.currentTheme.iconNeutralDefault,
       ),
       onTap: () {
         context.showSnackBar('Show community details');

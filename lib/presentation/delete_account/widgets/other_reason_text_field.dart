@@ -1,10 +1,12 @@
 import 'package:debounce_throttle/debounce_throttle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/delete_account/bloc/delete_account_bloc.dart';
 import 'package:skelter/presentation/delete_account/bloc/delete_account_event.dart';
 import 'package:skelter/presentation/delete_account/enum/delete_account_reasons.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class OtherReasonTextField extends StatefulWidget {
   const OtherReasonTextField({super.key});
@@ -59,8 +61,30 @@ class _OtherReasonTextFieldState extends State<OtherReasonTextField> {
     return TextField(
       controller: _otherReasonController,
       maxLines: 3,
+      style: AppTextStyles.p2Regular
+          .copyWith(color: context.currentTheme.textNeutralPrimary),
       decoration: InputDecoration(
         hintText: context.localization.specify_reason,
+        border: buildOutlineInputBorder(hasFocus: false),
+        enabledBorder: buildOutlineInputBorder(hasFocus: false),
+        focusedBorder: buildOutlineInputBorder(hasFocus: true),
+        errorBorder: buildOutlineInputBorder(isErrorBorder: true),
+      ),
+    );
+  }
+
+  OutlineInputBorder buildOutlineInputBorder({
+    bool? hasFocus,
+    bool? isErrorBorder,
+  }) {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8),
+      borderSide: BorderSide(
+        color: isErrorBorder ?? false
+            ? context.currentTheme.strokeErrorDefault
+            : hasFocus ?? false
+                ? context.currentTheme.strokeBrandHover
+                : context.currentTheme.strokeNeutralLight200,
       ),
     );
   }

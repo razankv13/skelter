@@ -77,6 +77,9 @@ class AppRouter extends RootStackRouter {
 
       //SSL Connection Failed
       SslConnectionFailedRoute.page,
+
+      //Change Theme
+      ChangeThemeRoute.page,
     ]
         .map(
           (page) => AutoRoute(

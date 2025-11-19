@@ -14,6 +14,7 @@ import 'package:skelter/presentation/login/screens/login_with_phone_number/login
 import 'package:skelter/routes.gr.dart';
 import 'package:skelter/utils/extensions/build_context_ext.dart';
 import 'package:skelter/utils/internet_connectivity_helper.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 import 'package:skelter/widgets/app_button/app_button.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_size_enum.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_style_enum.dart';
@@ -38,10 +39,12 @@ class MoreLoginOptionsButton extends StatelessWidget {
           AppButton(
             key: keys.signInPage.continueWithEmailButton,
             label: context.localization.continue_with_email,
+            foregroundColor: context.currentTheme.textNeutralPrimary,
             shouldSetFullWidth: true,
             style: AppButtonStyle.outline,
             leftIcon: TablerIcons.mail,
             size: AppButtonSize.extraLarge,
+            backgroundColor: context.currentTheme.bgSurfaceBase2,
             onPressed: () {
               if (isSignup) {
                 context.pushRoute(SignupWithEmailPasswordRoute());
@@ -62,10 +65,12 @@ class MoreLoginOptionsButton extends StatelessWidget {
           AppButton(
             key: keys.signInPage.continueWithGoogleButton,
             label: context.localization.continue_with_google,
+            foregroundColor: context.currentTheme.textNeutralPrimary,
             shouldSetFullWidth: true,
             style: AppButtonStyle.outline,
             leftIconPath: Assets.icons.google.path,
             size: AppButtonSize.extraLarge,
+            backgroundColor: context.currentTheme.bgSurfaceBase2,
             onPressed: () async {
               final isConnected =
                   InternetConnectivityHelper().onConnectivityChange.value;
@@ -85,6 +90,7 @@ class MoreLoginOptionsButton extends StatelessWidget {
             const SizedBox(height: 16),
             AppButton(
               label: context.localization.continue_with_apple,
+              foregroundColor: context.currentTheme.textNeutralPrimary,
               shouldSetFullWidth: true,
               style: AppButtonStyle.outline,
               leftIconPath: Assets.icons.apple,
@@ -112,8 +118,10 @@ class MoreLoginOptionsButton extends StatelessWidget {
                 ? context.localization.login
                 : context.localization.sign_up,
             shouldSetFullWidth: true,
+            foregroundColor: context.currentTheme.textNeutralPrimary,
             style: AppButtonStyle.outline,
             size: AppButtonSize.extraLarge,
+            backgroundColor: context.currentTheme.bgSurfaceBase2,
             onPressed: () async {
               context
                   .read<LoginBloc>()

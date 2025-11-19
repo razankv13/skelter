@@ -9,7 +9,7 @@ import 'package:skelter/presentation/login/bloc/login_bloc.dart';
 import 'package:skelter/presentation/login/bloc/login_events.dart';
 import 'package:skelter/presentation/login/bloc/login_state.dart';
 import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
-import 'package:skelter/widgets/styling/app_colors.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class EmailPasswordTextFields extends StatefulWidget {
   const EmailPasswordTextFields({super.key});
@@ -63,21 +63,30 @@ class _EmailPasswordTextFieldsState extends State<EmailPasswordTextFields> {
         children: [
           Text(
             context.localization.email,
-            style: AppTextStyles.p3Medium,
+            style: AppTextStyles.p3Medium
+                .copyWith(color: context.currentTheme.textNeutralPrimary),
           ),
           const SizedBox(height: 16),
           ClarityMask(
             child: TextField(
               key: keys.signInPage.emailTextField,
               controller: _emailController,
+              style: AppTextStyles.p3Medium
+                  .copyWith(color: context.currentTheme.textNeutralPrimary),
               decoration: InputDecoration(
                 hintText: context.localization.email_hint,
                 hintStyle: AppTextStyles.p3Medium.copyWith(
-                  color: AppColors.textNeutralDisable,
+                  color: context.currentTheme.textNeutralDisable,
                 ),
+                filled: true,
+                fillColor: context.currentTheme.bgSurfaceBase2,
                 errorText: emailErrorMessage.isNullOrEmpty()
                     ? null
                     : emailErrorMessage,
+                border: buildOutlineInputBorder(hasFocus: false),
+                enabledBorder: buildOutlineInputBorder(hasFocus: false),
+                focusedBorder: buildOutlineInputBorder(hasFocus: true),
+                errorBorder: buildOutlineInputBorder(isErrorBorder: true),
               ),
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.emailAddress,
@@ -94,11 +103,19 @@ class _EmailPasswordTextFieldsState extends State<EmailPasswordTextFields> {
               key: keys.signInPage.passwordTextField,
               controller: _passwordController,
               obscureText: !isPasswordVisible,
+              style: AppTextStyles.p3Medium
+                  .copyWith(color: context.currentTheme.textNeutralPrimary),
               decoration: InputDecoration(
                 hintText: context.localization.password_hint,
                 hintStyle: AppTextStyles.p3Medium.copyWith(
-                  color: AppColors.textNeutralDisable,
+                  color: context.currentTheme.textNeutralDisable,
                 ),
+                filled: true,
+                fillColor: context.currentTheme.bgSurfaceBase2,
+                border: buildOutlineInputBorder(hasFocus: false),
+                enabledBorder: buildOutlineInputBorder(hasFocus: false),
+                focusedBorder: buildOutlineInputBorder(hasFocus: true),
+                errorBorder: buildOutlineInputBorder(isErrorBorder: true),
                 errorText: passwordErrorMessage.isNullOrEmpty()
                     ? null
                     : passwordErrorMessage,
@@ -106,7 +123,7 @@ class _EmailPasswordTextFieldsState extends State<EmailPasswordTextFields> {
                   icon: Icon(
                     size: 22,
                     isPasswordVisible ? TablerIcons.eye_off : TablerIcons.eye,
-                    color: AppColors.strokeNeutralDisabled,
+                    color: context.currentTheme.strokeNeutralDisabled,
                   ),
                   onPressed: () {
                     context.read<LoginBloc>().add(
@@ -151,6 +168,22 @@ class _EmailPasswordTextFieldsState extends State<EmailPasswordTextFields> {
     context.read<LoginBloc>().add(
           PasswordChangeEvent(password: _passwordController.text),
         );
+  }
+
+  OutlineInputBorder buildOutlineInputBorder({
+    bool? hasFocus,
+    bool? isErrorBorder,
+  }) {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8),
+      borderSide: BorderSide(
+        color: isErrorBorder ?? false
+            ? context.currentTheme.strokeErrorDefault
+            : hasFocus ?? false
+                ? context.currentTheme.strokeBrandHover
+                : context.currentTheme.strokeNeutralLight200,
+      ),
+    );
   }
 
   @override
