@@ -5,6 +5,7 @@ import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/presentation/checkout/bloc/checkout_bloc.dart';
 import 'package:skelter/routes.gr.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 import 'package:skelter/widgets/app_button/app_button.dart';
 import 'package:skelter/widgets/styling/app_colors.dart';
 
@@ -24,7 +25,7 @@ class ShippingAddress extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        border: Border.all(color: AppColors.strokeNeutralLight200),
+        border: Border.all(color: context.currentTheme.strokeNeutralLight200),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
@@ -36,13 +37,17 @@ class ShippingAddress extends StatelessWidget {
               children: [
                 Text(
                   userName,
-                  style: AppTextStyles.p2Medium,
+                  style: AppTextStyles.p2Medium.copyWith(
+                    color: context.currentTheme.textNeutralPrimary,
+                  ),
                   maxLines: 2,
                 ),
                 const SizedBox(height: 8),
                 Text(
                   address,
-                  style: AppTextStyles.p3Regular,
+                  style: AppTextStyles.p3Regular.copyWith(
+                    color: context.currentTheme.textNeutralSecondary,
+                  ),
                 ),
               ],
             ),
@@ -51,7 +56,10 @@ class ShippingAddress extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: AppColors.white,
+              color: context.currentTheme.bgSurfaceBase2,
+              border: Border.all(
+                color: context.currentTheme.strokeNeutralLight200,
+              ),
               boxShadow: [
                 BoxShadow(
                   color: AppColors.shadowColor2.withAlpha(15),
@@ -62,6 +70,7 @@ class ShippingAddress extends StatelessWidget {
             ),
             child: AppButton.icon(
               iconData: TablerIcons.pencil,
+              iconOrTextColorOverride: context.currentTheme.iconNeutralHover,
               onPressed: () {
                 context.router.push(const EditAddressRoute());
               },

@@ -4,7 +4,7 @@ import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/signup/bloc/signup_bloc.dart';
-import 'package:skelter/widgets/styling/app_colors.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class PasswordRequirementIndicators extends StatelessWidget {
   const PasswordRequirementIndicators({super.key});
@@ -77,8 +77,9 @@ class _RequirementRow extends StatelessWidget {
       children: [
         Icon(
           isValid ? TablerIcons.circle_check_filled : TablerIcons.circle_check,
-          color:
-              isValid ? AppColors.bgSuccessDefault : AppColors.iconNeutralHover,
+          color: isValid
+              ? context.currentTheme.bgSuccessDefault
+              : context.currentTheme.iconNeutralHover,
           size: 20,
         ),
         const SizedBox(width: 10),
@@ -86,8 +87,8 @@ class _RequirementRow extends StatelessWidget {
           text,
           style: AppTextStyles.p4Regular.copyWith(
             color: isValid
-                ? AppColors.textSuccessSecondary
-                : AppColors.textNeutralSecondary,
+                ? context.currentTheme.textSuccessSecondary
+                : context.currentTheme.textNeutralSecondary,
           ),
         ),
       ],

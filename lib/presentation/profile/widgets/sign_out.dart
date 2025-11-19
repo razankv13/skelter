@@ -7,7 +7,7 @@ import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/profile/bloc/profile_bloc.dart';
 import 'package:skelter/presentation/profile/bloc/profile_event.dart';
 import 'package:skelter/presentation/profile/constants/analytics_constant.dart';
-import 'package:skelter/widgets/styling/app_colors.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class SignOut extends StatelessWidget {
   const SignOut({super.key});
@@ -16,21 +16,32 @@ class SignOut extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: AppColors.strokeNeutralLight200),
+        border: Border.all(color: context.currentTheme.strokeNeutralLight200),
         borderRadius: BorderRadius.circular(12.0),
       ),
       child: ListTile(
-        leading: const Icon(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(8),
+            topRight: Radius.circular(8),
+            bottomLeft: Radius.circular(8),
+            bottomRight: Radius.circular(8),
+          ),
+        ),
+        tileColor: context.currentTheme.bgSurfaceBase2,
+        leading: Icon(
           TablerIcons.arrow_left_from_arc,
-          color: AppColors.iconNeutralDefault,
+          color: context.currentTheme.iconNeutralDefault,
         ),
         title: Text(
           context.localization.sign_out,
-          style: AppTextStyles.h6SemiBold,
+          style: AppTextStyles.h6SemiBold.copyWith(
+            color: context.currentTheme.textNeutralPrimary,
+          ),
         ),
-        trailing: const Icon(
+        trailing: Icon(
           TablerIcons.chevron_right,
-          color: AppColors.iconNeutralDefault,
+          color: context.currentTheme.iconNeutralDefault,
         ),
         onTap: () {
           Clarity.sendCustomEvent(kClarityEventSignOutClicked);

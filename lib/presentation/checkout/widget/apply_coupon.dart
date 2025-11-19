@@ -6,7 +6,7 @@ import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/checkout/bloc/checkout_bloc.dart';
 import 'package:skelter/routes.gr.dart';
 import 'package:skelter/utils/app_environment.dart';
-import 'package:skelter/widgets/styling/app_colors.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class ApplyCoupon extends StatelessWidget {
   const ApplyCoupon({super.key});
@@ -24,7 +24,9 @@ class ApplyCoupon extends StatelessWidget {
       children: [
         Text(
           context.localization.apply_coupon,
-          style: AppTextStyles.p2SemiBold,
+          style: AppTextStyles.p2SemiBold.copyWith(
+            color: context.currentTheme.textNeutralPrimary,
+          ),
         ),
         const SizedBox(height: 8),
         GestureDetector(
@@ -37,13 +39,13 @@ class ApplyCoupon extends StatelessWidget {
             width: double.infinity,
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: AppColors.bgBrandLight50,
+              color: context.currentTheme.bgBrandLight50,
               borderRadius: BorderRadius.circular(12.0),
             ),
             child: Text(
               context.localization.coupon_message(couponCount),
               style: AppTextStyles.p3SemiBold
-                  .copyWith(color: AppColors.textBrandPrimary),
+                  .copyWith(color: context.currentTheme.textBrandPrimary),
             ),
           ),
         ),

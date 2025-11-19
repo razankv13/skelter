@@ -14,6 +14,7 @@ import 'package:skelter/presentation/login/widgets/login_app_bar.dart';
 import 'package:skelter/routes.gr.dart';
 import 'package:skelter/utils/extensions/build_context_ext.dart';
 import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 @RoutePage()
 class LoginWithEmailPasswordScreen extends StatelessWidget {
@@ -97,7 +98,9 @@ class _LoginWithEmailScreenBody extends StatelessWidget {
           Center(
             child: Text(
               context.localization.login_with_email,
-              style: AppTextStyles.h2Bold,
+              style: AppTextStyles.h2Bold.copyWith(
+                color: context.currentTheme.textNeutralPrimary,
+              ),
             ),
           ),
           const SizedBox(height: 25),

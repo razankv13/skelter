@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/routes.gr.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 import 'package:skelter/widgets/app_button/app_button.dart';
 
 @RoutePage()
@@ -18,6 +19,7 @@ class EmptyViewsScreen extends StatelessWidget {
               const SizedBox(height: 16),
               AppButton(
                 label: context.localization.wishlist,
+                foregroundColor: context.currentTheme.textNeutralLight,
                 onPressed: () {
                   context.pushRoute(const WishlistRoute());
                 },
@@ -25,6 +27,7 @@ class EmptyViewsScreen extends StatelessWidget {
               const SizedBox(height: 16),
               AppButton(
                 label: context.localization.server_error,
+                foregroundColor: context.currentTheme.textNeutralLight,
                 onPressed: () {
                   context.pushRoute(const ServerErrorRoute());
                 },
@@ -32,6 +35,7 @@ class EmptyViewsScreen extends StatelessWidget {
               const SizedBox(height: 16),
               AppButton(
                 label: context.localization.lost_connection,
+                foregroundColor: context.currentTheme.textNeutralLight,
                 onPressed: () {
                   context.pushRoute(const NoInternetRoute());
                 },
@@ -39,6 +43,7 @@ class EmptyViewsScreen extends StatelessWidget {
               const SizedBox(height: 16),
               AppButton(
                 label: context.localization.under_maintenance,
+                foregroundColor: context.currentTheme.textNeutralLight,
                 onPressed: () {
                   context.pushRoute(const UnderMaintenanceRoute());
                 },
@@ -46,6 +51,7 @@ class EmptyViewsScreen extends StatelessWidget {
               const SizedBox(height: 16),
               AppButton(
                 label: context.localization.empty_order_title,
+                foregroundColor: context.currentTheme.textNeutralLight,
                 onPressed: () {
                   context.pushRoute(const MyOrdersRoute());
                 },
@@ -53,6 +59,7 @@ class EmptyViewsScreen extends StatelessWidget {
               const SizedBox(height: 16),
               AppButton(
                 label: context.localization.empty_cards_list_title,
+                foregroundColor: context.currentTheme.textNeutralLight,
                 onPressed: () {
                   context.pushRoute(const SavedCardRoute());
                 },

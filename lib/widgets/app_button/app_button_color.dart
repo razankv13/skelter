@@ -1,55 +1,64 @@
 import 'package:flutter/material.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_state_enum.dart';
-import 'package:skelter/widgets/styling/app_colors.dart';
 
 class AppButtonColor {
-  static Color resolvePrimaryBg(AppButtonState state) {
+  static Color resolvePrimaryBg(BuildContext context, AppButtonState state) {
+    final theme = context.currentTheme;
     switch (state) {
       case AppButtonState.normal:
-        return AppColors.bgBrandDefault;
+        return theme.bgBrandDefault;
       case AppButtonState.hovered:
-        return AppColors.bgBrandHover;
+        return theme.bgBrandHover;
       case AppButtonState.focused:
-        return AppColors.bgBrandPressed;
+        return theme.bgBrandPressed;
       case AppButtonState.disabled:
-        return AppColors.bgNeutralDisabled;
+        return theme.bgNeutralDisabled;
     }
   }
 
-  static Color resolveSecondaryBg(AppButtonState state) {
+  static Color resolveSecondaryBg(BuildContext context, AppButtonState state) {
+    final theme = context.currentTheme;
     switch (state) {
       case AppButtonState.normal:
-        return AppColors.bgBrandLight50;
+        return theme.bgBrandLight50;
       case AppButtonState.hovered:
-        return AppColors.bgBrandLight100;
+        return theme.bgBrandLight100;
       case AppButtonState.focused:
-        return AppColors.bgBrandLight200;
+        return theme.bgBrandLight200;
       case AppButtonState.disabled:
-        return AppColors.bgNeutralDisabled;
+        return theme.bgNeutralDisabled;
     }
   }
 
-  static Color resolveOutlineBorder(AppButtonState state) {
+  static Color resolveOutlineBorder(
+    BuildContext context,
+    AppButtonState state,
+  ) {
+    final theme = context.currentTheme;
     switch (state) {
       case AppButtonState.normal:
+        return theme.strokeNeutralLight200;
       case AppButtonState.hovered:
-        return AppColors.strokeNeutralLight200;
+        return theme.strokeNeutralLight200;
       case AppButtonState.focused:
-        return AppColors.strokeNeutralDisabled;
+        return theme.strokeNeutralDisabled;
       case AppButtonState.disabled:
         return Colors.transparent;
     }
   }
 
-  static Color resolveOutlineBg(AppButtonState state) {
+  static Color resolveOutlineBg(BuildContext context, AppButtonState state) {
+    final theme = context.currentTheme;
     switch (state) {
       case AppButtonState.normal:
-      case AppButtonState.focused:
-        return AppColors.bgShadesWhite;
+        return theme.bgShadesWhite;
       case AppButtonState.hovered:
-        return AppColors.bgShadesWhite;
+        return theme.bgShadesWhite;
+      case AppButtonState.focused:
+        return theme.bgShadesWhite;
       case AppButtonState.disabled:
-        return AppColors.bgNeutralDisabled;
+        return theme.bgNeutralDisabled;
     }
   }
 }

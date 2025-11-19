@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:skelter/gen/assets.gen.dart';
 import 'package:skelter/utils/app_environment.dart';
-import 'package:skelter/widgets/styling/app_colors.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class ProductImage extends StatelessWidget {
   final String imageUrl;
@@ -32,17 +32,18 @@ class ProductImage extends StatelessWidget {
                 imageUrl: imageUrl,
                 fit: BoxFit.cover,
                 placeholder: (context, url) => Shimmer.fromColors(
-                  baseColor: AppColors.bgNeutralLight100,
-                  highlightColor: AppColors.bgNeutralLight100.withOpacity(0.6),
-                  child: const ColoredBox(
-                    color: AppColors.bgNeutralLight100,
+                  baseColor: context.currentTheme.bgNeutralLight100,
+                  highlightColor:
+                      context.currentTheme.bgNeutralLight100.withOpacity(0.6),
+                  child: ColoredBox(
+                    color: context.currentTheme.bgNeutralLight100,
                   ),
                 ),
-                errorWidget: (context, url, error) => const ColoredBox(
-                  color: AppColors.bgNeutralLight100,
+                errorWidget: (context, url, error) => ColoredBox(
+                  color: context.currentTheme.bgNeutralLight100,
                   child: Icon(
                     Icons.error_outline,
-                    color: AppColors.redError500,
+                    color: context.currentTheme.bgErrorHover,
                   ),
                 ),
               ),

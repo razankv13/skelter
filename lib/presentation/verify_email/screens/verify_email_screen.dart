@@ -20,6 +20,7 @@ import 'package:skelter/presentation/verify_email/bloc/verify_email_state.dart';
 import 'package:skelter/presentation/verify_email/screens/widgets/entered_wrong_email.dart';
 import 'package:skelter/presentation/verify_email/screens/widgets/resend_verification_mail_button.dart';
 import 'package:skelter/routes.gr.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 @RoutePage()
 class VerifyEmailScreen extends StatefulWidget {
@@ -123,7 +124,9 @@ class _VerifyEmailScreenBodyState extends State<_VerifyEmailScreenBody> {
                 const SizedBox(height: 18),
                 Text(
                   context.localization.verify_your_email,
-                  style: AppTextStyles.h2Bold,
+                  style: AppTextStyles.h2Bold.copyWith(
+                    color: context.currentTheme.textNeutralPrimary,
+                  ),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 18),
@@ -131,7 +134,9 @@ class _VerifyEmailScreenBodyState extends State<_VerifyEmailScreenBody> {
                   context.localization.link_verify_info(
                     widget.email,
                   ),
-                  style: AppTextStyles.p2Medium,
+                  style: AppTextStyles.p2Medium.copyWith(
+                    color: context.currentTheme.textNeutralSecondary,
+                  ),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 25),

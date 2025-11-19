@@ -8,7 +8,7 @@ import 'package:skelter/gen/assets.gen.dart';
 import 'package:skelter/presentation/chat/enum/message_type_enum.dart';
 import 'package:skelter/presentation/chat/model/chat_message_model.dart';
 import 'package:skelter/presentation/chat/widgets/image_full_screen_view.dart';
-import 'package:skelter/widgets/styling/app_colors.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class MessageTypes extends StatelessWidget {
   const MessageTypes({
@@ -25,7 +25,9 @@ class MessageTypes extends StatelessWidget {
         return Text(
           message.message,
           style: AppTextStyles.p3Regular.copyWith(
-            color: message.isSentByMe ? AppColors.white : AppColors.neutral900,
+            color: message.isSentByMe
+                ? context.currentTheme.strokeShadesWhite
+                : context.currentTheme.textNeutralPrimary,
           ),
         );
 
@@ -57,18 +59,20 @@ class MessageTypes extends StatelessWidget {
         return Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const RotatedBox(
+            RotatedBox(
               quarterTurns: 45,
               child: Icon(
                 TablerIcons.triangle_filled,
-                color: AppColors.brand500,
+                color: context.currentTheme.bgBrandHover,
               ),
             ),
             const SizedBox(width: 8),
             SvgPicture.asset(
               Assets.icons.waveforms,
-              colorFilter:
-                  const ColorFilter.mode(AppColors.brand500, BlendMode.srcIn),
+              colorFilter: ColorFilter.mode(
+                context.currentTheme.bgBrandHover,
+                BlendMode.srcIn,
+              ),
             ),
           ],
         );

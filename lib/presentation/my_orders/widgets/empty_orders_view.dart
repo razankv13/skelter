@@ -4,6 +4,7 @@ import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/gen/assets.gen.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/utils/extensions/build_context_ext.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 import 'package:skelter/widgets/app_button/app_button.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_size_enum.dart';
 
@@ -25,17 +26,22 @@ class EmptyOrdersView extends StatelessWidget {
           const SizedBox(height: 24),
           Text(
             context.localization.empty_order_title,
-            style: AppTextStyles.p1SemiBold,
+            style: AppTextStyles.p1SemiBold.copyWith(
+              color: context.currentTheme.textNeutralPrimary,
+            ),
           ),
           const SizedBox(height: 8),
           Text(
             context.localization.empty_order_message,
-            style: AppTextStyles.p3Regular,
+            style: AppTextStyles.p3Regular.copyWith(
+              color: context.currentTheme.textNeutralSecondary,
+            ),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 30),
           AppButton(
             label: context.localization.explore_products,
+            foregroundColor: context.currentTheme.textNeutralLight,
             onPressed: () =>
                 context.showSnackBar('Explore products button pressed'),
             size: AppButtonSize.extraLarge,

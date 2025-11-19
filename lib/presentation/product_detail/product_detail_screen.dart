@@ -20,7 +20,7 @@ import 'package:skelter/presentation/product_detail/widgets/reviews_button.dart'
 import 'package:skelter/presentation/product_detail/widgets/selected_product_image.dart';
 import 'package:skelter/presentation/product_detail/widgets/title_and_rating.dart';
 import 'package:skelter/utils/extensions/build_context_ext.dart';
-import 'package:skelter/widgets/styling/app_colors.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 @RoutePage()
 class ProductDetailScreen extends StatelessWidget {
@@ -78,9 +78,9 @@ class ProductDetailBody extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: AppColors.white,
       appBar: ProductDetailAppBar(category: productDetail.category),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonAnimator: FloatingActionButtonAnimator.noAnimation,
       floatingActionButton: SizedBox(
         width: MediaQuery.sizeOf(context).width,
         child: Stack(
@@ -94,9 +94,9 @@ class ProductDetailBody extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    AppColors.white.withOpacity(0.0),
-                    AppColors.white.withOpacity(0.78),
-                    AppColors.white,
+                    context.currentTheme.gradientOverlayTransparent,
+                    context.currentTheme.gradientOverlayMedium,
+                    context.currentTheme.gradientOverlaySolid,
                   ],
                   stops: const [0.0, 0.4, 1.0],
                 ),
