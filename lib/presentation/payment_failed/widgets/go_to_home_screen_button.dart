@@ -16,7 +16,10 @@ class GoToHomeScreenButton extends StatelessWidget {
       style: AppButtonStyle.textOrIcon,
       shouldSetFullWidth: true,
       size: AppButtonSize.extraLarge,
-      onPressed: () => context.router.replaceAll([const HomeRoute()]),
+      onPressed: () => context.router.pushAndPopUntil(
+        const HomeRoute(),
+        predicate: (_) => false,
+      ),
     );
   }
 }

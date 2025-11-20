@@ -4,10 +4,10 @@ import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/subscription/bloc/subscription_bloc.dart';
 import 'package:skelter/presentation/subscription/bloc/subscription_event.dart';
 import 'package:skelter/presentation/subscription/bloc/subscription_state.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 import 'package:skelter/widgets/app_button/app_button.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_size_enum.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_style_enum.dart';
-import 'package:skelter/widgets/styling/app_colors.dart';
 
 class RestoreSubscription extends StatelessWidget {
   const RestoreSubscription({super.key});
@@ -22,7 +22,7 @@ class RestoreSubscription extends StatelessWidget {
         return AppButton(
           label: context.localization.restore_subscription,
           style: AppButtonStyle.textOrIcon,
-          foregroundColor: AppColors.bgBrandDefault,
+          foregroundColor: context.currentTheme.bgBrandDefault,
           isLoading: isRestoring,
           size: AppButtonSize.extraLarge,
           onPressed: isRestoring

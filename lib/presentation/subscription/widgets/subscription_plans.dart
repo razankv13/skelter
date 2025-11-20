@@ -5,7 +5,7 @@ import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/subscription/bloc/subscription_bloc.dart';
 import 'package:skelter/presentation/subscription/bloc/subscription_event.dart';
 import 'package:skelter/presentation/subscription/bloc/subscription_state.dart';
-import 'package:skelter/presentation/subscription/widgets/plan_card.dart';
+import 'package:skelter/presentation/subscription/widgets/subscription_plan_card.dart';
 
 class SubscriptionPlans extends StatelessWidget {
   const SubscriptionPlans({super.key});
@@ -36,7 +36,7 @@ class SubscriptionPlans extends StatelessWidget {
             selectedPlan.storeProduct.identifier ==
                 package.storeProduct.identifier;
 
-        return PlanCard(
+        return SubscriptionPlanCard(
           title: isMonthly
               ? context.localization.monthly_plan
               : context.localization.yearly_plan,

@@ -6,6 +6,7 @@ import 'package:skelter/presentation/subscription/bloc/subscription_bloc.dart';
 import 'package:skelter/presentation/subscription/bloc/subscription_event.dart';
 import 'package:skelter/presentation/subscription/bloc/subscription_state.dart';
 import 'package:skelter/presentation/subscription/widgets/restore_subscription.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 import 'package:skelter/widgets/app_button/app_button.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_size_enum.dart';
 
@@ -31,6 +32,7 @@ class SubscriptionBottomNavBar extends StatelessWidget {
             label: context.localization.continue_to_payment,
             shouldSetFullWidth: true,
             size: AppButtonSize.extraLarge,
+            foregroundColor: context.currentTheme.textNeutralLight,
             onPressed: selectedPackage == null
                 ? null
                 : () => context.read<SubscriptionBloc>().add(

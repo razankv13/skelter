@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
-import 'package:skelter/widgets/styling/app_colors.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
-class PlanCard extends StatelessWidget {
+class SubscriptionPlanCard extends StatelessWidget {
   final String title;
   final String price;
   final String duration;
@@ -10,7 +10,7 @@ class PlanCard extends StatelessWidget {
   final bool isSelected;
   final VoidCallback onTap;
 
-  const PlanCard({
+  const SubscriptionPlanCard({
     required this.title,
     required this.price,
     required this.duration,
@@ -28,9 +28,11 @@ class PlanCard extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
         margin: const EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
-          color: AppColors.white,
+          color: context.currentTheme.bgSurfaceBase2,
           border: Border.all(
-            color: isSelected ? AppColors.bgBrandDefault : AppColors.neutral300,
+            color: isSelected
+                ? context.currentTheme.bgBrandDefault
+                : context.currentTheme.textNeutralSecondary,
             width: isSelected ? 2 : 1,
           ),
           borderRadius: BorderRadius.circular(16),
@@ -61,7 +63,7 @@ class PlanCard extends StatelessWidget {
                         child: Text(
                           '$price/ ',
                           style: AppTextStyles.h3.copyWith(
-                            color: AppColors.bgBrandDefault,
+                            color: context.currentTheme.bgBrandDefault,
                           ),
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -85,18 +87,22 @@ class PlanCard extends StatelessWidget {
               height: 24,
               width: 24,
               decoration: BoxDecoration(
-                color: isSelected ? AppColors.bgBrandDefault : AppColors.white,
+                color: isSelected
+                    ? context.currentTheme.bgBrandDefault
+                    : context.currentTheme.bgSurfaceBase2,
                 shape: BoxShape.circle,
                 border: Border.all(
                   width: isSelected ? 0 : 1,
-                  color: isSelected ? AppColors.blue : AppColors.black,
+                  color: isSelected
+                      ? context.currentTheme.bgBrandDefault
+                      : context.currentTheme.bgSurfaceBase,
                 ),
               ),
               child: isSelected
-                  ? const Icon(
+                  ? Icon(
                       Icons.check,
                       size: 16,
-                      color: AppColors.white,
+                      color: context.currentTheme.bgSurfaceBase2,
                     )
                   : null,
             ),

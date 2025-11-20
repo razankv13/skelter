@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/gen/assets.gen.dart';
 import 'package:skelter/i18n/localization.dart';
-import 'package:skelter/widgets/styling/app_colors.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class ProIconText extends StatelessWidget {
   const ProIconText({super.key});
@@ -26,7 +26,7 @@ class ProIconText extends StatelessWidget {
         Text(
           context.localization.app_name,
           style: AppTextStyles.h4SemiBold.copyWith(
-            color: AppColors.bgBrandDefault,
+            color: context.currentTheme.bgBrandDefault,
           ),
         ),
         const SizedBox(height: 12),

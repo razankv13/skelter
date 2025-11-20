@@ -3,7 +3,6 @@ import 'package:skelter/presentation/subscription_activated/widgets/go_to_home_s
 import 'package:skelter/presentation/subscription_activated/widgets/subscription_activated_message.dart';
 import 'package:skelter/presentation/subscription_activated/widgets/subscription_activated_success_icon.dart';
 import 'package:skelter/presentation/subscription_activated/widgets/subscription_activated_title.dart';
-import 'package:skelter/widgets/styling/app_colors.dart';
 
 class SubscriptionActivatedScreen extends StatelessWidget {
   const SubscriptionActivatedScreen({super.key});
@@ -13,7 +12,6 @@ class SubscriptionActivatedScreen extends StatelessWidget {
     return const PopScope(
       canPop: false,
       child: Scaffold(
-        backgroundColor: AppColors.white,
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 24),

@@ -6,7 +6,7 @@ import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/profile/constants/analytics_constant.dart';
-import 'package:skelter/widgets/styling/app_colors.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CancelSubscription extends StatelessWidget {
@@ -17,17 +17,20 @@ class CancelSubscription extends StatelessWidget {
     return Column(
       children: [
         ListTile(
-          leading: const Icon(
+          tileColor: context.currentTheme.bgSurfaceBase2,
+          leading: Icon(
             TablerIcons.circle_x,
-            color: AppColors.iconNeutralDefault,
+            color: context.currentTheme.iconNeutralDefault,
           ),
           title: Text(
             context.localization.cancel_subscription,
-            style: AppTextStyles.h6SemiBold,
+            style: AppTextStyles.h6SemiBold.copyWith(
+              color: context.currentTheme.textNeutralPrimary,
+            ),
           ),
-          trailing: const Icon(
+          trailing: Icon(
             TablerIcons.chevron_right,
-            color: AppColors.iconNeutralDefault,
+            color: context.currentTheme.iconNeutralDefault,
           ),
           onTap: _handleManageSubscriptions,
         ),

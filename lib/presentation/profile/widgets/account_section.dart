@@ -9,7 +9,6 @@ import 'package:skelter/presentation/profile/widgets/divider.dart';
 import 'package:skelter/presentation/profile/widgets/personal_details.dart';
 import 'package:skelter/presentation/profile/widgets/upgrade_to_pro.dart';
 import 'package:skelter/services/subscription_service.dart';
-import 'package:skelter/widgets/styling/app_colors.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class AccountSection extends StatefulWidget {

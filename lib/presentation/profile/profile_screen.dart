@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/profile/bloc/profile_bloc.dart';
+import 'package:skelter/presentation/profile/bloc/profile_event.dart';
 import 'package:skelter/presentation/profile/bloc/profile_state.dart';
 import 'package:skelter/presentation/profile/widgets/account_section.dart';
 import 'package:skelter/presentation/profile/widgets/activity_section.dart';
@@ -12,6 +13,7 @@ import 'package:skelter/presentation/profile/widgets/settings.dart';
 import 'package:skelter/presentation/profile/widgets/sign_out.dart';
 import 'package:skelter/presentation/profile/widgets/support_section.dart';
 import 'package:skelter/routes.gr.dart';
+import 'package:skelter/services/subscription_service.dart';
 import 'package:skelter/utils/extensions/build_context_ext.dart';
 import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
@@ -22,7 +24,12 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ProfileBloc>(
-      create: (context) => ProfileBloc(),
+      create: (context) => ProfileBloc()
+        ..add(
+          UpdateSubscriptionStatusEvent(
+            isSubscribed: SubscriptionService().isUserSubscribed.value,
+          ),
+        ),
       child: const ProfileScreenBody(),
     );
   }
