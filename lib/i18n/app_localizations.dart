@@ -1504,11 +1504,17 @@ abstract class AppLocalizations {
   /// **'================ SUBSCRIPTION KEYS ================'**
   String get subscription_keys;
 
-  /// No description provided for @subscription.
+  /// No description provided for @upgrade_to_pro.
   ///
   /// In en, this message translates to:
-  /// **'Subscription'**
-  String get subscription;
+  /// **'Upgrade to PRO'**
+  String get upgrade_to_pro;
+
+  /// No description provided for @cancel_subscription.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Subscription'**
+  String get cancel_subscription;
 
   /// No description provided for @no_subscription_available.
   ///

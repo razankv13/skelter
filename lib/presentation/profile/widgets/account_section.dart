@@ -1,11 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
+import 'package:skelter/presentation/profile/bloc/profile_bloc.dart';
+import 'package:skelter/presentation/profile/bloc/profile_event.dart';
+import 'package:skelter/presentation/profile/widgets/cancel_subscription.dart';
+import 'package:skelter/presentation/profile/widgets/divider.dart';
 import 'package:skelter/presentation/profile/widgets/personal_details.dart';
+import 'package:skelter/presentation/profile/widgets/upgrade_to_pro.dart';
+import 'package:skelter/services/subscription_service.dart';
 import 'package:skelter/widgets/styling/app_colors.dart';
 
-class AccountSection extends StatelessWidget {
+class AccountSection extends StatefulWidget {
   const AccountSection({super.key});
+
+  @override
+  State<AccountSection> createState() => _AccountSectionState();
+}
+
+class _AccountSectionState extends State<AccountSection> {
+  final subscriptionService = SubscriptionService();
+
+  @override
+  void initState() {
+    super.initState();
+    subscriptionService.isUserSubscribed.addListener(_onSubscriptionChange);
+  }
+
+  void _onSubscriptionChange() {
+    context.read<ProfileBloc>().add(
+          UpdateSubscriptionStatusEvent(
+            isSubscribed: subscriptionService.isUserSubscribed.value,
+          ),
+        );
+  }
+
+  @override
+  void dispose() {
+    subscriptionService.isUserSubscribed.removeListener(_onSubscriptionChange);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +53,18 @@ class AccountSection extends StatelessWidget {
             border: Border.all(color: AppColors.strokeNeutralLight200),
             borderRadius: BorderRadius.circular(12.0),
           ),
-          child: const Column(
+          child: Column(
             children: [
-              PersonalDetails(),
+              const PersonalDetails(),
+              const ProfileItemsDivider(),
+              ValueListenableBuilder<bool>(
+                valueListenable: subscriptionService.isUserSubscribed,
+                builder: (context, isSubscribed, _) {
+                  return isSubscribed
+                      ? const CancelSubscription()
+                      : const UpgradeToPro();
+                },
+              ),
             ],
           ),
         ),

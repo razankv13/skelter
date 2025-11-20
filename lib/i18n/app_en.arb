@@ -343,7 +343,8 @@
   "empty_order_title":"No Orders Found",
 
   "subscription_keys": "================ SUBSCRIPTION KEYS ================",
-  "subscription": "Subscription",
+  "upgrade_to_pro": "Upgrade to PRO",
+  "cancel_subscription": "Cancel Subscription",
   "no_subscription_available": "No subscription plans available.",
   "failed_to_load_subscriptions": "Failed to load subscription plans.",
   "store_login_required": "Please log into your App Store or Play Store account.",

@@ -787,7 +787,10 @@ class AppLocalizationsEn extends AppLocalizations {
       '================ SUBSCRIPTION KEYS ================';
 
   @override
-  String get subscription => 'Subscription';
+  String get upgrade_to_pro => 'Upgrade to PRO';
+
+  @override
+  String get cancel_subscription => 'Cancel Subscription';
 
   @override
   String get no_subscription_available => 'No subscription plans available.';
