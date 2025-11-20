@@ -47,6 +47,14 @@ class $AssetsIconsGen {
   /// File path: assets/icons/close.svg
   String get close => 'assets/icons/close.svg';
 
+  /// File path: assets/icons/company_logo_dt.png
+  AssetGenImage get companyLogoDt =>
+      const AssetGenImage('assets/icons/company_logo_dt.png');
+
+  /// File path: assets/icons/company_logo_lt.png
+  AssetGenImage get companyLogoLt =>
+      const AssetGenImage('assets/icons/company_logo_lt.png');
+
   /// File path: assets/icons/coupon.svg
   String get coupon => 'assets/icons/coupon.svg';
 
@@ -73,9 +81,6 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/google.png
   AssetGenImage get google => const AssetGenImage('assets/icons/google.png');
-
-  /// File path: assets/icons/icon.png
-  AssetGenImage get icon => const AssetGenImage('assets/icons/icon.png');
 
   /// File path: assets/icons/lock.svg
   String get lock => 'assets/icons/lock.svg';
@@ -125,6 +130,8 @@ class $AssetsIconsGen {
         appUnderMaintenance,
         apple,
         close,
+        companyLogoDt,
+        companyLogoLt,
         coupon,
         deliveryParcel,
         email,
@@ -134,7 +141,6 @@ class $AssetsIconsGen {
         emptyWishlist,
         forceUpdate,
         google,
-        icon,
         lock,
         mdiTick,
         noChats,

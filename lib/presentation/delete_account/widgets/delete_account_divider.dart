@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:skelter/widgets/styling/app_colors.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class DeleteAccountDivider extends StatelessWidget {
   const DeleteAccountDivider({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Divider(
+    return Divider(
       indent: 8,
       endIndent: 8,
-      color: AppColors.neutral100,
+      color: context.currentTheme.strokeNeutralLight200,
     );
   }
 }

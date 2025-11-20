@@ -5,6 +5,7 @@ import 'package:skelter/presentation/chat/model/chat_model.dart';
 import 'package:skelter/presentation/chat/widgets/message_types.dart';
 import 'package:skelter/presentation/chat/widgets/replied_to.dart';
 import 'package:skelter/presentation/chat/widgets/time_ago.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 import 'package:skelter/widgets/styling/app_colors.dart';
 
 class ChatConversationTile extends StatelessWidget {
@@ -35,8 +36,8 @@ class ChatConversationTile extends StatelessWidget {
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                 color: message.isSentByMe
-                    ? getBackgroundColor()
-                    : AppColors.brand50,
+                    ? getBackgroundColor(context)
+                    : context.currentTheme.bgBrandLight100,
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(!message.isSentByMe ? 0 : 10),
                   bottomRight: const Radius.circular(10),
@@ -65,14 +66,14 @@ class ChatConversationTile extends StatelessWidget {
     );
   }
 
-  Color getBackgroundColor() {
+  Color getBackgroundColor(BuildContext context) {
     switch (message.messageType) {
       case MessageType.text:
-        return AppColors.brand500;
+        return context.currentTheme.bgBrandDefault;
       case MessageType.image:
         return AppColors.redError500;
       case MessageType.audio:
-        return AppColors.brand100;
+        return context.currentTheme.bgBrandLight50;
     }
   }
 }

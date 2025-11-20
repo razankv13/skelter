@@ -10,6 +10,7 @@ import 'package:skelter/presentation/login/screens/forgot_password/widgets/send_
 import 'package:skelter/presentation/login/screens/login_with_phone_number/login_with_phone_number_screen.dart';
 import 'package:skelter/presentation/login/widgets/login_app_bar.dart';
 import 'package:skelter/routes.gr.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 @RoutePage()
 class ForgotPasswordV2Screen extends StatelessWidget {
@@ -56,7 +57,8 @@ class ForgotPasswordV2ScreenBody extends StatelessWidget {
           Center(
             child: Text(
               context.localization.forgot_password,
-              style: AppTextStyles.h2Bold,
+              style: AppTextStyles.h2Bold
+                  .copyWith(color: context.currentTheme.textNeutralPrimary),
             ),
           ),
           const SizedBox(height: 16),

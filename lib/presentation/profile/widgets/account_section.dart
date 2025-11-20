@@ -10,6 +10,7 @@ import 'package:skelter/presentation/profile/widgets/personal_details.dart';
 import 'package:skelter/presentation/profile/widgets/upgrade_to_pro.dart';
 import 'package:skelter/services/subscription_service.dart';
 import 'package:skelter/widgets/styling/app_colors.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class AccountSection extends StatefulWidget {
   const AccountSection({super.key});
@@ -46,11 +47,17 @@ class _AccountSectionState extends State<AccountSection> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(context.localization.account, style: AppTextStyles.h6SemiBold),
+        Text(
+          context.localization.account,
+          style: AppTextStyles.h6SemiBold.copyWith(
+            color: context.currentTheme.textNeutralPrimary,
+          ),
+        ),
         const SizedBox(height: 12.0),
         Container(
           decoration: BoxDecoration(
-            border: Border.all(color: AppColors.strokeNeutralLight200),
+            border:
+                Border.all(color: context.currentTheme.strokeNeutralLight200),
             borderRadius: BorderRadius.circular(12.0),
           ),
           child: Column(

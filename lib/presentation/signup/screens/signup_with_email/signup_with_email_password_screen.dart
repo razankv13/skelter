@@ -14,6 +14,7 @@ import 'package:skelter/presentation/signup/bloc/signup_state.dart';
 import 'package:skelter/presentation/signup/screens/signup_with_email/widgets/email_next_button.dart';
 import 'package:skelter/presentation/signup/screens/signup_with_email/widgets/email_text_field.dart';
 import 'package:skelter/routes.gr.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 @RoutePage()
 class SignupWithEmailPasswordScreen extends StatefulWidget {
@@ -99,7 +100,9 @@ class _SignupWithEmailPasswordScreenBody extends StatelessWidget {
           Center(
             child: Text(
               context.localization.sign_up_with_email,
-              style: AppTextStyles.h2Bold,
+              style: AppTextStyles.h2Bold.copyWith(
+                color: context.currentTheme.textNeutralPrimary,
+              ),
             ),
           ),
           const SizedBox(height: 25),
