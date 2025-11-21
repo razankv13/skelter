@@ -135,6 +135,7 @@ void main() {
 
       // SCENARIO 3: Invalid email validation
       await $(keys.signupPage.signupEmailTextField).enterText('invalidemail');
+      await Future.delayed(const Duration(milliseconds: 500));
       await $.pumpAndSettle();
 
       await $(keys.signupPage.signupEmailNextButton).tap();
