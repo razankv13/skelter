@@ -10,6 +10,7 @@ import 'package:skelter/presentation/delete_account/bloc/delete_account_event.da
 import 'package:skelter/presentation/delete_account/constants/analytics_constant.dart';
 import 'package:skelter/utils/extensions/build_context_ext.dart';
 import 'package:skelter/utils/internet_connectivity_helper.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 import 'package:skelter/widgets/app_button/app_button.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_size_enum.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_style_enum.dart';
@@ -28,9 +29,9 @@ Future<void> showDeleteAccountAlertBottomSheet(BuildContext context) async {
           right: 16,
           bottom: 16,
         ),
-        decoration: const BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        decoration: BoxDecoration(
+          color: context.currentTheme.bgSurfaceBase2,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -46,8 +47,8 @@ Future<void> showDeleteAccountAlertBottomSheet(BuildContext context) async {
                 child: Container(
                   height: 40,
                   width: 40,
-                  decoration: const BoxDecoration(
-                    color: AppColors.bgErrorLight100,
+                  decoration: BoxDecoration(
+                    color: context.currentTheme.bgErrorLight100,
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(
@@ -62,7 +63,7 @@ Future<void> showDeleteAccountAlertBottomSheet(BuildContext context) async {
             Text(
               context.localization.delete_account_alert_title,
               style: AppTextStyles.h6SemiBold.copyWith(
-                color: AppColors.textNeutralPrimary,
+                color: context.currentTheme.textNeutralPrimary,
               ),
             ),
             const SizedBox(height: 10),
@@ -72,7 +73,7 @@ Future<void> showDeleteAccountAlertBottomSheet(BuildContext context) async {
                 context.localization.delete_account_confirmation_message,
                 textAlign: TextAlign.center,
                 style: AppTextStyles.p3Regular.copyWith(
-                  color: AppColors.textNeutralSecondary,
+                  color: context.currentTheme.textNeutralSecondary,
                 ),
               ),
             ),
@@ -82,6 +83,8 @@ Future<void> showDeleteAccountAlertBottomSheet(BuildContext context) async {
                 Expanded(
                   child: AppButton(
                     onPressed: () => context.router.pop(),
+                    foregroundColor: context.currentTheme.textNeutralPrimary,
+                    backgroundColor: context.currentTheme.bgSurfaceBase2,
                     style: AppButtonStyle.outline,
                     label: context.localization.cancel,
                     size: AppButtonSize.extraLarge,
@@ -111,7 +114,8 @@ Future<void> showDeleteAccountAlertBottomSheet(BuildContext context) async {
                     },
                     label: context.localization.delete,
                     size: AppButtonSize.extraLarge,
-                    backgroundColor: AppColors.bgErrorDefault,
+                    foregroundColor: context.currentTheme.textNeutralLight,
+                    backgroundColor: context.currentTheme.bgErrorDefault,
                   ),
                 ),
               ],

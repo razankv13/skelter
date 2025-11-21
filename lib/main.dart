@@ -6,6 +6,7 @@ import 'package:country_picker/country_picker.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:sizer/sizer.dart';
 import 'package:skelter/core/clarity_analytics/clarity_route_observer.dart';
@@ -14,10 +15,14 @@ import 'package:skelter/i18n/i18n.dart';
 import 'package:skelter/initialize_app.dart';
 import 'package:skelter/routes.dart';
 import 'package:skelter/routes.gr.dart';
+import 'package:skelter/services/theme_service.dart';
 import 'package:skelter/shared_pref/prefs.dart';
 import 'package:skelter/utils/app_environment.dart';
 import 'package:skelter/utils/app_flavor_env.dart';
 import 'package:skelter/utils/internet_connectivity_helper.dart';
+import 'package:skelter/utils/theme/bloc/theme_bloc.dart';
+import 'package:skelter/utils/theme/bloc/theme_event.dart';
+import 'package:skelter/utils/theme/bloc/theme_state.dart';
 import 'package:skelter/widgets/styling/app_theme_data.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -45,6 +50,7 @@ class _MainAppState extends State<MainApp> {
   final InternetConnectivityHelper _connectivityHelper =
       InternetConnectivityHelper();
 
+  late ThemeBloc themeBloc;
   @override
   void initState() {
     super.initState();
@@ -52,6 +58,9 @@ class _MainAppState extends State<MainApp> {
     _connectivityHelper.onConnectivityChange
         .addListener(handleConnectivityStatusChange);
     _initializeClarity();
+
+    final themeService = ThemeService();
+    themeBloc = ThemeBloc(service: themeService)..add(const LoadTheme());
   }
 
   Future<void> handleConnectivityStatusChange() async {
@@ -83,7 +92,7 @@ class _MainAppState extends State<MainApp> {
         kIsWeb) {
       debugPrint(
         'Clarity not initialized for flavor: '
-            '${AppConfig.appFlavor.name} or in test environment',
+        '${AppConfig.appFlavor.name} or in test environment',
       );
       return;
     }
@@ -92,30 +101,40 @@ class _MainAppState extends State<MainApp> {
     Clarity.initialize(context, config);
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-    return Sizer(
-      builder: (context, orientation, screenType) {
-        return MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          supportedLocales: I18n.all,
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            CountryLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-          routerConfig: appRouter.config(
-            navigatorObservers: () => [
-              ClarityRouteObserver(),
-            ],
-          ),
-          theme: AppThemesData.themeData[AppThemeEnum.LightTheme]!,
-        );
-      },
+    return BlocProvider.value(
+      value: themeBloc,
+      child: Sizer(
+        builder: (context, orientation, screenType) {
+          return BlocBuilder<ThemeBloc, ThemeState>(
+            builder: (context, state) {
+              return MaterialApp.router(
+                debugShowCheckedModeBanner: false,
+                supportedLocales: I18n.all,
+                localizationsDelegates: const [
+                  AppLocalizations.delegate,
+                  CountryLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                ],
+                routerConfig: appRouter.config(
+                  navigatorObservers: () => [
+                    ClarityRouteObserver(),
+                  ],
+                ),
+                theme: AppThemesData.themeData[AppThemeEnum.LightTheme]!,
+                darkTheme: AppThemesData.themeData[AppThemeEnum.DarkTheme]!,
+                themeMode: state.themeMode,
+                builder: (context, child) {
+                  return child!;
+                },
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }
