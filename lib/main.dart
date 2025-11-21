@@ -15,6 +15,7 @@ import 'package:skelter/i18n/i18n.dart';
 import 'package:skelter/initialize_app.dart';
 import 'package:skelter/routes.dart';
 import 'package:skelter/routes.gr.dart';
+import 'package:skelter/services/notification_service.dart';
 import 'package:skelter/services/theme_service.dart';
 import 'package:skelter/shared_pref/prefs.dart';
 import 'package:skelter/utils/app_environment.dart';
@@ -51,6 +52,8 @@ class _MainAppState extends State<MainApp> {
       InternetConnectivityHelper();
 
   late ThemeBloc themeBloc;
+  StreamSubscription? _notificationSubscription;
+
   @override
   void initState() {
     super.initState();
@@ -61,6 +64,29 @@ class _MainAppState extends State<MainApp> {
 
     final themeService = ThemeService();
     themeBloc = ThemeBloc(service: themeService)..add(const LoadTheme());
+
+    _notificationSubscription =
+        NotificationService.instance.onNotificationTap.listen(
+      (payload) {
+        _handleNotificationTap(payload);
+      },
+    );
+
+    final initialPayload =
+        NotificationService.instance.initialNotificationPayload;
+    if (initialPayload != null) {
+      _handleNotificationTap(initialPayload);
+    }
+  }
+
+  void _handleNotificationTap(Map<String, dynamic> payload) {
+    debugPrint('Notification tapped with payload: $payload');
+  }
+
+  @override
+  void dispose() {
+    _notificationSubscription?.cancel();
+    super.dispose();
   }
 
   Future<void> handleConnectivityStatusChange() async {
