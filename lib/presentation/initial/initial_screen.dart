@@ -3,9 +3,11 @@ import 'dart:convert';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:skelter/core/services/injection_container.dart';
 import 'package:skelter/presentation/force_update/constants/force_update_constants.dart';
 import 'package:skelter/presentation/login/models/login_details.dart';
 import 'package:skelter/routes.gr.dart';
+import 'package:skelter/services/local_auth_services.dart';
 import 'package:skelter/services/remote_config_service.dart';
 import 'package:skelter/shared_pref/pref_keys.dart';
 import 'package:skelter/shared_pref/prefs.dart';
@@ -59,7 +61,7 @@ class _InitialScreenState extends State<InitialScreen> {
     );
 
     if ((userDetails.uid ?? '').haveContent()) {
-      await context.router.replace(const HomeRoute());
+      await authenticateWithBiometrics(context);
     } else {
       await context.router.replace(LoginWithPhoneNumberRoute());
     }
@@ -93,6 +95,24 @@ class _InitialScreenState extends State<InitialScreen> {
       await context.router.push(
         ForceUpdateRoute(isMandatoryUpdate: false),
       );
+    }
+  }
+
+  Future<void> authenticateWithBiometrics(BuildContext context) async {
+    final localAuthService = sl<LocalAuthService>();
+
+    final isBiometricAvailable = await localAuthService.isBiometricAvailable();
+    final hasEnrolledBiometrics =
+        await localAuthService.hasEnrolledBiometrics();
+
+    if (isBiometricAvailable && hasEnrolledBiometrics) {
+      final isAuthenticatedLocally = await localAuthService.authenticateUser();
+
+      if (isAuthenticatedLocally) {
+        await context.router.replace(const HomeRoute());
+      }
+    } else {
+      await context.router.replace(const HomeRoute());
     }
   }
 
