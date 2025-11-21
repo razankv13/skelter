@@ -16,6 +16,7 @@ import 'package:skelter/presentation/product_detail/domain/repositories/product_
 import 'package:skelter/presentation/product_detail/domain/usecases/get_product_detail.dart';
 import 'package:skelter/routes.gr.dart';
 import 'package:skelter/services/firebase_auth_services.dart';
+import 'package:skelter/services/local_auth_services.dart';
 import 'package:skelter/shared_pref/prefs.dart';
 import 'package:skelter/utils/app_flavor_env.dart';
 import 'package:skelter/utils/cache_manager.dart';
@@ -70,6 +71,8 @@ Future<void> configureDependencies({
       () => ProductDetailRemoteDataSrcImpl(sl()),
     )
     ..registerLazySingleton<Dio>(() => pinnedDio);
+
+  sl.registerLazySingleton<LocalAuthService>(() => LocalAuthService());
 }
 
 void _registerDioInterceptor(Dio dio) {
