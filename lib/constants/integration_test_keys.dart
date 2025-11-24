@@ -11,12 +11,23 @@ class LoginPageKeys {
   final continueWithGoogleButton = const Key('continueWithGoogleButton');
 }
 
+class SignupPageKeys {
+  final signupEmailTextField = const Key('signupEmailTextField');
+  final signupEmailNextButton = const Key('signupEmailNextButton');
+  final signupPasswordTextField = const Key('signupPasswordTextField');
+  final signupConfirmPasswordTextField =
+      const Key('signupConfirmPasswordTextField');
+  final signupPasswordNextButton = const Key('signupPasswordNextButton');
+  final signupWithEmailButton = const Key('signupWithEmailButton');
+}
+
 class HomePageKeys {
   final productCardKey = const Key('productCardKey');
 }
 
 class Keys {
   final signInPage = LoginPageKeys();
+  final signupPage = SignupPageKeys();
   final homePage = HomePageKeys();
 }
 
