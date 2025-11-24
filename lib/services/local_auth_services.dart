@@ -1,80 +1,119 @@
-import 'dart:io';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
+import 'package:local_auth/error_codes.dart' as auth_error;
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth_android/local_auth_android.dart';
 import 'package:local_auth_darwin/local_auth_darwin.dart';
+import 'package:skelter/constants/constants.dart';
+import 'package:skelter/shared_pref/pref_keys.dart';
+import 'package:skelter/shared_pref/prefs.dart';
+import 'package:skelter/utils/extensions/date_time_extensions.dart';
+
+enum BiometricAuthStatus {
+  success,
+  notSupported,
+  notEnrolled,
+  cancelled,
+  error,
+}
 
 class LocalAuthService {
-  LocalAuthService();
+  LocalAuthService(this._localAuth);
 
-  final LocalAuthentication _localAuth = LocalAuthentication();
+  final LocalAuthentication _localAuth;
 
-  Future<bool> isBiometricAvailable() async {
+  Future<bool> get isBiometricSupported async {
     try {
-      final canCheck = await _localAuth.canCheckBiometrics;
-      final supported = await _localAuth.isDeviceSupported();
-      return canCheck && supported;
+      return await _localAuth.isDeviceSupported() &&
+          await _localAuth.canCheckBiometrics;
     } catch (e) {
-      debugPrint('[LocalAuthService].isBiometricAvailable error: $e');
+      debugPrint('[LocalAuthService] isBiometricSupported error: $e');
       return false;
     }
   }
 
-  Future<List<BiometricType>> _getEnrolledBiometrics() async {
+  Future<bool> hasRecentMultipleAuthAttempts() async {
+    final currentLocalAuthTime = getCurrentDateTime();
+    final lastAuthTimestampMillis =
+        await Prefs.getInt(PrefKeys.kLastLocalAuthTimestamp);
+
+    final lastLocalAuthTime = lastAuthTimestampMillis != null
+        ? DateTime.fromMillisecondsSinceEpoch(lastAuthTimestampMillis)
+        : null;
+
+    if (lastLocalAuthTime != null &&
+        currentLocalAuthTime.difference(lastLocalAuthTime).inSeconds < 3) {
+      return true;
+    }
+
+    await Prefs.setInt(
+      PrefKeys.kLastLocalAuthTimestamp,
+      currentLocalAuthTime.millisecondsSinceEpoch,
+    );
+
+    return false;
+  }
+
+  Future<List<BiometricType>> _getAvailableBiometricTypes() async {
     try {
       return await _localAuth.getAvailableBiometrics();
     } catch (e) {
-      debugPrint('[LocalAuthService]._getEnrolledBiometrics error: $e');
+      debugPrint('[LocalAuthService] _getAvailableBiometricTypes error: $e');
       return [];
     }
   }
 
-  Future<bool> hasEnrolledBiometrics() async {
-    try {
-      final biometrics = await _getEnrolledBiometrics();
-      return biometrics.isNotEmpty;
-    } catch (e) {
-      debugPrint('[LocalAuthService].hasEnrolledBiometrics error: $e');
-      return false;
+  Future<BiometricAuthStatus> authenticate() async {
+    if (await hasRecentMultipleAuthAttempts()) {
+      return BiometricAuthStatus.cancelled;
     }
-  }
 
-  Future<bool> authenticateUser() async {
+    if (!await isBiometricSupported) {
+      return BiometricAuthStatus.notSupported;
+    }
+
+    final biometricTypes = await _getAvailableBiometricTypes();
+    if (biometricTypes.isEmpty) {
+      return BiometricAuthStatus.notEnrolled;
+    }
+
     try {
-      final enrolledBiometrics = await _getEnrolledBiometrics();
-      final reason = _buildAuthenticationReason(enrolledBiometrics);
-
-      return await _localAuth.authenticate(
-        localizedReason: reason,
+      final didAuthenticate = await _localAuth.authenticate(
+        localizedReason: KBiometricAuthReasonAccessApp,
         options: const AuthenticationOptions(
           stickyAuth: true,
+          useErrorDialogs: false,
+          biometricOnly: true,
         ),
-        authMessages: const <AuthMessages>[
-          AndroidAuthMessages(
-            cancelButton: 'Cancel',
-          ),
+        authMessages: const [
           IOSAuthMessages(
-            cancelButton: 'Cancel',
+            goToSettingsButton: KGoToSettings,
+            goToSettingsDescription: KBiometricAuthNotSetupMessage,
+            cancelButton: KCancel,
+          ),
+          AndroidAuthMessages(
+            signInTitle: KBiometricAuthTitle,
+            cancelButton: KCancel,
           ),
         ],
       );
-    } catch (e) {
-      debugPrint('[LocalAuthService].authenticateUser error: $e');
-      return false;
-    }
-  }
 
-  String _buildAuthenticationReason(List<BiometricType> types) {
-    try {
-      final supportsFace = types.contains(BiometricType.face);
+      return didAuthenticate
+          ? BiometricAuthStatus.success
+          : BiometricAuthStatus.cancelled;
+    } on PlatformException catch (e) {
+      const enrollmentErrors = {
+        auth_error.passcodeNotSet,
+        auth_error.notEnrolled,
+        auth_error.notAvailable,
+      };
 
-      if (Platform.isIOS) {
-        return supportsFace ? 'Unlock with Face ID' : 'Unlock with Touch ID';
-      }
-      return 'Authenticate securely to continue';
+      return enrollmentErrors.contains(e.code)
+          ? BiometricAuthStatus.notEnrolled
+          : BiometricAuthStatus.error;
     } catch (e) {
-      debugPrint('[LocalAuthService]._buildAuthenticationReason error: $e');
-      return 'Authentication required';
+      debugPrint('[LocalAuthService] authenticate Error: $e');
+      return BiometricAuthStatus.error;
     }
   }
 }
