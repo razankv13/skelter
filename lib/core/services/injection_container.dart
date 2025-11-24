@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http_certificate_pinning/http_certificate_pinning.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:skelter/constants/constants.dart';
 import 'package:skelter/main.dart';
 import 'package:skelter/presentation/home/data/datasources/product_remote_data_source.dart';
@@ -72,7 +73,11 @@ Future<void> configureDependencies({
     )
     ..registerLazySingleton<Dio>(() => pinnedDio);
 
-  sl.registerLazySingleton<LocalAuthService>(() => LocalAuthService());
+  sl.registerLazySingleton<LocalAuthentication>(() => LocalAuthentication());
+
+  sl.registerLazySingleton<LocalAuthService>(
+    () => LocalAuthService(sl<LocalAuthentication>()),
+  );
 }
 
 void _registerDioInterceptor(Dio dio) {
