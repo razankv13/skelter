@@ -153,6 +153,8 @@ PODS:
     - PromisesSwift (~> 2.1)
   - FirebaseSharedSwift (12.4.0)
   - Flutter (1.0.0)
+  - flutter_exit_app (2.0.0):
+    - Flutter
   - flutter_fgbg (0.0.1):
     - Flutter
   - flutter_localization (0.0.1):
@@ -308,6 +310,7 @@ DEPENDENCIES:
   - firebase_crashlytics (from `.symlinks/plugins/firebase_crashlytics/ios`)
   - firebase_remote_config (from `.symlinks/plugins/firebase_remote_config/ios`)
   - Flutter (from `Flutter`)
+  - flutter_exit_app (from `.symlinks/plugins/flutter_exit_app/ios`)
   - flutter_fgbg (from `.symlinks/plugins/flutter_fgbg/ios`)
   - flutter_localization (from `.symlinks/plugins/flutter_localization/ios`)
   - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
@@ -389,6 +392,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_remote_config/ios"
   Flutter:
     :path: Flutter
+  flutter_exit_app:
+    :path: ".symlinks/plugins/flutter_exit_app/ios"
   flutter_fgbg:
     :path: ".symlinks/plugins/flutter_fgbg/ios"
   flutter_localization:
@@ -460,6 +465,7 @@ SPEC CHECKSUMS:
   FirebaseSessions: ba7c7a7ca8696a8d540eb3fe3800fbe98c79786d
   FirebaseSharedSwift: 93426a1de92f19e1199fac5295a4f8df16458daa
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  flutter_exit_app: 6510c709414577c6084bb841febaed1f600d9edf
   flutter_fgbg: 31c0d1140a131daea2d342121808f6aa0dcd879d
   flutter_localization: f43b18844a2b3d2c71fd64f04ffd6b1e64dd54d4
   flutter_native_splash: df59bb2e1421aa0282cb2e95618af4dcb0c56c29
