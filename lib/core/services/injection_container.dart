@@ -73,14 +73,10 @@ Future<void> configureDependencies({
       () => ProductDetailRemoteDataSrcImpl(sl()),
     )
     ..registerLazySingleton<Dio>(() => pinnedDio)
-    ..registerLazySingleton<AppDeepLinkManager>(() => AppDeepLinkManager()),
-    ..registerLazySingleton<Dio>(() => pinnedDio);
-
-  sl.registerLazySingleton<LocalAuthentication>(() => LocalAuthentication());
-
-  sl.registerLazySingleton<LocalAuthService>(
-    () => LocalAuthService(sl<LocalAuthentication>()),
-  );
+    ..registerLazySingleton<AppDeepLinkManager>(() => AppDeepLinkManager())
+    ..registerLazySingleton<LocalAuthService>(
+      () => LocalAuthService(LocalAuthentication()),
+    );
 }
 
 void _registerDioInterceptor(Dio dio) {
