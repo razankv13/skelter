@@ -1,9 +1,15 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_exit_app/flutter_exit_app.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:permission_handler/permission_handler.dart' as app_settings;
+import 'package:skelter/common/theme/text_style/app_text_styles.dart';
+import 'package:skelter/constants/constants.dart';
 import 'package:skelter/core/services/injection_container.dart';
+import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/force_update/constants/force_update_constants.dart';
 import 'package:skelter/presentation/login/models/login_details.dart';
 import 'package:skelter/routes.gr.dart';
@@ -13,6 +19,7 @@ import 'package:skelter/shared_pref/pref_keys.dart';
 import 'package:skelter/shared_pref/prefs.dart';
 import 'package:skelter/utils/app_version_helper.dart';
 import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 @RoutePage()
 class InitialScreen extends StatefulWidget {
@@ -101,18 +108,71 @@ class _InitialScreenState extends State<InitialScreen> {
   Future<void> authenticateWithBiometrics(BuildContext context) async {
     final localAuthService = sl<LocalAuthService>();
 
-    final isBiometricAvailable = await localAuthService.isBiometricAvailable();
-    final hasEnrolledBiometrics =
-        await localAuthService.hasEnrolledBiometrics();
+    final biometricAuthStatus = await localAuthService.authenticate();
 
-    if (isBiometricAvailable && hasEnrolledBiometrics) {
-      final isAuthenticatedLocally = await localAuthService.authenticateUser();
-
-      if (isAuthenticatedLocally) {
+    switch (biometricAuthStatus) {
+      case BiometricAuthStatus.success:
         await context.router.replace(const HomeRoute());
-      }
-    } else {
-      await context.router.replace(const HomeRoute());
+
+      case BiometricAuthStatus.notSupported:
+        await context.router.replace(const HomeRoute());
+
+      case BiometricAuthStatus.notEnrolled:
+        await _showBiometricEnrollmentDialog(context);
+
+      case BiometricAuthStatus.cancelled:
+        _exitApp();
+
+      case BiometricAuthStatus.error:
+        _exitApp();
+    }
+  }
+
+  Future<void> _showBiometricEnrollmentDialog(BuildContext context) async {
+    final result = await showDialog<String>(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => AlertDialog(
+        content: Text(
+          context.localization.biometric_auth_desc_for_enrollment,
+          style: AppTextStyles.p2Medium
+              .copyWith(color: context.currentTheme.textNeutralPrimary),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(context.localization.ok),
+            child: Text(
+              context.localization.ok,
+              style: TextStyle(color: context.currentTheme.textNeutralLight),
+            ),
+          ),
+          TextButton(
+            onPressed: () =>
+                Navigator.of(context).pop(context.localization.settings),
+            child: Text(
+              context.localization.go_to_settings,
+              style: TextStyle(color: context.currentTheme.textNeutralLight),
+            ),
+          ),
+        ],
+      ),
+    );
+
+    if (result == KSettings) {
+      try {
+        await app_settings.openAppSettings();
+        await Future.delayed(const Duration(milliseconds: 500));
+      } catch (_) {}
+    }
+
+    _exitApp();
+  }
+
+  void _exitApp() {
+    if (Platform.isAndroid) {
+      FlutterExitApp.exitApp();
+    } else if (Platform.isIOS) {
+      FlutterExitApp.exitApp(iosForceExit: true);
     }
   }
 
