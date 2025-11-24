@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skelter/constants/integration_test_keys.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/signup/bloc/signup_bloc.dart';
 import 'package:skelter/presentation/signup/bloc/signup_event.dart';
@@ -27,6 +28,7 @@ class PasswordNextButton extends StatelessWidget {
     );
 
     return AppButton(
+      key: keys.signupPage.signupPasswordNextButton,
       label: context.localization.next,
       foregroundColor: context.currentTheme.textNeutralLight,
       shouldSetFullWidth: true,

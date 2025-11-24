@@ -3,6 +3,7 @@ import 'package:debounce_throttle/debounce_throttle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
+import 'package:skelter/constants/integration_test_keys.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/signup/bloc/signup_bloc.dart';
 import 'package:skelter/presentation/signup/bloc/signup_event.dart';
@@ -61,6 +62,7 @@ class _EmailTextFieldState extends State<EmailTextField> {
         const SizedBox(height: 16),
         ClarityMask(
           child: TextField(
+            key: keys.signupPage.signupEmailTextField,
             controller: _emailController,
             style: AppTextStyles.p3Medium
                 .copyWith(color: context.currentTheme.textNeutralPrimary),

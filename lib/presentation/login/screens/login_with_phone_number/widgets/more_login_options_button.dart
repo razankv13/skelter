@@ -37,7 +37,9 @@ class MoreLoginOptionsButton extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           AppButton(
-            key: keys.signInPage.continueWithEmailButton,
+            key: isSignup
+                ? keys.signupPage.signupWithEmailButton
+                : keys.signInPage.continueWithEmailButton,
             label: context.localization.continue_with_email,
             foregroundColor: context.currentTheme.textNeutralPrimary,
             shouldSetFullWidth: true,
