@@ -6,6 +6,7 @@ import 'package:get_it/get_it.dart';
 import 'package:http_certificate_pinning/http_certificate_pinning.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:skelter/constants/constants.dart';
+import 'package:skelter/core/deep_link/app_deep_link_manager.dart';
 import 'package:skelter/main.dart';
 import 'package:skelter/presentation/home/data/datasources/product_remote_data_source.dart';
 import 'package:skelter/presentation/home/data/repositories/product_repository_impl.dart';
@@ -71,6 +72,8 @@ Future<void> configureDependencies({
     ..registerLazySingleton<ProductDetailRemoteDatasource>(
       () => ProductDetailRemoteDataSrcImpl(sl()),
     )
+    ..registerLazySingleton<Dio>(() => pinnedDio)
+    ..registerLazySingleton<AppDeepLinkManager>(() => AppDeepLinkManager()),
     ..registerLazySingleton<Dio>(() => pinnedDio);
 
   sl.registerLazySingleton<LocalAuthentication>(() => LocalAuthentication());

@@ -10,6 +10,7 @@ import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/constants/constants.dart';
 import 'package:skelter/core/services/injection_container.dart';
 import 'package:skelter/i18n/localization.dart';
+import 'package:skelter/core/deep_link/app_deep_link_manager.dart';
 import 'package:skelter/presentation/force_update/constants/force_update_constants.dart';
 import 'package:skelter/presentation/login/models/login_details.dart';
 import 'package:skelter/routes.gr.dart';
@@ -58,17 +59,34 @@ class _InitialScreenState extends State<InitialScreen> {
       await showOptionalUpdate(context: context);
     }
 
-    await _checkAuthStatus(context);
+    await _checkAuthAndHandleDeepLink();
   }
 
-  Future<void> _checkAuthStatus(BuildContext context) async {
+  Future<void> _checkAuthAndHandleDeepLink() async {
     final userDetailsJson = await Prefs.getString(PrefKeys.kUserDetails);
     final userDetails = LoginDetails.fromJson(
       json.decode(userDetailsJson ?? '{}'),
     );
 
+    if (!mounted) return;
+
+    final deepLinkManager = sl<AppDeepLinkManager>();
+
     if ((userDetails.uid ?? '').haveContent()) {
       await authenticateWithBiometrics(context);
+      if (deepLinkManager.hasPendingDeepLink) {
+        final isDeepLinkHandled =
+            await deepLinkManager.handlePendingDeepLink(context);
+
+        // Case 1: Deep link exists -> try handling it; if invalid,
+        // navigate to Home.
+        if (!isDeepLinkHandled) {
+          await context.router.replace(const HomeRoute());
+        }
+      } else {
+        // Case 2: No deep link -> navigate directly to Home.
+        await context.router.replace(const HomeRoute());
+      }
     } else {
       await context.router.replace(LoginWithPhoneNumberRoute());
     }
