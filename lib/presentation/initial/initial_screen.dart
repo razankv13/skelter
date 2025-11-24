@@ -66,8 +66,16 @@ class _InitialScreenState extends State<InitialScreen> {
 
     if ((userDetails.uid ?? '').haveContent()) {
       if (deepLinkManager.hasPendingDeepLink) {
-        await deepLinkManager.handlePendingDeepLink(context);
+        final isDeepLinkHandled =
+            await deepLinkManager.handlePendingDeepLink(context);
+
+        // Case 1: Deep link exists -> try handling it; if invalid,
+        // navigate to Home.
+        if (!isDeepLinkHandled) {
+          await context.router.replace(const HomeRoute());
+        }
       } else {
+        // Case 2: No deep link -> navigate directly to Home.
         await context.router.replace(const HomeRoute());
       }
     } else {
