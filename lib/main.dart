@@ -86,6 +86,7 @@ class _MainAppState extends State<MainApp> {
   @override
   void dispose() {
     _notificationSubscription?.cancel();
+    NotificationService.instance.dispose();
     super.dispose();
   }
 

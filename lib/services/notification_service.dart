@@ -3,7 +3,8 @@ import 'dart:async';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:skelter/presentation/reminder/model/reminder_model.dart';
+import 'package:skelter/widgets/styling/app_colors.dart';
 
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -14,12 +15,15 @@ class NotificationService {
   NotificationService._();
 
   static final NotificationService instance = NotificationService._();
-
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
   final AwesomeNotifications _awesomeNotifications = AwesomeNotifications();
 
   final _onNotificationTapController =
       StreamController<Map<String, dynamic>>.broadcast();
+
+  StreamSubscription<RemoteMessage>? _onMessageSubscription;
+  StreamSubscription<RemoteMessage>? _onMessageOpenedAppSubscription;
+  StreamSubscription<String>? _onTokenRefreshSubscription;
 
   RemoteMessage? _initialMessage;
 
@@ -43,8 +47,19 @@ class NotificationService {
           channelKey: 'basic_channel',
           channelName: 'Basic notifications',
           channelDescription: 'Notification channel for basic notifications',
-          ledColor: Colors.white,
-          defaultColor: const Color(0xFF335CFF),
+          ledColor: AppColors.white,
+          defaultColor: AppColors.brand500,
+          importance: NotificationImportance.High,
+          channelShowBadge: true,
+          playSound: true,
+          enableVibration: true,
+        ),
+        NotificationChannel(
+          channelKey: 'reminder_channel',
+          channelName: 'Reminders',
+          channelDescription: 'Notification channel for reminders',
+          ledColor: AppColors.white,
+          defaultColor: AppColors.brand500,
           importance: NotificationImportance.High,
           channelShowBadge: true,
           playSound: true,
@@ -73,8 +88,10 @@ class NotificationService {
   }
 
   Future<void> _setupFCMListeners() async {
-    FirebaseMessaging.onMessage.listen(_handleForegroundMessage);
-    FirebaseMessaging.onMessageOpenedApp.listen(_handleMessageOpenedApp);
+    _onMessageSubscription =
+        FirebaseMessaging.onMessage.listen(_handleForegroundMessage);
+    _onMessageOpenedAppSubscription =
+        FirebaseMessaging.onMessageOpenedApp.listen(_handleMessageOpenedApp);
 
     _initialMessage = await _firebaseMessaging.getInitialMessage();
   }
@@ -109,9 +126,11 @@ class NotificationService {
       final token = await _firebaseMessaging.getToken();
       debugPrint('FCM Token: $token');
 
-      _firebaseMessaging.onTokenRefresh.listen((newToken) {
-        debugPrint('FCM Token refreshed: $newToken');
-      });
+      _onTokenRefreshSubscription = _firebaseMessaging.onTokenRefresh.listen(
+        (newToken) {
+          debugPrint('FCM Token refreshed: $newToken');
+        },
+      );
 
       return token;
     } catch (e) {
@@ -165,7 +184,6 @@ class NotificationService {
   ) async {
     debugPrint('Notification action received: ${receivedAction.id}');
     debugPrint('Payload: ${receivedAction.payload}');
-
     final payloadMap = receivedAction.payload ?? {};
     instance._onNotificationTapController.add(payloadMap);
   }
@@ -175,5 +193,42 @@ class NotificationService {
     ReceivedAction receivedAction,
   ) async {
     debugPrint('Notification dismissed: ${receivedAction.id}');
+  }
+
+  Future<bool> scheduleReminder(ReminderModel reminder) async {
+    try {
+      await _awesomeNotifications.createNotification(
+        content: NotificationContent(
+          id: reminder.id,
+          channelKey: 'reminder_channel',
+          title: reminder.title,
+          body: reminder.description,
+          wakeUpScreen: true,
+          category: NotificationCategory.Reminder,
+          autoDismissible: false,
+        ),
+        schedule: NotificationCalendar.fromDate(
+          date: reminder.scheduledDateTime,
+          allowWhileIdle: true,
+          preciseAlarm: true,
+        ),
+      );
+
+      debugPrint(
+        'Scheduled reminder: ${reminder.title} at '
+        '${reminder.scheduledDateTime}',
+      );
+      return true;
+    } catch (e) {
+      debugPrint('Error scheduling reminder: $e');
+      return false;
+    }
+  }
+
+  void dispose() {
+    _onMessageSubscription?.cancel();
+    _onMessageOpenedAppSubscription?.cancel();
+    _onTokenRefreshSubscription?.cancel();
+    _onNotificationTapController.close();
   }
 }

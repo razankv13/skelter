@@ -62,7 +62,7 @@ import 'app_localizations_en.dart';
 /// property.
 abstract class AppLocalizations {
   AppLocalizations(String locale)
-    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -85,11 +85,11 @@ abstract class AppLocalizations {
   /// of delegates is preferred or required.
   static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
       <LocalizationsDelegate<dynamic>>[
-        delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ];
+    delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[Locale('en')];
@@ -1695,6 +1695,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Product Details'**
   String get product_details;
+
+  /// No description provided for @reminder_keys.
+  ///
+  /// In en, this message translates to:
+  /// **'================ REMINDER KEYS ================'**
+  String get reminder_keys;
+
+  /// No description provided for @reminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder'**
+  String get reminder;
+
+  /// No description provided for @reminder_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get reminder_title;
+
+  /// No description provided for @reminder_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Description (Optional)'**
+  String get reminder_description;
+
+  /// No description provided for @reminder_title_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter reminder title'**
+  String get reminder_title_hint;
+
+  /// No description provided for @reminder_description_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter description'**
+  String get reminder_description_hint;
+
+  /// No description provided for @date_and_time.
+  ///
+  /// In en, this message translates to:
+  /// **'Date & Time'**
+  String get date_and_time;
+
+  /// No description provided for @schedule_reminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule Reminder'**
+  String get schedule_reminder;
+
+  /// No description provided for @reminder_title_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a title'**
+  String get reminder_title_required;
+
+  /// No description provided for @reminder_future_date_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a future date and time'**
+  String get reminder_future_date_required;
+
+  /// No description provided for @reminder_scheduled_successfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder scheduled successfully!'**
+  String get reminder_scheduled_successfully;
+
+  /// No description provided for @reminder_schedule_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to schedule reminder'**
+  String get reminder_schedule_failed;
 }
 
 class _AppLocalizationsDelegate
@@ -1722,9 +1794,8 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   }
 
   throw FlutterError(
-    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-    'an issue with the localizations generation tool. Please file an issue '
-    'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.',
-  );
+      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+      'an issue with the localizations generation tool. Please file an issue '
+      'on GitHub with a reproducible sample app and the gen-l10n configuration '
+      'that was used.');
 }

@@ -379,6 +379,18 @@
   "product_photos": "Product Photos",
   "view_product_reviews": "View Product Reviews",
   "no_product_detail_found": "No Product Detail Found!",
-  "product_details": "Product Details"
+  "product_details": "Product Details",
 
+  "reminder_keys": "================ REMINDER KEYS ================",
+  "reminder":"Reminder",
+  "reminder_title": "Title",
+  "reminder_description": "Description (Optional)",
+  "reminder_title_hint": "Enter reminder title",
+  "reminder_description_hint": "Enter description",
+  "date_and_time": "Date & Time",
+  "schedule_reminder": "Schedule Reminder",
+  "reminder_title_required": "Please enter a title",
+  "reminder_future_date_required": "Please select a future date and time",
+  "reminder_scheduled_successfully": "Reminder scheduled successfully!",
+  "reminder_schedule_failed": "Failed to schedule reminder"
 }
