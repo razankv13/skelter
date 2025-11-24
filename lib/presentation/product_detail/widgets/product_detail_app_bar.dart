@@ -44,7 +44,7 @@ class ProductDetailAppBar extends StatelessWidget
             );
           },
           icon: Icon(
-            TablerIcons.share_3,
+            TablerIcons.share,
             color: context.currentTheme.iconNeutralDefault,
           ),
         ),
