@@ -43,21 +43,23 @@ class AppDeepLinkManager {
     await _handleDeepLink(uri, context);
   }
 
-  Future<void> handlePendingDeepLink(BuildContext context) async {
-    if (_pendingDeepLink == null || _isProcessingDeepLink) return;
+  Future<bool> handlePendingDeepLink(BuildContext context) async {
+    if (_pendingDeepLink == null || _isProcessingDeepLink) return false;
 
     _isProcessingDeepLink = true;
     try {
-      await _handleDeepLink(_pendingDeepLink!, context);
+      return await _handleDeepLink(_pendingDeepLink!, context);
     } finally {
       _pendingDeepLink = null;
       _isProcessingDeepLink = false;
     }
   }
 
-  Future<void> _handleDeepLink(Uri uri, BuildContext context) async {
+  Future<bool> _handleDeepLink(Uri uri, BuildContext context) async {
+    if (!_isValidDeepLink(uri)) return false;
+
     final segments = uri.pathSegments;
-    if (segments.length < 2) return;
+    if (segments.length < 2) return false;
 
     final routeKey = segments[0].toLowerCase();
     final routeArg = segments[1];
@@ -65,11 +67,12 @@ class AppDeepLinkManager {
     final router = context.router;
     final routeName = _deepLinkRoutes[routeKey];
 
-    if (routeName == null) return;
+    if (routeName == null) return false;
 
-    if (_isOnProductDetail(router, routeArg)) return;
+    if (_isOnProductDetail(router, routeArg)) return true;
 
     await _navigateToProductDetail(router, routeArg);
+    return true;
   }
 
   final Map<String, String> _deepLinkRoutes = {
@@ -88,17 +91,30 @@ class AppDeepLinkManager {
     StackRouter router,
     String productId,
   ) async {
-    if (!router.stack.any((route) => route.name == HomeRoute.name)) {
+    final isHomeAlreadyInStack = router.stack.any(
+      (route) => route.name == HomeRoute.name,
+    );
+
+    if (!isHomeAlreadyInStack) {
       await router.replaceAll([
         const HomeRoute(),
         ProductDetailRoute(productId: productId),
       ]);
-      return;
+    } else {
+      router.popUntilRouteWithName(HomeRoute.name);
+      await router.push(ProductDetailRoute(productId: productId));
     }
-
-    router.popUntilRouteWithName(HomeRoute.name);
-    await router.push(ProductDetailRoute(productId: productId));
   }
 
   void disposeDeepLinkListener() => _linkSubscription?.cancel();
+
+  // TODO: Replace hardcoded values once the Product Detail Share PR is merged,
+  // TODO: because constants for deep link validation will be available there.
+
+  bool _isValidDeepLink(Uri uri) {
+    return uri.scheme == 'https' &&
+        uri.host == 'skelter.solz.me' &&
+        uri.pathSegments.length >= 2 &&
+        uri.pathSegments[0] == 'product-detail';
+  }
 }
