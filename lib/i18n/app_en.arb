@@ -379,6 +379,11 @@
   "product_photos": "Product Photos",
   "view_product_reviews": "View Product Reviews",
   "no_product_detail_found": "No Product Detail Found!",
-  "product_details": "Product Details"
+  "product_details": "Product Details",
+
+  "local_auth_keys": "================ Local Auth Keys ================",
+  "biometric_auth_desc_for_enrollment": "Biometric authentication is not set up on your device. Please either enable Touch ID or Face ID on your phone.",
+  "go_to_settings": "Go to settings",
+  "ok": "OK"
 
 }

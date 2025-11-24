@@ -65,3 +65,16 @@ const String kApiCache = 'api_cache';
 // Date formats
 const String kDefaultDateFormat = 'dd-MM-yyyy';
 const String kDefaultTimeFormat12Hour = 'hh:mm a';
+
+// Biometric authentication
+const String KSettings = 'Settings';
+const String KGoToSettings = 'Go to Settings';
+const String KCancel = 'Cancel';
+const String KBiometricAuthTitle = 'Biometric Authentication';
+const String KBiometricAuthReasonAccessApp =
+    'Please authenticate to access the app';
+const String KBiometricAuthNotSetupMessage =
+    'Biometric authentication is not set up on your device.';
+const String KBiometricSetupEnableInstructionMessage =
+    'Biometric authentication is not set up on your device. '
+    'Please enable Touch ID or Face ID (iPhone) or Fingerprint/Face Unlock (Android) to continue.';

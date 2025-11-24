@@ -1695,6 +1695,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Product Details'**
   String get product_details;
+
+  /// No description provided for @local_auth_keys.
+  ///
+  /// In en, this message translates to:
+  /// **'================ Local Auth Keys ================'**
+  String get local_auth_keys;
+
+  /// No description provided for @biometric_auth_desc_for_enrollment.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric authentication is not set up on your device. Please either enable Touch ID or Face ID on your phone.'**
+  String get biometric_auth_desc_for_enrollment;
+
+  /// No description provided for @go_to_settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to settings'**
+  String get go_to_settings;
+
+  /// No description provided for @ok.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get ok;
 }
 
 class _AppLocalizationsDelegate

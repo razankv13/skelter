@@ -891,4 +891,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get product_details => 'Product Details';
+
+  @override
+  String get local_auth_keys =>
+      '================ Local Auth Keys ================';
+
+  @override
+  String get biometric_auth_desc_for_enrollment =>
+      'Biometric authentication is not set up on your device. Please either enable Touch ID or Face ID on your phone.';
+
+  @override
+  String get go_to_settings => 'Go to settings';
+
+  @override
+  String get ok => 'OK';
 }
