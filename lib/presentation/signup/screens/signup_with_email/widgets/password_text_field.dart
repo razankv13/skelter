@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
+import 'package:skelter/constants/integration_test_keys.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/signup/bloc/signup_bloc.dart';
 import 'package:skelter/presentation/signup/bloc/signup_event.dart';
@@ -57,6 +58,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
         const SizedBox(height: 8),
         ClarityMask(
           child: TextField(
+            key: keys.signupPage.signupPasswordTextField,
             controller: _passwordController,
             obscureText: !isPasswordVisible,
             style: AppTextStyles.p3Medium.copyWith(
