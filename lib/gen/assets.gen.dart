@@ -185,6 +185,9 @@ class $AssetsImagesGen {
   AssetGenImage get sgSkelterLogo =>
       const AssetGenImage('assets/images/sg_skelter_logo.png');
 
+  /// File path: assets/images/success.png
+  AssetGenImage get success => const AssetGenImage('assets/images/success.png');
+
   /// List of all assets
   List<AssetGenImage> get values => [
         cartItem1,
@@ -192,7 +195,8 @@ class $AssetsImagesGen {
         demoUser,
         mastercard,
         sgSkelterBoilerplate,
-        sgSkelterLogo
+        sgSkelterLogo,
+        success
       ];
 }
 
