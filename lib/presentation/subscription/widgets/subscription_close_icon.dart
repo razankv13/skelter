@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 import 'package:skelter/widgets/app_button/app_button.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_size_enum.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_style_enum.dart';
@@ -15,6 +16,7 @@ class SubscriptionCloseIcon extends StatelessWidget {
       child: AppButton(
         style: AppButtonStyle.textOrIcon,
         isIconButton: true,
+        foregroundColor: context.currentTheme.iconNeutralPressed,
         iconData: TablerIcons.x,
         size: AppButtonSize.extraLarge,
         onPressed: () => context.pop(),

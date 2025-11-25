@@ -1516,6 +1516,12 @@ abstract class AppLocalizations {
   /// **'Cancel Subscription'**
   String get cancel_subscription;
 
+  /// No description provided for @manage_subscription.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage Subscription'**
+  String get manage_subscription;
+
   /// No description provided for @no_subscription_available.
   ///
   /// In en, this message translates to:
@@ -1657,19 +1663,19 @@ abstract class AppLocalizations {
   /// No description provided for @subscription_activated_message.
   ///
   /// In en, this message translates to:
-  /// **'Your subscription is now active. You have full access to the skelter'**
+  /// **'Your subscription is now active.\nYou can explore the premium features.'**
   String get subscription_activated_message;
 
   /// No description provided for @payment_failed.
   ///
   /// In en, this message translates to:
-  /// **'Payment failed.'**
+  /// **'Payment failed!'**
   String get payment_failed;
 
   /// No description provided for @payment_failed_message.
   ///
   /// In en, this message translates to:
-  /// **'Please try again or update your payment details.'**
+  /// **'Please try again after sometime.'**
   String get payment_failed_message;
 
   /// No description provided for @retry_payment.

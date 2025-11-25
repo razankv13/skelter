@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 import 'package:skelter/widgets/styling/app_colors.dart';
 
 class PaymentFailedIcon extends StatelessWidget {
@@ -6,10 +7,14 @@ class PaymentFailedIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CircleAvatar(
-      radius: 40,
-      backgroundColor: AppColors.redError700,
-      child: Icon(Icons.close_rounded, color: AppColors.white, size: 50),
+    return CircleAvatar(
+      radius: 35,
+      backgroundColor: AppColors.redError600,
+      child: Icon(
+        Icons.close_rounded,
+        color: context.currentTheme.bgShadesWhite,
+        size: 40,
+      ),
     );
   }
 }

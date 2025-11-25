@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/widgets/styling/app_colors.dart';
 
 class SubscriptionPlanCard extends StatelessWidget {
   final String title;
@@ -49,7 +50,7 @@ class SubscriptionPlanCard extends StatelessWidget {
                       Flexible(
                         child: Text(
                           title,
-                          style: AppTextStyles.h3Medium,
+                          style: AppTextStyles.h5Bold,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
@@ -87,24 +88,17 @@ class SubscriptionPlanCard extends StatelessWidget {
               height: 24,
               width: 24,
               decoration: BoxDecoration(
-                color: isSelected
-                    ? context.currentTheme.bgBrandDefault
-                    : context.currentTheme.bgSurfaceBase2,
+                color: isSelected && context.isDark
+                    ? AppColors.white
+                    : Colors.transparent,
                 shape: BoxShape.circle,
                 border: Border.all(
-                  width: isSelected ? 0 : 1,
+                  width: isSelected ? 6 : 1,
                   color: isSelected
                       ? context.currentTheme.bgBrandDefault
-                      : context.currentTheme.bgSurfaceBase,
+                      : context.currentTheme.strokeNeutralLight200,
                 ),
               ),
-              child: isSelected
-                  ? Icon(
-                      Icons.check,
-                      size: 16,
-                      color: context.currentTheme.bgSurfaceBase2,
-                    )
-                  : null,
             ),
           ],
         ),

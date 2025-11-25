@@ -15,6 +15,7 @@ class RetryPaymentButton extends StatelessWidget {
     return AppButton(
       label: context.localization.retry_payment,
       shouldSetFullWidth: true,
+      backgroundColor: context.currentTheme.bgBrandDefault,
       foregroundColor: context.currentTheme.textNeutralLight,
       size: AppButtonSize.extraLarge,
       onPressed: () => context

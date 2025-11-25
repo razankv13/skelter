@@ -4,8 +4,8 @@ import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/profile/bloc/profile_bloc.dart';
 import 'package:skelter/presentation/profile/bloc/profile_event.dart';
-import 'package:skelter/presentation/profile/widgets/cancel_subscription.dart';
 import 'package:skelter/presentation/profile/widgets/divider.dart';
+import 'package:skelter/presentation/profile/widgets/manage_subscription.dart';
 import 'package:skelter/presentation/profile/widgets/personal_details.dart';
 import 'package:skelter/presentation/profile/widgets/upgrade_to_pro.dart';
 import 'package:skelter/services/subscription_service.dart';
@@ -67,7 +67,7 @@ class _AccountSectionState extends State<AccountSection> {
                 valueListenable: subscriptionService.isUserSubscribed,
                 builder: (context, isSubscribed, _) {
                   return isSubscribed
-                      ? const CancelSubscription()
+                      ? const ManageSubscription()
                       : const UpgradeToPro();
                 },
               ),

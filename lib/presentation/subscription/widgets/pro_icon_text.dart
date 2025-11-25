@@ -20,12 +20,12 @@ class ProIconText extends StatelessWidget {
         const SizedBox(height: 24),
         Text(
           context.localization.unlock_access,
-          style: AppTextStyles.h2Bold,
+          style: AppTextStyles.h1,
           textAlign: TextAlign.center,
         ),
         Text(
           context.localization.app_name,
-          style: AppTextStyles.h4SemiBold.copyWith(
+          style: AppTextStyles.h1.copyWith(
             color: context.currentTheme.bgBrandDefault,
           ),
         ),

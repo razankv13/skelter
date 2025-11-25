@@ -13,20 +13,30 @@ class PaymentFailedScreen extends StatelessWidget {
       canPop: false,
       child: Scaffold(
         body: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                PaymentFailedIcon(),
-                SizedBox(height: 24),
-                PaymentFailedMessage(),
-                SizedBox(height: 32),
-                RetryPaymentButton(),
-                SizedBox(height: 8),
-                GoToHomeScreenButton(),
-              ],
+          child: Center(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  PaymentFailedIcon(),
+                  SizedBox(height: 24),
+                  PaymentFailedMessage(),
+                  SizedBox(height: 32),
+                ],
+              ),
             ),
+          ),
+        ),
+        bottomNavigationBar: Padding(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              RetryPaymentButton(),
+              GoToHomeScreenButton(),
+              SizedBox(height: 16),
+            ],
           ),
         ),
       ),

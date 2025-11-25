@@ -793,6 +793,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cancel_subscription => 'Cancel Subscription';
 
   @override
+  String get manage_subscription => 'Manage Subscription';
+
+  @override
   String get no_subscription_available => 'No subscription plans available.';
 
   @override
@@ -869,14 +872,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get subscription_activated_message =>
-      'Your subscription is now active. You have full access to the skelter';
+      'Your subscription is now active.\nYou can explore the premium features.';
 
   @override
-  String get payment_failed => 'Payment failed.';
+  String get payment_failed => 'Payment failed!';
 
   @override
-  String get payment_failed_message =>
-      'Please try again or update your payment details.';
+  String get payment_failed_message => 'Please try again after sometime.';
 
   @override
   String get retry_payment => 'Retry Payment';
