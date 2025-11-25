@@ -8,11 +8,25 @@ import 'package:skelter/widgets/styling/app_colors.dart';
 
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  debugPrint('Message data: ${message.data}');
+  debugPrint('Background Message data: ${message.data}');
 }
 
 class NotificationService {
   NotificationService._();
+
+  // Channel constants
+  final basicChannel = 'basic_channel';
+  final basicChannelName = 'Basic notifications';
+  final basicChannelDescription =
+      'Notification channel for basic notifications';
+  final basicChannelSound = 'resource://raw/basic';
+  final reminderChannel = 'reminder_channel';
+  final reminderChannelName = 'Reminders';
+  final reminderChannelDescription = 'Notification channel for reminders';
+  final reminderChannelSound = 'resource://raw/reminder';
+  final appIcon = 'resource://drawable/ic_launcher';
+  final defaultNotificationTitle = 'New Notification';
+  final defaultNotificationBody = '';
 
   static final NotificationService instance = NotificationService._();
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
@@ -41,28 +55,30 @@ class NotificationService {
 
   Future<void> _initializeAwesomeNotifications() async {
     await _awesomeNotifications.initialize(
-      'resource://drawable/ic_launcher',
+      appIcon,
       [
         NotificationChannel(
-          channelKey: 'basic_channel',
-          channelName: 'Basic notifications',
-          channelDescription: 'Notification channel for basic notifications',
+          channelKey: basicChannel,
+          channelName: basicChannelName,
+          channelDescription: basicChannelDescription,
           ledColor: AppColors.white,
           defaultColor: AppColors.brand500,
           importance: NotificationImportance.High,
           channelShowBadge: true,
           playSound: true,
+          soundSource: basicChannelSound,
           enableVibration: true,
         ),
         NotificationChannel(
-          channelKey: 'reminder_channel',
-          channelName: 'Reminders',
-          channelDescription: 'Notification channel for reminders',
+          channelKey: reminderChannel,
+          channelName: reminderChannelName,
+          channelDescription: reminderChannelDescription,
           ledColor: AppColors.white,
           defaultColor: AppColors.brand500,
           importance: NotificationImportance.High,
           channelShowBadge: true,
           playSound: true,
+          soundSource: reminderChannelSound,
           enableVibration: true,
         ),
       ],
@@ -97,16 +113,15 @@ class NotificationService {
   }
 
   Future<void> _handleForegroundMessage(RemoteMessage message) async {
-    debugPrint('Got a message in foreground: ${message.messageId}');
-    debugPrint('Message data: ${message.data}');
+    debugPrint('Foreground Message data: ${message.data}');
 
     final notification = message.notification;
     final data = message.data;
 
     if (notification != null) {
       await showNotification(
-        title: notification.title ?? 'New Notification',
-        body: notification.body ?? '',
+        title: notification.title ?? defaultNotificationTitle,
+        body: notification.body ?? defaultNotificationBody,
         payload: data,
         imageUrl:
             notification.android?.imageUrl ?? notification.apple?.imageUrl,
@@ -115,9 +130,6 @@ class NotificationService {
   }
 
   void _handleMessageOpenedApp(RemoteMessage message) {
-    debugPrint('Message opened app: ${message.messageId}');
-    debugPrint('Message data: ${message.data}');
-
     _onNotificationTapController.add(message.data);
   }
 
@@ -144,12 +156,11 @@ class NotificationService {
     required String body,
     Map<String, dynamic>? payload,
     String? imageUrl,
-    String channelKey = 'basic_channel',
   }) async {
     await _awesomeNotifications.createNotification(
       content: NotificationContent(
         id: DateTime.now().millisecondsSinceEpoch.remainder(100000),
-        channelKey: channelKey,
+        channelKey: basicChannel,
         title: title,
         body: body,
         payload: payload?.map((key, value) => MapEntry(key, value.toString())),
@@ -167,23 +178,20 @@ class NotificationService {
   static Future<void> _onNotificationCreatedMethod(
     ReceivedNotification receivedNotification,
   ) async {
-    debugPrint('Notification created: ${receivedNotification.id}');
+    // Notification created callback
   }
 
   @pragma('vm:entry-point')
   static Future<void> _onNotificationDisplayedMethod(
     ReceivedNotification receivedNotification,
   ) async {
-    debugPrint('Notification displayed: ${receivedNotification.id}');
+    // Notification displayed callback
   }
 
-  // On Tap Foreground notification
   @pragma('vm:entry-point')
   static Future<void> _onActionReceivedMethod(
     ReceivedAction receivedAction,
   ) async {
-    debugPrint('Notification action received: ${receivedAction.id}');
-    debugPrint('Payload: ${receivedAction.payload}');
     final payloadMap = receivedAction.payload ?? {};
     instance._onNotificationTapController.add(payloadMap);
   }
@@ -192,7 +200,7 @@ class NotificationService {
   static Future<void> _onDismissActionReceivedMethod(
     ReceivedAction receivedAction,
   ) async {
-    debugPrint('Notification dismissed: ${receivedAction.id}');
+    // Notification dismissed callback
   }
 
   Future<bool> scheduleReminder(ReminderModel reminder) async {
@@ -200,7 +208,7 @@ class NotificationService {
       await _awesomeNotifications.createNotification(
         content: NotificationContent(
           id: reminder.id,
-          channelKey: 'reminder_channel',
+          channelKey: reminderChannel,
           title: reminder.title,
           body: reminder.description,
           wakeUpScreen: true,
@@ -212,11 +220,6 @@ class NotificationService {
           allowWhileIdle: true,
           preciseAlarm: true,
         ),
-      );
-
-      debugPrint(
-        'Scheduled reminder: ${reminder.title} at '
-        '${reminder.scheduledDateTime}',
       );
       return true;
     } catch (e) {
