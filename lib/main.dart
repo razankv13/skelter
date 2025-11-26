@@ -53,6 +53,7 @@ class _MainAppState extends State<MainApp> {
       InternetConnectivityHelper();
 
   late ThemeBloc themeBloc;
+
   @override
   void initState() {
     super.initState();
@@ -76,7 +77,7 @@ class _MainAppState extends State<MainApp> {
     if (!isConnected) {
       final stillDisconnected = !_connectivityHelper.onConnectivityChange.value;
       if (!stillDisconnected) return;
-      await rootNavigatorKey.currentContext!.pushRoute(const NoInternetRoute());
+      await rootNavigatorKey.currentContext!.pushRoute(NoInternetRoute());
     } else {
       dismissConnectivityPopup();
     }

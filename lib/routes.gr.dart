@@ -757,18 +757,51 @@ class NetworkImageRouteArgs {
 
 /// generated route for
 /// [_i23.NoInternetScreen]
-class NoInternetRoute extends _i36.PageRouteInfo<void> {
-  const NoInternetRoute({List<_i36.PageRouteInfo>? children})
-      : super(NoInternetRoute.name, initialChildren: children);
+class NoInternetRoute extends _i36.PageRouteInfo<NoInternetRouteArgs> {
+  NoInternetRoute({
+    bool canPop = false,
+    _i37.Key? key,
+    List<_i36.PageRouteInfo>? children,
+  }) : super(
+          NoInternetRoute.name,
+          args: NoInternetRouteArgs(canPop: canPop, key: key),
+          initialChildren: children,
+        );
 
   static const String name = 'NoInternetRoute';
 
   static _i36.PageInfo page = _i36.PageInfo(
     name,
     builder: (data) {
-      return const _i23.NoInternetScreen();
+      final args = data.argsAs<NoInternetRouteArgs>(
+        orElse: () => const NoInternetRouteArgs(),
+      );
+      return _i23.NoInternetScreen(canPop: args.canPop, key: args.key);
     },
   );
+}
+
+class NoInternetRouteArgs {
+  const NoInternetRouteArgs({this.canPop = false, this.key});
+
+  final bool canPop;
+
+  final _i37.Key? key;
+
+  @override
+  String toString() {
+    return 'NoInternetRouteArgs{canPop: $canPop, key: $key}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! NoInternetRouteArgs) return false;
+    return canPop == other.canPop && key == other.key;
+  }
+
+  @override
+  int get hashCode => canPop.hashCode ^ key.hashCode;
 }
 
 /// generated route for
