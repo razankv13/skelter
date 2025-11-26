@@ -12,6 +12,8 @@ class MockFirebaseAuth extends Mock implements FirebaseAuth {
 
   final MockUser _mockUser = MockUser();
 
+  MockUser get testUser => _mockUser;
+
   @override
   User? get currentUser => _mockUser;
 
@@ -66,6 +68,12 @@ class MockFirebaseAuthService extends Mock implements FirebaseAuthService {
 
   bool loginWithAppleShouldFail = false;
   String loginWithAppleError = 'Apple sign-in failed';
+
+  bool signupWithEmailShouldFail = false;
+  String signupWithEmailError = 'Email already in use';
+  User? signupWithEmailUser;
+  String? signupWithEmailUserEmail;
+  bool? signupWithEmailUserVerified;
 
   @override
   Future<void> verifyFBAuthPhoneNumber({
@@ -138,6 +146,26 @@ class MockFirebaseAuthService extends Mock implements FirebaseAuthService {
     }
     return MockUserCredential(MockUser(email: 'apple@example.com'));
   }
+
+  @override
+  Future<UserCredential?> signupWithEmailAndPassword(
+    String email,
+    String password, {
+    required Function(String, {StackTrace? stackTrace}) onError,
+  }) async {
+    if (signupWithEmailShouldFail) {
+      onError(signupWithEmailError);
+      return null;
+    }
+    final user = signupWithEmailUser ??
+        (signupWithEmailUserEmail != null || signupWithEmailUserVerified != null
+            ? MockUser(
+                email: signupWithEmailUserEmail ?? email,
+                emailVerified: signupWithEmailUserVerified ?? false,
+              )
+            : MockUser(email: email));
+    return MockUserCredential(user);
+  }
 }
 
 class MockUserCredential extends Mock implements UserCredential {
@@ -155,13 +183,17 @@ class MockUser extends Mock implements User {
         _emailVerified = emailVerified;
 
   final String? _email;
-  final bool _emailVerified;
+  bool _emailVerified;
 
   @override
   String? get email => _email;
 
   @override
   bool get emailVerified => _emailVerified;
+
+  void setEmailVerified({required bool isEmailVerified}) {
+    _emailVerified = isEmailVerified;
+  }
 
   @override
   String get uid => 'mock-user-id';
@@ -173,4 +205,7 @@ class MockUser extends Mock implements User {
   Future<String> getIdToken([bool forceRefresh = false]) {
     return Future.value('mock-firebase-id-token');
   }
+
+  @override
+  Future<void> reload() async {}
 }

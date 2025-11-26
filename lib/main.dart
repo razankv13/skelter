@@ -10,6 +10,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:sizer/sizer.dart';
 import 'package:skelter/core/clarity_analytics/clarity_route_observer.dart';
+import 'package:skelter/core/deep_link/app_deep_link_manager.dart';
+import 'package:skelter/core/services/injection_container.dart';
 import 'package:skelter/i18n/app_localizations.dart';
 import 'package:skelter/i18n/i18n.dart';
 import 'package:skelter/initialize_app.dart';
@@ -64,6 +66,10 @@ class _MainAppState extends State<MainApp> {
 
     final themeService = ThemeService();
     themeBloc = ThemeBloc(service: themeService)..add(const LoadTheme());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await sl<AppDeepLinkManager>().initializeDeepLink();
+    });
 
     _notificationSubscription =
         NotificationService.instance.onNotificationTap.listen(
