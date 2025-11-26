@@ -78,7 +78,10 @@ class ProductDetailBody extends StatelessWidget {
     }
 
     return Scaffold(
-      appBar: ProductDetailAppBar(category: productDetail.category),
+      appBar: ProductDetailAppBar(
+        category: productDetail.category,
+        productId: productDetail.id,
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButtonAnimator: FloatingActionButtonAnimator.noAnimation,
       floatingActionButton: SizedBox(
