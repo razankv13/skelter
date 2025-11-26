@@ -59,7 +59,7 @@ class _EmailTextFieldState extends State<EmailTextField> {
             color: context.currentTheme.textNeutralPrimary,
           ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 6),
         ClarityMask(
           child: TextField(
             key: keys.signupPage.signupEmailTextField,
