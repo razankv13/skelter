@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:vibration/vibration.dart';
 import 'package:vibration/vibration_presets.dart';
@@ -6,16 +5,7 @@ import 'package:vibration/vibration_presets.dart';
 class HapticFeedbackUtil {
   HapticFeedbackUtil._();
 
-  static bool get isSupported => Platform.isAndroid || Platform.isIOS;
-
-  static Future<bool> get hasVibrator async =>
-      isSupported && (await Vibration.hasVibrator());
-
-  static Future<bool> get hasCustomVibrations async =>
-      isSupported && (await Vibration.hasCustomVibrationsSupport());
-
-  static Future<bool> get hasAmplitudeControl async =>
-      isSupported && (await Vibration.hasAmplitudeControl());
+  static Future<bool> get hasVibrator async => (await Vibration.hasVibrator());
 
   static Future<void> _vibrate({
     List<int> pattern = const [],
@@ -23,15 +13,19 @@ class HapticFeedbackUtil {
     int repeat = -1,
     int fallbackDuration = 20,
   }) async {
-    if (!isSupported || !(await hasVibrator)) return;
+    if (!(await hasVibrator)) return;
 
     await Vibration.cancel();
 
     try {
-      if (pattern.isNotEmpty && await hasCustomVibrations) {
+      if (pattern.isNotEmpty && await Vibration.hasCustomVibrationsSupport()) {
+        final bool hasAmplitudeControl = await Vibration.hasAmplitudeControl();
+
         await Vibration.vibrate(
           pattern: pattern,
-          intensities: intensities,
+// Note:It will use custom intensities if the device supports amplitude control.
+// If not supported, the system will use the default vibration strength.
+          intensities: hasAmplitudeControl ? intensities : [],
           repeat: repeat,
         );
         return;
@@ -146,11 +140,4 @@ class HapticFeedbackUtil {
         intensities: intensities,
         repeat: repeat,
       );
-
-  static Future<void> cancel() async {
-    if (!isSupported) return;
-    try {
-      await Vibration.cancel();
-    } catch (_) {}
-  }
 }
