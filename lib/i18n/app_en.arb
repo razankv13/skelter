@@ -379,6 +379,18 @@
   "product_photos": "Product Photos",
   "view_product_reviews": "View Product Reviews",
   "no_product_detail_found": "No Product Detail Found!",
-  "product_details": "Product Details"
+  "product_details": "Product Details",
+  "share_product_subject": "Product on Skelter",
+  "@share_product_subject": {
+    "description": "Subject line used when sharing a product"
+  },
+
+  "share_product_message": "I found this product on Skelter and thought you might like it.\n\nCheck it out here:\n{url}",
+  "@share_product_message": {
+    "description": "Share body with product name and product URL",
+    "placeholders": {
+      "url": { "type": "String", "example": "https://skelter.solz.me/product-detail/P001" }
+    }
+  }
 
 }

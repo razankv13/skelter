@@ -891,4 +891,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get product_details => 'Product Details';
+
+  @override
+  String get share_product_subject => 'Product on Skelter';
+
+  @override
+  String share_product_message(String url) {
+    return 'I found this product on Skelter and thought you might like it.\n\nCheck it out here:\n$url';
+  }
 }
