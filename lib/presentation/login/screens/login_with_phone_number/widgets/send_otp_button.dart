@@ -47,7 +47,7 @@ class SendOTPButton extends StatelessWidget {
           ? AppButtonState.normal
           : AppButtonState.disabled,
       isLoading: isLoading,
-      onPressed: () async {
+      onPressed: () {
         final isConnected =
             InternetConnectivityHelper().onConnectivityChange.value;
 

@@ -73,7 +73,7 @@ class MoreLoginOptionsButton extends StatelessWidget {
             leftIconPath: Assets.icons.google.path,
             size: AppButtonSize.extraLarge,
             backgroundColor: context.currentTheme.bgSurfaceBase2,
-            onPressed: () async {
+            onPressed: () {
               final isConnected =
                   InternetConnectivityHelper().onConnectivityChange.value;
 
@@ -97,7 +97,7 @@ class MoreLoginOptionsButton extends StatelessWidget {
               style: AppButtonStyle.outline,
               leftIconPath: Assets.icons.apple,
               size: AppButtonSize.extraLarge,
-              onPressed: () async {
+              onPressed: () {
                 final isConnected =
                     InternetConnectivityHelper().onConnectivityChange.value;
 
@@ -124,7 +124,7 @@ class MoreLoginOptionsButton extends StatelessWidget {
             style: AppButtonStyle.outline,
             size: AppButtonSize.extraLarge,
             backgroundColor: context.currentTheme.bgSurfaceBase2,
-            onPressed: () async {
+            onPressed: () {
               context
                   .read<LoginBloc>()
                   .add(EnableSignupModeEvent(isSignup: !isSignup));

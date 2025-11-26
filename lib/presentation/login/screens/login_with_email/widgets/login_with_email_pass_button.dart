@@ -43,8 +43,8 @@ class LoginWithEmailPassButton extends StatelessWidget {
           ? AppButtonState.normal
           : AppButtonState.disabled,
       isLoading: isLoading,
-      onPressed: () async {
-        await SystemChannels.textInput.invokeMethod('TextInput.hide');
+      onPressed: () {
+        SystemChannels.textInput.invokeMethod('TextInput.hide');
         final isConnected =
             InternetConnectivityHelper().onConnectivityChange.value;
 
