@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/checkout/bloc/checkout_bloc.dart';
-import 'package:skelter/utils/extensions/currency_formatter_extensions.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class TotalAmount extends StatelessWidget {
@@ -25,7 +24,7 @@ class TotalAmount extends StatelessWidget {
         ),
         const SizedBox(height: 6),
         Text(
-          context.formatCurrency(finalAmount, decimalDigits: 2),
+          '\$$finalAmount',
           style: AppTextStyles.h6Bold
               .copyWith(color: context.currentTheme.textNeutralPrimary),
         ),
