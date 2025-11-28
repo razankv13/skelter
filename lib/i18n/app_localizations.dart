@@ -1899,6 +1899,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Product Details'**
   String get product_details;
+
+  /// Subject line used when sharing a product
+  ///
+  /// In en, this message translates to:
+  /// **'Product on Skelter'**
+  String get share_product_subject;
+
+  /// Share body with product name and product URL
+  ///
+  /// In en, this message translates to:
+  /// **'I found this product on Skelter and thought you might like it.\n\nCheck it out here:\n{url}'**
+  String share_product_message(String url);
 }
 
 class _AppLocalizationsDelegate
