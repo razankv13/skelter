@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:skelter/main.dart';
+import 'package:skelter/presentation/product_detail/constant/product_detail_constants.dart';
 import 'package:skelter/routes.gr.dart';
 
 class AppDeepLinkManager {
@@ -108,13 +109,10 @@ class AppDeepLinkManager {
 
   void disposeDeepLinkListener() => _linkSubscription?.cancel();
 
-  // TODO: Replace hardcoded values once the Product Detail Share PR is merged,
-  // TODO: because constants for deep link validation will be available there.
-
   bool _isValidDeepLink(Uri uri) {
-    return uri.scheme == 'https' &&
-        uri.host == 'skelter.solz.me' &&
+    return uri.scheme == kDeepLinkScheme &&
+        uri.host == kHost &&
         uri.pathSegments.length >= 2 &&
-        uri.pathSegments[0] == 'product-detail';
+        uri.pathSegments[0] == kProductDetail;
   }
 }
