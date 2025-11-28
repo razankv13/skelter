@@ -214,7 +214,7 @@ void main() {
             ),
           ),
         );
-        expect(find.text('1.234.567,89 \$'), findsOneWidget);
+        expect(find.text('1.234.567,89\$'), findsOneWidget);
       });
 
       testWidgets('custom grouping # and 0 decimals', (tester) async {
@@ -236,7 +236,7 @@ void main() {
             ),
           ),
         );
-        expect(find.text('1#234#568 \$'), findsOneWidget);
+        expect(find.text('1#234#568\$'), findsOneWidget);
       });
 
       testWidgets('custom symbol separator', (tester) async {
@@ -257,7 +257,7 @@ void main() {
             ),
           ),
         );
-        expect(find.text('1,234.56::: \$'), findsOneWidget);
+        expect(find.text('1,234.56:::\$'), findsOneWidget);
       });
 
       testWidgets('symbol explicit left', (tester) async {
@@ -297,7 +297,7 @@ void main() {
             ),
           ),
         );
-        expect(find.text(r'99.99 $'), findsOneWidget);
+        expect(find.text(r'99.99$'), findsOneWidget);
       });
     });
 
@@ -553,7 +553,7 @@ void main() {
             ),
           ),
         );
-        expect(find.text('50.00 £'), findsOneWidget);
+        expect(find.text('50.00£'), findsOneWidget);
       });
     });
 

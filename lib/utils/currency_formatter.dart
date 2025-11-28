@@ -106,13 +106,12 @@ class CurrencyFormatter {
         : '';
 
     final numberFormat = NumberFormat.currency(locale: locale);
-    const SYMBOL_SEP = ' ';
 
     final resolvedGroupingSeparator =
         groupingSeparator ?? numberFormat.symbols.GROUP_SEP;
     final resolvedDecimalSeparator =
         decimalSeparator ?? numberFormat.symbols.DECIMAL_SEP;
-    final resolvedSymbolSeparator = symbolSeparator ?? SYMBOL_SEP;
+    final resolvedSymbolSeparator = symbolSeparator ?? '';
     final resolvedDecimalDigits = decimalDigits ?? 2;
 
     final isNegative = amount < 0;
