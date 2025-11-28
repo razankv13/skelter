@@ -929,4 +929,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get reminder_schedule_failed => 'Failed to schedule reminder';
+
+  @override
+  String get share_product_subject => 'Product on Skelter';
+
+  @override
+  String share_product_message(String url) {
+    return 'I found this product on Skelter and thought you might like it.\n\nCheck it out here:\n$url';
+  }
 }
