@@ -86,7 +86,7 @@ class ReminderBloc extends Bloc<ReminderEvent, ReminderState> {
 
     try {
       final reminder = ReminderModel(
-        id: Random().nextInt(100000),
+        id: DateTime.now().millisecondsSinceEpoch,
         title: state.title,
         description: state.description,
         scheduledDateTime: state.selectedDateTime,

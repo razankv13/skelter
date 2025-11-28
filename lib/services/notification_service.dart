@@ -24,7 +24,7 @@ class NotificationService {
   final reminderChannelName = 'Reminders';
   final reminderChannelDescription = 'Notification channel for reminders';
   final reminderChannelSound = 'resource://raw/reminder';
-  final appIcon = 'resource://drawable/ic_launcher';
+  final appIcon = 'resource://drawable/ic_notification';
   final defaultNotificationTitle = 'New Notification';
   final defaultNotificationBody = '';
 
@@ -120,11 +120,10 @@ class NotificationService {
 
     if (notification != null) {
       await showNotification(
-        title: notification.title ?? defaultNotificationTitle,
-        body: notification.body ?? defaultNotificationBody,
-        payload: data,
+        data: data,
         imageUrl:
             notification.android?.imageUrl ?? notification.apple?.imageUrl,
+        notification: notification,
       );
     }
   }
@@ -152,18 +151,30 @@ class NotificationService {
   }
 
   Future<void> showNotification({
-    required String title,
-    required String body,
-    Map<String, dynamic>? payload,
+    Map<String, dynamic>? data,
     String? imageUrl,
+    RemoteNotification? notification,
   }) async {
+    // Create a unique ID for each notification
+    int notificationId;
+    if (data?['notification_id'] != null) {
+      // Convert UUID to a valid 32-bit integer by hashing
+      final notificationIdStr = data!['notification_id'].toString();
+      // Simple hash function that produces a 31-bit positive integer
+      // (avoiding sign issues)
+      notificationId = notificationIdStr.hashCode & 0x7FFFFFFF;
+    } else {
+      // Fallback to timestamp but ensure it's within 32-bit range
+      notificationId = DateTime.now().millisecondsSinceEpoch & 0x7FFFFFFF;
+    }
+
     await _awesomeNotifications.createNotification(
       content: NotificationContent(
-        id: DateTime.now().millisecondsSinceEpoch.remainder(100000),
+        id: notificationId,
         channelKey: basicChannel,
-        title: title,
-        body: body,
-        payload: payload?.map((key, value) => MapEntry(key, value.toString())),
+        title: notification?.title ?? defaultNotificationTitle,
+        body: notification?.body ?? defaultNotificationBody,
+        payload: data?.cast(),
         bigPicture: imageUrl,
         notificationLayout: imageUrl != null
             ? NotificationLayout.BigPicture
@@ -205,9 +216,14 @@ class NotificationService {
 
   Future<bool> scheduleReminder(ReminderModel reminder) async {
     try {
+      // Convert ID to a valid 32-bit integer by hashing
+      // Simple hash function that produces a 31-bit positive integer
+      // (avoiding sign issues)
+      final notificationId = reminder.id.toString().hashCode & 0x7FFFFFFF;
+
       await _awesomeNotifications.createNotification(
         content: NotificationContent(
-          id: reminder.id,
+          id: notificationId,
           channelKey: reminderChannel,
           title: reminder.title,
           body: reminder.description,
