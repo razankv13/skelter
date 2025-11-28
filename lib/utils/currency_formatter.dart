@@ -106,33 +106,35 @@ class CurrencyFormatter {
         : '';
 
     final numberFormat = NumberFormat.currency(locale: locale);
-    final effectiveGroupingSeparator =
+    const SYMBOL_SEP = ' ';
+
+    final resolvedGroupingSeparator =
         groupingSeparator ?? numberFormat.symbols.GROUP_SEP;
-    final effectiveDecimalSeparator =
+    final resolvedDecimalSeparator =
         decimalSeparator ?? numberFormat.symbols.DECIMAL_SEP;
-    final effectiveSymbolSeparator = symbolSeparator ?? ' ';
-    final effectiveDecimalDigits = decimalDigits ?? 2;
+    final resolvedSymbolSeparator = symbolSeparator ?? SYMBOL_SEP;
+    final resolvedDecimalDigits = decimalDigits ?? 2;
 
     final isNegative = amount < 0;
     num absoluteAmount = amount.abs();
 
-    if (effectiveDecimalDigits == 0) {
+    if (resolvedDecimalDigits == 0) {
       absoluteAmount = absoluteAmount.round();
     }
 
     final integerPart = absoluteAmount.floor();
     final decimalPart =
-        ((absoluteAmount - integerPart) * pow(10, effectiveDecimalDigits))
+        ((absoluteAmount - integerPart) * pow(10, resolvedDecimalDigits))
             .round();
 
     String integerString = integerPart.toString();
 
-    if (effectiveGroupingSeparator.isNotEmpty && integerString.length > 3) {
+    if (resolvedGroupingSeparator.isNotEmpty && integerString.length > 3) {
       final buffer = StringBuffer();
       int counter = 0;
       for (int i = integerString.length - 1; i >= 0; i--) {
         if (counter == 3) {
-          buffer.write(effectiveGroupingSeparator);
+          buffer.write(resolvedGroupingSeparator);
           counter = 0;
         }
         buffer.write(integerString[i]);
@@ -141,28 +143,28 @@ class CurrencyFormatter {
       integerString = buffer.toString().split('').reversed.join();
     }
 
-    final decimalString = effectiveDecimalDigits > 0
+    final decimalString = resolvedDecimalDigits > 0
         ? decimalPart
             .toString()
-            .padLeft(effectiveDecimalDigits, '0')
-            .substring(0, effectiveDecimalDigits)
+            .padLeft(resolvedDecimalDigits, '0')
+            .substring(0, resolvedDecimalDigits)
         : '';
 
     String formattedAmount = integerString +
         (decimalString.isNotEmpty
-            ? '$effectiveDecimalSeparator$decimalString'
+            ? '$resolvedDecimalSeparator$decimalString'
             : '');
     if (isNegative) formattedAmount = '-$formattedAmount';
 
     if (!shouldShowSymbol || symbol.isEmpty) return formattedAmount;
 
-    final effectiveSide = symbolSide == CurrencySymbolPosition.defaultLocale
+    final resolvedSide = symbolSide == CurrencySymbolPosition.defaultLocale
         ? _getCurrencySymbolPosition(locale, currencyCode)
         : symbolSide;
 
-    return effectiveSide == CurrencySymbolPosition.left
-        ? '$symbol$effectiveSymbolSeparator$formattedAmount'
-        : '$formattedAmount$effectiveSymbolSeparator$symbol';
+    return resolvedSide == CurrencySymbolPosition.left
+        ? '$symbol$resolvedSymbolSeparator$formattedAmount'
+        : '$formattedAmount$resolvedSymbolSeparator$symbol';
   }
 
   static CurrencySymbolPosition _getCurrencySymbolPosition(
@@ -170,15 +172,21 @@ class CurrencyFormatter {
     String? currencyCode,
   ) {
     try {
-      final sample =
-          NumberFormat.simpleCurrency(locale: locale, name: currencyCode)
-              .format(100);
-      return sample.indexOf('100') <
-              sample.indexOf(sample.replaceAll(RegExp(r'\d'), ''))
+      final formattedSample = NumberFormat.simpleCurrency(
+        locale: locale,
+        name: currencyCode,
+      ).format(100);
+
+      final numberStartIndex = formattedSample.indexOf('100');
+      final symbolPart = formattedSample.replaceAll(RegExp(r'\d'), '');
+      final symbolStartIndex = formattedSample.indexOf(symbolPart);
+      final isSymbolBeforeNumber = symbolStartIndex < numberStartIndex;
+
+      return isSymbolBeforeNumber
           ? CurrencySymbolPosition.left
           : CurrencySymbolPosition.right;
     } catch (_) {
-      return CurrencySymbolPosition.left;
+      return CurrencySymbolPosition.defaultLocale;
     }
   }
 
