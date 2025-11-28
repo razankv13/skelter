@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:skelter/presentation/subscription_activated/widgets/go_to_home_screen_button.dart';
+import 'package:skelter/presentation/subscription_activated/widgets/navigate_to_home_screen_button.dart';
 import 'package:skelter/presentation/subscription_activated/widgets/subscription_activated_message.dart';
 import 'package:skelter/presentation/subscription_activated/widgets/subscription_activated_success_icon.dart';
 import 'package:skelter/presentation/subscription_activated/widgets/subscription_activated_title.dart';
@@ -31,7 +31,7 @@ class SubscriptionActivatedScreen extends StatelessWidget {
         ),
         bottomNavigationBar: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 32),
-          child: GoToHomeScreenButton(),
+          child: NavigateToHomeScreenButton(),
         ),
       ),
     );

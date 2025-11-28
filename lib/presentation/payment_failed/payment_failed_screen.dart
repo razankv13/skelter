@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:skelter/presentation/payment_failed/widgets/go_to_home_screen_button.dart';
+import 'package:skelter/presentation/payment_failed/widgets/navigate_to_home_screen_button.dart';
 import 'package:skelter/presentation/payment_failed/widgets/payment_failed_icon.dart';
 import 'package:skelter/presentation/payment_failed/widgets/payment_failed_message.dart';
 import 'package:skelter/presentation/payment_failed/widgets/retry_payment_button.dart';
@@ -34,7 +34,7 @@ class PaymentFailedScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               RetryPaymentButton(),
-              GoToHomeScreenButton(),
+              NavigateToHomeScreenButton(),
               SizedBox(height: 16),
             ],
           ),

@@ -5,15 +5,17 @@ import 'package:skelter/routes.gr.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 import 'package:skelter/widgets/app_button/app_button.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_size_enum.dart';
+import 'package:skelter/widgets/app_button/enums/app_button_style_enum.dart';
 
-class GoToHomeScreenButton extends StatelessWidget {
-  const GoToHomeScreenButton({super.key});
+class NavigateToHomeScreenButton extends StatelessWidget {
+  const NavigateToHomeScreenButton({super.key});
 
   @override
   Widget build(BuildContext context) {
     return AppButton(
       label: context.localization.go_to_home,
-      foregroundColor: context.currentTheme.textNeutralLight,
+      style: AppButtonStyle.textOrIcon,
+      foregroundColor: context.currentTheme.textBrandSecondary,
       shouldSetFullWidth: true,
       size: AppButtonSize.extraLarge,
       onPressed: () => context.router.pushAndPopUntil(

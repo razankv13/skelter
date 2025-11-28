@@ -1690,6 +1690,18 @@ abstract class AppLocalizations {
   /// **'Go to Home'**
   String get go_to_home;
 
+  /// No description provided for @subscription_management_url_unavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn’t load your subscription settings. Please try again later.'**
+  String get subscription_management_url_unavailable;
+
+  /// No description provided for @subscription_invalid_url.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid subscription URL.'**
+  String get subscription_invalid_url;
+
   /// No description provided for @force_update_keys.
   ///
   /// In en, this message translates to:

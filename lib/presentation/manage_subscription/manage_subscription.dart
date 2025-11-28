@@ -1,13 +1,11 @@
-import 'dart:io';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/manage_subscription/widgets/manage_subscripton_app_bar.dart';
-import 'package:skelter/presentation/profile/constants/analytics_constant.dart';
+import 'package:skelter/utils/extensions/build_context_ext.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -55,7 +53,7 @@ class ManageSubscriptionScreen extends StatelessWidget {
                     TablerIcons.chevron_right,
                     color: context.currentTheme.iconNeutralDefault,
                   ),
-                  onTap: _handleManageSubscriptions,
+                  onTap: () => _handleManageSubscriptions(context),
                 ),
               ),
             ],
@@ -65,14 +63,36 @@ class ManageSubscriptionScreen extends StatelessWidget {
     );
   }
 
-  Future<void> _handleManageSubscriptions() async {
-    final url =
-        Platform.isIOS ? appStoreSubscriptionUrl : playStoreSubscriptionUrl;
-
+  Future<void> _handleManageSubscriptions(BuildContext context) async {
     try {
-      await launchUrl(Uri.parse(url));
-    } on PlatformException catch (e) {
-      debugPrint(e.toString());
+      final url = await _getUserManagementUrl();
+      if (url == null || url.isEmpty) {
+        if (context.mounted) {
+          context.showSnackBar(
+            context.localization.subscription_management_url_unavailable,
+          );
+        }
+        return;
+      }
+
+      final uri = Uri.tryParse(url);
+      if (uri == null) {
+        context.showSnackBar(context.localization.subscription_invalid_url);
+        return;
+      }
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } catch (e) {
+      debugPrint('Unexpected error managing subscriptions: $e');
+    }
+  }
+
+  Future<String?> _getUserManagementUrl() async {
+    try {
+      final customerInfo = await Purchases.getCustomerInfo();
+      return customerInfo.managementURL;
+    } catch (e) {
+      debugPrint('Error getting management URL: $e');
+      return null;
     }
   }
 }

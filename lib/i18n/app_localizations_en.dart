@@ -887,6 +887,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get go_to_home => 'Go to Home';
 
   @override
+  String get subscription_management_url_unavailable =>
+      'We couldn’t load your subscription settings. Please try again later.';
+
+  @override
+  String get subscription_invalid_url => 'Invalid subscription URL.';
+
+  @override
   String get force_update_keys =>
       '================ FORCE UPDATE KEYS ================';
 
