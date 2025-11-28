@@ -9,6 +9,7 @@ import 'package:skelter/gen/assets.gen.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/checkout/model/product_cart.dart';
 import 'package:skelter/utils/app_environment.dart';
+import 'package:skelter/utils/extensions/currency_formatter_extensions.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class CartOrderItem extends StatelessWidget {
@@ -99,7 +100,10 @@ class CartOrderItem extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      '\$${cartModel.product.price.toStringAsFixed(2)}',
+                      context.formatCurrency(
+                        cartModel.product.price.toString(),
+                        decimalDigits: 2,
+                      ),
                       style: AppTextStyles.p2SemiBold.copyWith(
                         color: context.currentTheme.textNeutralPrimary,
                       ),

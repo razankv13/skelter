@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/checkout/bloc/checkout_bloc.dart';
+import 'package:skelter/utils/extensions/currency_formatter_extensions.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class OrderSummary extends StatelessWidget {
@@ -55,7 +56,7 @@ class OrderSummary extends StatelessWidget {
               ),
               const Spacer(),
               Text(
-                '\$${totalPrice.toStringAsFixed(2)}',
+                context.formatCurrency(totalPrice.toString, decimalDigits: 2),
                 style: AppTextStyles.p3Regular
                     .copyWith(color: context.currentTheme.textNeutralPrimary),
               ),
@@ -71,7 +72,7 @@ class OrderSummary extends StatelessWidget {
               ),
               const Spacer(),
               Text(
-                '\$$discount',
+                context.formatCurrency(discount),
                 style: AppTextStyles.p3Regular.copyWith(
                   color: context.currentTheme.textSuccessSecondary,
                 ),
@@ -88,7 +89,7 @@ class OrderSummary extends StatelessWidget {
               ),
               const Spacer(),
               Text(
-                '\$$deliveryCharges',
+                context.formatCurrency(deliveryCharges),
                 style: AppTextStyles.p3Regular
                     .copyWith(color: context.currentTheme.textNeutralPrimary),
               ),
@@ -104,7 +105,7 @@ class OrderSummary extends StatelessWidget {
               ),
               const Spacer(),
               Text(
-                '\$$finalAmount',
+                context.formatCurrency(finalAmount),
                 style: AppTextStyles.h6Bold
                     .copyWith(color: context.currentTheme.textNeutralPrimary),
               ),
