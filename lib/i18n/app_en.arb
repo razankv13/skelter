@@ -392,5 +392,17 @@
   "reminder_title_required": "Please enter a title",
   "reminder_future_date_required": "Please select a future date and time",
   "reminder_scheduled_successfully": "Reminder scheduled successfully!",
-  "reminder_schedule_failed": "Failed to schedule reminder"
+  "reminder_schedule_failed": "Failed to schedule reminder",
+  "share_product_subject": "Product on Skelter",
+  "@share_product_subject": {
+    "description": "Subject line used when sharing a product"
+  },
+
+  "share_product_message": "I found this product on Skelter and thought you might like it.\n\nCheck it out here:\n{url}",
+  "@share_product_message": {
+    "description": "Share body with product name and product URL",
+    "placeholders": {
+      "url": { "type": "String", "example": "https://skelter.solz.me/product-detail/P001" }
+    }
+  }
 }
