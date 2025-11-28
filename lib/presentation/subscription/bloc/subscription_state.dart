@@ -43,27 +43,28 @@ class FetchSubscriptionPlanLoadedState extends SubscriptionState {
     required this.packages,
     required this.selectedPackage,
     this.isRestoring = false,
-    this.snackBarMessage,
+    this.restoreStatusMessage,
   });
 
   final List<Package> packages;
   final Package selectedPackage;
   final bool isRestoring;
-  final String? snackBarMessage;
+  final String? restoreStatusMessage;
 
   FetchSubscriptionPlanLoadedState copyWith({
     List<Package>? packages,
     Package? selectedPackage,
     bool? isRestoring,
-    String? snackBarMessage,
+    String? restoreStatusMessage,
     bool clearSnackBar = false,
   }) {
     return FetchSubscriptionPlanLoadedState(
       packages: packages ?? this.packages,
       selectedPackage: selectedPackage ?? this.selectedPackage,
       isRestoring: isRestoring ?? this.isRestoring,
-      snackBarMessage:
-          clearSnackBar ? null : snackBarMessage ?? this.snackBarMessage,
+      restoreStatusMessage: clearSnackBar
+          ? null
+          : restoreStatusMessage ?? this.restoreStatusMessage,
     );
   }
 
@@ -72,7 +73,7 @@ class FetchSubscriptionPlanLoadedState extends SubscriptionState {
         packages,
         selectedPackage,
         isRestoring,
-        snackBarMessage,
+        restoreStatusMessage,
       ];
 }
 

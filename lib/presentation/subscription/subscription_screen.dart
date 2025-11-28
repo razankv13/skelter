@@ -14,6 +14,7 @@ import 'package:skelter/presentation/subscription/widgets/subscription_plan_fetc
 import 'package:skelter/presentation/subscription/widgets/subscription_plans.dart';
 import 'package:skelter/presentation/subscription/widgets/subscription_renew_text.dart';
 import 'package:skelter/presentation/subscription_activated/subscription_activated_screen.dart';
+import 'package:skelter/services/subscription_service.dart';
 import 'package:skelter/utils/extensions/build_context_ext.dart';
 
 @RoutePage()
@@ -24,20 +25,22 @@ class SubscriptionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) {
-        return SubscriptionBloc(localization: context.localization)
-          ..add(const FetchSubscriptionPackagesEvent());
+        return SubscriptionBloc(
+          localization: context.localization,
+          subscriptionService: SubscriptionService(),
+        )..add(const FetchSubscriptionPackagesEvent());
       },
       child: Scaffold(
         body: SafeArea(
           child: BlocListener<SubscriptionBloc, SubscriptionState>(
             listenWhen: (previous, current) {
               return current is FetchSubscriptionPlanLoadedState &&
-                  current.snackBarMessage != null;
+                  current.restoreStatusMessage != null;
             },
             listener: (context, state) {
               if (state is FetchSubscriptionPlanLoadedState &&
-                  state.snackBarMessage != null) {
-                context.showSnackBar(state.snackBarMessage!);
+                  state.restoreStatusMessage != null) {
+                context.showSnackBar(state.restoreStatusMessage!);
                 context
                     .read<SubscriptionBloc>()
                     .add(const ClearSnackBarMessageEvent());

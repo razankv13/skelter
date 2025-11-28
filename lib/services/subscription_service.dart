@@ -30,6 +30,37 @@ class SubscriptionService {
     }
   }
 
+  Future<List<Package>> getPackages() async {
+    try {
+      final offerings = await Purchases.getOfferings();
+      final availablePackages = offerings.current?.availablePackages ?? [];
+      return availablePackages;
+    } on PlatformException catch (e) {
+      debugPrint('Error fetching offerings: $e');
+      rethrow;
+    }
+  }
+
+  Future<bool> restorePurchases() async {
+    final customerInfo = await Purchases.restorePurchases();
+    _updateSubscriptionStatus(customerInfo);
+    return isUserSubscribed.value;
+  }
+
+  Future<void> purchasePackage(Package package) async {
+    await Purchases.purchasePackage(package);
+  }
+
+  Future<String?> getUserManagementUrl() async {
+    try {
+      final customerInfo = await Purchases.getCustomerInfo();
+      return customerInfo.managementURL;
+    } catch (e) {
+      debugPrint('Error getting management URL: $e');
+      return null;
+    }
+  }
+
   void _updateSubscriptionStatus(CustomerInfo customerInfo) {
     isUserSubscribed.value =
         customerInfo.entitlements.active.containsKey(subscriptionEntitlement);

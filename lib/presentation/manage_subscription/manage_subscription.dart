@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
-import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/manage_subscription/widgets/manage_subscripton_app_bar.dart';
+import 'package:skelter/services/subscription_service.dart';
 import 'package:skelter/utils/extensions/build_context_ext.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -64,8 +64,9 @@ class ManageSubscriptionScreen extends StatelessWidget {
   }
 
   Future<void> _handleManageSubscriptions(BuildContext context) async {
+    final subscriptionService = SubscriptionService();
     try {
-      final url = await _getUserManagementUrl();
+      final url = await subscriptionService.getUserManagementUrl();
       if (url == null || url.isEmpty) {
         if (context.mounted) {
           context.showSnackBar(
@@ -83,16 +84,6 @@ class ManageSubscriptionScreen extends StatelessWidget {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
     } catch (e) {
       debugPrint('Unexpected error managing subscriptions: $e');
-    }
-  }
-
-  Future<String?> _getUserManagementUrl() async {
-    try {
-      final customerInfo = await Purchases.getCustomerInfo();
-      return customerInfo.managementURL;
-    } catch (e) {
-      debugPrint('Error getting management URL: $e');
-      return null;
     }
   }
 }

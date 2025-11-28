@@ -5,12 +5,18 @@ import 'package:skelter/i18n/app_localizations.dart';
 import 'package:skelter/presentation/subscription/bloc/subscription_event.dart';
 import 'package:skelter/presentation/subscription/bloc/subscription_state.dart';
 import 'package:skelter/presentation/subscription/constant/subscription_constants.dart';
+import 'package:skelter/services/subscription_service.dart';
 
 class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
-  final AppLocalizations localization;
+  final AppLocalizations _localization;
+  final SubscriptionService _subscriptionService;
 
-  SubscriptionBloc({required this.localization})
-      : super(const FetchSubscriptionPlanLoadingState()) {
+  SubscriptionBloc({
+    required AppLocalizations localization,
+    required SubscriptionService subscriptionService,
+  })  : _localization = localization,
+        _subscriptionService = subscriptionService,
+        super(const FetchSubscriptionPlanLoadingState()) {
     on<FetchSubscriptionPackagesEvent>(_onFetchSubscriptionPackagesEvent);
     on<PurchaseSubscriptionEvent>(_onPurchaseSubscriptionEvent);
     on<SelectSubscriptionPlanEvent>(_onSelectSubscriptionPlanEvent);
@@ -25,13 +31,12 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     emit(const FetchSubscriptionPlanLoadingState());
 
     try {
-      final offerings = await Purchases.getOfferings();
-      final availablePackages = offerings.current?.availablePackages ?? [];
+      final availablePackages = await _subscriptionService.getPackages();
 
       if (availablePackages.isEmpty) {
         emit(
           FetchSubscriptionPlanFailureState(
-            localization.no_subscription_available,
+            _localization.no_subscription_available,
           ),
         );
         return;
@@ -48,7 +53,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     } on Exception {
       emit(
         FetchSubscriptionPlanFailureState(
-          localization.failed_to_load_subscriptions,
+          _localization.failed_to_load_subscriptions,
         ),
       );
     }
@@ -61,30 +66,20 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     emit(const SubscriptionPaymentProcessingState());
 
     try {
-      await Purchases.purchasePackage(event.package);
-
+      await _subscriptionService.purchasePackage(event.package);
       emit(const SubscriptionPaymentSuccessState());
     } on PurchasesError catch (e) {
-      emit(
-        SubscriptionPaymentFailureState(
-          _getPaymentFailureErrorMessage(e.code),
-        ),
+      final error = _getPaymentFailureErrorMessage(
+        code: e.code,
       );
+      emit(SubscriptionPaymentFailureState(error));
     } on Exception {
       emit(
-        SubscriptionPaymentFailureState(localization.unexpected_error_occurred),
+        SubscriptionPaymentFailureState(
+          _localization.unexpected_error_occurred,
+        ),
       );
     }
-  }
-
-  String _getPaymentFailureErrorMessage(PurchasesErrorCode code) {
-    return switch (code) {
-      PurchasesErrorCode.storeProblemError => localization.store_login_required,
-      PurchasesErrorCode.purchaseCancelledError =>
-        localization.user_purchase_cancelled,
-      PurchasesErrorCode.networkError => localization.no_internet_connection,
-      _ => localization.opps_something_went_wrong,
-    };
   }
 
   Future<void> _onSelectSubscriptionPlanEvent(
@@ -109,20 +104,19 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     emit(loadedState.copyWith(isRestoring: true));
 
     try {
-      final customerInfo = await Purchases.restorePurchases();
-      final hasEntitlement = customerInfo.entitlements.active.isNotEmpty;
-      final message = hasEntitlement
-          ? localization.restore_success
-          : localization.no_active_subscriptions;
+      final isRestored = await _subscriptionService.restorePurchases();
+      final message = isRestored
+          ? _localization.restore_success
+          : _localization.no_active_subscriptions;
 
       emit(
-        loadedState.copyWith(isRestoring: false, snackBarMessage: message),
+        loadedState.copyWith(isRestoring: false, restoreStatusMessage: message),
       );
     } on PlatformException catch (e) {
       emit(
         loadedState.copyWith(
           isRestoring: false,
-          snackBarMessage: '${localization.restore_error} ${e.message}',
+          restoreStatusMessage: '${_localization.restore_error} ${e.message}',
         ),
       );
     }
@@ -135,5 +129,18 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     if (state is! FetchSubscriptionPlanLoadedState) return;
     final loadedState = state as FetchSubscriptionPlanLoadedState;
     emit(loadedState.copyWith(clearSnackBar: true));
+  }
+
+  String _getPaymentFailureErrorMessage({
+    required PurchasesErrorCode code,
+  }) {
+    return switch (code) {
+      PurchasesErrorCode.storeProblemError =>
+        _localization.store_login_required,
+      PurchasesErrorCode.purchaseCancelledError =>
+        _localization.user_purchase_cancelled,
+      PurchasesErrorCode.networkError => _localization.no_internet_connection,
+      _ => _localization.opps_something_went_wrong,
+    };
   }
 }
