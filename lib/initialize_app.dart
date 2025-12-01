@@ -33,7 +33,6 @@ Future<void> initializeApp({
   };
 
   await Firebase.initializeApp(options: firebaseOptions);
-  await NotificationService.instance.initialize();
 
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 

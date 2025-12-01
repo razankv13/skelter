@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:skelter/presentation/reminder/model/reminder_model.dart';
@@ -30,10 +32,10 @@ class NotificationService {
 
   static final NotificationService instance = NotificationService._();
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final AwesomeNotifications _awesomeNotifications = AwesomeNotifications();
 
-  final _onNotificationTapController =
-      StreamController<Map<String, dynamic>>();
+  final _onNotificationTapController = StreamController<Map<String, dynamic>>();
 
   StreamSubscription<RemoteMessage>? _onMessageSubscription;
   StreamSubscription<RemoteMessage>? _onMessageOpenedAppSubscription;
@@ -113,10 +115,14 @@ class NotificationService {
   }
 
   Future<void> _handleForegroundMessage(RemoteMessage message) async {
-    debugPrint('Foreground Message data: ${message.data}');
+    if (Platform.isIOS) {
+      return;
+    }
 
     final notification = message.notification;
     final data = message.data;
+
+    debugPrint('Foreground Message data: $data');
 
     if (notification != null) {
       await showNotification(
@@ -134,6 +140,11 @@ class NotificationService {
 
   Future<String?> _getFCMToken() async {
     try {
+      final user = _firebaseAuth.currentUser;
+      if (user == null) {
+        debugPrint('User not logged in, skipping FCM token retrieval');
+        return null;
+      }
       final token = await _firebaseMessaging.getToken();
       debugPrint('FCM Token: $token');
 
