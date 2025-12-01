@@ -1,21 +1,43 @@
-import 'dart:math';
 import 'package:intl/intl.dart';
 
 enum CompactFormatType {
+  /// No compact formatting (e.g., $1,500,000.00).
   none,
+
+  /// Short compact formatting (e.g., $1.5M).
   short,
+
+  /// Long compact formatting (e.g., $1.5 million).
   long,
 }
 
-enum CurrencySymbolPosition {
-  left,
-  right,
-  defaultLocale,
-}
-
+/// A utility class for formatting currency values.
+///
+/// This class provides methods to format numbers as currency strings,
 class CurrencyFormatter {
   CurrencyFormatter._();
 
+  /// [amount] can be a [num] or a [String] representation of a number
+  /// (e.g., 1234.56).
+  /// [locale] specifies the locale to use for formatting
+  /// (e.g., 'en_US' for US Dollar).
+  /// [currencyCode] overrides the currency code derived from the locale
+  /// (e.g., 'EUR').
+  /// [decimalDigits] specifies the number of decimal places to show
+  /// (e.g., 2 for $10.50).
+  /// [shouldShowSymbol] determines if the currency symbol should be displayed
+  /// (default is true).
+  /// [symbolOverride] allows providing a custom currency symbol (e.g., '₹').
+  /// [groupingSeparator] allows customizing the grouping separator
+  /// (e.g., ',' -> 1,000).
+  /// [decimalSeparator] allows customizing the decimal separator
+  /// (e.g., '.' -> 10.50).
+  /// [symbolSeparator] allows adding a separator between the symbol and the
+  /// amount (e.g., ' ' -> $ 100).
+  /// [compactFormatType] specifies the type of compact formatting to apply
+  /// (e.g., [CompactFormatType.short] -> $1.2K).
+  /// [fallbackValue] is returned if the amount is null or invalid
+  /// (default is '0.00').
   static String format(
     dynamic amount, {
     required String locale,
@@ -23,7 +45,6 @@ class CurrencyFormatter {
     int? decimalDigits,
     bool shouldShowSymbol = true,
     String? symbolOverride,
-    CurrencySymbolPosition symbolSide = CurrencySymbolPosition.defaultLocale,
     String? groupingSeparator,
     String? decimalSeparator,
     String? symbolSeparator,
@@ -46,8 +67,7 @@ class CurrencyFormatter {
 
       final useCustomFormatting = groupingSeparator != null ||
           decimalSeparator != null ||
-          symbolSeparator != null ||
-          symbolSide != CurrencySymbolPosition.defaultLocale;
+          symbolSeparator != null;
 
       if (useCustomFormatting && compactFormatType == CompactFormatType.none) {
         return _formatCustomCurrency(
@@ -57,7 +77,6 @@ class CurrencyFormatter {
           decimalDigits: decimalDigits,
           shouldShowSymbol: shouldShowSymbol,
           symbolOverride: symbolOverride,
-          symbolSide: symbolSide,
           groupingSeparator: groupingSeparator,
           decimalSeparator: decimalSeparator,
           symbolSeparator: symbolSeparator,
@@ -94,99 +113,83 @@ class CurrencyFormatter {
     int? decimalDigits,
     required bool shouldShowSymbol,
     String? symbolOverride,
-    required CurrencySymbolPosition symbolSide,
     String? groupingSeparator,
     String? decimalSeparator,
     String? symbolSeparator,
   }) {
-    final symbol = shouldShowSymbol
-        ? symbolOverride ??
-            NumberFormat.simpleCurrency(locale: locale, name: currencyCode)
-                .currencySymbol
-        : '';
+    // Use NumberFormat to get default locale formatting
+    final formatter = NumberFormat.currency(
+      locale: locale,
+      name: currencyCode,
+      symbol: shouldShowSymbol
+          ? (symbolOverride ??
+              NumberFormat.simpleCurrency(locale: locale, name: currencyCode)
+                  .currencySymbol)
+          : '',
+      decimalDigits: decimalDigits,
+    );
 
-    final numberFormat = NumberFormat.currency(locale: locale);
+    String formattedCurrency = formatter.format(amount);
 
-    final resolvedGroupingSeparator =
-        groupingSeparator ?? numberFormat.symbols.GROUP_SEP;
-    final resolvedDecimalSeparator =
-        decimalSeparator ?? numberFormat.symbols.DECIMAL_SEP;
-    final resolvedSymbolSeparator = symbolSeparator ?? '';
-    final resolvedDecimalDigits = decimalDigits ?? 2;
+    if (groupingSeparator != null || decimalSeparator != null) {
+      final defaultGroupingSeparator = formatter.symbols.GROUP_SEP;
+      final defaultDecimalSeparator = formatter.symbols.DECIMAL_SEP;
 
-    final isNegative = amount < 0;
-    num absoluteAmount = amount.abs();
+// Const placeholders ensure a safe swap of grouping and decimal separators.
+// Direct replacement would turn "$1.234.56" into "$1,234,56"
+// when swapping ',' and '.'.
 
-    if (resolvedDecimalDigits == 0) {
-      absoluteAmount = absoluteAmount.round();
-    }
+// Using these placeholders prevents that conflict.
+      const groupingPlaceholder = '##GROUP##';
+      const decimalPlaceholder = '##DECIMAL##';
 
-    final integerPart = absoluteAmount.floor();
-    final decimalPart =
-        ((absoluteAmount - integerPart) * pow(10, resolvedDecimalDigits))
-            .round();
-
-    String integerString = integerPart.toString();
-
-    if (resolvedGroupingSeparator.isNotEmpty && integerString.length > 3) {
-      final buffer = StringBuffer();
-      int counter = 0;
-      for (int i = integerString.length - 1; i >= 0; i--) {
-        if (counter == 3) {
-          buffer.write(resolvedGroupingSeparator);
-          counter = 0;
-        }
-        buffer.write(integerString[i]);
-        counter++;
+      if (groupingSeparator != null && defaultGroupingSeparator.isNotEmpty) {
+        formattedCurrency = formattedCurrency.replaceAll(
+          defaultGroupingSeparator,
+          groupingPlaceholder,
+        );
       }
-      integerString = buffer.toString().split('').reversed.join();
+      if (decimalSeparator != null && defaultDecimalSeparator.isNotEmpty) {
+        formattedCurrency = formattedCurrency.replaceAll(
+          defaultDecimalSeparator,
+          decimalPlaceholder,
+        );
+      }
+
+      if (groupingSeparator != null && defaultGroupingSeparator.isNotEmpty) {
+        formattedCurrency = formattedCurrency.replaceAll(
+          groupingPlaceholder,
+          groupingSeparator,
+        );
+      }
+      if (decimalSeparator != null && defaultDecimalSeparator.isNotEmpty) {
+        formattedCurrency =
+            formattedCurrency.replaceAll(decimalPlaceholder, decimalSeparator);
+      }
     }
 
-    final decimalString = resolvedDecimalDigits > 0
-        ? decimalPart
-            .toString()
-            .padLeft(resolvedDecimalDigits, '0')
-            .substring(0, resolvedDecimalDigits)
-        : '';
+    // Add symbol separator if provided
+    if (symbolSeparator != null && shouldShowSymbol) {
+      final currencySymbol = symbolOverride ??
+          NumberFormat.simpleCurrency(locale: locale, name: currencyCode)
+              .currencySymbol;
 
-    String formattedAmount = integerString +
-        (decimalString.isNotEmpty
-            ? '$resolvedDecimalSeparator$decimalString'
-            : '');
-    if (isNegative) formattedAmount = '-$formattedAmount';
-
-    if (!shouldShowSymbol || symbol.isEmpty) return formattedAmount;
-
-    final resolvedSide = symbolSide == CurrencySymbolPosition.defaultLocale
-        ? _getCurrencySymbolPosition(locale, currencyCode)
-        : symbolSide;
-
-    return resolvedSide == CurrencySymbolPosition.left
-        ? '$symbol$resolvedSymbolSeparator$formattedAmount'
-        : '$formattedAmount$resolvedSymbolSeparator$symbol';
-  }
-
-  static CurrencySymbolPosition _getCurrencySymbolPosition(
-    String locale,
-    String? currencyCode,
-  ) {
-    try {
-      final formattedSample = NumberFormat.simpleCurrency(
-        locale: locale,
-        name: currencyCode,
-      ).format(100);
-
-      final numberStartIndex = formattedSample.indexOf('100');
-      final symbolPart = formattedSample.replaceAll(RegExp(r'\d'), '');
-      final symbolStartIndex = formattedSample.indexOf(symbolPart);
-      final isSymbolBeforeNumber = symbolStartIndex < numberStartIndex;
-
-      return isSymbolBeforeNumber
-          ? CurrencySymbolPosition.left
-          : CurrencySymbolPosition.right;
-    } catch (_) {
-      return CurrencySymbolPosition.defaultLocale;
+      if (currencySymbol.isNotEmpty) {
+        if (formattedCurrency.trim().startsWith(currencySymbol)) {
+          formattedCurrency = formattedCurrency.replaceFirst(
+            currencySymbol,
+            '$currencySymbol$symbolSeparator',
+          );
+        } else if (formattedCurrency.trim().endsWith(currencySymbol)) {
+          final symbolLastIndex = formattedCurrency.lastIndexOf(currencySymbol);
+          formattedCurrency = formattedCurrency.substring(0, symbolLastIndex) +
+              symbolSeparator +
+              formattedCurrency.substring(symbolLastIndex);
+        }
+      }
     }
+
+    return formattedCurrency;
   }
 
   static NumberFormat _createNumberFormatter({
