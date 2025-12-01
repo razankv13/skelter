@@ -33,7 +33,7 @@ class NotificationService {
   final AwesomeNotifications _awesomeNotifications = AwesomeNotifications();
 
   final _onNotificationTapController =
-      StreamController<Map<String, dynamic>>.broadcast();
+      StreamController<Map<String, dynamic>>();
 
   StreamSubscription<RemoteMessage>? _onMessageSubscription;
   StreamSubscription<RemoteMessage>? _onMessageOpenedAppSubscription;
