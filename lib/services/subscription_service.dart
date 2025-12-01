@@ -47,8 +47,26 @@ class SubscriptionService {
     return isUserSubscribed.value;
   }
 
-  Future<void> purchasePackage(Package package) async {
-    await Purchases.purchasePackage(package);
+  Future<bool> purchasePackage(
+    Package package, {
+    required Function(String, {StackTrace? stackTrace}) onError,
+  }) async {
+    try {
+      await Purchases.purchasePackage(package);
+      return true;
+    } on PurchasesError catch (e, stack) {
+      _handlePurchaseError(e, onError, stackTrace: stack);
+      return false;
+    } on PlatformException catch (e, stack) {
+      debugPrint('Platform exception during purchase: $e');
+      final message = e.message ?? 'Unknown error';
+      onError('Purchase failed: $message', stackTrace: stack);
+      return false;
+    } on Exception catch (e, stack) {
+      debugPrint('Unexpected exception during purchase: $e');
+      onError('Something went wrong', stackTrace: stack);
+      return false;
+    }
   }
 
   Future<String?> getUserManagementUrl() async {
@@ -65,5 +83,23 @@ class SubscriptionService {
     isUserSubscribed.value =
         customerInfo.entitlements.active.containsKey(subscriptionEntitlement);
     debugPrint('Subscription status updated: ${isUserSubscribed.value}');
+  }
+
+  void _handlePurchaseError(
+    PurchasesError e,
+    Function(String, {StackTrace? stackTrace}) onError, {
+    StackTrace? stackTrace,
+  }) {
+    final errorMessage = switch (e.code) {
+      PurchasesErrorCode.storeProblemError => 'Store login required',
+      PurchasesErrorCode.purchaseCancelledError => 'Purchase cancelled',
+      PurchasesErrorCode.networkError => 'No internet connection',
+      PurchasesErrorCode.productAlreadyPurchasedError => 'Already subscribed',
+      PurchasesErrorCode.receiptAlreadyInUseError => 'Receipt already in use',
+      _ => 'Something went wrong',
+    };
+
+    debugPrint('Purchase error: ${e.code} - $errorMessage');
+    onError(errorMessage, stackTrace: stackTrace);
   }
 }

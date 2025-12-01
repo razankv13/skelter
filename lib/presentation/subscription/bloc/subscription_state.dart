@@ -1,87 +1,122 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
-abstract class SubscriptionState extends Equatable {
-  const SubscriptionState();
+class SubscriptionState with EquatableMixin {
+  final List<Package> packages;
+  final Package? selectedPackage;
+  final bool isLoadingPackages;
+  final bool isProcessingPayment;
+  final bool isRestoring;
+  final String? errorMessage;
+  final String? restoreStatusMessage;
 
-  @override
-  List<Object?> get props => [];
-}
-
-class SubscriptionPlanSelectedState extends SubscriptionState {
-  const SubscriptionPlanSelectedState(this.package);
-
-  final Package package;
-
-  @override
-  List<Object> get props => [package];
-}
-
-class SubscriptionPaymentProcessingState extends SubscriptionState {
-  const SubscriptionPaymentProcessingState();
-}
-
-class SubscriptionPaymentSuccessState extends SubscriptionState {
-  const SubscriptionPaymentSuccessState();
-}
-
-class SubscriptionPaymentFailureState extends SubscriptionState {
-  const SubscriptionPaymentFailureState(this.error);
-
-  final String error;
-
-  @override
-  List<Object> get props => [error];
-}
-
-class FetchSubscriptionPlanLoadingState extends SubscriptionState {
-  const FetchSubscriptionPlanLoadingState();
-}
-
-class FetchSubscriptionPlanLoadedState extends SubscriptionState {
-  const FetchSubscriptionPlanLoadedState({
+  SubscriptionState({
     required this.packages,
     required this.selectedPackage,
-    this.isRestoring = false,
+    required this.isLoadingPackages,
+    required this.isProcessingPayment,
+    required this.isRestoring,
+    this.errorMessage,
     this.restoreStatusMessage,
   });
 
-  final List<Package> packages;
-  final Package selectedPackage;
-  final bool isRestoring;
-  final String? restoreStatusMessage;
+  SubscriptionState.initial()
+      : packages = [],
+        selectedPackage = null,
+        isLoadingPackages = true,
+        isProcessingPayment = false,
+        isRestoring = false,
+        errorMessage = null,
+        restoreStatusMessage = null;
 
-  FetchSubscriptionPlanLoadedState copyWith({
+  SubscriptionState.copy(SubscriptionState state)
+      : packages = state.packages,
+        selectedPackage = state.selectedPackage,
+        isLoadingPackages = state.isLoadingPackages,
+        isProcessingPayment = state.isProcessingPayment,
+        isRestoring = state.isRestoring,
+        errorMessage = state.errorMessage,
+        restoreStatusMessage = state.restoreStatusMessage;
+
+  SubscriptionState copyWith({
     List<Package>? packages,
     Package? selectedPackage,
+    bool? isLoadingPackages,
+    bool? isProcessingPayment,
     bool? isRestoring,
+    String? errorMessage,
     String? restoreStatusMessage,
     bool clearSnackBar = false,
   }) {
-    return FetchSubscriptionPlanLoadedState(
+    return SubscriptionState(
       packages: packages ?? this.packages,
       selectedPackage: selectedPackage ?? this.selectedPackage,
+      isLoadingPackages: isLoadingPackages ?? this.isLoadingPackages,
+      isProcessingPayment: isProcessingPayment ?? this.isProcessingPayment,
       isRestoring: isRestoring ?? this.isRestoring,
+      errorMessage: errorMessage ?? this.errorMessage,
       restoreStatusMessage: clearSnackBar
           ? null
           : restoreStatusMessage ?? this.restoreStatusMessage,
     );
   }
 
+  @visibleForTesting
+  SubscriptionState.test({
+    this.packages = const [],
+    this.selectedPackage,
+    this.isLoadingPackages = false,
+    this.isProcessingPayment = false,
+    this.isRestoring = false,
+    this.errorMessage,
+    this.restoreStatusMessage,
+  });
+
   @override
   List<Object?> get props => [
         packages,
         selectedPackage,
+        isLoadingPackages,
+        isProcessingPayment,
         isRestoring,
+        errorMessage,
         restoreStatusMessage,
       ];
 }
 
+class FetchSubscriptionPlanLoadingState extends SubscriptionState {
+  FetchSubscriptionPlanLoadingState() : super.copy(SubscriptionState.initial());
+}
+
+class FetchSubscriptionPlanLoadedState extends SubscriptionState {
+  FetchSubscriptionPlanLoadedState(super.state) : super.copy();
+}
+
 class FetchSubscriptionPlanFailureState extends SubscriptionState {
-  const FetchSubscriptionPlanFailureState(this.error);
+  FetchSubscriptionPlanFailureState(
+    SubscriptionState state, {
+    required String error,
+  }) : super.copy(
+          state.copyWith(errorMessage: error, isLoadingPackages: false),
+        );
+}
 
-  final String error;
+class SubscriptionPaymentProcessingState extends SubscriptionState {
+  SubscriptionPaymentProcessingState(SubscriptionState state)
+      : super.copy(state.copyWith(isProcessingPayment: true));
+}
 
-  @override
-  List<Object> get props => [error];
+class SubscriptionPaymentSuccessState extends SubscriptionState {
+  SubscriptionPaymentSuccessState(SubscriptionState state)
+      : super.copy(state.copyWith(isProcessingPayment: false));
+}
+
+class SubscriptionPaymentFailureState extends SubscriptionState {
+  SubscriptionPaymentFailureState(
+    SubscriptionState state, {
+    required String error,
+  }) : super.copy(
+          state.copyWith(errorMessage: error, isProcessingPayment: false),
+        );
 }

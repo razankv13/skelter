@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/subscription/bloc/subscription_bloc.dart';
 import 'package:skelter/presentation/subscription/bloc/subscription_event.dart';
-import 'package:skelter/presentation/subscription/bloc/subscription_state.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 import 'package:skelter/widgets/app_button/app_button.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_size_enum.dart';
@@ -14,24 +13,21 @@ class RestoreSubscription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SubscriptionBloc, SubscriptionState>(
-      builder: (context, state) {
-        final isRestoring =
-            state is FetchSubscriptionPlanLoadedState && state.isRestoring;
+    final isRestoring = context.select<SubscriptionBloc, bool>(
+      (bloc) => bloc.state.isRestoring,
+    );
 
-        return AppButton(
-          label: context.localization.restore_subscription,
-          style: AppButtonStyle.textOrIcon,
-          foregroundColor: context.currentTheme.bgBrandDefault,
-          isLoading: isRestoring,
-          size: AppButtonSize.extraLarge,
-          onPressed: isRestoring
-              ? null
-              : () => context
-                  .read<SubscriptionBloc>()
-                  .add(const RestoreSubscriptionEvent()),
-        );
-      },
+    return AppButton(
+      label: context.localization.restore_subscription,
+      style: AppButtonStyle.textOrIcon,
+      foregroundColor: context.currentTheme.bgBrandDefault,
+      isLoading: isRestoring,
+      size: AppButtonSize.extraLarge,
+      onPressed: isRestoring
+          ? null
+          : () => context
+              .read<SubscriptionBloc>()
+              .add(const RestoreSubscriptionEvent()),
     );
   }
 }
