@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:purchases_flutter/purchases_flutter.dart';
+import 'package:skelter/presentation/subscription/model/subscription_package_model.dart';
 
 abstract class SubscriptionEvent extends Equatable {
   const SubscriptionEvent();
@@ -21,8 +21,8 @@ class SelectSubscriptionPlanEvent extends SubscriptionEvent {
     required this.packages,
   });
 
-  final Package selectedPackage;
-  final List<Package> packages;
+  final SubscriptionPackageModel selectedPackage;
+  final List<SubscriptionPackageModel> packages;
 
   @override
   List<Object> get props => [selectedPackage, packages];
@@ -31,7 +31,7 @@ class SelectSubscriptionPlanEvent extends SubscriptionEvent {
 class PurchaseSubscriptionEvent extends SubscriptionEvent {
   const PurchaseSubscriptionEvent({required this.package});
 
-  final Package package;
+  final SubscriptionPackageModel package;
 
   @override
   List<Object> get props => [package];

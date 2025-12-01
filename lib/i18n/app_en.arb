@@ -376,6 +376,10 @@
   "go_to_home": "Go to Home",
   "subscription_management_url_unavailable": "We couldn’t load your subscription settings. Please try again later.",
   "subscription_invalid_url": "Invalid subscription URL.",
+  "purchase_cancelled": "Purchase cancelled",
+  "already_subscribed": "Already subscribed",
+  "receipt_already_in_use": "Receipt already in use",
+  "something_went_wrong": "Something went wrong",
 
   "force_update_keys":"================ FORCE UPDATE KEYS ================",
   "could_not_launch_store_link":"Could not launch store link",

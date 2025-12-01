@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/subscription/bloc/subscription_bloc.dart';
 import 'package:skelter/presentation/subscription/bloc/subscription_event.dart';
 import 'package:skelter/presentation/subscription/bloc/subscription_state.dart';
+import 'package:skelter/presentation/subscription/model/subscription_package_model.dart';
 import 'package:skelter/presentation/subscription/widgets/restore_subscription.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 import 'package:skelter/widgets/app_button/app_button.dart';
@@ -15,7 +15,8 @@ class SubscriptionBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selectedPackage = context.select<SubscriptionBloc, Package?>(
+    final selectedPackage =
+        context.select<SubscriptionBloc, SubscriptionPackageModel?>(
       (bloc) {
         final state = bloc.state;
         return state is FetchSubscriptionPlanLoadedState

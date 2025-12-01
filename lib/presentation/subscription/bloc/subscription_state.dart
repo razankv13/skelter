@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:purchases_flutter/purchases_flutter.dart';
+import 'package:skelter/presentation/subscription/model/subscription_package_model.dart';
 
 class SubscriptionState with EquatableMixin {
-  final List<Package> packages;
-  final Package? selectedPackage;
+  final List<SubscriptionPackageModel> packages;
+  final SubscriptionPackageModel? selectedPackage;
   final bool isLoadingPackages;
   final bool isProcessingPayment;
   final bool isRestoring;
@@ -40,8 +40,8 @@ class SubscriptionState with EquatableMixin {
         restoreStatusMessage = state.restoreStatusMessage;
 
   SubscriptionState copyWith({
-    List<Package>? packages,
-    Package? selectedPackage,
+    List<SubscriptionPackageModel>? packages,
+    SubscriptionPackageModel? selectedPackage,
     bool? isLoadingPackages,
     bool? isProcessingPayment,
     bool? isRestoring,

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:purchases_flutter/purchases_flutter.dart';
+import 'package:skelter/constants/constants.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/subscription/bloc/subscription_bloc.dart';
 import 'package:skelter/presentation/subscription/bloc/subscription_event.dart';
 import 'package:skelter/presentation/subscription/bloc/subscription_state.dart';
+import 'package:skelter/presentation/subscription/model/subscription_package_model.dart';
 import 'package:skelter/presentation/subscription/widgets/subscription_plan_card.dart';
 
 class SubscriptionPlans extends StatelessWidget {
@@ -12,15 +13,17 @@ class SubscriptionPlans extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final packages = context.select<SubscriptionBloc, List<Package>>(
+    final packages =
+        context.select<SubscriptionBloc, List<SubscriptionPackageModel>>(
       (bloc) {
         final state = bloc.state;
         if (state is FetchSubscriptionPlanLoadedState) return state.packages;
-        return const <Package>[];
+        return const <SubscriptionPackageModel>[];
       },
     );
 
-    final selectedPlan = context.select<SubscriptionBloc, Package?>(
+    final selectedPlan =
+        context.select<SubscriptionBloc, SubscriptionPackageModel?>(
       (bloc) {
         final state = bloc.state;
         return state is FetchSubscriptionPlanLoadedState
@@ -31,16 +34,15 @@ class SubscriptionPlans extends StatelessWidget {
 
     return Column(
       children: packages.map((package) {
-        final isMonthly = package.packageType == PackageType.monthly;
+        final isMonthly = package.identifier.contains(revenueCatMonthly);
         final isSelected = selectedPlan != null &&
-            selectedPlan.storeProduct.identifier ==
-                package.storeProduct.identifier;
+            selectedPlan.identifier == package.identifier;
 
         return SubscriptionPlanCard(
           title: isMonthly
               ? context.localization.monthly_plan
               : context.localization.yearly_plan,
-          price: package.storeProduct.priceString,
+          price: package.price,
           duration: isMonthly
               ? context.localization.monthly_duration
               : context.localization.yearly_duration,

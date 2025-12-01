@@ -894,6 +894,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get subscription_invalid_url => 'Invalid subscription URL.';
 
   @override
+  String get purchase_cancelled => 'Purchase cancelled';
+
+  @override
+  String get already_subscribed => 'Already subscribed';
+
+  @override
+  String get receipt_already_in_use => 'Receipt already in use';
+
+  @override
+  String get something_went_wrong => 'Something went wrong';
+
+  @override
   String get force_update_keys =>
       '================ FORCE UPDATE KEYS ================';
 

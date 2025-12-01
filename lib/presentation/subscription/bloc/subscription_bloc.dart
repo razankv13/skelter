@@ -43,7 +43,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       }
 
       final selectedPackage = availablePackages.firstWhere(
-        (pkg) => pkg.storeProduct.identifier == revenueCatMonthly,
+        (pkg) => pkg.identifier == revenueCatMonthly,
       );
 
       emit(

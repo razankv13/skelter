@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
+import 'package:skelter/i18n/app_localizations.dart';
+import 'package:skelter/presentation/subscription/model/subscription_package_model.dart';
 
 class SubscriptionService {
   static const String subscriptionEntitlement = 'Skelter Pro';
@@ -14,6 +16,13 @@ class SubscriptionService {
   static final _instance = SubscriptionService._internal();
 
   final ValueNotifier<bool> isUserSubscribed = ValueNotifier<bool>(false);
+  late AppLocalizations _localization;
+
+  final Map<String, Package> _packageMap = {};
+
+  void setLocalization(AppLocalizations localization) {
+    _localization = localization;
+  }
 
   Future<void> _init() async {
     await _checkSubscriptionStatus();
@@ -30,15 +39,31 @@ class SubscriptionService {
     }
   }
 
-  Future<List<Package>> getPackages() async {
+  Future<List<SubscriptionPackageModel>> getPackages() async {
     try {
       final offerings = await Purchases.getOfferings();
       final availablePackages = offerings.current?.availablePackages ?? [];
-      return availablePackages;
+
+      _packageMap.clear();
+      return availablePackages.map((package) {
+        final model = _convertToModel(package);
+        _packageMap[model.identifier] = package;
+        return model;
+      }).toList();
     } on PlatformException catch (e) {
       debugPrint('Error fetching offerings: $e');
       rethrow;
     }
+  }
+
+  SubscriptionPackageModel _convertToModel(Package package) {
+    final product = package.storeProduct;
+    return SubscriptionPackageModel(
+      identifier: product.identifier,
+      price: product.priceString,
+      title: product.title,
+      description: product.description,
+    );
   }
 
   Future<bool> restorePurchases() async {
@@ -48,9 +73,15 @@ class SubscriptionService {
   }
 
   Future<bool> purchasePackage(
-    Package package, {
+    SubscriptionPackageModel packageModel, {
     required Function(String, {StackTrace? stackTrace}) onError,
   }) async {
+    final package = _packageMap[packageModel.identifier];
+    if (package == null) {
+      onError(_localization.something_went_wrong);
+      return false;
+    }
+
     try {
       await Purchases.purchasePackage(package);
       return true;
@@ -59,12 +90,13 @@ class SubscriptionService {
       return false;
     } on PlatformException catch (e, stack) {
       debugPrint('Platform exception during purchase: $e');
-      final message = e.message ?? 'Unknown error';
-      onError('Purchase failed: $message', stackTrace: stack);
+      final message = e.message ?? _localization.something_went_wrong;
+      onError(message, stackTrace: stack);
       return false;
     } on Exception catch (e, stack) {
       debugPrint('Unexpected exception during purchase: $e');
-      onError('Something went wrong', stackTrace: stack);
+      final errorMsg = _localization.something_went_wrong;
+      onError(errorMsg, stackTrace: stack);
       return false;
     }
   }
@@ -91,12 +123,16 @@ class SubscriptionService {
     StackTrace? stackTrace,
   }) {
     final errorMessage = switch (e.code) {
-      PurchasesErrorCode.storeProblemError => 'Store login required',
-      PurchasesErrorCode.purchaseCancelledError => 'Purchase cancelled',
-      PurchasesErrorCode.networkError => 'No internet connection',
-      PurchasesErrorCode.productAlreadyPurchasedError => 'Already subscribed',
-      PurchasesErrorCode.receiptAlreadyInUseError => 'Receipt already in use',
-      _ => 'Something went wrong',
+      PurchasesErrorCode.storeProblemError =>
+        _localization.store_login_required,
+      PurchasesErrorCode.purchaseCancelledError =>
+        _localization.purchase_cancelled,
+      PurchasesErrorCode.networkError => _localization.no_internet_connection,
+      PurchasesErrorCode.productAlreadyPurchasedError =>
+        _localization.already_subscribed,
+      PurchasesErrorCode.receiptAlreadyInUseError =>
+        _localization.receipt_already_in_use,
+      _ => _localization.something_went_wrong,
     };
 
     debugPrint('Purchase error: ${e.code} - $errorMessage');

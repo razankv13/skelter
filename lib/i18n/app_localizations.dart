@@ -1702,6 +1702,30 @@ abstract class AppLocalizations {
   /// **'Invalid subscription URL.'**
   String get subscription_invalid_url;
 
+  /// No description provided for @purchase_cancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase cancelled'**
+  String get purchase_cancelled;
+
+  /// No description provided for @already_subscribed.
+  ///
+  /// In en, this message translates to:
+  /// **'Already subscribed'**
+  String get already_subscribed;
+
+  /// No description provided for @receipt_already_in_use.
+  ///
+  /// In en, this message translates to:
+  /// **'Receipt already in use'**
+  String get receipt_already_in_use;
+
+  /// No description provided for @something_went_wrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong'**
+  String get something_went_wrong;
+
   /// No description provided for @force_update_keys.
   ///
   /// In en, this message translates to:
