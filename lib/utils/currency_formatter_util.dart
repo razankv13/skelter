@@ -14,8 +14,12 @@ enum CompactFormatType {
 /// A utility class for formatting currency values.
 ///
 /// This class provides methods to format numbers as currency strings,
-class CurrencyFormatter {
-  CurrencyFormatter._();
+///
+/// NOTE: The formatter currently supports only formatting.
+//Todo: Currency conversion will be added soon.
+
+class CurrencyFormatterUtil {
+  CurrencyFormatterUtil._();
 
   /// [amount] can be a [num] or a [String] representation of a number
   /// (e.g., 1234.56).
@@ -42,7 +46,7 @@ class CurrencyFormatter {
     dynamic amount, {
     required String locale,
     String? currencyCode,
-    int? decimalDigits,
+    int? decimalDigits = 2,
     bool shouldShowSymbol = true,
     String? symbolOverride,
     String? groupingSeparator,
