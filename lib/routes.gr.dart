@@ -69,6 +69,8 @@ import 'package:skelter/presentation/signup/screens/signup_with_email/signup_wit
     as _i32;
 import 'package:skelter/presentation/ssl_pinning/ssl_connection_failed_screen.dart'
     as _i33;
+import 'package:skelter/presentation/subscription/bloc/subscription_bloc.dart'
+    as _i43;
 import 'package:skelter/presentation/subscription/subscription_screen.dart'
     as _i34;
 import 'package:skelter/presentation/under_maintainace/under_maintenance_screen.dart'
@@ -1092,18 +1094,57 @@ class SslConnectionFailedRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i34.SubscriptionScreen]
-class SubscriptionRoute extends _i38.PageRouteInfo<void> {
-  const SubscriptionRoute({List<_i38.PageRouteInfo>? children})
-      : super(SubscriptionRoute.name, initialChildren: children);
+class SubscriptionRoute extends _i38.PageRouteInfo<SubscriptionRouteArgs> {
+  SubscriptionRoute({
+    _i39.Key? key,
+    _i43.SubscriptionBloc? subscriptionBloc,
+    List<_i38.PageRouteInfo>? children,
+  }) : super(
+          SubscriptionRoute.name,
+          args: SubscriptionRouteArgs(
+            key: key,
+            subscriptionBloc: subscriptionBloc,
+          ),
+          initialChildren: children,
+        );
 
   static const String name = 'SubscriptionRoute';
 
   static _i38.PageInfo page = _i38.PageInfo(
     name,
     builder: (data) {
-      return const _i34.SubscriptionScreen();
+      final args = data.argsAs<SubscriptionRouteArgs>(
+        orElse: () => const SubscriptionRouteArgs(),
+      );
+      return _i34.SubscriptionScreen(
+        key: args.key,
+        subscriptionBloc: args.subscriptionBloc,
+      );
     },
   );
+}
+
+class SubscriptionRouteArgs {
+  const SubscriptionRouteArgs({this.key, this.subscriptionBloc});
+
+  final _i39.Key? key;
+
+  final _i43.SubscriptionBloc? subscriptionBloc;
+
+  @override
+  String toString() {
+    return 'SubscriptionRouteArgs{key: $key, subscriptionBloc: $subscriptionBloc}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! SubscriptionRouteArgs) return false;
+    return key == other.key && subscriptionBloc == other.subscriptionBloc;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ subscriptionBloc.hashCode;
 }
 
 /// generated route for
