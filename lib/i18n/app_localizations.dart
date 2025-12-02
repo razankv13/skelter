@@ -1438,11 +1438,23 @@ abstract class AppLocalizations {
   /// **'Choose App Theme'**
   String get choose_app_theme;
 
-  /// No description provided for @account_and_privacy.
+  /// No description provided for @account_security.
   ///
   /// In en, this message translates to:
-  /// **'Account & Privacy'**
-  String get account_and_privacy;
+  /// **'Account security'**
+  String get account_security;
+
+  /// No description provided for @biometric_authentication.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric Authentication'**
+  String get biometric_authentication;
+
+  /// No description provided for @privacy_policy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacy_policy;
 
   /// No description provided for @saved_cards_keys.
   ///

@@ -748,7 +748,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get choose_app_theme => 'Choose App Theme';
 
   @override
-  String get account_and_privacy => 'Account & Privacy';
+  String get account_security => 'Account security';
+
+  @override
+  String get biometric_authentication => 'Biometric Authentication';
+
+  @override
+  String get privacy_policy => 'Privacy Policy';
 
   @override
   String get saved_cards_keys =>
