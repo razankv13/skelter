@@ -485,26 +485,25 @@ class ForceUpdateRouteArgs {
 }
 
 /// generated route for
-/// [_i16.ForgotPasswordV2Screen]
-class ForgotPasswordV2Route
-    extends _i36.PageRouteInfo<ForgotPasswordV2RouteArgs> {
-  ForgotPasswordV2Route({
+/// [_i16.ForgotPasswordScreen]
+class ForgotPasswordRoute extends _i36.PageRouteInfo<ForgotPasswordRouteArgs> {
+  ForgotPasswordRoute({
     _i37.Key? key,
     required _i38.LoginBloc loginBloc,
     List<_i36.PageRouteInfo>? children,
   }) : super(
-          ForgotPasswordV2Route.name,
-          args: ForgotPasswordV2RouteArgs(key: key, loginBloc: loginBloc),
+          ForgotPasswordRoute.name,
+          args: ForgotPasswordRouteArgs(key: key, loginBloc: loginBloc),
           initialChildren: children,
         );
 
-  static const String name = 'ForgotPasswordV2Route';
+  static const String name = 'ForgotPasswordRoute';
 
   static _i36.PageInfo page = _i36.PageInfo(
     name,
     builder: (data) {
-      final args = data.argsAs<ForgotPasswordV2RouteArgs>();
-      return _i16.ForgotPasswordV2Screen(
+      final args = data.argsAs<ForgotPasswordRouteArgs>();
+      return _i16.ForgotPasswordScreen(
         key: args.key,
         loginBloc: args.loginBloc,
       );
@@ -512,8 +511,8 @@ class ForgotPasswordV2Route
   );
 }
 
-class ForgotPasswordV2RouteArgs {
-  const ForgotPasswordV2RouteArgs({this.key, required this.loginBloc});
+class ForgotPasswordRouteArgs {
+  const ForgotPasswordRouteArgs({this.key, required this.loginBloc});
 
   final _i37.Key? key;
 
@@ -521,13 +520,13 @@ class ForgotPasswordV2RouteArgs {
 
   @override
   String toString() {
-    return 'ForgotPasswordV2RouteArgs{key: $key, loginBloc: $loginBloc}';
+    return 'ForgotPasswordRouteArgs{key: $key, loginBloc: $loginBloc}';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-    if (other is! ForgotPasswordV2RouteArgs) return false;
+    if (other is! ForgotPasswordRouteArgs) return false;
     return key == other.key && loginBloc == other.loginBloc;
   }
 

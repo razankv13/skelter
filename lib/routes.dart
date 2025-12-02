@@ -25,7 +25,7 @@ class AppRouter extends RootStackRouter {
       LoginWithPhoneNumberRoute.page,
       PhoneNumberOTPRoute.page,
       LoginWithEmailPasswordRoute.page,
-      ForgotPasswordV2Route.page,
+      ForgotPasswordRoute.page,
       CheckYourEmailRoute.page,
 
       // Signup
