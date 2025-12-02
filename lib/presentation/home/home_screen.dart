@@ -43,12 +43,22 @@ class HomeScreenWrapper extends StatelessWidget {
     final String screenName = pages[currentIndex].runtimeType.toString();
     Clarity.setCurrentScreenName(screenName);
 
-    return Scaffold(
-      bottomNavigationBar: const BottomNavBar(),
-      body: SafeArea(
-        child: IndexedStack(
-          index: currentIndex,
-          children: pages,
+    return PopScope(
+      canPop: currentIndex == 0,
+      onPopInvokedWithResult: (didPop, result) {
+        if (!didPop && currentIndex != 0) {
+          context
+              .read<HomeBloc>()
+              .add(const BottomNavBarIndexChangedEvent(index: 0));
+        }
+      },
+      child: Scaffold(
+        bottomNavigationBar: const BottomNavBar(),
+        body: SafeArea(
+          child: IndexedStack(
+            index: currentIndex,
+            children: pages,
+          ),
         ),
       ),
     );
