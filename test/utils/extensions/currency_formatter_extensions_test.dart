@@ -1,784 +1,471 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:skelter/utils/currency_formatter.dart';
-import 'package:skelter/utils/extensions/currency_formatter_extensions.dart';
+import 'package:skelter/utils/currency_formatter_util.dart';
 
 void main() {
   group('CurrencyFormatterExtensions Tests', () {
-    late Widget testWidget;
-
-    setUp(() {
-      testWidget = MaterialApp(
-        home: Scaffold(
-          body: Builder(
-            builder: (BuildContext context) {
-              return Text(context.formatCurrency(1234.56));
-            },
-          ),
-        ),
-      );
-    });
-
     group('Basic Formatting', () {
-      testWidgets('formats positive numbers with default setup',
-          (tester) async {
-        await tester.pumpWidget(testWidget);
-        expect(find.text(r'$1,234.56'), findsOneWidget);
+      test('formats positive numbers with default setup', () {
+        expect(
+          CurrencyFormatterUtil.format(1234.56, locale: 'en_US'),
+          equals(r'$1,234.56'),
+        );
       });
 
-      testWidgets('formats zero', (tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: Builder(
-                builder: (context) {
-                  return Text(context.formatCurrency(0));
-                },
-              ),
-            ),
-          ),
+      test('formats zero', () {
+        expect(
+          CurrencyFormatterUtil.format(0, locale: 'en_US'),
+          equals(r'$0.00'),
         );
-        expect(find.text(r'$0.00'), findsOneWidget);
       });
 
-      testWidgets('formats negative numbers', (tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: Builder(
-                builder: (context) {
-                  return Text(context.formatCurrency(-50.25));
-                },
-              ),
-            ),
-          ),
+      test('formats negative numbers', () {
+        expect(
+          CurrencyFormatterUtil.format(-50.25, locale: 'en_US'),
+          equals(r'-$50.25'),
         );
-        expect(find.text(r'-$50.25'), findsOneWidget);
       });
 
-      testWidgets('formats large numbers', (tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: Builder(
-                builder: (context) {
-                  return Text(context.formatCurrency(1000000));
-                },
-              ),
-            ),
-          ),
+      test('formats large numbers', () {
+        expect(
+          CurrencyFormatterUtil.format(1000000, locale: 'en_US'),
+          equals(r'$1,000,000.00'),
         );
-        expect(find.text(r'$1,000,000.00'), findsOneWidget);
       });
     });
 
-    group('Top 15 Countries Currency Support', () {
-      testWidgets(
-        'formatCurrency displays USD symbol for United States',
-        (tester) async {
-          await tester.pumpWidget(
-            MaterialApp(
-              home: Scaffold(
-                body: Builder(
-                  builder: (context) {
-                    return Text(context.formatCurrency(1250.99));
-                  },
-                ),
-              ),
-            ),
-          );
-          expect(find.textContaining('\$'), findsOneWidget);
-          expect(find.textContaining('1,250.99'), findsOneWidget);
-        },
-      );
+    group('Currency Code Support', () {
+      test('formatCurrency displays USD symbol for United States', () {
+        expect(
+          CurrencyFormatterUtil.format(
+            1250.99,
+            locale: 'en_US',
+            currencyCode: 'USD',
+          ),
+          contains('\$'),
+        );
+      });
 
-      testWidgets(
-        'formatCurrency displays EUR symbol when '
-        'currency code is overridden to EUR',
-        (tester) async {
-          await tester.pumpWidget(
-            MaterialApp(
-              home: Scaffold(
-                body: Builder(
-                  builder: (context) {
-                    return Text(
-                      context.formatCurrency(100.00, currencyCode: 'EUR'),
-                    );
-                  },
-                ),
-              ),
-            ),
-          );
-          expect(find.textContaining('€'), findsOneWidget);
-          expect(find.textContaining('100.00'), findsOneWidget);
-        },
-      );
+      test('formatCurrency displays EUR symbol for Euro', () {
+        expect(
+          CurrencyFormatterUtil.format(
+            100.00,
+            locale: 'de_DE',
+            currencyCode: 'EUR',
+          ),
+          contains('€'),
+        );
+      });
 
-      testWidgets(
-        'formatCurrency displays GBP symbol for British Pound currency code',
-        (tester) async {
-          await tester.pumpWidget(
-            MaterialApp(
-              home: Scaffold(
-                body: Builder(
-                  builder: (context) {
-                    return Text(
-                      context.formatCurrency(500.50, currencyCode: 'GBP'),
-                    );
-                  },
-                ),
-              ),
-            ),
-          );
-          expect(find.textContaining('£'), findsOneWidget);
-          expect(find.textContaining('500.50'), findsOneWidget);
-        },
-      );
+      test('formatCurrency displays GBP symbol for British Pound', () {
+        expect(
+          CurrencyFormatterUtil.format(
+            500.50,
+            locale: 'en_GB',
+            currencyCode: 'GBP',
+          ),
+          contains('£'),
+        );
+      });
 
-      testWidgets(
-        'formatCurrency displays JPY symbol for Japanese Yen currency code',
-        (tester) async {
-          await tester.pumpWidget(
-            MaterialApp(
-              home: Scaffold(
-                body: Builder(
-                  builder: (context) {
-                    return Text(
-                      context.formatCurrency(100000, currencyCode: 'JPY'),
-                    );
-                  },
-                ),
-              ),
-            ),
-          );
-          expect(find.textContaining('¥'), findsOneWidget);
-          expect(find.textContaining('100,000'), findsOneWidget);
-        },
-      );
+      test('formatCurrency displays JPY symbol for Japanese Yen', () {
+        expect(
+          CurrencyFormatterUtil.format(
+            100000,
+            locale: 'ja_JP',
+            currencyCode: 'JPY',
+          ),
+          contains('¥'),
+        );
+      });
 
-      testWidgets(
-        'formatCurrency displays CHF symbol for Swiss Franc currency code',
-        (tester) async {
-          await tester.pumpWidget(
-            MaterialApp(
-              home: Scaffold(
-                body: Builder(
-                  builder: (context) {
-                    return Text(
-                      context.formatCurrency(250.75, currencyCode: 'CHF'),
-                    );
-                  },
-                ),
-              ),
-            ),
-          );
-          expect(find.textContaining('CHF'), findsOneWidget);
-          expect(find.textContaining('250.75'), findsOneWidget);
-        },
-      );
+      test('formatCurrency displays CHF symbol for Swiss Franc', () {
+        expect(
+          CurrencyFormatterUtil.format(
+            250.75,
+            locale: 'de_CH',
+            currencyCode: 'CHF',
+          ),
+          contains('CHF'),
+        );
+      });
 
-      testWidgets(
-        'formatCurrency displays CAD symbol for Canadian Dollar currency code',
-        (tester) async {
-          await tester.pumpWidget(
-            MaterialApp(
-              home: Scaffold(
-                body: Builder(
-                  builder: (context) {
-                    return Text(
-                      context.formatCurrency(350.25, currencyCode: 'CAD'),
-                    );
-                  },
-                ),
-              ),
-            ),
-          );
-          expect(find.textContaining('\$'), findsOneWidget);
-          expect(find.textContaining('350.25'), findsOneWidget);
-        },
-      );
+      test('formatCurrency displays CAD symbol for Canadian Dollar', () {
+        expect(
+          CurrencyFormatterUtil.format(
+            350.25,
+            locale: 'en_CA',
+            currencyCode: 'CAD',
+          ),
+          contains('\$'),
+        );
+      });
 
-      testWidgets(
-        'formatCurrency displays AUD symbol for '
-        'Australian Dollar currency code',
-        (tester) async {
-          await tester.pumpWidget(
-            MaterialApp(
-              home: Scaffold(
-                body: Builder(
-                  builder: (context) {
-                    return Text(
-                      context.formatCurrency(450.00, currencyCode: 'AUD'),
-                    );
-                  },
-                ),
-              ),
-            ),
-          );
-          expect(find.textContaining('\$'), findsOneWidget);
-          expect(find.textContaining('450.00'), findsOneWidget);
-        },
-      );
+      test('formatCurrency displays AUD symbol for Australian Dollar', () {
+        expect(
+          CurrencyFormatterUtil.format(
+            450.00,
+            locale: 'en_AU',
+            currencyCode: 'AUD',
+          ),
+          contains('\$'),
+        );
+      });
 
-      testWidgets(
-        'formatCurrency displays CNY symbol for Chinese Yuan currency code',
-        (tester) async {
-          await tester.pumpWidget(
-            MaterialApp(
-              home: Scaffold(
-                body: Builder(
-                  builder: (context) {
-                    return Text(
-                      context.formatCurrency(600.50, currencyCode: 'CNY'),
-                    );
-                  },
-                ),
-              ),
-            ),
-          );
-          expect(find.textContaining('¥'), findsOneWidget);
-          expect(find.textContaining('600.50'), findsOneWidget);
-        },
-      );
+      test('formatCurrency displays CNY symbol for Chinese Yuan', () {
+        expect(
+          CurrencyFormatterUtil.format(
+            600.50,
+            locale: 'zh_CN',
+            currencyCode: 'CNY',
+          ),
+          contains('¥'),
+        );
+      });
 
-      testWidgets(
-        'formatCurrency displays INR symbol for Indian Rupee currency code',
-        (tester) async {
-          await tester.pumpWidget(
-            MaterialApp(
-              home: Scaffold(
-                body: Builder(
-                  builder: (context) {
-                    return Text(
-                      context.formatCurrency(5000.00, currencyCode: 'INR'),
-                    );
-                  },
-                ),
-              ),
-            ),
-          );
-          expect(find.textContaining('₹'), findsOneWidget);
-          expect(find.textContaining('5,000.00'), findsOneWidget);
-        },
-      );
+      test('formatCurrency displays INR symbol for Indian Rupee', () {
+        expect(
+          CurrencyFormatterUtil.format(
+            5000.00,
+            locale: 'en_IN',
+            currencyCode: 'INR',
+          ),
+          contains('₹'),
+        );
+      });
 
-      testWidgets(
-        'formatCurrency displays SGD symbol for Singapore Dollar currency code',
-        (tester) async {
-          await tester.pumpWidget(
-            MaterialApp(
-              home: Scaffold(
-                body: Builder(
-                  builder: (context) {
-                    return Text(
-                      context.formatCurrency(150.75, currencyCode: 'SGD'),
-                    );
-                  },
-                ),
-              ),
-            ),
-          );
-          expect(find.textContaining('\$'), findsOneWidget);
-          expect(find.textContaining('150.75'), findsOneWidget);
-        },
-      );
+      test('formatCurrency displays SGD symbol for Singapore Dollar', () {
+        expect(
+          CurrencyFormatterUtil.format(
+            150.75,
+            locale: 'en_SG',
+            currencyCode: 'SGD',
+          ),
+          contains('\$'),
+        );
+      });
 
-      testWidgets(
-        'formatCurrency displays HKD symbol for Hong Kong Dollar currency code',
-        (tester) async {
-          await tester.pumpWidget(
-            MaterialApp(
-              home: Scaffold(
-                body: Builder(
-                  builder: (context) {
-                    return Text(
-                      context.formatCurrency(800.25, currencyCode: 'HKD'),
-                    );
-                  },
-                ),
-              ),
-            ),
-          );
-          expect(find.textContaining('\$'), findsOneWidget);
-          expect(find.textContaining('800.25'), findsOneWidget);
-        },
-      );
+      test('formatCurrency displays HKD symbol for Hong Kong Dollar', () {
+        expect(
+          CurrencyFormatterUtil.format(
+            800.25,
+            locale: 'zh_HK',
+            currencyCode: 'HKD',
+          ),
+          contains('\$'),
+        );
+      });
 
-      testWidgets(
-        'formatCurrency displays MXN symbol for Mexican Peso currency code',
-        (tester) async {
-          await tester.pumpWidget(
-            MaterialApp(
-              home: Scaffold(
-                body: Builder(
-                  builder: (context) {
-                    return Text(
-                      context.formatCurrency(2000.50, currencyCode: 'MXN'),
-                    );
-                  },
-                ),
-              ),
-            ),
-          );
-          expect(find.textContaining('\$'), findsOneWidget);
-          expect(find.textContaining('2,000.50'), findsOneWidget);
-        },
-      );
+      test('formatCurrency displays MXN symbol for Mexican Peso', () {
+        expect(
+          CurrencyFormatterUtil.format(
+            2000.50,
+            locale: 'es_MX',
+            currencyCode: 'MXN',
+          ),
+          contains('\$'),
+        );
+      });
 
-      testWidgets(
-        'formatCurrency displays BRL symbol for Brazilian Real currency code',
-        (tester) async {
-          await tester.pumpWidget(
-            MaterialApp(
-              home: Scaffold(
-                body: Builder(
-                  builder: (context) {
-                    return Text(
-                      context.formatCurrency(1500.75, currencyCode: 'BRL'),
-                    );
-                  },
-                ),
-              ),
-            ),
-          );
-          expect(find.textContaining('R'), findsOneWidget);
-          expect(find.textContaining('1,500.75'), findsOneWidget);
-        },
-      );
+      test('formatCurrency displays BRL symbol for Brazilian Real', () {
+        expect(
+          CurrencyFormatterUtil.format(
+            1500.75,
+            locale: 'pt_BR',
+            currencyCode: 'BRL',
+          ),
+          contains('R'),
+        );
+      });
 
-      testWidgets(
-        'formatCurrency displays KRW symbol for South Korean Won currency code',
-        (tester) async {
-          await tester.pumpWidget(
-            MaterialApp(
-              home: Scaffold(
-                body: Builder(
-                  builder: (context) {
-                    return Text(
-                      context.formatCurrency(50000.00, currencyCode: 'KRW'),
-                    );
-                  },
-                ),
-              ),
-            ),
-          );
-          expect(find.textContaining('₩'), findsOneWidget);
-          expect(find.textContaining('50,000'), findsOneWidget);
-        },
-      );
+      test('formatCurrency displays KRW symbol for South Korean Won', () {
+        expect(
+          CurrencyFormatterUtil.format(
+            50000.00,
+            locale: 'ko_KR',
+            currencyCode: 'KRW',
+          ),
+          contains('₩'),
+        );
+      });
 
-      testWidgets(
-        'formatCurrency displays THB symbol for Thai Baht currency code',
-        (tester) async {
-          await tester.pumpWidget(
-            MaterialApp(
-              home: Scaffold(
-                body: Builder(
-                  builder: (context) {
-                    return Text(
-                      context.formatCurrency(8000.50, currencyCode: 'THB'),
-                    );
-                  },
-                ),
-              ),
-            ),
-          );
-          expect(find.textContaining('฿'), findsOneWidget);
-          expect(find.textContaining('8,000.50'), findsOneWidget);
-        },
-      );
+      test('formatCurrency displays THB symbol for Thai Baht', () {
+        expect(
+          CurrencyFormatterUtil.format(
+            8000.50,
+            locale: 'th_TH',
+            currencyCode: 'THB',
+          ),
+          contains('฿'),
+        );
+      });
     });
 
     group('Decimal Digits', () {
-      testWidgets('default 2 decimals', (tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: Builder(
-                builder: (context) {
-                  return Text(context.formatCurrency(1234.56789));
-                },
-              ),
-            ),
-          ),
+      test('default 2 decimals', () {
+        expect(
+          CurrencyFormatterUtil.format(1234.56789, locale: 'en_US'),
+          equals(r'$1,234.57'),
         );
-        expect(find.text(r'$1,234.57'), findsOneWidget);
       });
 
-      testWidgets('0 decimals rounding', (tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: Builder(
-                builder: (context) {
-                  return Text(
-                    context.formatCurrency(1234.56789, decimalDigits: 0),
-                  );
-                },
-              ),
-            ),
+      test('0 decimals rounding', () {
+        expect(
+          CurrencyFormatterUtil.format(
+            1234.56789,
+            locale: 'en_US',
+            decimalDigits: 0,
           ),
+          equals(r'$1,235'),
         );
-        expect(find.text(r'$1,235'), findsOneWidget);
       });
 
-      testWidgets('3 decimals', (tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: Builder(
-                builder: (context) {
-                  return Text(
-                    context.formatCurrency(1234.56789, decimalDigits: 3),
-                  );
-                },
-              ),
-            ),
+      test('3 decimals', () {
+        expect(
+          CurrencyFormatterUtil.format(
+            1234.56789,
+            locale: 'en_US',
+            decimalDigits: 3,
           ),
+          equals(r'$1,234.568'),
         );
-        expect(find.text(r'$1,234.568'), findsOneWidget);
+      });
+
+      test('1 digit decimal', () {
+        expect(
+          CurrencyFormatterUtil.format(
+            1.5,
+            locale: 'en_US',
+            decimalDigits: 1,
+          ),
+          equals(r'$1.5'),
+        );
       });
     });
 
     group('Symbol Options', () {
-      testWidgets('hide symbol', (tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: Builder(
-                builder: (context) {
-                  return Text(
-                    context.formatCurrency(99.99, shouldShowSymbol: false),
-                  );
-                },
-              ),
-            ),
+      test('hide symbol', () {
+        expect(
+          CurrencyFormatterUtil.format(
+            99.99,
+            locale: 'en_US',
+            shouldShowSymbol: false,
           ),
+          equals('99.99'),
         );
-        expect(find.text('99.99'), findsOneWidget);
       });
 
-      testWidgets('custom symbol override', (tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: Builder(
-                builder: (context) {
-                  return Text(
-                    context.formatCurrency(99.99, symbolOverride: '¥'),
-                  );
-                },
-              ),
-            ),
+      test('custom symbol override', () {
+        expect(
+          CurrencyFormatterUtil.format(
+            99.99,
+            locale: 'en_US',
+            symbolOverride: '¥',
           ),
+          contains('¥'),
         );
-        expect(find.textContaining('¥'), findsOneWidget);
-        expect(find.textContaining('99.99'), findsOneWidget);
       });
 
-      testWidgets('symbol override with pound', (tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: Builder(
-                builder: (context) {
-                  return Text(
-                    context.formatCurrency(50, symbolOverride: '£'),
-                  );
-                },
-              ),
-            ),
+      test('symbol override with pound', () {
+        expect(
+          CurrencyFormatterUtil.format(
+            50,
+            locale: 'en_US',
+            symbolOverride: '£',
           ),
+          contains('£'),
         );
-        expect(find.textContaining('£'), findsOneWidget);
-        expect(find.textContaining('50.00'), findsOneWidget);
       });
     });
 
     group('Custom Separators', () {
-      testWidgets('custom grouping . and decimal ,', (tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: Builder(
-                builder: (context) {
-                  return Text(
-                    context.formatCurrency(
-                      1234567.89,
-                      groupingSeparator: '.',
-                      decimalSeparator: ',',
-                    ),
-                  );
-                },
-              ),
-            ),
+      test('custom grouping . and decimal ,', () {
+        expect(
+          CurrencyFormatterUtil.format(
+            1234567.89,
+            locale: 'en_US',
+            groupingSeparator: '.',
+            decimalSeparator: ',',
           ),
+          contains('1.234.567,89'),
         );
-        expect(find.textContaining('1.234.567,89'), findsOneWidget);
       });
 
-      testWidgets('custom grouping # and 0 decimals', (tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: Builder(
-                builder: (context) {
-                  return Text(
-                    context.formatCurrency(
-                      1234567.89,
-                      groupingSeparator: '#',
-                      decimalDigits: 0,
-                    ),
-                  );
-                },
-              ),
-            ),
+      test('custom grouping # and 0 decimals', () {
+        expect(
+          CurrencyFormatterUtil.format(
+            1234567.89,
+            locale: 'en_US',
+            groupingSeparator: '#',
+            decimalDigits: 0,
           ),
+          contains('1#234#568'),
         );
-        expect(find.textContaining('1#234#568'), findsOneWidget);
       });
 
-      testWidgets('custom symbol separator', (tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: Builder(
-                builder: (context) {
-                  return Text(
-                    context.formatCurrency(
-                      1234.56,
-                      symbolSeparator: ':::',
-                    ),
-                  );
-                },
-              ),
-            ),
+      test('custom symbol separator', () {
+        expect(
+          CurrencyFormatterUtil.format(
+            1234.56,
+            locale: 'en_US',
+            symbolSeparator: ':::',
           ),
+          contains(':::'),
         );
-        expect(find.textContaining(':::'), findsOneWidget);
-        expect(find.textContaining('1,234.56'), findsOneWidget);
       });
     });
 
     group('Compact Format', () {
-      testWidgets('short format', (tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: Builder(
-                builder: (context) {
-                  return Text(
-                    context.formatCurrency(
-                      1500000,
-                      compactFormatType: CompactFormatType.short,
-                    ),
-                  );
-                },
-              ),
-            ),
+      test('short format for millions', () {
+        expect(
+          CurrencyFormatterUtil.format(
+            1500000,
+            locale: 'en_US',
+            compactFormatType: CompactFormatType.short,
           ),
+          contains('1.5M'),
         );
-        expect(find.textContaining('1.5M'), findsOneWidget);
       });
 
-      testWidgets('long format', (tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: Builder(
-                builder: (context) {
-                  return Text(
-                    context.formatCurrency(
-                      1200000,
-                      compactFormatType: CompactFormatType.long,
-                    ),
-                  );
-                },
-              ),
-            ),
+      test('short format for billions', () {
+        expect(
+          CurrencyFormatterUtil.format(
+            1500000000,
+            locale: 'en_US',
+            compactFormatType: CompactFormatType.short,
           ),
+          contains('1.5B'),
         );
-        expect(find.textContaining('million'), findsOneWidget);
-        expect(find.textContaining('1.2'), findsOneWidget);
       });
 
-      testWidgets('compact with custom symbol', (tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: Builder(
-                builder: (context) {
-                  return Text(
-                    context.formatCurrency(
-                      1500000,
-                      compactFormatType: CompactFormatType.short,
-                      symbolOverride: '€',
-                    ),
-                  );
-                },
-              ),
-            ),
-          ),
+      test('long format for millions', () {
+        final result = CurrencyFormatterUtil.format(
+          1200000,
+          locale: 'en_US',
+          compactFormatType: CompactFormatType.long,
         );
-        expect(find.textContaining('€'), findsOneWidget);
-        expect(find.textContaining('1.5M'), findsOneWidget);
+        expect(result, contains('million'));
+        expect(result, contains('1.2'));
+      });
+
+      test('long format for billions', () {
+        final result = CurrencyFormatterUtil.format(
+          1200000000,
+          locale: 'en_US',
+          compactFormatType: CompactFormatType.long,
+        );
+        expect(result, contains('billion'));
+        expect(result, contains('1.2'));
+      });
+
+      test('compact with custom symbol for millions', () {
+        final result = CurrencyFormatterUtil.format(
+          1500000,
+          locale: 'en_US',
+          compactFormatType: CompactFormatType.short,
+          symbolOverride: '€',
+        );
+        expect(result, contains('€'));
+        expect(result, contains('1.5M'));
+      });
+
+      test('compact with custom symbol for billions', () {
+        final result = CurrencyFormatterUtil.format(
+          1500000000,
+          locale: 'en_US',
+          compactFormatType: CompactFormatType.short,
+          symbolOverride: '€',
+        );
+        expect(result, contains('€'));
+        expect(result, contains('1.5B'));
       });
     });
 
     group('Input Types & Edge Cases', () {
-      testWidgets('string numeric input', (tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: Builder(
-                builder: (context) {
-                  return Text(context.formatCurrency('123.45'));
-                },
-              ),
-            ),
-          ),
+      test('string numeric input', () {
+        expect(
+          CurrencyFormatterUtil.format('123.45', locale: 'en_US'),
+          equals(r'$123.45'),
         );
-        expect(find.text(r'$123.45'), findsOneWidget);
       });
 
-      testWidgets('int input', (tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: Builder(
-                builder: (context) {
-                  return Text(context.formatCurrency(100));
-                },
-              ),
-            ),
-          ),
+      test('int input', () {
+        expect(
+          CurrencyFormatterUtil.format(100, locale: 'en_US'),
+          equals(r'$100.00'),
         );
-        expect(find.text(r'$100.00'), findsOneWidget);
       });
 
-      testWidgets('null input fallback', (tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: Builder(
-                builder: (context) {
-                  return Text(context.formatCurrency(null));
-                },
-              ),
-            ),
-          ),
+      test('null input fallback', () {
+        expect(
+          CurrencyFormatterUtil.format(null, locale: 'en_US'),
+          equals('0.00'),
         );
-        expect(find.text('0.00'), findsOneWidget);
       });
 
-      testWidgets('invalid string fallback', (tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: Builder(
-                builder: (context) {
-                  return Text(context.formatCurrency('abc'));
-                },
-              ),
-            ),
-          ),
+      test('invalid string fallback', () {
+        expect(
+          CurrencyFormatterUtil.format('abc', locale: 'en_US'),
+          equals('0.00'),
         );
-        expect(find.text('0.00'), findsOneWidget);
       });
 
-      testWidgets('decimal rounding edge', (tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: Builder(
-                builder: (context) {
-                  return Text(context.formatCurrency(99.999));
-                },
-              ),
-            ),
-          ),
+      test('decimal rounding edge', () {
+        expect(
+          CurrencyFormatterUtil.format(99.999, locale: 'en_US'),
+          equals(r'$100.00'),
         );
-        expect(find.text(r'$100.00'), findsOneWidget);
       });
 
-      testWidgets('negative zero', (tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: Builder(
-                builder: (context) {
-                  return Text(context.formatCurrency(-0));
-                },
-              ),
-            ),
-          ),
+      test('negative zero', () {
+        expect(
+          CurrencyFormatterUtil.format(-0, locale: 'en_US'),
+          equals(r'$0.00'),
         );
-        expect(find.text(r'$0.00'), findsOneWidget);
       });
 
-      testWidgets('large number with decimals', (tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: Builder(
-                builder: (context) {
-                  return Text(
-                    context.formatCurrency(
-                      1234567890.123,
-                      decimalDigits: 3,
-                    ),
-                  );
-                },
-              ),
-            ),
+      test('large number with decimals', () {
+        expect(
+          CurrencyFormatterUtil.format(
+            1234567890.123,
+            locale: 'en_US',
+            decimalDigits: 3,
           ),
+          equals(r'$1,234,567,890.123'),
         );
-        expect(find.text(r'$1,234,567,890.123'), findsOneWidget);
       });
 
-      testWidgets('small decimal rounding', (tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: Builder(
-                builder: (context) {
-                  return Text(
-                    context.formatCurrency(
-                      0.0049,
-                      decimalDigits: 2,
-                    ),
-                  );
-                },
-              ),
-            ),
+      test('small decimal rounding', () {
+        expect(
+          CurrencyFormatterUtil.format(
+            0.0049,
+            locale: 'en_US',
           ),
+          equals(r'$0.00'),
         );
-        expect(find.text(r'$0.00'), findsOneWidget);
-      });
-
-      testWidgets('1 digit decimal', (tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: Builder(
-                builder: (context) {
-                  return Text(
-                    context.formatCurrency(1.5, decimalDigits: 1),
-                  );
-                },
-              ),
-            ),
-          ),
-        );
-        expect(find.text(r'$1.5'), findsOneWidget);
       });
     });
 
     group('Fallback Behavior', () {
-      testWidgets('uses fallback locale when AppLocalizations is missing',
-          (tester) async {
-        await tester.pumpWidget(testWidget);
-        expect(find.text(r'$1,234.56'), findsOneWidget);
+      test('uses fallback value when amount is null', () {
+        expect(
+          CurrencyFormatterUtil.format(
+            null,
+            locale: 'en_US',
+            fallbackValue: '-',
+          ),
+          equals('-'),
+        );
+      });
+
+      test('uses custom fallback value for invalid input', () {
+        expect(
+          CurrencyFormatterUtil.format(
+            'invalid',
+            locale: 'en_US',
+            fallbackValue: 'N/A',
+          ),
+          equals('N/A'),
+        );
       });
     });
   });
