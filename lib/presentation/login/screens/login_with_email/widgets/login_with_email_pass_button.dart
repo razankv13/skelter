@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skelter/constants/integration_test_keys.dart';
 import 'package:skelter/i18n/localization.dart';
@@ -44,7 +43,7 @@ class LoginWithEmailPassButton extends StatelessWidget {
           : AppButtonState.disabled,
       isLoading: isLoading,
       onPressed: () async {
-        await SystemChannels.textInput.invokeMethod('TextInput.hide');
+        FocusManager.instance.primaryFocus?.unfocus();
         final isConnected =
             InternetConnectivityHelper().onConnectivityChange.value;
 
