@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
-import 'package:skelter/utils/extensions/currency_formatter_extensions.dart';
+import 'package:skelter/utils/currency_formatter_util.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class Price extends StatelessWidget {
@@ -13,7 +13,10 @@ class Price extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text.rich(
       TextSpan(
-        text: context.formatCurrency(price, decimalDigits: 2),
+        text: CurrencyFormatterUtil.format(
+          price,
+          locale: context.localization.localeName,
+        ),
         style: AppTextStyles.p3SemiBold.copyWith(
           color: context.currentTheme.textBrandPrimary,
         ),
