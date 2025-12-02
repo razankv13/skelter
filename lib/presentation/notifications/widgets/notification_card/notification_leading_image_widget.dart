@@ -1,9 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:skelter/presentation/notifications/model/notification_model.dart';
 import 'package:skelter/routes.gr.dart';
 import 'package:skelter/utils/app_environment.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 import 'package:skelter/widgets/styling/app_colors.dart';
 
 class NotificationLeadingImageWidget extends StatelessWidget {
@@ -25,7 +27,19 @@ class NotificationLeadingImageWidget extends StatelessWidget {
             height: 88,
             width: 88,
             progressIndicatorBuilder: (context, url, progress) {
-              return const Center(child: CircularProgressIndicator());
+              return Shimmer.fromColors(
+                baseColor: context.currentTheme.bgNeutralLight100,
+                highlightColor:
+                    context.currentTheme.bgNeutralLight100.withOpacity(0.6),
+                child: Container(
+                  height: 88,
+                  width: 88,
+                  decoration: BoxDecoration(
+                    color: context.currentTheme.bgNeutralLight100,
+                    borderRadius: BorderRadius.circular(4.0),
+                  ),
+                ),
+              );
             },
             errorWidget: (context, url, error) => const Icon(
               Icons.error,
