@@ -61,7 +61,7 @@ class _EmailTextFieldState extends State<EmailTextField> {
           style: AppTextStyles.p3Medium
               .copyWith(color: context.currentTheme.textNeutralPrimary),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 6),
         ClarityMask(
           child: TextField(
             controller: _emailController,
