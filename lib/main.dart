@@ -77,7 +77,7 @@ class _MainAppState extends State<MainApp> {
     if (!isConnected) {
       final stillDisconnected = !_connectivityHelper.onConnectivityChange.value;
       if (!stillDisconnected) return;
-      await rootNavigatorKey.currentContext!.pushRoute(NoInternetRoute());
+      await rootNavigatorKey.currentContext!.pushRoute(const NoInternetRoute());
     } else {
       dismissConnectivityPopup();
     }
