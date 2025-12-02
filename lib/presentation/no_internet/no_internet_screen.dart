@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/gen/assets.gen.dart';
 import 'package:skelter/i18n/localization.dart';
-import 'package:skelter/presentation/no_internet/widgets/no_internet_app_bar.dart';
 import 'package:skelter/utils/internet_connectivity_helper.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 import 'package:skelter/widgets/app_button/app_button.dart';
@@ -13,16 +12,13 @@ import 'package:skelter/widgets/app_button/enums/app_button_style_enum.dart';
 
 @RoutePage()
 class NoInternetScreen extends StatelessWidget {
-  const NoInternetScreen({this.canPop = false, super.key});
-
-  final bool canPop;
+  const NoInternetScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: canPop,
+      canPop: false,
       child: Scaffold(
-        appBar: canPop ? const NoInternetAppBar() : null,
         body: SafeArea(
           child: Center(
             child: Padding(
