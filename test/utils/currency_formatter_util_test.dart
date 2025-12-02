@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:skelter/utils/currency_formatter_util.dart';
 
 void main() {
-  group('CurrencyFormatterExtensions Tests', () {
+  group('CurrencyFormatter Util Tests', () {
     group('Basic Formatting', () {
       test('formats positive numbers with default setup', () {
         expect(
