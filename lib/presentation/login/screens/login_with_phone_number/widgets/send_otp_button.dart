@@ -48,6 +48,7 @@ class SendOTPButton extends StatelessWidget {
           : AppButtonState.disabled,
       isLoading: isLoading,
       onPressed: () async {
+        FocusManager.instance.primaryFocus?.unfocus();
         final isConnected =
             InternetConnectivityHelper().onConnectivityChange.value;
 
@@ -57,8 +58,6 @@ class SendOTPButton extends StatelessWidget {
         }
 
         if (phoneNumberOnly.isNotEmpty) {
-          FocusScope.of(context).unfocus();
-
           context
               .read<LoginBloc>()
               .add(LoginWithPhoneNumEvent(phoneNumWithCountryCode));
