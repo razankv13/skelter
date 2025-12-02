@@ -41,9 +41,12 @@ class _LoginWithPhoneNumberScreenState
       create: (context) => LoginBloc(
         localizations: appLocalizations,
       ),
-      child: Scaffold(
-        body: LoginWithPhoneNumberBody(
-          isFromDeleteAccount: widget.isFromDeleteAccount,
+      child: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Scaffold(
+          body: LoginWithPhoneNumberBody(
+            isFromDeleteAccount: widget.isFromDeleteAccount,
+          ),
         ),
       ),
     );

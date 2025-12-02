@@ -37,32 +37,35 @@ class _SignupWithEmailPasswordScreenState
       create: widget.signupBloc != null
           ? (_) => widget.signupBloc!
           : (context) => SignupBloc(localizations: appLocalizations),
-      child: Builder(
-        builder: (context) {
-          return PopScope(
-            onPopInvokedWithResult: (didPop, result) {
-              if (didPop) {
-                context
-                    .read<SignupBloc>()
-                    .add(ResetSignUpStateOnScreenClosedEvent());
-              }
-            },
-            child: Scaffold(
-              appBar: const LoginAppBar(removeLeading: false),
-              body: SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: LoginWithPhoneNumberScreen.kHorizontalPadding,
-                  ),
-                  child: BlocListener<SignupBloc, SignupState>(
-                    listener: _onListener,
-                    child: const _SignupWithEmailPasswordScreenBody(),
+      child: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Builder(
+          builder: (context) {
+            return PopScope(
+              onPopInvokedWithResult: (didPop, result) {
+                if (didPop) {
+                  context
+                      .read<SignupBloc>()
+                      .add(ResetSignUpStateOnScreenClosedEvent());
+                }
+              },
+              child: Scaffold(
+                appBar: const LoginAppBar(removeLeading: false),
+                body: SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: LoginWithPhoneNumberScreen.kHorizontalPadding,
+                    ),
+                    child: BlocListener<SignupBloc, SignupState>(
+                      listener: _onListener,
+                      child: const _SignupWithEmailPasswordScreenBody(),
+                    ),
                   ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

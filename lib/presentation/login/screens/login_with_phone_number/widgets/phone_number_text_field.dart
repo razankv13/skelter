@@ -90,7 +90,7 @@ class _PhoneNumberTextFieldState extends State<PhoneNumberTextField> {
               color: context.currentTheme.textNeutralPrimary,
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 6),
           ClarityMask(
             child: InternationalPhoneNumberInput(
               key: keys.signInPage.mobileNoTextField,
