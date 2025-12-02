@@ -42,14 +42,17 @@ class PhoneNumberOTPScreenState extends State<PhoneNumberOTPScreen> {
           widget.loginBloc.add(PhoneNumLoginLoadingEvent(isLoading: false));
         }
       },
-      child: Scaffold(
-        appBar: const LoginAppBar(removeLeading: false),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: BlocProvider<LoginBloc>.value(
-            value: widget.loginBloc,
-            child: _PhoneNumberOTPScreenBody(
-              isFromDeleteAccount: widget.isFromDeleteAccount,
+      child: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Scaffold(
+          appBar: const LoginAppBar(removeLeading: false),
+          body: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: BlocProvider<LoginBloc>.value(
+              value: widget.loginBloc,
+              child: _PhoneNumberOTPScreenBody(
+                isFromDeleteAccount: widget.isFromDeleteAccount,
+              ),
             ),
           ),
         ),
