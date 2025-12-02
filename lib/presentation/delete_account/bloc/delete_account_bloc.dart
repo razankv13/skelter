@@ -5,6 +5,7 @@ import 'package:skelter/presentation/delete_account/bloc/delete_account_event.da
 import 'package:skelter/presentation/delete_account/bloc/delete_account_state.dart';
 import 'package:skelter/presentation/delete_account/constants/delete_account_constants.dart';
 import 'package:skelter/services/firebase_auth_services.dart';
+import 'package:skelter/utils/haptic_feedback_util.dart';
 
 class DeleteAccountBloc extends Bloc<DeleteAccountEvent, DeleteAccountState> {
   final FirebaseAuthService _firebaseAuthService = sl();
@@ -56,7 +57,7 @@ class DeleteAccountBloc extends Bloc<DeleteAccountEvent, DeleteAccountState> {
     await _firebaseAuthService.deleteCurrentUser(
       onError: (error, {stackTrace}) async {
         hasErrorOccurred = true;
-
+        await HapticFeedbackUtil.error();
         final user = _firebaseAuthService.getCurrentUser();
         final providerList =
             user?.providerData.map((p) => p.providerId).toList() ?? [];
@@ -110,6 +111,7 @@ class DeleteAccountBloc extends Bloc<DeleteAccountEvent, DeleteAccountState> {
 
     if (!hasErrorOccurred) {
       emit(state.copyWith(isLoading: false));
+      await HapticFeedbackUtil.success();
       emit(DeleteAccountSuccessState(state));
     }
   }
