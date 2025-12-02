@@ -329,7 +329,9 @@
   "notification_settings":"Notification Settings",
   "change_password":"Change Password",
   "choose_app_theme":"Choose App Theme",
-  "account_and_privacy":"Account & Privacy",
+  "account_security":"Account security",
+  "biometric_authentication":"Biometric Authentication",
+  "privacy_policy":"Privacy Policy",
 
   "saved_cards_keys":"================ SAVED CARDS KEYS ================",
   "empty_cards_list_message":"There is no card available at the moment.",
