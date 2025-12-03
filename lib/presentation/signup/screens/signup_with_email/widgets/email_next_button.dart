@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skelter/constants/integration_test_keys.dart';
 import 'package:skelter/i18n/localization.dart';
@@ -32,7 +31,7 @@ class EmailNextButton extends StatelessWidget {
       state: email.isNotEmpty ? AppButtonState.normal : AppButtonState.disabled,
       isLoading: isLoading,
       onPressed: () {
-        SystemChannels.textInput.invokeMethod('TextInput.hide');
+        FocusManager.instance.primaryFocus?.unfocus();
         final String? emailError = isEmailValid(email, context);
         if (emailError != null) {
           context

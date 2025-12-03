@@ -20,20 +20,23 @@ class ForgotPasswordV2Screen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const LoginAppBar(removeLeading: false),
-      body: SafeArea(
-        child: BlocProvider<LoginBloc>.value(
-          value: loginBloc,
-          child: BlocListener<LoginBloc, LoginState>(
-            listener: (context, state) {
-              if (state is ResetPasswordLinkSentState) {
-                context.router.replace(
-                  CheckYourEmailRoute(loginBloc: loginBloc),
-                );
-              }
-            },
-            child: const ForgotPasswordV2ScreenBody(),
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        appBar: const LoginAppBar(removeLeading: false),
+        body: SafeArea(
+          child: BlocProvider<LoginBloc>.value(
+            value: loginBloc,
+            child: BlocListener<LoginBloc, LoginState>(
+              listener: (context, state) {
+                if (state is ResetPasswordLinkSentState) {
+                  context.router.replace(
+                    CheckYourEmailRoute(loginBloc: loginBloc),
+                  );
+                }
+              },
+              child: const ForgotPasswordV2ScreenBody(),
+            ),
           ),
         ),
       ),
