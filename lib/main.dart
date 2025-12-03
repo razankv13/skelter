@@ -53,6 +53,7 @@ class _MainAppState extends State<MainApp> {
       InternetConnectivityHelper();
 
   late ThemeBloc themeBloc;
+
   @override
   void initState() {
     super.initState();

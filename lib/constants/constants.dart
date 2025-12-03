@@ -5,10 +5,10 @@ const kMimeTypeImage = 'image/';
 const kSVGWithDot = '.svg';
 const kPNGWithDot = '.png';
 
-const  kPdf = 'pdf';
-const  kText = 'txt';
-const  kDoc = 'doc';
-const  kMp4 = 'mp4';
+const kPdf = 'pdf';
+const kText = 'txt';
+const kDoc = 'doc';
+const kMp4 = 'mp4';
 
 /// MIME types for identifying PDF, TXT, Word DOC, and MP4 files
 const kPdfMimeType = 'application/pdf';

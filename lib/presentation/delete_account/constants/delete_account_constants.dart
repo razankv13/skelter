@@ -8,5 +8,3 @@ const String kProviderPhone = 'phone';
 const String kProviderApple = 'apple.com';
 const String kProviderPassword = 'password';
 const String kEmailScope = 'email';
-
-
