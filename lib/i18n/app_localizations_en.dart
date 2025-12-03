@@ -893,6 +893,44 @@ class AppLocalizationsEn extends AppLocalizations {
   String get product_details => 'Product Details';
 
   @override
+  String get reminder_keys => '================ REMINDER KEYS ================';
+
+  @override
+  String get reminder => 'Reminder';
+
+  @override
+  String get reminder_title => 'Title';
+
+  @override
+  String get reminder_description => 'Description (Optional)';
+
+  @override
+  String get reminder_title_hint => 'Enter reminder title';
+
+  @override
+  String get reminder_description_hint => 'Enter description';
+
+  @override
+  String get date_and_time => 'Date & Time';
+
+  @override
+  String get schedule_reminder => 'Schedule Reminder';
+
+  @override
+  String get reminder_title_required => 'Please enter a title';
+
+  @override
+  String get reminder_future_date_required =>
+      'Please select a future date and time';
+
+  @override
+  String get reminder_scheduled_successfully =>
+      'Reminder scheduled successfully!';
+
+  @override
+  String get reminder_schedule_failed => 'Failed to schedule reminder';
+
+  @override
   String get share_product_subject => 'Product on Skelter';
 
   @override

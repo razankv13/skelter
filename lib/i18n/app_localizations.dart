@@ -1696,6 +1696,78 @@ abstract class AppLocalizations {
   /// **'Product Details'**
   String get product_details;
 
+  /// No description provided for @reminder_keys.
+  ///
+  /// In en, this message translates to:
+  /// **'================ REMINDER KEYS ================'**
+  String get reminder_keys;
+
+  /// No description provided for @reminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder'**
+  String get reminder;
+
+  /// No description provided for @reminder_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get reminder_title;
+
+  /// No description provided for @reminder_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Description (Optional)'**
+  String get reminder_description;
+
+  /// No description provided for @reminder_title_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter reminder title'**
+  String get reminder_title_hint;
+
+  /// No description provided for @reminder_description_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter description'**
+  String get reminder_description_hint;
+
+  /// No description provided for @date_and_time.
+  ///
+  /// In en, this message translates to:
+  /// **'Date & Time'**
+  String get date_and_time;
+
+  /// No description provided for @schedule_reminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule Reminder'**
+  String get schedule_reminder;
+
+  /// No description provided for @reminder_title_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a title'**
+  String get reminder_title_required;
+
+  /// No description provided for @reminder_future_date_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a future date and time'**
+  String get reminder_future_date_required;
+
+  /// No description provided for @reminder_scheduled_successfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder scheduled successfully!'**
+  String get reminder_scheduled_successfully;
+
+  /// No description provided for @reminder_schedule_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to schedule reminder'**
+  String get reminder_schedule_failed;
+
   /// Subject line used when sharing a product
   ///
   /// In en, this message translates to:
