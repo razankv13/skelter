@@ -1,292 +1,279 @@
 {
-  "common_keys":"================ COMMON KEYS ================",
-  "add":"Add",
-  "camera":"Camera",
-  "gallery":"Gallery",
-  "next":"Next",
-  "or":"Or",
-  "remove":"Remove",
-  "search":"Search",
-  "opps_something_went_wrong":"Opps Something Went Wrong",
-
-  "time_date_keys":"================ TIME & DATE KEYS ================",
-  "@daysAgo":{
-    "description":"Indicates how many days ago",
-    "placeholders":{
-      "count":{
-        "example":"5",
-        "type":"int"
+  "common_keys": "================ COMMON KEYS ================",
+  "add": "Add",
+  "camera": "Camera",
+  "gallery": "Gallery",
+  "next": "Next",
+  "or": "Or",
+  "remove": "Remove",
+  "search": "Search",
+  "opps_something_went_wrong": "Opps Something Went Wrong",
+  "time_date_keys": "================ TIME & DATE KEYS ================",
+  "@daysAgo": {
+    "description": "Indicates how many days ago",
+    "placeholders": {
+      "count": {
+        "example": "5",
+        "type": "int"
       }
     }
   },
-  "@hoursAgo":{
-    "description":"Indicates how many hours ago",
-    "placeholders":{
-      "count":{
-        "example":"6",
-        "type":"int"
+  "@hoursAgo": {
+    "description": "Indicates how many hours ago",
+    "placeholders": {
+      "count": {
+        "example": "6",
+        "type": "int"
       }
     }
   },
-  "@minutesAgo":{
-    "description":"Indicates how many minutes ago",
-    "placeholders":{
-      "count":{
-        "example":"45",
-        "type":"int"
+  "@minutesAgo": {
+    "description": "Indicates how many minutes ago",
+    "placeholders": {
+      "count": {
+        "example": "45",
+        "type": "int"
       }
     }
   },
-  "@monthsAgo":{
-    "description":"Indicates how many months ago",
-    "placeholders":{
-      "count":{
-        "example":"3",
-        "type":"int"
+  "@monthsAgo": {
+    "description": "Indicates how many months ago",
+    "placeholders": {
+      "count": {
+        "example": "3",
+        "type": "int"
       }
     }
   },
-  "@yearsAgo":{
-    "description":"Indicates how many years ago",
-    "placeholders":{
-      "count":{
-        "example":"2",
-        "type":"int"
+  "@yearsAgo": {
+    "description": "Indicates how many years ago",
+    "placeholders": {
+      "count": {
+        "example": "2",
+        "type": "int"
       }
     }
   },
-  "daysAgo":"{count} days ago",
-  "hoursAgo":"{count} hrs ago",
-  "justNow":"Just now",
-  "lastMonth":"Last month",
-  "lastYear":"Last year",
-  "minutesAgo":"{count} min ago",
-  "monthsAgo":"{count} months ago",
-  "oneHourAgo":"1 hr ago",
-  "oneMinuteAgo":"1 min ago",
-  "today":"Today",
-  "yearsAgo":"{count} years ago",
-  "yesterday":"Yesterday",
-
-  "login_keys":"================ LOGIN KEYS ================",
-  "@link_send_info":{
-    "description":"Email where reset link has been sent",
-    "placeholders":{
-      "email":{
-        "example":"-",
-        "type":"String"
+  "daysAgo": "{count} days ago",
+  "hoursAgo": "{count} hrs ago",
+  "justNow": "Just now",
+  "lastMonth": "Last month",
+  "lastYear": "Last year",
+  "minutesAgo": "{count} min ago",
+  "monthsAgo": "{count} months ago",
+  "oneHourAgo": "1 hr ago",
+  "oneMinuteAgo": "1 min ago",
+  "today": "Today",
+  "yearsAgo": "{count} years ago",
+  "yesterday": "Yesterday",
+  "login_keys": "================ LOGIN KEYS ================",
+  "@link_send_info": {
+    "description": "Email where reset link has been sent",
+    "placeholders": {
+      "email": {
+        "example": "-",
+        "type": "String"
       }
     }
   },
-  "ask_forgot_password":"Forgot password?",
-  "check_your_email":"Check Your Email",
-  "resend":"Resend",
-  "login_continue":"Continue",
-  "continue_with_apple":"Continue with Apple",
-  "continue_with_email":"Continue with Email",
-  "continue_with_google":"Continue with Google",
-  "continue_with_number":"Continue with Phone Number",
-  "enter_otp":"Enter OTP",
-  "enter_phone_number":"Enter phone number",
-  "enter_your_registered_phone_number":"Enter your registered phone number",
-  "forgot_password":"Forgot password",
-  "invalid_mobile_number":"Invalid mobile number",
-  "link_send_info":"A reset link has been sent to {email}. Please check your inbox and click the link to reset the password.",
-  "login":"Login",
-  "login_with_email":"Login with email",
-  "send_otp":"Send OTP",
-  "send_reset_link":"Send Reset Link",
-  "sent_code_info":"We’ve sent a 6-digit code to",
-  "welcome_back":"Welcome back!",
-
-  "signup_keys":"================ SIGNUP KEYS ================",
-  "@link_verify_info":{
-    "description":"Email where verification link has been sent",
-    "placeholders":{
-      "email":{
-        "example":"-",
-        "type":"String"
+  "ask_forgot_password": "Forgot password?",
+  "check_your_email": "Check Your Email",
+  "resend": "Resend",
+  "login_continue": "Continue",
+  "continue_with_apple": "Continue with Apple",
+  "continue_with_email": "Continue with Email",
+  "continue_with_google": "Continue with Google",
+  "continue_with_number": "Continue with Phone Number",
+  "enter_otp": "Enter OTP",
+  "enter_phone_number": "Enter phone number",
+  "enter_your_registered_phone_number": "Enter your registered phone number",
+  "forgot_password": "Forgot password",
+  "invalid_mobile_number": "Invalid mobile number",
+  "link_send_info": "A reset link has been sent to {email}. Please check your inbox and click the link to reset the password.",
+  "login": "Login",
+  "login_with_email": "Login with email",
+  "send_otp": "Send OTP",
+  "send_reset_link": "Send Reset Link",
+  "sent_code_info": "We’ve sent a 6-digit code to",
+  "welcome_back": "Welcome back!",
+  "signup_keys": "================ SIGNUP KEYS ================",
+  "@link_verify_info": {
+    "description": "Email where verification link has been sent",
+    "placeholders": {
+      "email": {
+        "example": "-",
+        "type": "String"
       }
     }
   },
-  "already_have_account":"Already have an account? ",
-  "back_to_login":"Back to login",
-  "confirm_password":"Confirm password",
-  "confirm_password_hint":"Enter confirm password",
-  "change_email":" Change Email",
-  "create_your_password":"Create your password",
-  "email":"Email",
-  "email_cant_be_empty":"Email can’t be empty",
-  "email_hint":"Enter email",
-  "email_id":"Email Id",
-  "enter_your_email_id":"Enter your email id",
-  "enter_your_name":"Enter your name",
-  "entered_wrong_email":"Entered the wrong email?",
-  "error_enter_confirm_password":"Please enter confirm password",
-  "error_retrieving_email":"Error retrieving your email",
-  "error_retrieving_phone_number":"Error retrieving your phone number",
-  "invalid_email":"Please enter a valid email address",
-  "lets_get_started":"Let's get started",
-  "lets_get_started_info":"Enter your phone number, we will send you a verification code",
-  "link_verify_info":"A verification link has been sent to {email}. Click the link to verify your account.",
-  "mobile_number":"Mobile number",
-  "name":"Name",
-  "name_cannot_be_empty":"Name can't be empty",
-  "no_account":"Don’t have an account? ",
-  "password":"Password",
-  "password_cant_be_empty":"Password can't be empty",
-  "password_hint":"Enter password",
-  "password_requirements":"Your password must have at least:",
-  "password_requirements_length":"8 characters or more",
-  "password_requirements_letter_number":"1 letter and number",
-  "password_requirements_special_char":"1 special character (Example: # ? ! $ & @)",
-  "password_strength":"Password strength:",
-  "passwords_do_not_match":"Passwords do not match",
-  "phone_no_verified":"Phone number verified!",
-  "phone_no_verified_info":"Your Phone number has been successfully verified. You can now complete your profile.",
-  "poor":"Poor",
-  "sign_up":"Sign up",
-  "sign_up_with_apple":"Sign up with Apple",
-  "sign_up_with_email":"Sign up with Email",
-  "sign_up_with_google":"Sign up with Google",
-  "strong":"Strong",
-  "terms_and_conditions":"Terms and Conditions",
-  "user_info_not_retrieved":"User information could not be retrieved.",
-  "weak":"Weak",
-  "verify":"Verify",
-
-  "verify_email_keys":"================ VERIFY EMAIL KEYS ================",
-  "resend_verification_email":"Resend Verification Email",
-  "verify_your_email":"Verify your email",
-
-  "profile_keys":"================ PROFILE KEYS ================",
-  "account":"Account",
-  "add_a_profile_picture":"Add a profile picture",
-  "personal_details":"Personal Details",
-  "profile":"Profile",
-  "help_and_support":"Help & Support",
-  "edit":"Edit",
-  "sign_out":"Sign out",
-  "skip":"Skip",
-  "activity":"Activity",
-  "history":"History",
-  "done":"Done",
-  "community":"Community",
-  "feedback_and_ratings":"Feedback & Ratings",
-  "notifications":"Notifications",
-
-  "delete_account_keys":"================ DELETE ACCOUNT KEYS ================",
-  "delete":"Delete",
-  "delete_account":"Delete Account",
-  "delete_account_alert_title":"Are you sure you want to Delete Account?",
-  "delete_account_confirmation_message":"This action is irreversible. All your data will be permanently deleted. Are you sure you want to proceed?",
-  "delete_reason_dislike_app":"I don’t like to be on this app",
-  "delete_reason_do_not_need_anymore":"I don't need it anymore",
-  "delete_reason_other":"Other",
-  "delete_reason_product_no_more_relevant":"Products are no more relevant to me",
-  "delete_reason_title":"Why are you deleting account?",
-  "delete_warning_account_info":"Delete all of your account information",
-  "delete_warning_products_chats":"Saved products, chats will be deleted",
-  "delete_warning_title":"Deleting account will do the following :",
-  "please_select_at_least_one_reason":"Please select at least one reason",
-  "please_specify_your_reason":"Please specify your reason",
-  "specify_reason":"Please specify your reason",
-  "cancel":"Cancel",
-
-  "account_delete_success_keys":"================ ACCOUNT DELETE SUCCESS KEYS ================",
-  "account_deleted":"Account Deleted!",
-  "creating_new_account":"Creating new account?",
-
-  "shipping_address_keys":"================ SHIPPING ADDRESS KEYS ================",
-  "add_new_address":"Add New Address",
-  "add_shipping_details":"Add Shipping Details",
-  "address":"Address",
-  "city":"City",
-  "country":"Country",
-  "deliver_to":"Deliver to",
-  "enter_your_address":"Enter Your Address",
-  "enter_zip_code":"Enter Zip Code",
-  "select_address":"Select Address",
-  "select_city":"Select City",
-  "select_country":"Select Country",
-  "select_state":"Select State",
-  "set_as_default_address":"Set as Default Address",
-  "shipping_address":"Shipping Address",
-  "shipping_details":"Shipping Details",
-  "state":"State",
-  "use_current_location":"Use Current Location",
-  "zip_code":"Zip Code",
-
-  "checkout_keys":"================ CHECKOUT KEYS ================",
-  "@price_of_items":{
-    "description":"Total products count with correct plural form",
-    "placeholders":{
-      "total_product":{
-        "example":"2",
-        "type":"int"
+  "already_have_account": "Already have an account? ",
+  "back_to_login": "Back to login",
+  "confirm_password": "Confirm password",
+  "confirm_password_hint": "Enter confirm password",
+  "change_email": " Change Email",
+  "create_your_password": "Create your password",
+  "email": "Email",
+  "email_cant_be_empty": "Email can’t be empty",
+  "email_hint": "Enter email",
+  "email_id": "Email Id",
+  "enter_your_email_id": "Enter your email id",
+  "enter_your_name": "Enter your name",
+  "entered_wrong_email": "Entered the wrong email?",
+  "error_enter_confirm_password": "Please enter confirm password",
+  "error_retrieving_email": "Error retrieving your email",
+  "error_retrieving_phone_number": "Error retrieving your phone number",
+  "invalid_email": "Please enter a valid email address",
+  "lets_get_started": "Let's get started",
+  "lets_get_started_info": "Enter your phone number, we will send you a verification code",
+  "link_verify_info": "A verification link has been sent to {email}. Click the link to verify your account.",
+  "mobile_number": "Mobile number",
+  "name": "Name",
+  "name_cannot_be_empty": "Name can't be empty",
+  "no_account": "Don’t have an account? ",
+  "password": "Password",
+  "password_cant_be_empty": "Password can't be empty",
+  "password_hint": "Enter password",
+  "password_requirements": "Your password must have at least:",
+  "password_requirements_length": "8 characters or more",
+  "password_requirements_letter_number": "1 letter and number",
+  "password_requirements_special_char": "1 special character (Example: # ? ! $ & @)",
+  "password_strength": "Password strength:",
+  "passwords_do_not_match": "Passwords do not match",
+  "phone_no_verified": "Phone number verified!",
+  "phone_no_verified_info": "Your Phone number has been successfully verified. You can now complete your profile.",
+  "poor": "Poor",
+  "sign_up": "Sign up",
+  "sign_up_with_apple": "Sign up with Apple",
+  "sign_up_with_email": "Sign up with Email",
+  "sign_up_with_google": "Sign up with Google",
+  "strong": "Strong",
+  "terms_and_conditions": "Terms and Conditions",
+  "user_info_not_retrieved": "User information could not be retrieved.",
+  "weak": "Weak",
+  "verify": "Verify",
+  "verify_email_keys": "================ VERIFY EMAIL KEYS ================",
+  "resend_verification_email": "Resend Verification Email",
+  "verify_your_email": "Verify your email",
+  "profile_keys": "================ PROFILE KEYS ================",
+  "account": "Account",
+  "add_a_profile_picture": "Add a profile picture",
+  "personal_details": "Personal Details",
+  "profile": "Profile",
+  "help_and_support": "Help & Support",
+  "edit": "Edit",
+  "sign_out": "Sign out",
+  "skip": "Skip",
+  "activity": "Activity",
+  "history": "History",
+  "done": "Done",
+  "community": "Community",
+  "feedback_and_ratings": "Feedback & Ratings",
+  "notifications": "Notifications",
+  "delete_account_keys": "================ DELETE ACCOUNT KEYS ================",
+  "delete": "Delete",
+  "delete_account": "Delete Account",
+  "delete_account_alert_title": "Are you sure you want to Delete Account?",
+  "delete_account_confirmation_message": "This action is irreversible. All your data will be permanently deleted. Are you sure you want to proceed?",
+  "delete_reason_dislike_app": "I don’t like to be on this app",
+  "delete_reason_do_not_need_anymore": "I don't need it anymore",
+  "delete_reason_other": "Other",
+  "delete_reason_product_no_more_relevant": "Products are no more relevant to me",
+  "delete_reason_title": "Why are you deleting account?",
+  "delete_warning_account_info": "Delete all of your account information",
+  "delete_warning_products_chats": "Saved products, chats will be deleted",
+  "delete_warning_title": "Deleting account will do the following :",
+  "please_select_at_least_one_reason": "Please select at least one reason",
+  "please_specify_your_reason": "Please specify your reason",
+  "specify_reason": "Please specify your reason",
+  "cancel": "Cancel",
+  "account_delete_success_keys": "================ ACCOUNT DELETE SUCCESS KEYS ================",
+  "account_deleted": "Account Deleted!",
+  "creating_new_account": "Creating new account?",
+  "shipping_address_keys": "================ SHIPPING ADDRESS KEYS ================",
+  "add_new_address": "Add New Address",
+  "add_shipping_details": "Add Shipping Details",
+  "address": "Address",
+  "city": "City",
+  "country": "Country",
+  "deliver_to": "Deliver to",
+  "enter_your_address": "Enter Your Address",
+  "enter_zip_code": "Enter Zip Code",
+  "select_address": "Select Address",
+  "select_city": "Select City",
+  "select_country": "Select Country",
+  "select_state": "Select State",
+  "set_as_default_address": "Set as Default Address",
+  "shipping_address": "Shipping Address",
+  "shipping_details": "Shipping Details",
+  "state": "State",
+  "use_current_location": "Use Current Location",
+  "zip_code": "Zip Code",
+  "checkout_keys": "================ CHECKOUT KEYS ================",
+  "@price_of_items": {
+    "description": "Total products count with correct plural form",
+    "placeholders": {
+      "total_product": {
+        "example": "2",
+        "type": "int"
       }
     }
   },
-  "cart":"Cart",
-  "cart_and_checkout":"Cart Details",
-  "cart_items":"Cart Items",
-  "cash_on_delivery":"Cash on Delivery",
-  "confirm_and_pay":"Confirm and Pay",
-  "delivery_charges":"Delivery Charges",
-  "discount":"Discount",
-  "expected_delivery_by":"Expected Delivery by",
-  "order_review":"Order Review",
-  "order_summary":"Order Summary",
-  "payment":"Payment",
-  "price":"Price",
-  "price_of_items":"Price({total_product, plural, =1{{total_product} item} other{{total_product} items}})",
-  "select_and_review_order":"Select & Review Order",
-  "select_payment_method":"Select Payment Method",
-  "selected_payment_method":"Selected Payment Method",
-  "shipping":"Shipping",
-  "total_amount":"Total Amount",
-  "your_cart_is_empty":"Your Cart is Empty !",
-
-  "coupons_keys":"================ COUPONS KEYS ================",
-  "@coupon_message":{
-    "description":"Message based on the number of available coupons",
-    "placeholders":{
-      "coupon_count":{
-        "example":"2",
-        "type":"int"
+  "cart": "Cart",
+  "cart_and_checkout": "Cart Details",
+  "cart_items": "Cart Items",
+  "cash_on_delivery": "Cash on Delivery",
+  "confirm_and_pay": "Confirm and Pay",
+  "delivery_charges": "Delivery Charges",
+  "discount": "Discount",
+  "expected_delivery_by": "Expected Delivery by",
+  "order_review": "Order Review",
+  "order_summary": "Order Summary",
+  "payment": "Payment",
+  "price": "Price",
+  "price_of_items": "Price({total_product, plural, =1{{total_product} item} other{{total_product} items}})",
+  "select_and_review_order": "Select & Review Order",
+  "select_payment_method": "Select Payment Method",
+  "selected_payment_method": "Selected Payment Method",
+  "shipping": "Shipping",
+  "total_amount": "Total Amount",
+  "your_cart_is_empty": "Your Cart is Empty !",
+  "coupons_keys": "================ COUPONS KEYS ================",
+  "@coupon_message": {
+    "description": "Message based on the number of available coupons",
+    "placeholders": {
+      "coupon_count": {
+        "example": "2",
+        "type": "int"
       }
     }
   },
-  "apply":"Apply",
-  "apply_coupon":"Apply Coupon",
-  "available_coupons":"Available Coupons",
-  "coupon_message":"{coupon_count, plural, =0 {No Coupon Available} =1 {{coupon_count} Coupon Available} other {{coupon_count} Coupons Available}}",
-  "search_by_name_or_code":"Search by name or code",
-
-  "home_keys":"================ HOME KEYS ================",
-  "home":"Home",
-  "pro":"PRO",
-  "rating":"Rating",
-  "reviews":"Reviews",
-  "see_all":"See All",
-  "star":"Star",
-  "top_products":"Top Products",
-  "no_result_for":"No results for \"{searchText}\"",
-  "no_search_result_message":"We couldn't found any result related to your search. Try searching for something else.",
-  "microphone_permission_permanently_denied":"Microphone permission is permanently denied. Please go to settings and enable it.",
-
-  "wishlist_keys":"================ WISHLIST KEYS ================",
-  "wishlist":"Wishlist",
-  "empty_wishlist_message":"You have not added any product to your wishlist. Explore products to add in your wishlist.",
-  "empty_wishlist_title":"Your Wishlist is empty!",
-
-  "chat_keys":"================ CHAT KEYS ================",
-  "@messageTooLong":{
-    "description":"Error shown when user input exceeds maximum allowed length",
-    "placeholders":{
-      "maxLength":{
-        "example":"200",
-        "type":"int"
+  "apply": "Apply",
+  "apply_coupon": "Apply Coupon",
+  "available_coupons": "Available Coupons",
+  "coupon_message": "{coupon_count, plural, =0 {No Coupon Available} =1 {{coupon_count} Coupon Available} other {{coupon_count} Coupons Available}}",
+  "search_by_name_or_code": "Search by name or code",
+  "home_keys": "================ HOME KEYS ================",
+  "home": "Home",
+  "pro": "PRO",
+  "rating": "Rating",
+  "reviews": "Reviews",
+  "see_all": "See All",
+  "star": "Star",
+  "top_products": "Top Products",
+  "no_result_for": "No results for \"{searchText}\"",
+  "no_search_result_message": "We couldn't found any result related to your search. Try searching for something else.",
+  "microphone_permission_permanently_denied": "Microphone permission is permanently denied. Please go to settings and enable it.",
+  "wishlist_keys": "================ WISHLIST KEYS ================",
+  "wishlist": "Wishlist",
+  "empty_wishlist_message": "You have not added any product to your wishlist. Explore products to add in your wishlist.",
+  "empty_wishlist_title": "Your Wishlist is empty!",
+  "chat_keys": "================ CHAT KEYS ================",
+  "@messageTooLong": {
+    "description": "Error shown when user input exceeds maximum allowed length",
+    "placeholders": {
+      "maxLength": {
+        "example": "200",
+        "type": "int"
       }
     }
   },
@@ -413,7 +400,7 @@
   "product_detail_keys": "================ Product Detail Keys ================",
   "product_information": "Product Information",
   "add_to_cart": "Add to cart",
-  "mark_favorite" : "Mark Favorite",
+  "mark_favorite": "Mark Favorite",
   "inclusive_of_taxes": "(incl. of all taxes)",
   "product_photos": "Product Photos",
   "view_product_reviews": "View Product Reviews",
@@ -436,12 +423,14 @@
   "@share_product_subject": {
     "description": "Subject line used when sharing a product"
   },
-
   "share_product_message": "I found this product on Skelter and thought you might like it.\n\nCheck it out here:\n{url}",
   "@share_product_message": {
     "description": "Share body with product name and product URL",
     "placeholders": {
-      "url": { "type": "String", "example": "https://skelter.solz.me/product-detail/P001" }
+      "url": {
+        "type": "String",
+        "example": "https://skelter.solz.me/product-detail/P001"
+      }
     }
   }
 }

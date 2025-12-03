@@ -34,14 +34,6 @@ class EmptyViewsScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               AppButton(
-                label: context.localization.lost_connection,
-                foregroundColor: context.currentTheme.textNeutralLight,
-                onPressed: () {
-                  context.pushRoute(const NoInternetRoute());
-                },
-              ),
-              const SizedBox(height: 16),
-              AppButton(
                 label: context.localization.under_maintenance,
                 foregroundColor: context.currentTheme.textNeutralLight,
                 onPressed: () {
