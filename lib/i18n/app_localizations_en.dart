@@ -899,4 +899,30 @@ class AppLocalizationsEn extends AppLocalizations {
   String share_product_message(String url) {
     return 'I found this product on Skelter and thought you might like it.\n\nCheck it out here:\n$url';
   }
+
+  @override
+  String get app_tour_keys => '================ APP TOUR KEYS ================';
+
+  @override
+  String get tour_search_title => 'Search Products';
+
+  @override
+  String get tour_search_description =>
+      'Use the search bar to quickly find the products you\'re looking for. Just type what you need!';
+
+  @override
+  String get tour_nav_title => 'Navigate the App';
+
+  @override
+  String get tour_nav_description =>
+      'Use the bottom navigation to switch between Home, Search, Cart, and Profile sections.';
+
+  @override
+  String get got_it => 'Got it!';
+
+  @override
+  String get search_bar_identify => 'search_bar';
+
+  @override
+  String get bottom_nav__bar_identify => 'bottom_nav_bar';
 }

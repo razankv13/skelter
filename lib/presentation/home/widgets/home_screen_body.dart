@@ -1,28 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:skelter/core/services/app_tour_service.dart';
 import 'package:skelter/presentation/home/widgets/home_app_bar.dart';
 import 'package:skelter/presentation/home/widgets/product_search_bar.dart';
 import 'package:skelter/presentation/home/widgets/products_headline_bar.dart';
 import 'package:skelter/presentation/home/widgets/top_product_grid.dart';
 
-class HomeScreenBody extends StatelessWidget {
+class HomeScreenBody extends StatefulWidget {
   const HomeScreenBody({super.key});
+
+  @override
+  State<HomeScreenBody> createState() => _HomeScreenBodyState();
+}
+
+class _HomeScreenBodyState extends State<HomeScreenBody> {
+  final GlobalKey _searchBarKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    _checkAndShowTour();
+  }
+
+  Future<void> _checkAndShowTour() async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final tourCompleted = await AppTourService.isTourCompleted();
+      if (!tourCompleted && mounted) {
+        AppTourService.showTour(
+          context: context,
+          searchBarKey: _searchBarKey,
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      child: const SingleChildScrollView(
+      child: SingleChildScrollView(
         child: Column(
           children: [
-            HomeAppBar(),
+            const HomeAppBar(),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 children: [
-                  SizedBox(height: 16),
-                  ProductSearchBar(),
-                  ProductsHeadlineBar(),
-                  TopProductGrid(),
+                  const SizedBox(height: 16),
+                  ProductSearchBar(key: _searchBarKey),
+                  const ProductsHeadlineBar(),
+                  const TopProductGrid(),
                 ],
               ),
             ),

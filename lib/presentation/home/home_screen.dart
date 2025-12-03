@@ -25,8 +25,15 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class HomeScreenWrapper extends StatelessWidget {
+class HomeScreenWrapper extends StatefulWidget {
   const HomeScreenWrapper({super.key});
+
+  @override
+  State<HomeScreenWrapper> createState() => HomeScreenWrapperState();
+}
+
+class HomeScreenWrapperState extends State<HomeScreenWrapper> {
+  static final GlobalKey bottomNavKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +60,7 @@ class HomeScreenWrapper extends StatelessWidget {
         }
       },
       child: Scaffold(
-        bottomNavigationBar: const BottomNavBar(),
+        bottomNavigationBar: BottomNavBar(key: bottomNavKey),
         body: SafeArea(
           child: IndexedStack(
             index: currentIndex,

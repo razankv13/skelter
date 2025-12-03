@@ -1,0 +1,155 @@
+import 'package:flutter/material.dart';
+import 'package:skelter/common/theme/text_style/app_text_styles.dart';
+import 'package:skelter/i18n/localization.dart';
+import 'package:skelter/presentation/home/home_screen.dart';
+import 'package:skelter/shared_pref/prefs.dart';
+import 'package:skelter/widgets/app_button/app_button.dart';
+import 'package:skelter/widgets/app_button/enums/app_button_style_enum.dart';
+import 'package:skelter/widgets/styling/app_colors.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
+
+// Service to manage the app tour
+class AppTourService {
+  static const String _tourCompletedKey = 'app_tour_completed';
+
+  static Future<bool> isTourCompleted() async {
+    return await Prefs.getBool(_tourCompletedKey) ?? false;
+  }
+
+  static Future<void> markTourAsCompleted() async {
+    await Prefs.setBool(_tourCompletedKey, value: true);
+  }
+
+  // Create and show the app tour
+  static void showTour({
+    required BuildContext context,
+    required GlobalKey searchBarKey,
+  }) {
+    final targets = _createTargets(
+      context: context,
+      searchBarKey: searchBarKey,
+      bottomNavKey: HomeScreenWrapperState.bottomNavKey,
+    );
+
+    final tutorial = TutorialCoachMark(
+      hideSkip: true,
+      targets: targets,
+      paddingFocus: 4,
+      onFinish: () => markTourAsCompleted(),
+      onSkip: () {
+        markTourAsCompleted();
+        return true;
+      },
+    );
+
+    tutorial.show(context: context);
+  }
+
+  static List<TargetFocus> _createTargets({
+    required BuildContext context,
+    required GlobalKey searchBarKey,
+    required GlobalKey bottomNavKey,
+  }) {
+    return [
+      TargetFocus(
+        identify: context.localization.search_bar_identify,
+        keyTarget: searchBarKey,
+        alignSkip: Alignment.topRight,
+        shape: ShapeLightFocus.RRect,
+        radius: 12,
+        contents: [
+          TargetContent(
+            builder: (context, controller) {
+              return Container(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      context.localization.tour_search_title,
+                      style:
+                          AppTextStyles.h2Bold.copyWith(color: AppColors.white),
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      context.localization.tour_search_description,
+                      style: AppTextStyles.p2Regular.copyWith(
+                        color: AppColors.white,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        AppButton(
+                          onPressed: () => controller.skip(),
+                          label: context.localization.skip,
+                          style: AppButtonStyle.textOrIcon,
+                          foregroundColor: AppColors.white,
+                        ),
+                        const SizedBox(width: 16),
+                        AppButton(
+                          onPressed: () => controller.next(),
+                          label: context.localization.next,
+                          foregroundColor: AppColors.white,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+      TargetFocus(
+        identify: context.localization.bottom_nav__bar_identify,
+        keyTarget: bottomNavKey,
+        alignSkip: Alignment.topRight,
+        shape: ShapeLightFocus.RRect,
+        radius: 12,
+        contents: [
+          TargetContent(
+            align: ContentAlign.top,
+            builder: (context, controller) {
+              return Container(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      context.localization.tour_nav_title,
+                      style: AppTextStyles.h2Bold.copyWith(
+                        color: AppColors.white,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      context.localization.tour_nav_description,
+                      style: AppTextStyles.p2Regular.copyWith(
+                        color: AppColors.white,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        AppButton(
+                          onPressed: () => controller.next(),
+                          label: context.localization.got_it,
+                          foregroundColor: AppColors.white,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    ];
+  }
+}

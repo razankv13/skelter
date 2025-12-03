@@ -391,6 +391,14 @@
     "placeholders": {
       "url": { "type": "String", "example": "https://skelter.solz.me/product-detail/P001" }
     }
-  }
+  },
 
+  "app_tour_keys": "================ APP TOUR KEYS ================",
+  "tour_search_title": "Search Products",
+  "tour_search_description": "Use the search bar to quickly find the products you're looking for. Just type what you need!",
+  "tour_nav_title": "Navigate the App",
+  "tour_nav_description": "Use the bottom navigation to switch between Home, Search, Cart, and Profile sections.",
+  "got_it": "Got it!",
+  "search_bar_identify": "search_bar",
+  "bottom_nav__bar_identify": "bottom_nav_bar"
 }
