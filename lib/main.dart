@@ -3,12 +3,15 @@ import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:clarity_flutter/clarity_flutter.dart';
 import 'package:country_picker/country_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:sizer/sizer.dart';
+import 'package:skelter/constants/constants.dart';
 import 'package:skelter/core/clarity_analytics/clarity_route_observer.dart';
 import 'package:skelter/core/deep_link/app_deep_link_manager.dart';
 import 'package:skelter/core/services/injection_container.dart';
@@ -17,6 +20,7 @@ import 'package:skelter/i18n/i18n.dart';
 import 'package:skelter/initialize_app.dart';
 import 'package:skelter/routes.dart';
 import 'package:skelter/routes.gr.dart';
+import 'package:skelter/services/notification_service.dart';
 import 'package:skelter/services/subscription_service.dart';
 import 'package:skelter/services/theme_service.dart';
 import 'package:skelter/shared_pref/prefs.dart';
@@ -54,6 +58,9 @@ class _MainAppState extends State<MainApp> {
       InternetConnectivityHelper();
 
   late ThemeBloc themeBloc;
+  StreamSubscription? _notificationSubscription;
+  StreamSubscription? _authSubscription;
+
   @override
   void initState() {
     super.initState();
@@ -68,6 +75,85 @@ class _MainAppState extends State<MainApp> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await sl<AppDeepLinkManager>().initializeDeepLink();
     });
+
+    _authSubscription = FirebaseAuth.instance.authStateChanges().listen(
+      (user) {
+        if (user != null) {
+          _initializeNotifications();
+        } else {
+          _cleanupNotifications();
+        }
+      },
+    );
+  }
+
+  Future<void> _initializeNotifications() async {
+    await NotificationService.instance.initialize();
+
+    _notificationSubscription =
+        NotificationService.instance.onNotificationTap.listen(
+      (payload) {
+        _handleNotificationTap(payload);
+      },
+    );
+
+    final initialPayload =
+        NotificationService.instance.initialNotificationPayload;
+    if (initialPayload != null) {
+      _handleNotificationTap(initialPayload);
+    }
+  }
+
+  Future<void> _cleanupNotifications() async {
+    await _notificationSubscription?.cancel();
+    _notificationSubscription = null;
+    await FirebaseMessaging.instance.deleteToken();
+    debugPrint('FCM token deleted on logout');
+  }
+
+  /// Handles notification taps and navigates based on payload type.
+  /// To customize for your app:
+  /// Add notification types to constants.dart (e.g., kOrder, kChat)
+  void _handleNotificationTap(Map<String, dynamic> payload) {
+    debugPrint('Notification tapped with payload: $payload');
+    final context = rootNavigatorKey.currentContext;
+    if (context == null) {
+      debugPrint('Navigation context not available');
+      return;
+    }
+
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      debugPrint('User not logged in, ignoring notification navigation');
+      return;
+    }
+
+    final notificationType = payload['type'] as String?;
+    final productId = payload['product_id'] as String?;
+
+    // Customize this switch for your notification types
+    switch (notificationType) {
+      case kProduct:
+        if (productId != null && productId.trim().isNotEmpty) {
+          debugPrint('Navigating to product details: $productId');
+          context.pushRoute(ProductDetailRoute(productId: productId.trim()));
+        } else {
+          debugPrint('Product ID missing, navigating to home');
+          context.pushRoute(const HomeRoute());
+        }
+      case kHome:
+      default:
+        debugPrint('Navigating to home');
+        context.pushRoute(const HomeRoute());
+    }
+  }
+
+  @override
+  void dispose() {
+    _notificationSubscription?.cancel();
+    _authSubscription?.cancel();
+    NotificationService.instance.dispose();
+    super.dispose();
   }
 
   Future<void> handleConnectivityStatusChange() async {
