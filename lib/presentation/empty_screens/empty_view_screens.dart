@@ -56,6 +56,14 @@ class EmptyViewsScreen extends StatelessWidget {
                   context.pushRoute(const SavedCardRoute());
                 },
               ),
+              const SizedBox(height: 16),
+              AppButton(
+                label: context.localization.schedule_reminder,
+                foregroundColor: context.currentTheme.textNeutralLight,
+                onPressed: () {
+                  context.pushRoute(const ReminderRoute());
+                },
+              ),
             ],
           ),
         ),
