@@ -48,7 +48,6 @@ void main() {
         ProfileState.test(
           name: 'Test User',
           email: 'test@example.com',
-          isProUser: true,
         ),
       );
 
@@ -83,7 +82,6 @@ void main() {
                 ProfileState.test(
                   name: 'Test User',
                   email: 'x5t4T@example.com',
-                  isProUser: true,
                 ),
               );
 
@@ -149,7 +147,6 @@ void main() {
           ProfileState.test(
             name: 'This is very long name for testing purpose only',
             email: 'x5t4T_wzkrhzj_45454_qweurnzzlahrnzgkhf@example.com',
-            isProUser: true,
           ),
         );
 
@@ -214,6 +211,75 @@ void main() {
               theme: AppThemeEnum.DarkTheme,
               providers: [
                 BlocProvider<ProfileBloc>.value(value: profileBloc),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  });
+
+  testExecutable(() {
+    goldenTest(
+      'Profile details UI test',
+      fileName: 'profile_details',
+      pumpBeforeTest: precacheImages,
+      builder: () {
+        // arrange
+        final proUserProfileBloc = MockProfileBloc();
+        when(() => proUserProfileBloc.state).thenReturn(
+          ProfileState.test(
+            name: 'Test User',
+            email: 'x5t4T@example.com',
+            isProUser: true,
+          ),
+        );
+
+        final nonProUserProfileBloc = MockProfileBloc();
+        when(() => nonProUserProfileBloc.state).thenReturn(
+          ProfileState.test(
+            name: 'Test User',
+            email: 'x5t4T@example.com',
+            isProUser: false,
+          ),
+        );
+
+        // act, assert
+        return GoldenTestGroup(
+          columnWidthBuilder: (_) => const FixedColumnWidth(pixel5DeviceWidth),
+          children: [
+            createTestScenario(
+              name: 'Pro User Profile details Light Theme',
+              child: const ProfileDetails(),
+              addScaffold: true,
+              providers: [
+                BlocProvider<ProfileBloc>.value(value: proUserProfileBloc),
+              ],
+            ),
+            createTestScenario(
+              name: 'Pro User Profile details Dark Theme',
+              child: const ProfileDetails(),
+              addScaffold: true,
+              theme: AppThemeEnum.DarkTheme,
+              providers: [
+                BlocProvider<ProfileBloc>.value(value: proUserProfileBloc),
+              ],
+            ),
+            createTestScenario(
+              name: 'Non-Pro User Profile details Light Theme',
+              child: const ProfileDetails(),
+              addScaffold: true,
+              providers: [
+                BlocProvider<ProfileBloc>.value(value: nonProUserProfileBloc),
+              ],
+            ),
+            createTestScenario(
+              name: 'Non-Pro User Profile details Dark Theme',
+              child: const ProfileDetails(),
+              addScaffold: true,
+              theme: AppThemeEnum.DarkTheme,
+              providers: [
+                BlocProvider<ProfileBloc>.value(value: nonProUserProfileBloc),
               ],
             ),
           ],

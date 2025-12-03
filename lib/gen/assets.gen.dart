@@ -100,6 +100,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/no_product_detail_found.svg
   String get noProductDetailFound => 'assets/icons/no_product_detail_found.svg';
 
+  /// File path: assets/icons/pro_icon.png
+  AssetGenImage get proIcon => const AssetGenImage('assets/icons/pro_icon.png');
+
   /// File path: assets/icons/search_outline.svg
   String get searchOutline => 'assets/icons/search_outline.svg';
 
@@ -144,6 +147,7 @@ class $AssetsIconsGen {
         noInternetConnection,
         noNotifications,
         noProductDetailFound,
+        proIcon,
         searchOutline,
         send,
         serverError,
@@ -181,6 +185,9 @@ class $AssetsImagesGen {
   AssetGenImage get sgSkelterLogo =>
       const AssetGenImage('assets/images/sg_skelter_logo.png');
 
+  /// File path: assets/images/success.png
+  AssetGenImage get success => const AssetGenImage('assets/images/success.png');
+
   /// List of all assets
   List<AssetGenImage> get values => [
         cartItem1,
@@ -188,7 +195,8 @@ class $AssetsImagesGen {
         demoUser,
         mastercard,
         sgSkelterBoilerplate,
-        sgSkelterLogo
+        sgSkelterLogo,
+        success
       ];
 }
 

@@ -65,3 +65,9 @@ const String kApiCache = 'api_cache';
 // Date formats
 const String kDefaultDateFormat = 'dd-MM-yyyy';
 const String kDefaultTimeFormat12Hour = 'hh:mm a';
+const String kProduct = 'product';
+const String kHome = 'home';
+
+// RevenueCat subscription constants
+const revenueCatGoogleApiKey = 'REVENEUCAT_GOOGLE_API_KEY';
+const revenueCatMonthly = 'monthly';
