@@ -21,6 +21,7 @@ import 'package:skelter/initialize_app.dart';
 import 'package:skelter/routes.dart';
 import 'package:skelter/routes.gr.dart';
 import 'package:skelter/services/notification_service.dart';
+import 'package:skelter/services/subscription_service.dart';
 import 'package:skelter/services/theme_service.dart';
 import 'package:skelter/shared_pref/prefs.dart';
 import 'package:skelter/utils/app_environment.dart';
@@ -220,6 +221,8 @@ class _MainAppState extends State<MainApp> {
                 darkTheme: AppThemesData.themeData[AppThemeEnum.DarkTheme]!,
                 themeMode: state.themeMode,
                 builder: (context, child) {
+                  final localization = AppLocalizations.of(context)!;
+                  SubscriptionService().setLocalization(localization);
                   return child!;
                 },
               );

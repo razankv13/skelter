@@ -1498,6 +1498,234 @@ abstract class AppLocalizations {
   /// **'No Orders Found'**
   String get empty_order_title;
 
+  /// No description provided for @subscription_keys.
+  ///
+  /// In en, this message translates to:
+  /// **'================ SUBSCRIPTION KEYS ================'**
+  String get subscription_keys;
+
+  /// No description provided for @upgrade_to_pro.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade to PRO'**
+  String get upgrade_to_pro;
+
+  /// No description provided for @cancel_subscription.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Subscription'**
+  String get cancel_subscription;
+
+  /// No description provided for @manage_subscription.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage Subscription'**
+  String get manage_subscription;
+
+  /// No description provided for @no_subscription_available.
+  ///
+  /// In en, this message translates to:
+  /// **'No subscription plans available.'**
+  String get no_subscription_available;
+
+  /// No description provided for @failed_to_load_subscriptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load subscription plans.'**
+  String get failed_to_load_subscriptions;
+
+  /// No description provided for @store_login_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Please log into your App Store or Play Store account.'**
+  String get store_login_required;
+
+  /// No description provided for @unexpected_error_occurred.
+  ///
+  /// In en, this message translates to:
+  /// **'An unexpected error occurred.'**
+  String get unexpected_error_occurred;
+
+  /// No description provided for @user_purchase_cancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'You cancelled the purchase.'**
+  String get user_purchase_cancelled;
+
+  /// No description provided for @restore_subscription.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Subscription'**
+  String get restore_subscription;
+
+  /// No description provided for @restore_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Your purchases have been restored successfully.'**
+  String get restore_success;
+
+  /// No description provided for @no_active_subscriptions.
+  ///
+  /// In en, this message translates to:
+  /// **'No active subscriptions were found on your account.'**
+  String get no_active_subscriptions;
+
+  /// No description provided for @restore_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Error restoring purchases: '**
+  String get restore_error;
+
+  /// No description provided for @monthly_plan.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly Plan'**
+  String get monthly_plan;
+
+  /// No description provided for @yearly_plan.
+  ///
+  /// In en, this message translates to:
+  /// **'Yearly Plan'**
+  String get yearly_plan;
+
+  /// No description provided for @monthly_duration.
+  ///
+  /// In en, this message translates to:
+  /// **'per month'**
+  String get monthly_duration;
+
+  /// No description provided for @monthly_renewal.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-renews every month'**
+  String get monthly_renewal;
+
+  /// No description provided for @yearly_duration.
+  ///
+  /// In en, this message translates to:
+  /// **'per year'**
+  String get yearly_duration;
+
+  /// No description provided for @yearly_renewal.
+  ///
+  /// In en, this message translates to:
+  /// **'Best value – Auto-renews yearly'**
+  String get yearly_renewal;
+
+  /// No description provided for @subscription_renew.
+  ///
+  /// In en, this message translates to:
+  /// **'Your subscription will automatically renew unless canceled at least 24 hours before the end of the current period'**
+  String get subscription_renew;
+
+  /// No description provided for @continue_to_payment.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue to Payment'**
+  String get continue_to_payment;
+
+  /// No description provided for @unlock_access.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock Full Access to'**
+  String get unlock_access;
+
+  /// No description provided for @app_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Skelter Pro'**
+  String get app_name;
+
+  /// No description provided for @plan_description.
+  ///
+  /// In en, this message translates to:
+  /// **'🚀 Get unlimited access to skelter'**
+  String get plan_description;
+
+  /// No description provided for @processing_your_payment.
+  ///
+  /// In en, this message translates to:
+  /// **'Processing Your Payment'**
+  String get processing_your_payment;
+
+  /// No description provided for @payment_processing_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait while we process your payment. This may take a few seconds.'**
+  String get payment_processing_message;
+
+  /// No description provided for @subscription_activated_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription Activated!'**
+  String get subscription_activated_title;
+
+  /// No description provided for @subscription_activated_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Your subscription is now active.\nYou can explore the premium features.'**
+  String get subscription_activated_message;
+
+  /// No description provided for @payment_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment failed!'**
+  String get payment_failed;
+
+  /// No description provided for @payment_failed_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Please try again after sometime.'**
+  String get payment_failed_message;
+
+  /// No description provided for @retry_payment.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry Payment'**
+  String get retry_payment;
+
+  /// No description provided for @go_to_home.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to Home'**
+  String get go_to_home;
+
+  /// No description provided for @subscription_management_url_unavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn’t load your subscription settings. Please try again later.'**
+  String get subscription_management_url_unavailable;
+
+  /// No description provided for @subscription_invalid_url.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid subscription URL.'**
+  String get subscription_invalid_url;
+
+  /// No description provided for @purchase_cancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase cancelled'**
+  String get purchase_cancelled;
+
+  /// No description provided for @already_subscribed.
+  ///
+  /// In en, this message translates to:
+  /// **'Already subscribed'**
+  String get already_subscribed;
+
+  /// No description provided for @receipt_already_in_use.
+  ///
+  /// In en, this message translates to:
+  /// **'Receipt already in use'**
+  String get receipt_already_in_use;
+
+  /// No description provided for @something_went_wrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong'**
+  String get something_went_wrong;
+
   /// No description provided for @force_update_keys.
   ///
   /// In en, this message translates to:

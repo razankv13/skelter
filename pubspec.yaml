@@ -71,6 +71,7 @@ dependencies:
   clarity_flutter: ^1.4.0
   mime: ^2.0.0
   device_info_plus: ^11.5.0
+  purchases_flutter: ^9.9.6
   app_links: ^6.4.1
   share_plus: ^12.0.1
   vibration: ^3.1.4
