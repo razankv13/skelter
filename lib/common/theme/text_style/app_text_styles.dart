@@ -42,6 +42,14 @@ class AppTextStyles {
     letterSpacing: -0.24,
   );
 
+  static TextStyle h5Bold = const TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.w700,
+    fontFamily: FontFamily.inter,
+    height: 1.33,
+    letterSpacing: -0.24,
+  );
+
   static TextStyle h6Medium = const TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.w500,
