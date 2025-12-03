@@ -38,9 +38,9 @@ void main() {
       when(() => loginBloc.state).thenReturn(LoginState.test());
 
       await tester.runWidgetTest(
-        child: ForgotPasswordV2Screen(loginBloc: loginBloc),
+        child: ForgotPasswordScreen(loginBloc: loginBloc),
       );
-      expect(find.byType(ForgotPasswordV2Screen), findsOneWidget);
+      expect(find.byType(ForgotPasswordScreen), findsOneWidget);
       expect(find.byType(EmailTextField), findsOneWidget);
       expect(find.byType(SendResetLinkButton), findsOneWidget);
     });
@@ -103,24 +103,23 @@ void main() {
           children: [
             createTestScenario(
               name: 'default email state',
-              child: ForgotPasswordV2Screen(loginBloc: loginBlocEmptyEmail),
+              child: ForgotPasswordScreen(loginBloc: loginBlocEmptyEmail),
             ),
             createTestScenario(
               name: 'valid email state',
-              child: ForgotPasswordV2Screen(loginBloc: loginBlocValidEmail),
+              child: ForgotPasswordScreen(loginBloc: loginBlocValidEmail),
             ),
             createTestScenario(
               name: 'long email state',
-              child: ForgotPasswordV2Screen(loginBloc: loginBlocLongEmail),
+              child: ForgotPasswordScreen(loginBloc: loginBlocLongEmail),
             ),
             createTestScenario(
               name: 'invalid email state',
-              child: ForgotPasswordV2Screen(loginBloc: loginBlocInvalidEmail),
+              child: ForgotPasswordScreen(loginBloc: loginBlocInvalidEmail),
             ),
             createTestScenario(
               name: 'empty email state',
-              child:
-                  ForgotPasswordV2Screen(loginBloc: loginBlocEmptyEmailError),
+              child: ForgotPasswordScreen(loginBloc: loginBlocEmptyEmailError),
             ),
           ],
         );

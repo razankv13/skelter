@@ -46,7 +46,7 @@ class ForgotPasswordButton extends StatelessWidget {
         }
 
         context.pushRoute(
-          ForgotPasswordV2Route(loginBloc: context.read<LoginBloc>()),
+          ForgotPasswordRoute(loginBloc: context.read<LoginBloc>()),
         );
       },
     );
