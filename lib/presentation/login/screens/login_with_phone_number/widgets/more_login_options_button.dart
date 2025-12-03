@@ -48,6 +48,7 @@ class MoreLoginOptionsButton extends StatelessWidget {
             size: AppButtonSize.extraLarge,
             backgroundColor: context.currentTheme.bgSurfaceBase2,
             onPressed: () {
+              FocusManager.instance.primaryFocus?.unfocus();
               if (isSignup) {
                 context.pushRoute(SignupWithEmailPasswordRoute());
               } else {
@@ -74,6 +75,7 @@ class MoreLoginOptionsButton extends StatelessWidget {
             size: AppButtonSize.extraLarge,
             backgroundColor: context.currentTheme.bgSurfaceBase2,
             onPressed: () {
+              FocusManager.instance.primaryFocus?.unfocus();
               final isConnected =
                   InternetConnectivityHelper().onConnectivityChange.value;
 
@@ -98,6 +100,7 @@ class MoreLoginOptionsButton extends StatelessWidget {
               leftIconPath: Assets.icons.apple,
               size: AppButtonSize.extraLarge,
               onPressed: () {
+                FocusManager.instance.primaryFocus?.unfocus();
                 final isConnected =
                     InternetConnectivityHelper().onConnectivityChange.value;
 

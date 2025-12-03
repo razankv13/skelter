@@ -66,7 +66,7 @@ class _EmailPasswordTextFieldsState extends State<EmailPasswordTextFields> {
             style: AppTextStyles.p3Medium
                 .copyWith(color: context.currentTheme.textNeutralPrimary),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 6),
           ClarityMask(
             child: TextField(
               key: keys.signInPage.emailTextField,
@@ -97,7 +97,7 @@ class _EmailPasswordTextFieldsState extends State<EmailPasswordTextFields> {
             context.localization.password,
             style: AppTextStyles.p3Medium,
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 6),
           ClarityMask(
             child: TextField(
               key: keys.signInPage.passwordTextField,
