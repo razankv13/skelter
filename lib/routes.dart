@@ -62,6 +62,8 @@ class AppRouter extends RootStackRouter {
       MyOrdersRoute.page,
       SavedCardRoute.page,
       EmptyViewsRoute.page,
+      ReminderRoute.page,
+
       //Image view
       NetworkImageRoute.page,
 

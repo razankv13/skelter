@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
+import 'package:skelter/constants/constants.dart';
 import 'package:skelter/i18n/app_localizations.dart';
 import 'package:skelter/presentation/subscription/model/subscription_package_model.dart';
 
@@ -19,14 +21,35 @@ class SubscriptionService {
   late AppLocalizations _localization;
 
   final Map<String, Package> _packageMap = {};
+  bool _isPurchaseConfigured = false;
 
   void setLocalization(AppLocalizations localization) {
     _localization = localization;
   }
 
   Future<void> _init() async {
+    await _initPurchasesConfiguration();
     await _checkSubscriptionStatus();
     Purchases.addCustomerInfoUpdateListener(_updateSubscriptionStatus);
+  }
+
+  /// Initialize RevenueCat purchases configuration (called only once)
+  Future<void> _initPurchasesConfiguration() async {
+    if (_isPurchaseConfigured) {
+      debugPrint('Purchase configuration already initialized, skipping...');
+      return;
+    }
+
+    try {
+      await Purchases.setLogLevel(LogLevel.debug);
+      final revenueCatApiKey = dotenv.env[revenueCatGoogleApiKey] ?? '';
+      await Purchases.configure(PurchasesConfiguration(revenueCatApiKey));
+      _isPurchaseConfigured = true;
+      debugPrint('Purchase configuration initialized successfully');
+    } catch (e) {
+      debugPrint('Error initializing purchase configuration: $e');
+      rethrow;
+    }
   }
 
   Future<void> _checkSubscriptionStatus() async {

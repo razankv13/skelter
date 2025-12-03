@@ -29,7 +29,7 @@ class UpgradeToPro extends StatelessWidget {
             TablerIcons.chevron_right,
             color: context.currentTheme.iconNeutralDefault,
           ),
-          onTap: () => context.pushRoute(SubscriptionRoute()),
+          onTap: () => context.pushRoute(const SubscriptionRoute()),
         ),
       ],
     );
