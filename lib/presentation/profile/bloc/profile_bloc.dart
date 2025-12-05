@@ -14,7 +14,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           ProfileState.initial(
             name: 'Josh Fernandes',
             email: 'josh@gmail.com',
-            isProUser: true,
           ),
         ) {
     _setupEventListener();
@@ -28,6 +27,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
   void _setupEventListener() {
     on<UpdateProfileEvent>(_onUpdateProfileEvent);
+    on<UpdateSubscriptionStatusEvent>(_onUpdateSubscriptionStatusEvent);
     on<SignOutEvent>(_onSignOutEvent);
   }
 
@@ -42,6 +42,13 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         isProUser: event.isProUser,
       ),
     );
+  }
+
+  void _onUpdateSubscriptionStatusEvent(
+    UpdateSubscriptionStatusEvent event,
+    Emitter<ProfileState> emit,
+  ) {
+    emit(state.copyWith(isProUser: event.isSubscribed));
   }
 
   void _onSignOutEvent(

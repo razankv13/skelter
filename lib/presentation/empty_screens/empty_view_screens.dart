@@ -34,14 +34,6 @@ class EmptyViewsScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               AppButton(
-                label: context.localization.lost_connection,
-                foregroundColor: context.currentTheme.textNeutralLight,
-                onPressed: () {
-                  context.pushRoute(const NoInternetRoute());
-                },
-              ),
-              const SizedBox(height: 16),
-              AppButton(
                 label: context.localization.under_maintenance,
                 foregroundColor: context.currentTheme.textNeutralLight,
                 onPressed: () {
@@ -62,6 +54,14 @@ class EmptyViewsScreen extends StatelessWidget {
                 foregroundColor: context.currentTheme.textNeutralLight,
                 onPressed: () {
                   context.pushRoute(const SavedCardRoute());
+                },
+              ),
+              const SizedBox(height: 16),
+              AppButton(
+                label: context.localization.schedule_reminder,
+                foregroundColor: context.currentTheme.textNeutralLight,
+                onPressed: () {
+                  context.pushRoute(const ReminderRoute());
                 },
               ),
             ],

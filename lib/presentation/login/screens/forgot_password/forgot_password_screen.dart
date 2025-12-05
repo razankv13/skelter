@@ -13,8 +13,8 @@ import 'package:skelter/routes.gr.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 @RoutePage()
-class ForgotPasswordV2Screen extends StatelessWidget {
-  const ForgotPasswordV2Screen({super.key, required this.loginBloc});
+class ForgotPasswordScreen extends StatelessWidget {
+  const ForgotPasswordScreen({super.key, required this.loginBloc});
 
   final LoginBloc loginBloc;
 
@@ -35,7 +35,7 @@ class ForgotPasswordV2Screen extends StatelessWidget {
                   );
                 }
               },
-              child: const ForgotPasswordV2ScreenBody(),
+              child: const ForgotPasswordScreenBody(),
             ),
           ),
         ),
@@ -44,8 +44,8 @@ class ForgotPasswordV2Screen extends StatelessWidget {
   }
 }
 
-class ForgotPasswordV2ScreenBody extends StatelessWidget {
-  const ForgotPasswordV2ScreenBody({super.key});
+class ForgotPasswordScreenBody extends StatelessWidget {
+  const ForgotPasswordScreenBody({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -25,7 +25,7 @@ class AppRouter extends RootStackRouter {
       LoginWithPhoneNumberRoute.page,
       PhoneNumberOTPRoute.page,
       LoginWithEmailPasswordRoute.page,
-      ForgotPasswordV2Route.page,
+      ForgotPasswordRoute.page,
       CheckYourEmailRoute.page,
 
       // Signup
@@ -62,12 +62,17 @@ class AppRouter extends RootStackRouter {
       MyOrdersRoute.page,
       SavedCardRoute.page,
       EmptyViewsRoute.page,
+      ReminderRoute.page,
+
       //Image view
       NetworkImageRoute.page,
 
       //Settings
       SettingsRoute.page,
 
+      // Subscription
+      SubscriptionRoute.page,
+      ManageSubscriptionRoute.page,
       //Delete Account
       DeleteAccountRoute.page,
       AccountDeleteSuccessRoute.page,

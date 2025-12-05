@@ -14,7 +14,9 @@ class LoadTheme extends ThemeEvent {
 
 class SetThemeModeEvent extends ThemeEvent {
   final ThemeMode mode;
+
   const SetThemeModeEvent({required this.mode});
+
   @override
   List<Object?> get props => [mode];
 }
