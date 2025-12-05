@@ -300,10 +300,16 @@ PODS:
   - PromisesObjC (2.4.0)
   - PromisesSwift (2.4.0):
     - PromisesObjC (= 2.4.0)
+  - purchases_flutter (9.9.10):
+    - Flutter
+    - PurchasesHybridCommon (= 17.21.2)
+  - PurchasesHybridCommon (17.21.2):
+    - RevenueCat (= 5.49.2)
   - RecaptchaInterop (101.0.0)
-  - SDWebImage (5.21.4):
-    - SDWebImage/Core (= 5.21.4)
-  - SDWebImage/Core (5.21.4)
+  - RevenueCat (5.49.2)
+  - SDWebImage (5.21.5):
+    - SDWebImage/Core (= 5.21.5)
+  - SDWebImage/Core (5.21.5)
   - share_plus (0.0.1):
     - Flutter
   - shared_preferences_foundation (0.0.1):
@@ -357,6 +363,7 @@ DEPENDENCIES:
   - patrol (from `.symlinks/plugins/patrol/darwin`)
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - PhoneNumberKit (= 3.8.0)
+  - purchases_flutter (from `.symlinks/plugins/purchases_flutter/ios`)
   - share_plus (from `.symlinks/plugins/share_plus/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
   - sign_in_with_apple (from `.symlinks/plugins/sign_in_with_apple/ios`)
@@ -403,7 +410,9 @@ SPEC REPOS:
     - PhoneNumberKit
     - PromisesObjC
     - PromisesSwift
+    - PurchasesHybridCommon
     - RecaptchaInterop
+    - RevenueCat
     - SDWebImage
     - SwiftyGif
     - TOCropViewController
@@ -464,6 +473,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/patrol/darwin"
   permission_handler_apple:
     :path: ".symlinks/plugins/permission_handler_apple/ios"
+  purchases_flutter:
+    :path: ".symlinks/plugins/purchases_flutter/ios"
   share_plus:
     :path: ".symlinks/plugins/share_plus/ios"
   shared_preferences_foundation:
@@ -483,28 +494,23 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
-  app_links: 3dbc685f76b1693c66a6d9dd1e9ab6f73d97dc0a
+  app_links: 585674be3c6661708e6cd794ab4f39fb9d8356f9
   AppAuth: d4f13a8fe0baf391b2108511793e4b479691fb73
   AppCheckCore: cc8fd0a3a230ddd401f326489c99990b013f0c4f
-  awesome_notifications: 0f432b28098d193920b11a44cfa9d2d9313a3888
+  awesome_notifications: dd5518ff1c80be03d4f1c40f04da9d9cc2a37af5
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
-  connectivity_plus: cb623214f4e1f6ef8fe7403d580fdad517d2f7dd
+  connectivity_plus: 2a701ffec2c0ae28a48cf7540e279787e77c447d
   CryptoSwift: e64e11850ede528a02a0f3e768cec8e9d92ecb90
-  device_info_plus: 21fcca2080fbcd348be798aa36c3e5ed849eefbe
+  device_info_plus: bf2e3232933866d73fe290f2942f2156cdd10342
   DKImagePickerController: 946cec48c7873164274ecc4624d19e3da4c1ef3c
   DKPhotoGallery: b3834fecb755ee09a593d7c9e389d8b5d6deed60
-  file_picker: a0560bc09d61de87f12d246fc47d2119e6ef37be
+  file_picker: b159e0c068aef54932bb15dc9fd1571818edaf49
   Firebase: f07b15ae5a6ec0f93713e30b923d9970d144af3e
-  firebase_analytics: 67fbdd9f3c04e55048024f3da21cfc36f05e56cf
-  firebase_auth: 9225db04db5d8e3b46dc8940e04bc6aec6833e27
-  firebase_core: f1aafb21c14f497e5498f7ffc4dc63cbb52b2594
-  firebase_crashlytics: c039028126cb45e32f4c217aa392408b0963d081
-  firebase_messaging: c17a29984eafce4b2997fe078bb0a9e0b06f5dde
-  firebase_remote_config: c1540fb5adfca6165116fafecf6fcb956b547fb8
   firebase_analytics: 2b372cc13c077de5f1ac37e232bacd5bacb41963
   firebase_auth: 4816610b91e98ca2f48df6c62e0247036e0856ff
   firebase_core: e6b8bb503b7d1d9856e698d4f193f7b414e6bf1f
   firebase_crashlytics: 5991a84e0a09733ab69e204664afc87d1cb3ce07
+  firebase_messaging: fc7b6af84f4cd885a4999f51ea69ef20f380d70d
   firebase_remote_config: ecef2850896a7a17fb429164b489975ca7410a7f
   FirebaseABTesting: c05b5ec9f1d9f21a65909525de301d375032d9a4
   FirebaseAnalytics: 0fc2b20091f0ddd21bf73397cf8f0eb5346dc24f
@@ -522,11 +528,6 @@ SPEC CHECKSUMS:
   FirebaseSessions: ba7c7a7ca8696a8d540eb3fe3800fbe98c79786d
   FirebaseSharedSwift: 93426a1de92f19e1199fac5295a4f8df16458daa
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  flutter_fgbg: d3da78df78454b1808f0829a5da9cd17dfe16444
-  flutter_localization: 72299fb6cb4e51cae587bd953ed0b958040b71e6
-  flutter_native_splash: c32d145d68aeda5502d5f543ee38c192065986cf
-  flutter_secure_storage: 1ed9476fba7e7a782b22888f956cce43e2c62f13
-  google_sign_in_ios: b48bb9af78576358a168361173155596c845f0b9
   flutter_exit_app: 6510c709414577c6084bb841febaed1f600d9edf
   flutter_fgbg: 31c0d1140a131daea2d342121808f6aa0dcd879d
   flutter_localization: f43b18844a2b3d2c71fd64f04ffd6b1e64dd54d4
@@ -543,6 +544,7 @@ SPEC CHECKSUMS:
   http_certificate_pinning: e0fea5deb9c56c234be0e09fe6991355a39c92e1
   image_cropper: e0bb0042e4404ff2ef134e5cf0492cbd892156cd
   image_picker_ios: c560581cceedb403a6ff17f2f816d7fea1421fc1
+  IosAwnCore: 653786a911089012092ce831f2945cd339855a89
   local_auth_darwin: fa4b06454df7df8e97c18d7ee55151c57e7af0de
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   open_settings_plus: 4bd848866fea2becc124581d868a6164cf768831
@@ -553,7 +555,10 @@ SPEC CHECKSUMS:
   PhoneNumberKit: ec00ab8cef5342c1dc49fadb99d23fa7e66cf0ef
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
+  purchases_flutter: 08d7eb2ffdffce43829e49d6352b46966fb7661a
+  PurchasesHybridCommon: 71c94158ff8985657d37d5f3be05602881227619
   RecaptchaInterop: 11e0b637842dfb48308d242afc3f448062325aba
+  RevenueCat: d185cbff8be9425b5835042afd6889389bb756c8
   SDWebImage: e9c98383c7572d713c1a0d7dd2783b10599b9838
   share_plus: 8b6f8b3447e494cca5317c8c3073de39b3600d1f
   shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
@@ -564,8 +569,8 @@ SPEC CHECKSUMS:
   SwiftyGif: 706c60cf65fa2bc5ee0313beece843c8eb8194d4
   TOCropViewController: 80b8985ad794298fb69d3341de183f33d1853654
   Try: 5ef669ae832617b3cee58cb2c6f99fb767a4ff96
-  url_launcher_ios: 694010445543906933d732453a59da0a173ae33d
-  vibration: 69774ad57825b11c951ee4c46155f455d7a592ce
+  url_launcher_ios: 5334b05cef931de560670eeae103fd3e431ac3fe
+  vibration: 3797858f8cbf53d841e189ef8bd533d96e4ca93c
 
 PODFILE CHECKSUM: 61e7fd29c901218c87de911b4be99ae05a369744
 
