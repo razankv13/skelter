@@ -907,8 +907,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get local_auth_keys =>
-      '================ Local Auth Keys ================';
+  String get biometric_auth_keys =>
+      '================ BIOMETRIC AUTH KEYS ================';
 
   @override
   String get biometric_auth_desc_for_enrollment =>
@@ -919,4 +919,29 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ok => 'OK';
+
+  @override
+  String get enable_or_disable => 'Enable/ Disable';
+
+  @override
+  String get biometric_auth_description =>
+      'Use the toggle to activate or deactivate biometric verification.';
+
+  @override
+  String get biometric_auth_enabled_success =>
+      'Biometric authentication enabled successfully';
+
+  @override
+  String get biometric_auth_disabled => 'Biometric authentication disabled';
+
+  @override
+  String get auth_failed => 'Authentication failed';
+
+  @override
+  String get biometric_auth_not_available =>
+      'Biometric authentication is not available on this device';
+
+  @override
+  String get biometric_auth_too_many_attempts =>
+      'Too many attempts. Please try again later.';
 }

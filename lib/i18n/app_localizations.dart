@@ -1720,11 +1720,11 @@ abstract class AppLocalizations {
   /// **'I found this product on Skelter and thought you might like it.\n\nCheck it out here:\n{url}'**
   String share_product_message(String url);
 
-  /// No description provided for @local_auth_keys.
+  /// No description provided for @biometric_auth_keys.
   ///
   /// In en, this message translates to:
-  /// **'================ Local Auth Keys ================'**
-  String get local_auth_keys;
+  /// **'================ BIOMETRIC AUTH KEYS ================'**
+  String get biometric_auth_keys;
 
   /// No description provided for @biometric_auth_desc_for_enrollment.
   ///
@@ -1743,6 +1743,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'OK'**
   String get ok;
+
+  /// No description provided for @enable_or_disable.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable/ Disable'**
+  String get enable_or_disable;
+
+  /// No description provided for @biometric_auth_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the toggle to activate or deactivate biometric verification.'**
+  String get biometric_auth_description;
+
+  /// No description provided for @biometric_auth_enabled_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric authentication enabled successfully'**
+  String get biometric_auth_enabled_success;
+
+  /// No description provided for @biometric_auth_disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric authentication disabled'**
+  String get biometric_auth_disabled;
+
+  /// No description provided for @auth_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Authentication failed'**
+  String get auth_failed;
+
+  /// No description provided for @biometric_auth_not_available.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric authentication is not available on this device'**
+  String get biometric_auth_not_available;
+
+  /// No description provided for @biometric_auth_too_many_attempts.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many attempts. Please try again later.'**
+  String get biometric_auth_too_many_attempts;
 }
 
 class _AppLocalizationsDelegate
