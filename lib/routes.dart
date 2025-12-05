@@ -80,6 +80,9 @@ class AppRouter extends RootStackRouter {
 
       //Change Theme
       ChangeThemeRoute.page,
+
+      // Biometrics authentication
+      BiometricAuthRoute.page,
     ]
         .map(
           (page) => AutoRoute(
