@@ -38,11 +38,11 @@ class BiometricAuthScreen extends StatelessWidget {
       context.showSnackBar(
         state.errorMessage ?? context.localization.auth_failed,
       );
-    } else if (state is BiometricAuthIsSupportedState) {
+    } else if (state is IsBiometricAuthNotSupportedState) {
       context.showSnackBar(
         context.localization.biometric_auth_not_available,
       );
-    } else if (state is BiometricAuthNotEnrolledState) {
+    } else if (state is IsBiometricAuthNotSupportedState) {
       showBiometricSetupEnrollmentBottomSheet(context);
     } else if (state is BioMetricsTooManyAttemptState) {
       context.showSnackBar(

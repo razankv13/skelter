@@ -45,7 +45,7 @@ class BiometricAuthBloc extends Bloc<BiometricAuthEvent, BiometricAuthState> {
         if (biometricAuthStatus == BiometricAuthStatus.notSupported) {
           await HapticFeedbackUtil.error();
           emit(
-            BiometricAuthIsSupportedState(
+            IsBiometricAuthNotSupportedState(
               state,
               isBiometricSupported: false,
             ),
@@ -68,15 +68,17 @@ class BiometricAuthBloc extends Bloc<BiometricAuthEvent, BiometricAuthState> {
           await HapticFeedbackUtil.success();
           await Prefs.setBool(PrefKeys.kIsBiometricEnabled, value: true);
           emit(
-            BiometricAuthUpdatedState(
+            IsBiometricAuthEnabledState(
               state,
-              isBiometricEnabled: true,
+              isBiometricEnrolled: true,
             ),
           );
+          emit(BiometricAuthSuccessState(state));
         } else {
           await HapticFeedbackUtil.error();
           emit(
-            state.copyWith(
+            IsBiometricAuthEnabledState(
+              state,
               isBiometricEnrolled: false,
             ),
           );
@@ -95,9 +97,9 @@ class BiometricAuthBloc extends Bloc<BiometricAuthEvent, BiometricAuthState> {
           await HapticFeedbackUtil.warning();
           await Prefs.setBool(PrefKeys.kIsBiometricEnabled, value: false);
           emit(
-            BiometricAuthUpdatedState(
+            IsBiometricAuthEnabledState(
               state,
-              isBiometricEnabled: false,
+              isBiometricEnrolled: false,
             ),
           );
         } else {

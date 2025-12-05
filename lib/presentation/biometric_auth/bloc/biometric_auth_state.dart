@@ -73,8 +73,8 @@ class BiometricAuthFailureState extends BiometricAuthState {
         );
 }
 
-class BiometricAuthIsSupportedState extends BiometricAuthState {
-  BiometricAuthIsSupportedState(
+class IsBiometricAuthNotSupportedState extends BiometricAuthState {
+  IsBiometricAuthNotSupportedState(
     BiometricAuthState state, {
     required bool isBiometricSupported,
   }) : super.copy(
@@ -89,13 +89,13 @@ class BiometricAuthNotEnrolledState extends BiometricAuthState {
         );
 }
 
-class BiometricAuthUpdatedState extends BiometricAuthState {
-  BiometricAuthUpdatedState(
+class IsBiometricAuthEnabledState extends BiometricAuthState {
+  IsBiometricAuthEnabledState(
     BiometricAuthState state, {
-    required bool isBiometricEnabled,
+    required bool isBiometricEnrolled,
   }) : super.copy(
           state.copyWith(
-            isBiometricEnrolled: isBiometricEnabled,
+            isBiometricEnrolled: isBiometricEnrolled,
           ),
         );
 }
