@@ -5,12 +5,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_exit_app/flutter_exit_app.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:permission_handler/permission_handler.dart' as app_settings;
-import 'package:skelter/common/theme/text_style/app_text_styles.dart';
-import 'package:skelter/constants/constants.dart';
 import 'package:skelter/core/deep_link/app_deep_link_manager.dart';
 import 'package:skelter/core/services/injection_container.dart';
-import 'package:skelter/i18n/localization.dart';
+import 'package:skelter/presentation/biometric_auth/enum/biometric_auth_enrollment_results.dart';
+import 'package:skelter/presentation/biometric_auth/widgets/biometric_auth_enrollment_bottom_sheet.dart';
 import 'package:skelter/presentation/force_update/constants/force_update_constants.dart';
 import 'package:skelter/presentation/login/models/login_details.dart';
 import 'package:skelter/routes.gr.dart';
@@ -20,7 +18,6 @@ import 'package:skelter/shared_pref/pref_keys.dart';
 import 'package:skelter/shared_pref/prefs.dart';
 import 'package:skelter/utils/app_version_helper.dart';
 import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 @RoutePage()
 class InitialScreen extends StatefulWidget {
@@ -73,7 +70,12 @@ class _InitialScreenState extends State<InitialScreen> {
     final deepLinkManager = sl<AppDeepLinkManager>();
 
     if ((userDetails.uid ?? '').haveContent()) {
+      // Authenticate with biometrics if enabled
+      // This will exit app if auth fails, or return if succeeds/not enabled
       await authenticateWithBiometrics(context);
+
+      if (!mounted) return;
+
       if (deepLinkManager.hasPendingDeepLink) {
         final isDeepLinkHandled =
             await deepLinkManager.handlePendingDeepLink(context);
@@ -126,64 +128,48 @@ class _InitialScreenState extends State<InitialScreen> {
   Future<void> authenticateWithBiometrics(BuildContext context) async {
     final localAuthService = sl<LocalAuthService>();
 
+    final isBiometricEnabled =
+        await Prefs.getBool(PrefKeys.kIsBiometricEnabled) ?? false;
+
+    if (!isBiometricEnabled) {
+      // User hasn't enabled biometric auth, proceed to home
+      return;
+    }
+
     final biometricAuthStatus = await localAuthService.authenticate();
 
     switch (biometricAuthStatus) {
       case BiometricAuthStatus.success:
-        await context.router.replace(const HomeRoute());
+        // Authentication successful, continue to home
+        break;
 
       case BiometricAuthStatus.notSupported:
-        await context.router.replace(const HomeRoute());
+        // Device doesn't support biometrics, continue to home
+        break;
 
       case BiometricAuthStatus.notEnrolled:
-        await _showBiometricEnrollmentDialog(context);
+        await _showBiometricEnrollmentBottomSheet(context);
 
       case BiometricAuthStatus.cancelled:
         _exitApp();
 
       case BiometricAuthStatus.error:
         _exitApp();
+
+      case BiometricAuthStatus.tooManyAttempts:
+        _exitApp();
     }
   }
 
-  Future<void> _showBiometricEnrollmentDialog(BuildContext context) async {
-    final result = await showDialog<String>(
-      context: context,
-      barrierDismissible: false,
-      builder: (_) => AlertDialog(
-        content: Text(
-          context.localization.biometric_auth_desc_for_enrollment,
-          style: AppTextStyles.p2Medium
-              .copyWith(color: context.currentTheme.textNeutralPrimary),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(context.localization.ok),
-            child: Text(
-              context.localization.ok,
-              style: TextStyle(color: context.currentTheme.textNeutralLight),
-            ),
-          ),
-          TextButton(
-            onPressed: () =>
-                Navigator.of(context).pop(context.localization.settings),
-            child: Text(
-              context.localization.go_to_settings,
-              style: TextStyle(color: context.currentTheme.textNeutralLight),
-            ),
-          ),
-        ],
-      ),
-    );
+  Future<void> _showBiometricEnrollmentBottomSheet(BuildContext context) async {
+    final result = await showBiometricSetupEnrollmentBottomSheet(context);
 
-    if (result == KSettings) {
-      try {
-        await app_settings.openAppSettings();
-        await Future.delayed(const Duration(milliseconds: 500));
-      } catch (_) {}
+    // If user cancelled, dismissed, or after going to settings, exit the app
+    if (result == null ||
+        result == BiometricEnrollmentResult.cancel ||
+        result == BiometricEnrollmentResult.settings) {
+      _exitApp();
     }
-
-    _exitApp();
   }
 
   void _exitApp() {
