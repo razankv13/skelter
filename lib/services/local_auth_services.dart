@@ -9,12 +9,36 @@ import 'package:skelter/shared_pref/pref_keys.dart';
 import 'package:skelter/shared_pref/prefs.dart';
 import 'package:skelter/utils/extensions/date_time_extensions.dart';
 
+
+/// Authenticates the user using biometric methods
+/// (fingerprint, face recognition, pattern, .)
+///
+/// This is the core security layer that verifies user
+/// identity before granting access to protected features or sensitive data.
+///
+/// **Authentication Flow:**
+/// 1. Checks for recent multiple attempts (spam prevention)
+/// 2. Verifies device supports biometrics
+/// 3. Checks if biometrics are enrolled on device
+/// 4. Shows native biometric prompt (Face ID/Touch ID/Fingerprint)
+/// 5. Returns authentication result
+///
+/// **Returns:**
+/// - [BiometricAuthStatus.success] - User authenticated successfully
+/// - [BiometricAuthStatus.cancelled] - User cancelled or too many
+///   recent attempts
+/// - [BiometricAuthStatus.notSupported] - Device doesn't support biometrics
+/// - [BiometricAuthStatus.notEnrolled] - No biometrics enrolled on device
+/// - [BiometricAuthStatus.error] - Authentication error occurred
+///
+
 enum BiometricAuthStatus {
   success,
   notSupported,
   notEnrolled,
   cancelled,
   error,
+  tooManyAttempts,
 }
 
 class LocalAuthService {
@@ -65,7 +89,7 @@ class LocalAuthService {
 
   Future<BiometricAuthStatus> authenticate() async {
     if (await hasRecentMultipleAuthAttempts()) {
-      return BiometricAuthStatus.cancelled;
+      return BiometricAuthStatus.tooManyAttempts;
     }
 
     if (!await isBiometricSupported) {
@@ -83,7 +107,6 @@ class LocalAuthService {
         options: const AuthenticationOptions(
           stickyAuth: true,
           useErrorDialogs: false,
-          biometricOnly: true,
         ),
         authMessages: const [
           IOSAuthMessages(
