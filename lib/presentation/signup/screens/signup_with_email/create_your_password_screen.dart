@@ -40,7 +40,7 @@ class CreateYourPasswordScreen extends StatelessWidget {
                 horizontal: LoginWithPhoneNumberScreen.kHorizontalPadding,
               ),
               child: BlocListener<SignupBloc, SignupState>(
-                listener: (context, state) async {
+                listener: (context, state) {
                   if (state is AuthenticationExceptionState) {
                     _showAuthenticationError(state, context);
                   } else if (state is NavigateToHomeScreenState) {
