@@ -28,7 +28,7 @@ class AppTourService {
     final targets = _createTargets(
       context: context,
       searchBarKey: searchBarKey,
-      bottomNavKey: HomeScreenWrapperState.bottomNavKey,
+      bottomNavKey: HomeScreenWrapperState().bottomNavKey,
     );
 
     final tutorial = TutorialCoachMark(

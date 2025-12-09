@@ -4,6 +4,7 @@ import 'package:skelter/presentation/home/widgets/home_app_bar.dart';
 import 'package:skelter/presentation/home/widgets/product_search_bar.dart';
 import 'package:skelter/presentation/home/widgets/products_headline_bar.dart';
 import 'package:skelter/presentation/home/widgets/top_product_grid.dart';
+import 'package:skelter/utils/app_environment.dart';
 
 class HomeScreenBody extends StatefulWidget {
   const HomeScreenBody({super.key});
@@ -14,11 +15,14 @@ class HomeScreenBody extends StatefulWidget {
 
 class _HomeScreenBodyState extends State<HomeScreenBody> {
   final GlobalKey _searchBarKey = GlobalKey();
+  final isFromTestEnvironment = AppEnvironment.isTestEnvironment;
 
   @override
   void initState() {
     super.initState();
-    _checkAndShowTour();
+    if (!isFromTestEnvironment) {
+      _checkAndShowTour();
+    }
   }
 
   Future<void> _checkAndShowTour() async {

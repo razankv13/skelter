@@ -33,7 +33,7 @@ class HomeScreenWrapper extends StatefulWidget {
 }
 
 class HomeScreenWrapperState extends State<HomeScreenWrapper> {
-  static final GlobalKey bottomNavKey = GlobalKey();
+  final GlobalKey bottomNavKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
