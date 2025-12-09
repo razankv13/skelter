@@ -19,24 +19,16 @@ import 'package:skelter/utils/extensions/build_context_ext.dart';
 
 @RoutePage()
 class SubscriptionScreen extends StatelessWidget {
-  const SubscriptionScreen({super.key, this.subscriptionBloc});
-
-  final SubscriptionBloc? subscriptionBloc;
+  const SubscriptionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final bloc = subscriptionBloc ??
-        SubscriptionBloc(
-          localization: context.localization,
-          subscriptionService: SubscriptionService(),
-        );
-
     return BlocProvider(
       create: (_) {
-        if (subscriptionBloc == null) {
-          bloc.add(const FetchSubscriptionPackagesEvent());
-        }
-        return bloc;
+        return SubscriptionBloc(
+          localization: context.localization,
+          subscriptionService: SubscriptionService(),
+        )..add(const FetchSubscriptionPackagesEvent());
       },
       child: Scaffold(
         body: SafeArea(

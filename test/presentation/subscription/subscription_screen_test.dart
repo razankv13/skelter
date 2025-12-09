@@ -25,38 +25,6 @@ class MockSubscriptionBloc
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  // Widget tests
-  group('Subscription Screen', () {
-    testWidgets('Subscription Screen renders correctly', (tester) async {
-      final subscriptionBloc = MockSubscriptionBloc();
-      when(() => subscriptionBloc.state).thenReturn(
-        FetchSubscriptionPlanLoadedState(
-          SubscriptionState.test(
-            packages: const [
-              SubscriptionPackageModel(
-                identifier: 'monthly',
-                price: '\$9.99',
-                title: 'Monthly',
-                description: 'Monthly subscription',
-              ),
-            ],
-            selectedPackage: const SubscriptionPackageModel(
-              identifier: 'monthly',
-              price: '\$9.99',
-              title: 'Monthly',
-              description: 'Monthly subscription',
-            ),
-          ),
-        ),
-      );
-
-      await tester.runWidgetTest(
-        child: SubscriptionScreen(subscriptionBloc: subscriptionBloc),
-      );
-      expect(find.byType(SubscriptionScreen), findsOneWidget);
-    });
-  });
-
   testExecutable(() {
     goldenTest(
       'Subscription Screen',
@@ -96,16 +64,24 @@ void main() {
           children: [
             createTestScenario(
               name: 'Subscription Screen Light Theme',
-              child: SubscriptionScreen(
-                subscriptionBloc: subscriptionBlocLoaded,
-              ),
+              child: const SubscriptionScreenBody(),
+              addScaffold: true,
+              providers: [
+                BlocProvider<SubscriptionBloc>.value(
+                  value: subscriptionBlocLoaded,
+                ),
+              ],
             ),
             createTestScenario(
               name: 'Subscription Screen Dark Theme',
               theme: AppThemeEnum.DarkTheme,
-              child: SubscriptionScreen(
-                subscriptionBloc: subscriptionBlocLoaded,
-              ),
+              addScaffold: true,
+              child: const SubscriptionScreenBody(),
+              providers: [
+                BlocProvider<SubscriptionBloc>.value(
+                  value: subscriptionBlocLoaded,
+                ),
+              ],
             ),
           ],
         );
