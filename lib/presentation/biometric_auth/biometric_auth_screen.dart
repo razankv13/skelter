@@ -18,7 +18,7 @@ class BiometricAuthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BiometricAuthBloc>(
-      create: (_) => BiometricAuthBloc()
+      create: (_) => BiometricAuthBloc(localizations: context.localization)
         ..add(
           const GetBiometricEnrolledStatusEvent(),
         ),

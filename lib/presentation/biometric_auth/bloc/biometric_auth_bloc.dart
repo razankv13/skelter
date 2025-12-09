@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skelter/core/services/injection_container.dart';
+import 'package:skelter/i18n/app_localizations.dart';
 import 'package:skelter/presentation/biometric_auth/bloc/biometric_auth_event.dart';
 import 'package:skelter/presentation/biometric_auth/bloc/biometric_auth_state.dart';
 import 'package:skelter/services/local_auth_services.dart';
@@ -9,8 +10,10 @@ import 'package:skelter/utils/haptic_feedback_util.dart';
 
 class BiometricAuthBloc extends Bloc<BiometricAuthEvent, BiometricAuthState> {
   final LocalAuthService _localAuthService = sl();
+  final AppLocalizations localizations;
 
-  BiometricAuthBloc() : super(const BiometricAuthState.initial()) {
+  BiometricAuthBloc({required this.localizations})
+      : super(const BiometricAuthState.initial()) {
     _setupEventListeners();
   }
 
@@ -40,7 +43,8 @@ class BiometricAuthBloc extends Bloc<BiometricAuthEvent, BiometricAuthState> {
   ) async {
     try {
       if (event.isBiometricEnabled) {
-        final biometricAuthStatus = await _localAuthService.authenticate();
+        final biometricAuthStatus =
+            await _localAuthService.authenticate(localizations);
 
         if (biometricAuthStatus == BiometricAuthStatus.notSupported) {
           await HapticFeedbackUtil.error();
@@ -85,7 +89,8 @@ class BiometricAuthBloc extends Bloc<BiometricAuthEvent, BiometricAuthState> {
           emit(BiometricAuthFailureState(state));
         }
       } else {
-        final biometricAuthStatus = await _localAuthService.authenticate();
+        final biometricAuthStatus =
+            await _localAuthService.authenticate(localizations);
 
         if (biometricAuthStatus == BiometricAuthStatus.tooManyAttempts) {
           await HapticFeedbackUtil.error();

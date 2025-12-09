@@ -7,6 +7,7 @@ import 'package:flutter_exit_app/flutter_exit_app.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:skelter/core/deep_link/app_deep_link_manager.dart';
 import 'package:skelter/core/services/injection_container.dart';
+import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/biometric_auth/enum/biometric_auth_enrollment_results.dart';
 import 'package:skelter/presentation/biometric_auth/widgets/biometric_auth_enrollment_bottom_sheet.dart';
 import 'package:skelter/presentation/force_update/constants/force_update_constants.dart';
@@ -136,7 +137,8 @@ class _InitialScreenState extends State<InitialScreen> {
       return;
     }
 
-    final biometricAuthStatus = await localAuthService.authenticate();
+    final biometricAuthStatus =
+        await localAuthService.authenticate(context.localization);
 
     switch (biometricAuthStatus) {
       case BiometricAuthStatus.success:
