@@ -1079,6 +1079,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get go_to_settings => 'Go to settings';
 
   @override
+  String get biometric_auth_reason_access_app =>
+      'Please authenticate to access the app';
+
+  @override
+  String get biometric_auth_not_setup =>
+      'Biometric authentication is not set up on your device.';
+
+  @override
+  String get biometric_setup_enable_instruction =>
+      'Biometric authentication is not set up on your device. Please enable Touch ID or Face ID (iPhone) or Fingerprint/Face Unlock (Android) to continue.';
+
+  @override
   String get ok => 'OK';
 
   @override
