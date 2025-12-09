@@ -4,11 +4,10 @@ import 'package:local_auth/error_codes.dart' as auth_error;
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth_android/local_auth_android.dart';
 import 'package:local_auth_darwin/local_auth_darwin.dart';
-import 'package:skelter/constants/constants.dart';
+import 'package:skelter/i18n/app_localizations.dart';
 import 'package:skelter/shared_pref/pref_keys.dart';
 import 'package:skelter/shared_pref/prefs.dart';
 import 'package:skelter/utils/extensions/date_time_extensions.dart';
-
 
 /// Authenticates the user using biometric methods
 /// (fingerprint, face recognition, pattern, .)
@@ -87,7 +86,9 @@ class LocalAuthService {
     }
   }
 
-  Future<BiometricAuthStatus> authenticate() async {
+  Future<BiometricAuthStatus> authenticate(
+    AppLocalizations localization,
+  ) async {
     if (await hasRecentMultipleAuthAttempts()) {
       return BiometricAuthStatus.tooManyAttempts;
     }
@@ -103,20 +104,20 @@ class LocalAuthService {
 
     try {
       final didAuthenticate = await _localAuth.authenticate(
-        localizedReason: KBiometricAuthReasonAccessApp,
+        localizedReason: localization.biometric_auth_reason_access_app,
         options: const AuthenticationOptions(
           stickyAuth: true,
           useErrorDialogs: false,
         ),
-        authMessages: const [
+        authMessages: [
           IOSAuthMessages(
-            goToSettingsButton: KGoToSettings,
-            goToSettingsDescription: KBiometricAuthNotSetupMessage,
-            cancelButton: KCancel,
+            goToSettingsButton: localization.go_to_settings,
+            goToSettingsDescription: localization.biometric_auth_not_setup,
+            cancelButton: localization.cancel,
           ),
           AndroidAuthMessages(
-            signInTitle: KBiometricAuthTitle,
-            cancelButton: KCancel,
+            signInTitle: localization.biometric_authentication,
+            cancelButton: localization.cancel,
           ),
         ],
       );
