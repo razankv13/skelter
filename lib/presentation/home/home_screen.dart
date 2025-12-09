@@ -38,7 +38,7 @@ class HomeScreenWrapperState extends State<HomeScreenWrapper> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> pages = [
-      const HomeScreenBody(),
+      HomeScreenBody(bottomNavKey: bottomNavKey),
       const SearchScreen(),
       const InitialCheckoutScreen(),
       const ProfileScreen(),
