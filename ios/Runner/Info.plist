@@ -86,6 +86,6 @@
 	<key>FlutterDeepLinkingEnabled</key>
     <false/>
 	<key>NSFaceIDUsageDescription</key>
-    <string>Why is my app authenticating using face id?</string>
+    <string>Face ID is used to quickly and securely authenticate you into the app.</string>
 </dict>
 </plist>
