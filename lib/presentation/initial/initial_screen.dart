@@ -1,13 +1,19 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_exit_app/flutter_exit_app.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:skelter/core/deep_link/app_deep_link_manager.dart';
 import 'package:skelter/core/services/injection_container.dart';
+import 'package:skelter/i18n/localization.dart';
+import 'package:skelter/presentation/biometric_auth/enum/biometric_auth_enrollment_results.dart';
+import 'package:skelter/presentation/biometric_auth/widgets/biometric_auth_enrollment_bottom_sheet.dart';
 import 'package:skelter/presentation/force_update/constants/force_update_constants.dart';
 import 'package:skelter/presentation/login/models/login_details.dart';
 import 'package:skelter/routes.gr.dart';
+import 'package:skelter/services/local_auth_services.dart';
 import 'package:skelter/services/remote_config_service.dart';
 import 'package:skelter/shared_pref/pref_keys.dart';
 import 'package:skelter/shared_pref/prefs.dart';
@@ -65,6 +71,12 @@ class _InitialScreenState extends State<InitialScreen> {
     final deepLinkManager = sl<AppDeepLinkManager>();
 
     if ((userDetails.uid ?? '').haveContent()) {
+      // Authenticate with biometrics if enabled
+      // This will exit app if auth fails, or return if succeeds/not enabled
+      await authenticateWithBiometrics(context);
+
+      if (!mounted) return;
+
       if (deepLinkManager.hasPendingDeepLink) {
         final isDeepLinkHandled =
             await deepLinkManager.handlePendingDeepLink(context);
@@ -111,6 +123,62 @@ class _InitialScreenState extends State<InitialScreen> {
       await context.router.push(
         ForceUpdateRoute(isMandatoryUpdate: false),
       );
+    }
+  }
+
+  Future<void> authenticateWithBiometrics(BuildContext context) async {
+    final localAuthService = sl<LocalAuthService>();
+
+    final isBiometricEnabled =
+        await Prefs.getBool(PrefKeys.kIsBiometricEnabled) ?? false;
+
+    if (!isBiometricEnabled) {
+      // User hasn't enabled biometric auth, proceed to home
+      return;
+    }
+
+    final biometricAuthStatus =
+        await localAuthService.authenticate(context.localization);
+
+    switch (biometricAuthStatus) {
+      case BiometricAuthStatus.success:
+        // Authentication successful, continue to home
+        break;
+
+      case BiometricAuthStatus.notSupported:
+        // Device doesn't support biometrics, continue to home
+        break;
+
+      case BiometricAuthStatus.notEnrolled:
+        await _showBiometricEnrollmentBottomSheet(context);
+
+      case BiometricAuthStatus.cancelled:
+        _exitApp();
+
+      case BiometricAuthStatus.error:
+        _exitApp();
+
+      case BiometricAuthStatus.tooManyAttempts:
+        _exitApp();
+    }
+  }
+
+  Future<void> _showBiometricEnrollmentBottomSheet(BuildContext context) async {
+    final result = await showBiometricSetupEnrollmentBottomSheet(context);
+
+    // If user cancelled, dismissed, or after going to settings, exit the app
+    if (result == null ||
+        result == BiometricEnrollmentResult.cancel ||
+        result == BiometricEnrollmentResult.settings) {
+      _exitApp();
+    }
+  }
+
+  void _exitApp() {
+    if (Platform.isAndroid) {
+      FlutterExitApp.exitApp();
+    } else if (Platform.isIOS) {
+      FlutterExitApp.exitApp(iosForceExit: true);
     }
   }
 
