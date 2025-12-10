@@ -83,7 +83,7 @@ import 'package:skelter/widgets/attachment_view.dart' as _i23;
 /// [_i1.AccountDeleteSuccessScreen]
 class AccountDeleteSuccessRoute extends _i39.PageRouteInfo<void> {
   const AccountDeleteSuccessRoute({List<_i39.PageRouteInfo>? children})
-      : super(AccountDeleteSuccessRoute.name, initialChildren: children);
+    : super(AccountDeleteSuccessRoute.name, initialChildren: children);
 
   static const String name = 'AccountDeleteSuccessRoute';
 
@@ -99,7 +99,7 @@ class AccountDeleteSuccessRoute extends _i39.PageRouteInfo<void> {
 /// [_i2.AddAddressScreen]
 class AddAddressRoute extends _i39.PageRouteInfo<void> {
   const AddAddressRoute({List<_i39.PageRouteInfo>? children})
-      : super(AddAddressRoute.name, initialChildren: children);
+    : super(AddAddressRoute.name, initialChildren: children);
 
   static const String name = 'AddAddressRoute';
 
@@ -120,10 +120,10 @@ class AddProfilePictureRoute
     required _i41.LoginBloc loginBloc,
     List<_i39.PageRouteInfo>? children,
   }) : super(
-          AddProfilePictureRoute.name,
-          args: AddProfilePictureRouteArgs(key: key, loginBloc: loginBloc),
-          initialChildren: children,
-        );
+         AddProfilePictureRoute.name,
+         args: AddProfilePictureRouteArgs(key: key, loginBloc: loginBloc),
+         initialChildren: children,
+       );
 
   static const String name = 'AddProfilePictureRoute';
 
@@ -166,7 +166,7 @@ class AddProfilePictureRouteArgs {
 /// [_i4.AvailableCouponsScreen]
 class AvailableCouponsRoute extends _i39.PageRouteInfo<void> {
   const AvailableCouponsRoute({List<_i39.PageRouteInfo>? children})
-      : super(AvailableCouponsRoute.name, initialChildren: children);
+    : super(AvailableCouponsRoute.name, initialChildren: children);
 
   static const String name = 'AvailableCouponsRoute';
 
@@ -182,7 +182,7 @@ class AvailableCouponsRoute extends _i39.PageRouteInfo<void> {
 /// [_i5.ChangeThemeScreen]
 class ChangeThemeRoute extends _i39.PageRouteInfo<void> {
   const ChangeThemeRoute({List<_i39.PageRouteInfo>? children})
-      : super(ChangeThemeRoute.name, initialChildren: children);
+    : super(ChangeThemeRoute.name, initialChildren: children);
 
   static const String name = 'ChangeThemeRoute';
 
@@ -203,10 +203,10 @@ class ChatConversationRoute
     required _i42.ChatModel chatUser,
     List<_i39.PageRouteInfo>? children,
   }) : super(
-          ChatConversationRoute.name,
-          args: ChatConversationRouteArgs(key: key, chatUser: chatUser),
-          initialChildren: children,
-        );
+         ChatConversationRoute.name,
+         args: ChatConversationRouteArgs(key: key, chatUser: chatUser),
+         initialChildren: children,
+       );
 
   static const String name = 'ChatConversationRoute';
 
@@ -246,7 +246,7 @@ class ChatConversationRouteArgs {
 /// [_i7.ChatScreen]
 class ChatRoute extends _i39.PageRouteInfo<void> {
   const ChatRoute({List<_i39.PageRouteInfo>? children})
-      : super(ChatRoute.name, initialChildren: children);
+    : super(ChatRoute.name, initialChildren: children);
 
   static const String name = 'ChatRoute';
 
@@ -266,10 +266,10 @@ class CheckYourEmailRoute extends _i39.PageRouteInfo<CheckYourEmailRouteArgs> {
     required _i41.LoginBloc loginBloc,
     List<_i39.PageRouteInfo>? children,
   }) : super(
-          CheckYourEmailRoute.name,
-          args: CheckYourEmailRouteArgs(key: key, loginBloc: loginBloc),
-          initialChildren: children,
-        );
+         CheckYourEmailRoute.name,
+         args: CheckYourEmailRouteArgs(key: key, loginBloc: loginBloc),
+         initialChildren: children,
+       );
 
   static const String name = 'CheckYourEmailRoute';
 
@@ -309,7 +309,7 @@ class CheckYourEmailRouteArgs {
 /// [_i9.ContactUsScreen]
 class ContactUsRoute extends _i39.PageRouteInfo<void> {
   const ContactUsRoute({List<_i39.PageRouteInfo>? children})
-      : super(ContactUsRoute.name, initialChildren: children);
+    : super(ContactUsRoute.name, initialChildren: children);
 
   static const String name = 'ContactUsRoute';
 
@@ -325,7 +325,7 @@ class ContactUsRoute extends _i39.PageRouteInfo<void> {
 /// [_i10.ContactUsSubmittedScreen]
 class ContactUsSubmittedRoute extends _i39.PageRouteInfo<void> {
   const ContactUsSubmittedRoute({List<_i39.PageRouteInfo>? children})
-      : super(ContactUsSubmittedRoute.name, initialChildren: children);
+    : super(ContactUsSubmittedRoute.name, initialChildren: children);
 
   static const String name = 'ContactUsSubmittedRoute';
 
@@ -346,10 +346,10 @@ class CreateYourPasswordRoute
     required _i43.SignupBloc signupBloc,
     List<_i39.PageRouteInfo>? children,
   }) : super(
-          CreateYourPasswordRoute.name,
-          args: CreateYourPasswordRouteArgs(key: key, signupBloc: signupBloc),
-          initialChildren: children,
-        );
+         CreateYourPasswordRoute.name,
+         args: CreateYourPasswordRouteArgs(key: key, signupBloc: signupBloc),
+         initialChildren: children,
+       );
 
   static const String name = 'CreateYourPasswordRoute';
 
@@ -392,7 +392,7 @@ class CreateYourPasswordRouteArgs {
 /// [_i12.DeleteAccountScreen]
 class DeleteAccountRoute extends _i39.PageRouteInfo<void> {
   const DeleteAccountRoute({List<_i39.PageRouteInfo>? children})
-      : super(DeleteAccountRoute.name, initialChildren: children);
+    : super(DeleteAccountRoute.name, initialChildren: children);
 
   static const String name = 'DeleteAccountRoute';
 
@@ -408,7 +408,7 @@ class DeleteAccountRoute extends _i39.PageRouteInfo<void> {
 /// [_i13.EditAddressScreen]
 class EditAddressRoute extends _i39.PageRouteInfo<void> {
   const EditAddressRoute({List<_i39.PageRouteInfo>? children})
-      : super(EditAddressRoute.name, initialChildren: children);
+    : super(EditAddressRoute.name, initialChildren: children);
 
   static const String name = 'EditAddressRoute';
 
@@ -424,7 +424,7 @@ class EditAddressRoute extends _i39.PageRouteInfo<void> {
 /// [_i14.EmptyViewsScreen]
 class EmptyViewsRoute extends _i39.PageRouteInfo<void> {
   const EmptyViewsRoute({List<_i39.PageRouteInfo>? children})
-      : super(EmptyViewsRoute.name, initialChildren: children);
+    : super(EmptyViewsRoute.name, initialChildren: children);
 
   static const String name = 'EmptyViewsRoute';
 
@@ -444,13 +444,13 @@ class ForceUpdateRoute extends _i39.PageRouteInfo<ForceUpdateRouteArgs> {
     required bool isMandatoryUpdate,
     List<_i39.PageRouteInfo>? children,
   }) : super(
-          ForceUpdateRoute.name,
-          args: ForceUpdateRouteArgs(
-            key: key,
-            isMandatoryUpdate: isMandatoryUpdate,
-          ),
-          initialChildren: children,
-        );
+         ForceUpdateRoute.name,
+         args: ForceUpdateRouteArgs(
+           key: key,
+           isMandatoryUpdate: isMandatoryUpdate,
+         ),
+         initialChildren: children,
+       );
 
   static const String name = 'ForceUpdateRoute';
 
@@ -497,10 +497,10 @@ class ForgotPasswordRoute extends _i39.PageRouteInfo<ForgotPasswordRouteArgs> {
     required _i41.LoginBloc loginBloc,
     List<_i39.PageRouteInfo>? children,
   }) : super(
-          ForgotPasswordRoute.name,
-          args: ForgotPasswordRouteArgs(key: key, loginBloc: loginBloc),
-          initialChildren: children,
-        );
+         ForgotPasswordRoute.name,
+         args: ForgotPasswordRouteArgs(key: key, loginBloc: loginBloc),
+         initialChildren: children,
+       );
 
   static const String name = 'ForgotPasswordRoute';
 
@@ -543,7 +543,7 @@ class ForgotPasswordRouteArgs {
 /// [_i17.HomeScreen]
 class HomeRoute extends _i39.PageRouteInfo<void> {
   const HomeRoute({List<_i39.PageRouteInfo>? children})
-      : super(HomeRoute.name, initialChildren: children);
+    : super(HomeRoute.name, initialChildren: children);
 
   static const String name = 'HomeRoute';
 
@@ -559,7 +559,7 @@ class HomeRoute extends _i39.PageRouteInfo<void> {
 /// [_i18.InitialScreen]
 class InitialRoute extends _i39.PageRouteInfo<void> {
   const InitialRoute({List<_i39.PageRouteInfo>? children})
-      : super(InitialRoute.name, initialChildren: children);
+    : super(InitialRoute.name, initialChildren: children);
 
   static const String name = 'InitialRoute';
 
@@ -581,14 +581,14 @@ class LoginWithEmailPasswordRoute
     bool isFromDeleteAccount = false,
     List<_i39.PageRouteInfo>? children,
   }) : super(
-          LoginWithEmailPasswordRoute.name,
-          args: LoginWithEmailPasswordRouteArgs(
-            key: key,
-            loginBloc: loginBloc,
-            isFromDeleteAccount: isFromDeleteAccount,
-          ),
-          initialChildren: children,
-        );
+         LoginWithEmailPasswordRoute.name,
+         args: LoginWithEmailPasswordRouteArgs(
+           key: key,
+           loginBloc: loginBloc,
+           isFromDeleteAccount: isFromDeleteAccount,
+         ),
+         initialChildren: children,
+       );
 
   static const String name = 'LoginWithEmailPasswordRoute';
 
@@ -646,13 +646,13 @@ class LoginWithPhoneNumberRoute
     bool isFromDeleteAccount = false,
     List<_i39.PageRouteInfo>? children,
   }) : super(
-          LoginWithPhoneNumberRoute.name,
-          args: LoginWithPhoneNumberRouteArgs(
-            key: key,
-            isFromDeleteAccount: isFromDeleteAccount,
-          ),
-          initialChildren: children,
-        );
+         LoginWithPhoneNumberRoute.name,
+         args: LoginWithPhoneNumberRouteArgs(
+           key: key,
+           isFromDeleteAccount: isFromDeleteAccount,
+         ),
+         initialChildren: children,
+       );
 
   static const String name = 'LoginWithPhoneNumberRoute';
 
@@ -700,7 +700,7 @@ class LoginWithPhoneNumberRouteArgs {
 /// [_i21.ManageSubscriptionScreen]
 class ManageSubscriptionRoute extends _i39.PageRouteInfo<void> {
   const ManageSubscriptionRoute({List<_i39.PageRouteInfo>? children})
-      : super(ManageSubscriptionRoute.name, initialChildren: children);
+    : super(ManageSubscriptionRoute.name, initialChildren: children);
 
   static const String name = 'ManageSubscriptionRoute';
 
@@ -716,7 +716,7 @@ class ManageSubscriptionRoute extends _i39.PageRouteInfo<void> {
 /// [_i22.MyOrdersScreen]
 class MyOrdersRoute extends _i39.PageRouteInfo<void> {
   const MyOrdersRoute({List<_i39.PageRouteInfo>? children})
-      : super(MyOrdersRoute.name, initialChildren: children);
+    : super(MyOrdersRoute.name, initialChildren: children);
 
   static const String name = 'MyOrdersRoute';
 
@@ -736,10 +736,10 @@ class NetworkImageRoute extends _i39.PageRouteInfo<NetworkImageRouteArgs> {
     required String link,
     List<_i39.PageRouteInfo>? children,
   }) : super(
-          NetworkImageRoute.name,
-          args: NetworkImageRouteArgs(key: key, link: link),
-          initialChildren: children,
-        );
+         NetworkImageRoute.name,
+         args: NetworkImageRouteArgs(key: key, link: link),
+         initialChildren: children,
+       );
 
   static const String name = 'NetworkImageRoute';
 
@@ -779,7 +779,7 @@ class NetworkImageRouteArgs {
 /// [_i24.NoInternetScreen]
 class NoInternetRoute extends _i39.PageRouteInfo<void> {
   const NoInternetRoute({List<_i39.PageRouteInfo>? children})
-      : super(NoInternetRoute.name, initialChildren: children);
+    : super(NoInternetRoute.name, initialChildren: children);
 
   static const String name = 'NoInternetRoute';
 
@@ -795,7 +795,7 @@ class NoInternetRoute extends _i39.PageRouteInfo<void> {
 /// [_i25.NotificationsScreen]
 class NotificationsRoute extends _i39.PageRouteInfo<void> {
   const NotificationsRoute({List<_i39.PageRouteInfo>? children})
-      : super(NotificationsRoute.name, initialChildren: children);
+    : super(NotificationsRoute.name, initialChildren: children);
 
   static const String name = 'NotificationsRoute';
 
@@ -816,14 +816,14 @@ class PhoneNumberOTPRoute extends _i39.PageRouteInfo<PhoneNumberOTPRouteArgs> {
     bool isFromDeleteAccount = false,
     List<_i39.PageRouteInfo>? children,
   }) : super(
-          PhoneNumberOTPRoute.name,
-          args: PhoneNumberOTPRouteArgs(
-            key: key,
-            loginBloc: loginBloc,
-            isFromDeleteAccount: isFromDeleteAccount,
-          ),
-          initialChildren: children,
-        );
+         PhoneNumberOTPRoute.name,
+         args: PhoneNumberOTPRouteArgs(
+           key: key,
+           loginBloc: loginBloc,
+           isFromDeleteAccount: isFromDeleteAccount,
+         ),
+         initialChildren: children,
+       );
 
   static const String name = 'PhoneNumberOTPRoute';
 
@@ -881,10 +881,10 @@ class PhoneNumberVerifiedRoute
     required _i41.LoginBloc loginBloc,
     List<_i39.PageRouteInfo>? children,
   }) : super(
-          PhoneNumberVerifiedRoute.name,
-          args: PhoneNumberVerifiedRouteArgs(key: key, loginBloc: loginBloc),
-          initialChildren: children,
-        );
+         PhoneNumberVerifiedRoute.name,
+         args: PhoneNumberVerifiedRouteArgs(key: key, loginBloc: loginBloc),
+         initialChildren: children,
+       );
 
   static const String name = 'PhoneNumberVerifiedRoute';
 
@@ -931,10 +931,10 @@ class ProductDetailRoute extends _i39.PageRouteInfo<ProductDetailRouteArgs> {
     required String productId,
     List<_i39.PageRouteInfo>? children,
   }) : super(
-          ProductDetailRoute.name,
-          args: ProductDetailRouteArgs(key: key, productId: productId),
-          initialChildren: children,
-        );
+         ProductDetailRoute.name,
+         args: ProductDetailRouteArgs(key: key, productId: productId),
+         initialChildren: children,
+       );
 
   static const String name = 'ProductDetailRoute';
 
@@ -974,7 +974,7 @@ class ProductDetailRouteArgs {
 /// [_i29.ReminderScreen]
 class ReminderRoute extends _i39.PageRouteInfo<void> {
   const ReminderRoute({List<_i39.PageRouteInfo>? children})
-      : super(ReminderRoute.name, initialChildren: children);
+    : super(ReminderRoute.name, initialChildren: children);
 
   static const String name = 'ReminderRoute';
 
@@ -990,7 +990,7 @@ class ReminderRoute extends _i39.PageRouteInfo<void> {
 /// [_i30.SavedCardScreen]
 class SavedCardRoute extends _i39.PageRouteInfo<void> {
   const SavedCardRoute({List<_i39.PageRouteInfo>? children})
-      : super(SavedCardRoute.name, initialChildren: children);
+    : super(SavedCardRoute.name, initialChildren: children);
 
   static const String name = 'SavedCardRoute';
 
@@ -1006,7 +1006,7 @@ class SavedCardRoute extends _i39.PageRouteInfo<void> {
 /// [_i31.ServerErrorScreen]
 class ServerErrorRoute extends _i39.PageRouteInfo<void> {
   const ServerErrorRoute({List<_i39.PageRouteInfo>? children})
-      : super(ServerErrorRoute.name, initialChildren: children);
+    : super(ServerErrorRoute.name, initialChildren: children);
 
   static const String name = 'ServerErrorRoute';
 
@@ -1022,7 +1022,7 @@ class ServerErrorRoute extends _i39.PageRouteInfo<void> {
 /// [_i32.SettingsScreen]
 class SettingsRoute extends _i39.PageRouteInfo<void> {
   const SettingsRoute({List<_i39.PageRouteInfo>? children})
-      : super(SettingsRoute.name, initialChildren: children);
+    : super(SettingsRoute.name, initialChildren: children);
 
   static const String name = 'SettingsRoute';
 
@@ -1043,13 +1043,13 @@ class SignupWithEmailPasswordRoute
     _i43.SignupBloc? signupBloc,
     List<_i39.PageRouteInfo>? children,
   }) : super(
-          SignupWithEmailPasswordRoute.name,
-          args: SignupWithEmailPasswordRouteArgs(
-            key: key,
-            signupBloc: signupBloc,
-          ),
-          initialChildren: children,
-        );
+         SignupWithEmailPasswordRoute.name,
+         args: SignupWithEmailPasswordRouteArgs(
+           key: key,
+           signupBloc: signupBloc,
+         ),
+         initialChildren: children,
+       );
 
   static const String name = 'SignupWithEmailPasswordRoute';
 
@@ -1094,7 +1094,7 @@ class SignupWithEmailPasswordRouteArgs {
 /// [_i34.SslConnectionFailedScreen]
 class SslConnectionFailedRoute extends _i39.PageRouteInfo<void> {
   const SslConnectionFailedRoute({List<_i39.PageRouteInfo>? children})
-      : super(SslConnectionFailedRoute.name, initialChildren: children);
+    : super(SslConnectionFailedRoute.name, initialChildren: children);
 
   static const String name = 'SslConnectionFailedRoute';
 
@@ -1110,7 +1110,7 @@ class SslConnectionFailedRoute extends _i39.PageRouteInfo<void> {
 /// [_i35.SubscriptionScreen]
 class SubscriptionRoute extends _i39.PageRouteInfo<void> {
   const SubscriptionRoute({List<_i39.PageRouteInfo>? children})
-      : super(SubscriptionRoute.name, initialChildren: children);
+    : super(SubscriptionRoute.name, initialChildren: children);
 
   static const String name = 'SubscriptionRoute';
 
@@ -1126,7 +1126,7 @@ class SubscriptionRoute extends _i39.PageRouteInfo<void> {
 /// [_i36.UnderMaintenanceScreen]
 class UnderMaintenanceRoute extends _i39.PageRouteInfo<void> {
   const UnderMaintenanceRoute({List<_i39.PageRouteInfo>? children})
-      : super(UnderMaintenanceRoute.name, initialChildren: children);
+    : super(UnderMaintenanceRoute.name, initialChildren: children);
 
   static const String name = 'UnderMaintenanceRoute';
 
@@ -1147,11 +1147,10 @@ class VerifyEmailRoute extends _i39.PageRouteInfo<VerifyEmailRouteArgs> {
     bool isSignUp = false,
     List<_i39.PageRouteInfo>? children,
   }) : super(
-          VerifyEmailRoute.name,
-          args:
-              VerifyEmailRouteArgs(key: key, email: email, isSignUp: isSignUp),
-          initialChildren: children,
-        );
+         VerifyEmailRoute.name,
+         args: VerifyEmailRouteArgs(key: key, email: email, isSignUp: isSignUp),
+         initialChildren: children,
+       );
 
   static const String name = 'VerifyEmailRoute';
 
@@ -1203,7 +1202,7 @@ class VerifyEmailRouteArgs {
 /// [_i38.WishlistScreen]
 class WishlistRoute extends _i39.PageRouteInfo<void> {
   const WishlistRoute({List<_i39.PageRouteInfo>? children})
-      : super(WishlistRoute.name, initialChildren: children);
+    : super(WishlistRoute.name, initialChildren: children);
 
   static const String name = 'WishlistRoute';
 
