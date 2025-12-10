@@ -27,8 +27,11 @@ class $AssetsAnimationsGen {
       'assets/animations/success_checkmark_red_bg.json';
 
   /// List of all assets
-  List<String> get values =>
-      [appUnderMaintenance, successCheckmarkBlueBg, successCheckmarkRedBg];
+  List<String> get values => [
+    appUnderMaintenance,
+    successCheckmarkBlueBg,
+    successCheckmarkRedBg,
+  ];
 }
 
 class $AssetsIconsGen {
@@ -126,36 +129,36 @@ class $AssetsIconsGen {
 
   /// List of all assets
   List<dynamic> get values => [
-        accountDeletedSuccess,
-        appUnderMaintenance,
-        apple,
-        close,
-        companyLogoDt,
-        companyLogoLt,
-        coupon,
-        deliveryParcel,
-        email,
-        emailNotification,
-        emptyCart,
-        emptySavedCards,
-        emptyWishlist,
-        forceUpdate,
-        google,
-        lock,
-        mdiTick,
-        noChats,
-        noInternetConnection,
-        noNotifications,
-        noProductDetailFound,
-        proIcon,
-        searchOutline,
-        send,
-        serverError,
-        tick,
-        userNotFound,
-        userPlaceholder,
-        waveforms
-      ];
+    accountDeletedSuccess,
+    appUnderMaintenance,
+    apple,
+    close,
+    companyLogoDt,
+    companyLogoLt,
+    coupon,
+    deliveryParcel,
+    email,
+    emailNotification,
+    emptyCart,
+    emptySavedCards,
+    emptyWishlist,
+    forceUpdate,
+    google,
+    lock,
+    mdiTick,
+    noChats,
+    noInternetConnection,
+    noNotifications,
+    noProductDetailFound,
+    proIcon,
+    searchOutline,
+    send,
+    serverError,
+    tick,
+    userNotFound,
+    userPlaceholder,
+    waveforms,
+  ];
 }
 
 class $AssetsImagesGen {
@@ -190,14 +193,14 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
-        cartItem1,
-        cartItem2,
-        demoUser,
-        mastercard,
-        sgSkelterBoilerplate,
-        sgSkelterLogo,
-        success
-      ];
+    cartItem1,
+    cartItem2,
+    demoUser,
+    mastercard,
+    sgSkelterBoilerplate,
+    sgSkelterLogo,
+    success,
+  ];
 }
 
 class $AssetsTestGen {
@@ -311,15 +314,8 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider({
-    AssetBundle? bundle,
-    String? package,
-  }) {
-    return AssetImage(
-      _assetName,
-      bundle: bundle,
-      package: package,
-    );
+  ImageProvider provider({AssetBundle? bundle, String? package}) {
+    return AssetImage(_assetName, bundle: bundle, package: package);
   }
 
   String get path => _assetName;
