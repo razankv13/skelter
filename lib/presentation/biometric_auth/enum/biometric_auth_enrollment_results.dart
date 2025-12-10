@@ -1,0 +1,4 @@
+enum BiometricEnrollmentResult {
+  cancel,
+  settings,
+}
