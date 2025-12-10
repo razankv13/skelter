@@ -28,3 +28,17 @@ class SelectPaymentMethodEvent extends CheckoutEvent {
   @override
   List<Object> get props => [isPaymentMethodOnline];
 }
+
+class GenerateInvoiceEvent extends CheckoutEvent {
+  const GenerateInvoiceEvent();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class ClearInvoiceGenerationErrorEvent extends CheckoutEvent {
+  const ClearInvoiceGenerationErrorEvent();
+
+  @override
+  List<Object?> get props => [];
+}

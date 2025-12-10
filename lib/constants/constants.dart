@@ -71,3 +71,7 @@ const String kHome = 'home';
 // RevenueCat subscription constants
 const revenueCatGoogleApiKey = 'REVENEUCAT_GOOGLE_API_KEY';
 const revenueCatMonthly = 'monthly';
+
+// Invoice constants
+const kDownload = '/storage/emulated/0/Download/';
+const kDownloads = '/storage/emulated/0/Downloads/';

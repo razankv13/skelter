@@ -47,6 +47,7 @@ class AppRouter extends RootStackRouter {
       AddAddressRoute.page,
       EditAddressRoute.page,
       AvailableCouponsRoute.page,
+      InvoicePreviewRoute.page,
 
       // Notifications
       NotificationsRoute.page,

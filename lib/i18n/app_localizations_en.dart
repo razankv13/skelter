@@ -1060,4 +1060,67 @@ class AppLocalizationsEn extends AppLocalizations {
   String share_product_message(String url) {
     return 'I found this product on Skelter and thought you might like it.\n\nCheck it out here:\n$url';
   }
+
+  @override
+  String get invoice_keys => '================ INVOICE KEYS ================';
+
+  @override
+  String get share_invoice => 'Share';
+
+  @override
+  String get download => 'Download';
+
+  @override
+  String get invoice_saved_success => 'Invoice saved successfully';
+
+  @override
+  String get invoice_generation_failed =>
+      'Failed to generate invoice. Please try again.';
+
+  @override
+  String get storage_permission_required =>
+      'Storage permission required to save invoice';
+
+  @override
+  String get online_payment_method => 'Online Payment';
+
+  @override
+  String get generate_invoice => 'Generate Invoice';
+
+  @override
+  String get invoice => 'INVOICE';
+
+  @override
+  String get invoice_details => 'Invoice Details:';
+
+  @override
+  String get invoice_number => 'Invoice Number';
+
+  @override
+  String get invoice_date => 'Invoice Date';
+
+  @override
+  String get bill_to => 'Bill To:';
+
+  @override
+  String get product => 'Product';
+
+  @override
+  String get quantity => 'Quantity';
+
+  @override
+  String get total => 'Total';
+
+  @override
+  String get subtotal => 'Subtotal';
+
+  @override
+  String get payment_method => 'Payment Method';
+
+  @override
+  String get download_invoice => 'Download Invoice';
+
+  @override
+  String get invoice_share_failed =>
+      'Failed to share invoice. Please try again';
 }
