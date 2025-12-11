@@ -122,7 +122,7 @@ class OrderDetailProductCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      '\$${productDetail.price.toStringAsFixed(0)}',
+                      '\$${productDetail.price.toStringAsFixed(2)}',
                       style: AppTextStyles.p2SemiBold.copyWith(
                         color: context.currentTheme.textNeutralPrimary,
                       ),
