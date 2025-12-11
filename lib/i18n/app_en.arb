@@ -164,7 +164,7 @@
   "sign_out": "Sign out",
   "skip": "Skip",
   "activity": "Activity",
-  "history": "History",
+  "my_orders": "My Orders",
   "done": "Done",
   "community": "Community",
   "feedback_and_ratings": "Feedback & Ratings",
@@ -439,5 +439,12 @@
   "subtotal": "Subtotal",
   "payment_method": "Payment Method",
   "download_invoice": "Download Invoice",
-  "invoice_share_failed": "Failed to share invoice. Please try again"
+  "invoice_share_failed": "Failed to share invoice. Please try again",
+  "my_orders_keys": "================ My ORDERS KEYS ================",
+  "order_id": "Order Id: #",
+  "accepted": "Accepted",
+  "order_details": "Order Details",
+  "cancel_order": "Cancel Order",
+  "tracking_detail": "Tracking Details",
+  "no_product_selected": "No product selected"
 }

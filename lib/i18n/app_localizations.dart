@@ -706,11 +706,11 @@ abstract class AppLocalizations {
   /// **'Activity'**
   String get activity;
 
-  /// No description provided for @history.
+  /// No description provided for @my_orders.
   ///
   /// In en, this message translates to:
-  /// **'History'**
-  String get history;
+  /// **'My Orders'**
+  String get my_orders;
 
   /// No description provided for @done.
   ///
@@ -2127,6 +2127,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Failed to share invoice. Please try again'**
   String get invoice_share_failed;
+
+  /// No description provided for @my_orders_keys.
+  ///
+  /// In en, this message translates to:
+  /// **'================ My ORDERS KEYS ================'**
+  String get my_orders_keys;
+
+  /// No description provided for @order_id.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Id: #'**
+  String get order_id;
+
+  /// No description provided for @accepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Accepted'**
+  String get accepted;
+
+  /// No description provided for @order_details.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Details'**
+  String get order_details;
+
+  /// No description provided for @cancel_order.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Order'**
+  String get cancel_order;
+
+  /// No description provided for @tracking_detail.
+  ///
+  /// In en, this message translates to:
+  /// **'Tracking Details'**
+  String get tracking_detail;
+
+  /// No description provided for @no_product_selected.
+  ///
+  /// In en, this message translates to:
+  /// **'No product selected'**
+  String get no_product_selected;
 }
 
 class _AppLocalizationsDelegate

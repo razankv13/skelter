@@ -448,7 +448,9 @@ class PdfService {
           ),
         ),
         pw.Text(
-          '$amount',
+          isDiscount
+              ? '-\$${amount.abs().toStringAsFixed(2)}'
+              : '\$${amount.toStringAsFixed(2)}',
           style: pw.TextStyle(
             fontSize: 16,
             font: boldFont,

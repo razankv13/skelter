@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:equatable/equatable.dart';
 import 'package:skelter/presentation/checkout/data/cart_sample_data.dart';
 import 'package:skelter/presentation/checkout/model/product_cart.dart';
@@ -15,10 +13,6 @@ class CheckoutState with EquatableMixin {
   final String address;
   final bool isPaymentMethodOnline;
   final int couponCount;
-  final bool isGeneratingInvoice;
-  final String? invoiceGenerationError;
-  final Uint8List? generatedInvoicePdf;
-  final String? generatedInvoiceName;
 
   CheckoutState({
     required this.stepperIndex,
@@ -31,10 +25,6 @@ class CheckoutState with EquatableMixin {
     required this.address,
     required this.isPaymentMethodOnline,
     required this.couponCount,
-    this.isGeneratingInvoice = false,
-    this.invoiceGenerationError,
-    this.generatedInvoicePdf,
-    this.generatedInvoiceName,
   });
 
   CheckoutState.initial()
@@ -47,11 +37,7 @@ class CheckoutState with EquatableMixin {
         userName = 'Roz Cooper',
         address = '2118 Thornridge Cir. Syracuse, Connecticut 35624',
         isPaymentMethodOnline = true,
-        couponCount = 1,
-        isGeneratingInvoice = false,
-        invoiceGenerationError = null,
-        generatedInvoicePdf = null,
-        generatedInvoiceName = null;
+        couponCount = 1;
 
   CheckoutState.copy(CheckoutState state)
       : stepperIndex = state.stepperIndex,
@@ -63,11 +49,7 @@ class CheckoutState with EquatableMixin {
         userName = state.userName,
         address = state.address,
         isPaymentMethodOnline = state.isPaymentMethodOnline,
-        couponCount = state.couponCount,
-        isGeneratingInvoice = state.isGeneratingInvoice,
-        invoiceGenerationError = state.invoiceGenerationError,
-        generatedInvoicePdf = state.generatedInvoicePdf,
-        generatedInvoiceName = state.generatedInvoiceName;
+        couponCount = state.couponCount;
 
   CheckoutState copyWith({
     int? stepperIndex,
@@ -80,12 +62,6 @@ class CheckoutState with EquatableMixin {
     String? address,
     bool? isPaymentMethodOnline,
     int? couponCount,
-    bool? isGeneratingInvoice,
-    String? invoiceGenerationError,
-    Uint8List? generatedInvoicePdf,
-    String? generatedInvoiceName,
-    bool haveToClearPreviousInvoice = false,
-    bool haveToClearInvoiceGenerationError = false,
   }) {
     return CheckoutState(
       stepperIndex: stepperIndex ?? this.stepperIndex,
@@ -99,16 +75,6 @@ class CheckoutState with EquatableMixin {
       isPaymentMethodOnline:
           isPaymentMethodOnline ?? this.isPaymentMethodOnline,
       couponCount: couponCount ?? this.couponCount,
-      isGeneratingInvoice: isGeneratingInvoice ?? this.isGeneratingInvoice,
-      invoiceGenerationError: haveToClearInvoiceGenerationError
-          ? null
-          : invoiceGenerationError ?? this.invoiceGenerationError,
-      generatedInvoicePdf: haveToClearPreviousInvoice
-          ? null
-          : generatedInvoicePdf ?? this.generatedInvoicePdf,
-      generatedInvoiceName: haveToClearPreviousInvoice
-          ? null
-          : generatedInvoiceName ?? this.generatedInvoiceName,
     );
   }
 
@@ -123,10 +89,6 @@ class CheckoutState with EquatableMixin {
     String? address,
     bool? isPaymentMethodOnline,
     int? couponCount,
-    bool? isGeneratingInvoice,
-    this.invoiceGenerationError,
-    this.generatedInvoicePdf,
-    this.generatedInvoiceName,
   })  : stepperIndex = stepperIndex ?? 0,
         totalPrice = totalPrice ?? 0.0,
         discount = discount ?? 0.0,
@@ -136,8 +98,7 @@ class CheckoutState with EquatableMixin {
         userName = userName ?? '',
         address = address ?? '',
         isPaymentMethodOnline = isPaymentMethodOnline ?? true,
-        couponCount = couponCount ?? 1,
-        isGeneratingInvoice = isGeneratingInvoice ?? false;
+        couponCount = couponCount ?? 1;
 
   @override
   List<Object?> get props => [
@@ -151,10 +112,6 @@ class CheckoutState with EquatableMixin {
         address,
         isPaymentMethodOnline,
         couponCount,
-        isGeneratingInvoice,
-        invoiceGenerationError,
-        generatedInvoicePdf,
-        generatedInvoiceName,
       ];
 }
 

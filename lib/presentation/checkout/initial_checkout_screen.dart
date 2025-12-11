@@ -1,10 +1,7 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/checkout/bloc/checkout_bloc.dart';
 import 'package:skelter/presentation/checkout/bloc/checkout_events.dart';
-import 'package:skelter/presentation/checkout/bloc/checkout_state.dart';
 import 'package:skelter/presentation/checkout/cart_screen.dart';
 import 'package:skelter/presentation/checkout/data/cart_sample_data.dart';
 import 'package:skelter/presentation/checkout/order_review_screen.dart';
@@ -14,8 +11,6 @@ import 'package:skelter/presentation/checkout/widget/bottom_items.dart';
 import 'package:skelter/presentation/checkout/widget/checkout_app_bar.dart';
 import 'package:skelter/presentation/checkout/widget/custom_stepper.dart';
 import 'package:skelter/presentation/checkout/widget/empty_cart_view.dart';
-import 'package:skelter/routes.gr.dart';
-import 'package:skelter/utils/extensions/build_context_ext.dart';
 
 class InitialCheckoutScreen extends StatelessWidget {
   const InitialCheckoutScreen({super.key});
@@ -23,46 +18,8 @@ class InitialCheckoutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<CheckoutBloc>(
-      create: (_) => CheckoutBloc(context.localization)
-        ..add(const InitialCalculationEvent()),
-      child: BlocListener<CheckoutBloc, CheckoutState>(
-        listenWhen: (previous, current) {
-          final invoiceGenerated = previous.generatedInvoicePdf == null &&
-              current.generatedInvoicePdf != null &&
-              current.generatedInvoiceName != null;
-
-          final invoiceError = previous.invoiceGenerationError == null &&
-              current.invoiceGenerationError != null;
-
-          return invoiceGenerated || invoiceError;
-        },
-        listener: (context, state) {
-          // Invoice Generated
-          if (state.generatedInvoicePdf != null &&
-              state.generatedInvoiceName != null) {
-            context.router.push(
-              InvoicePreviewRoute(
-                pdfBytes: state.generatedInvoicePdf!,
-                fileName: state.generatedInvoiceName!,
-              ),
-            );
-            return;
-          }
-
-          // Invoice Error
-          if (state.invoiceGenerationError != null) {
-            context.showSnackBar(
-              state.invoiceGenerationError!,
-              isDisplayingError: true,
-            );
-
-            context
-                .read<CheckoutBloc>()
-                .add(const ClearInvoiceGenerationErrorEvent());
-          }
-        },
-        child: const CheckoutScreenBody(),
-      ),
+      create: (_) => CheckoutBloc()..add(const InitialCalculationEvent()),
+      child: const CheckoutScreenBody(),
     );
   }
 }

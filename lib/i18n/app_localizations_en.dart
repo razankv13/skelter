@@ -337,7 +337,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get activity => 'Activity';
 
   @override
-  String get history => 'History';
+  String get my_orders => 'My Orders';
 
   @override
   String get done => 'Done';
@@ -1123,4 +1123,26 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get invoice_share_failed =>
       'Failed to share invoice. Please try again';
+
+  @override
+  String get my_orders_keys =>
+      '================ My ORDERS KEYS ================';
+
+  @override
+  String get order_id => 'Order Id: #';
+
+  @override
+  String get accepted => 'Accepted';
+
+  @override
+  String get order_details => 'Order Details';
+
+  @override
+  String get cancel_order => 'Cancel Order';
+
+  @override
+  String get tracking_detail => 'Tracking Details';
+
+  @override
+  String get no_product_selected => 'No product selected';
 }
