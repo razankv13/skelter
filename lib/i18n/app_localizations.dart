@@ -706,11 +706,11 @@ abstract class AppLocalizations {
   /// **'Activity'**
   String get activity;
 
-  /// No description provided for @my_orders.
+  /// No description provided for @history.
   ///
   /// In en, this message translates to:
-  /// **'My Orders'**
-  String get my_orders;
+  /// **'History'**
+  String get history;
 
   /// No description provided for @done.
   ///
@@ -1438,11 +1438,23 @@ abstract class AppLocalizations {
   /// **'Choose App Theme'**
   String get choose_app_theme;
 
-  /// No description provided for @account_and_privacy.
+  /// No description provided for @account_security.
   ///
   /// In en, this message translates to:
-  /// **'Account & Privacy'**
-  String get account_and_privacy;
+  /// **'Account security'**
+  String get account_security;
+
+  /// No description provided for @biometric_authentication.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric Authentication'**
+  String get biometric_authentication;
+
+  /// No description provided for @privacy_policy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacy_policy;
 
   /// No description provided for @saved_cards_keys.
   ///
@@ -2008,167 +2020,89 @@ abstract class AppLocalizations {
   /// **'I found this product on Skelter and thought you might like it.\n\nCheck it out here:\n{url}'**
   String share_product_message(String url);
 
-  /// No description provided for @invoice_keys.
+  /// No description provided for @biometric_auth_keys.
   ///
   /// In en, this message translates to:
-  /// **'================ INVOICE KEYS ================'**
-  String get invoice_keys;
+  /// **'================ BIOMETRIC AUTH KEYS ================'**
+  String get biometric_auth_keys;
 
-  /// No description provided for @share_invoice.
+  /// No description provided for @biometric_auth_desc_for_enrollment.
   ///
   /// In en, this message translates to:
-  /// **'Share'**
-  String get share_invoice;
+  /// **'Biometric authentication is not set up on your device. Please either enable Touch ID or Face ID on your phone.'**
+  String get biometric_auth_desc_for_enrollment;
 
-  /// No description provided for @download.
+  /// No description provided for @go_to_settings.
   ///
   /// In en, this message translates to:
-  /// **'Download'**
-  String get download;
+  /// **'Go to settings'**
+  String get go_to_settings;
 
-  /// No description provided for @invoice_saved_success.
+  /// No description provided for @biometric_auth_reason_access_app.
   ///
   /// In en, this message translates to:
-  /// **'Invoice saved successfully'**
-  String get invoice_saved_success;
+  /// **'Please authenticate to access the app'**
+  String get biometric_auth_reason_access_app;
 
-  /// No description provided for @invoice_generation_failed.
+  /// No description provided for @biometric_auth_not_setup.
   ///
   /// In en, this message translates to:
-  /// **'Failed to generate invoice. Please try again.'**
-  String get invoice_generation_failed;
+  /// **'Biometric authentication is not set up on your device.'**
+  String get biometric_auth_not_setup;
 
-  /// No description provided for @storage_permission_required.
+  /// No description provided for @biometric_setup_enable_instruction.
   ///
   /// In en, this message translates to:
-  /// **'Storage permission required to save invoice'**
-  String get storage_permission_required;
+  /// **'Biometric authentication is not set up on your device. Please enable Touch ID or Face ID (iPhone) or Fingerprint/Face Unlock (Android) to continue.'**
+  String get biometric_setup_enable_instruction;
 
-  /// No description provided for @online_payment_method.
+  /// No description provided for @ok.
   ///
   /// In en, this message translates to:
-  /// **'Online Payment'**
-  String get online_payment_method;
+  /// **'OK'**
+  String get ok;
 
-  /// No description provided for @generate_invoice.
+  /// No description provided for @enable_or_disable.
   ///
   /// In en, this message translates to:
-  /// **'Generate Invoice'**
-  String get generate_invoice;
+  /// **'Enable/ Disable'**
+  String get enable_or_disable;
 
-  /// No description provided for @invoice.
+  /// No description provided for @biometric_auth_description.
   ///
   /// In en, this message translates to:
-  /// **'INVOICE'**
-  String get invoice;
+  /// **'Use the toggle to activate or deactivate biometric verification.'**
+  String get biometric_auth_description;
 
-  /// No description provided for @invoice_details.
+  /// No description provided for @biometric_auth_enabled_success.
   ///
   /// In en, this message translates to:
-  /// **'Invoice Details:'**
-  String get invoice_details;
+  /// **'Biometric authentication enabled successfully'**
+  String get biometric_auth_enabled_success;
 
-  /// No description provided for @invoice_number.
+  /// No description provided for @biometric_auth_disabled.
   ///
   /// In en, this message translates to:
-  /// **'Invoice Number'**
-  String get invoice_number;
+  /// **'Biometric authentication disabled'**
+  String get biometric_auth_disabled;
 
-  /// No description provided for @invoice_date.
+  /// No description provided for @auth_failed.
   ///
   /// In en, this message translates to:
-  /// **'Invoice Date'**
-  String get invoice_date;
+  /// **'Authentication failed'**
+  String get auth_failed;
 
-  /// No description provided for @bill_to.
+  /// No description provided for @biometric_auth_not_available.
   ///
   /// In en, this message translates to:
-  /// **'Bill To:'**
-  String get bill_to;
+  /// **'Biometric authentication is not available on this device'**
+  String get biometric_auth_not_available;
 
-  /// No description provided for @product.
+  /// No description provided for @biometric_auth_too_many_attempts.
   ///
   /// In en, this message translates to:
-  /// **'Product'**
-  String get product;
-
-  /// No description provided for @quantity.
-  ///
-  /// In en, this message translates to:
-  /// **'Quantity'**
-  String get quantity;
-
-  /// No description provided for @total.
-  ///
-  /// In en, this message translates to:
-  /// **'Total'**
-  String get total;
-
-  /// No description provided for @subtotal.
-  ///
-  /// In en, this message translates to:
-  /// **'Subtotal'**
-  String get subtotal;
-
-  /// No description provided for @payment_method.
-  ///
-  /// In en, this message translates to:
-  /// **'Payment Method'**
-  String get payment_method;
-
-  /// No description provided for @download_invoice.
-  ///
-  /// In en, this message translates to:
-  /// **'Download Invoice'**
-  String get download_invoice;
-
-  /// No description provided for @invoice_share_failed.
-  ///
-  /// In en, this message translates to:
-  /// **'Failed to share invoice. Please try again'**
-  String get invoice_share_failed;
-
-  /// No description provided for @my_orders_keys.
-  ///
-  /// In en, this message translates to:
-  /// **'================ My ORDERS KEYS ================'**
-  String get my_orders_keys;
-
-  /// No description provided for @order_id.
-  ///
-  /// In en, this message translates to:
-  /// **'Order Id: #'**
-  String get order_id;
-
-  /// No description provided for @accepted.
-  ///
-  /// In en, this message translates to:
-  /// **'Accepted'**
-  String get accepted;
-
-  /// No description provided for @order_details.
-  ///
-  /// In en, this message translates to:
-  /// **'Order Details'**
-  String get order_details;
-
-  /// No description provided for @cancel_order.
-  ///
-  /// In en, this message translates to:
-  /// **'Cancel Order'**
-  String get cancel_order;
-
-  /// No description provided for @tracking_detail.
-  ///
-  /// In en, this message translates to:
-  /// **'Tracking Details'**
-  String get tracking_detail;
-
-  /// No description provided for @no_product_selected.
-  ///
-  /// In en, this message translates to:
-  /// **'No product selected'**
-  String get no_product_selected;
+  /// **'Too many attempts. Please try again later.'**
+  String get biometric_auth_too_many_attempts;
 }
 
 class _AppLocalizationsDelegate

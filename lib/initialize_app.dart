@@ -9,6 +9,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
+import 'package:skelter/constants/constants.dart';
 import 'package:skelter/core/services/injection_container.dart';
 import 'package:skelter/firebase_options_dev.dart' as dev;
 import 'package:skelter/firebase_options_prod.dart' as prod;
@@ -58,10 +60,17 @@ Future<void> initializeApp({
   ]);
 
   await dotenv.load();
+  await _initPurchasesConfiguration();
 
   await configureDependencies(
     firebaseAuth: firebaseAuth,
     firebaseAuthService: firebaseAuthService,
     dio: dio,
   );
+}
+
+Future<void> _initPurchasesConfiguration() async {
+  await Purchases.setLogLevel(LogLevel.debug);
+  final revenueCatApiKey = dotenv.env[revenueCatGoogleApiKey] ?? '';
+  await Purchases.configure(PurchasesConfiguration(revenueCatApiKey));
 }
