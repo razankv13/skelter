@@ -1,4 +1,4 @@
-// ignore_for_file: directives_ordering
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
@@ -7,8 +7,8 @@ import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/utils/extensions/build_context_ext.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
-class AccountAndPrivacy extends StatelessWidget {
-  const AccountAndPrivacy({super.key});
+class PrivacyPolicy extends StatelessWidget {
+  const PrivacyPolicy({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +20,11 @@ class AccountAndPrivacy extends StatelessWidget {
         ),
       ),
       leading: Icon(
-        TablerIcons.user_circle,
+        TablerIcons.file_text,
         color: context.currentTheme.iconNeutralDefault,
       ),
       title: Text(
-        context.localization.account_and_privacy,
+        context.localization.privacy_policy,
         style: AppTextStyles.p2Regular.copyWith(
           color: context.currentTheme.textNeutralPrimary,
         ),
@@ -34,7 +34,7 @@ class AccountAndPrivacy extends StatelessWidget {
         color: context.currentTheme.iconNeutralDefault,
       ),
       onTap: () {
-        context.showSnackBar('Account and Privacy');
+        context.showSnackBar('Privacy policy');
       },
     );
   }

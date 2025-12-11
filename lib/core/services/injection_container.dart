@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http_certificate_pinning/http_certificate_pinning.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:skelter/constants/constants.dart';
 import 'package:skelter/core/deep_link/app_deep_link_manager.dart';
 import 'package:skelter/main.dart';
@@ -17,6 +18,7 @@ import 'package:skelter/presentation/product_detail/domain/repositories/product_
 import 'package:skelter/presentation/product_detail/domain/usecases/get_product_detail.dart';
 import 'package:skelter/routes.gr.dart';
 import 'package:skelter/services/firebase_auth_services.dart';
+import 'package:skelter/services/local_auth_services.dart';
 import 'package:skelter/shared_pref/prefs.dart';
 import 'package:skelter/utils/app_flavor_env.dart';
 import 'package:skelter/utils/cache_manager.dart';
@@ -84,7 +86,10 @@ Future<void> configureDependencies({
     )
     ..registerLazySingleton(() => CurrencyConverterUtil(sl()))
     ..registerLazySingleton<Dio>(() => pinnedDio)
-    ..registerLazySingleton<AppDeepLinkManager>(() => AppDeepLinkManager());
+    ..registerLazySingleton<AppDeepLinkManager>(() => AppDeepLinkManager())
+    ..registerLazySingleton<LocalAuthService>(
+      () => LocalAuthService(LocalAuthentication()),
+    );
 }
 
 void _registerDioInterceptor(Dio dio) {
