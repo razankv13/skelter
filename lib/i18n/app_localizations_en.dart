@@ -748,7 +748,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get choose_app_theme => 'Choose App Theme';
 
   @override
-  String get account_and_privacy => 'Account & Privacy';
+  String get account_security => 'Account security';
+
+  @override
+  String get biometric_authentication => 'Biometric Authentication';
+
+  @override
+  String get privacy_policy => 'Privacy Policy';
 
   @override
   String get saved_cards_keys =>
@@ -1086,4 +1092,55 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get bottom_nav__bar_identify => 'bottom_nav_bar';
+
+  @override
+  String get biometric_auth_keys =>
+      '================ BIOMETRIC AUTH KEYS ================';
+
+  @override
+  String get biometric_auth_desc_for_enrollment =>
+      'Biometric authentication is not set up on your device. Please either enable Touch ID or Face ID on your phone.';
+
+  @override
+  String get go_to_settings => 'Go to settings';
+
+  @override
+  String get biometric_auth_reason_access_app =>
+      'Please authenticate to access the app';
+
+  @override
+  String get biometric_auth_not_setup =>
+      'Biometric authentication is not set up on your device.';
+
+  @override
+  String get biometric_setup_enable_instruction =>
+      'Biometric authentication is not set up on your device. Please enable Touch ID or Face ID (iPhone) or Fingerprint/Face Unlock (Android) to continue.';
+
+  @override
+  String get ok => 'OK';
+
+  @override
+  String get enable_or_disable => 'Enable/ Disable';
+
+  @override
+  String get biometric_auth_description =>
+      'Use the toggle to activate or deactivate biometric verification.';
+
+  @override
+  String get biometric_auth_enabled_success =>
+      'Biometric authentication enabled successfully';
+
+  @override
+  String get biometric_auth_disabled => 'Biometric authentication disabled';
+
+  @override
+  String get auth_failed => 'Authentication failed';
+
+  @override
+  String get biometric_auth_not_available =>
+      'Biometric authentication is not available on this device';
+
+  @override
+  String get biometric_auth_too_many_attempts =>
+      'Too many attempts. Please try again later.';
 }

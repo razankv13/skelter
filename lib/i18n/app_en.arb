@@ -316,7 +316,9 @@
   "notification_settings":"Notification Settings",
   "change_password":"Change Password",
   "choose_app_theme":"Choose App Theme",
-  "account_and_privacy":"Account & Privacy",
+  "account_security":"Account security",
+  "biometric_authentication":"Biometric Authentication",
+  "privacy_policy":"Privacy Policy",
 
   "saved_cards_keys":"================ SAVED CARDS KEYS ================",
   "empty_cards_list_message":"There is no card available at the moment.",
@@ -442,4 +444,21 @@
   "got_it": "Got it!",
   "search_bar_identify": "search_bar",
   "bottom_nav__bar_identify": "bottom_nav_bar"
+  },
+
+  "biometric_auth_keys":"================ BIOMETRIC AUTH KEYS ================",
+  "biometric_auth_desc_for_enrollment": "Biometric authentication is not set up on your device. Please either enable Touch ID or Face ID on your phone.",
+  "go_to_settings": "Go to settings",
+  "biometric_auth_reason_access_app": "Please authenticate to access the app",
+  "biometric_auth_not_setup": "Biometric authentication is not set up on your device.",
+  "biometric_setup_enable_instruction": "Biometric authentication is not set up on your device. Please enable Touch ID or Face ID (iPhone) or Fingerprint/Face Unlock (Android) to continue.",
+  "ok": "OK",
+  "enable_or_disable":"Enable/ Disable",
+  "biometric_auth_description":"Use the toggle to activate or deactivate biometric verification.",
+  "biometric_auth_enabled_success":"Biometric authentication enabled successfully",
+  "biometric_auth_disabled":"Biometric authentication disabled",
+  "auth_failed":"Authentication failed",
+  "biometric_auth_not_available":"Biometric authentication is not available on this device",
+  "biometric_auth_too_many_attempts":"Too many attempts. Please try again later."
+
 }
