@@ -706,11 +706,11 @@ abstract class AppLocalizations {
   /// **'Activity'**
   String get activity;
 
-  /// No description provided for @history.
+  /// No description provided for @my_orders.
   ///
   /// In en, this message translates to:
-  /// **'History'**
-  String get history;
+  /// **'My Orders'**
+  String get my_orders;
 
   /// No description provided for @done.
   ///
@@ -2103,6 +2103,168 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Too many attempts. Please try again later.'**
   String get biometric_auth_too_many_attempts;
+
+  /// No description provided for @invoice_keys.
+  ///
+  /// In en, this message translates to:
+  /// **'================ INVOICE KEYS ================'**
+  String get invoice_keys;
+
+  /// No description provided for @share_invoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get share_invoice;
+
+  /// No description provided for @download.
+  ///
+  /// In en, this message translates to:
+  /// **'Download'**
+  String get download;
+
+  /// No description provided for @invoice_saved_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Invoice saved successfully'**
+  String get invoice_saved_success;
+
+  /// No description provided for @invoice_generation_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to generate invoice. Please try again.'**
+  String get invoice_generation_failed;
+
+  /// No description provided for @storage_permission_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Storage permission required to save invoice'**
+  String get storage_permission_required;
+
+  /// No description provided for @online_payment_method.
+  ///
+  /// In en, this message translates to:
+  /// **'Online Payment'**
+  String get online_payment_method;
+
+  /// No description provided for @generate_invoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate Invoice'**
+  String get generate_invoice;
+
+  /// No description provided for @invoice.
+  ///
+  /// In en, this message translates to:
+  /// **'INVOICE'**
+  String get invoice;
+
+  /// No description provided for @invoice_details.
+  ///
+  /// In en, this message translates to:
+  /// **'Invoice Details:'**
+  String get invoice_details;
+
+  /// No description provided for @invoice_number.
+  ///
+  /// In en, this message translates to:
+  /// **'Invoice Number'**
+  String get invoice_number;
+
+  /// No description provided for @invoice_date.
+  ///
+  /// In en, this message translates to:
+  /// **'Invoice Date'**
+  String get invoice_date;
+
+  /// No description provided for @bill_to.
+  ///
+  /// In en, this message translates to:
+  /// **'Bill To:'**
+  String get bill_to;
+
+  /// No description provided for @product.
+  ///
+  /// In en, this message translates to:
+  /// **'Product'**
+  String get product;
+
+  /// No description provided for @quantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Quantity'**
+  String get quantity;
+
+  /// No description provided for @total.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get total;
+
+  /// No description provided for @subtotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Subtotal'**
+  String get subtotal;
+
+  /// No description provided for @payment_method.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Method'**
+  String get payment_method;
+
+  /// No description provided for @download_invoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Download Invoice'**
+  String get download_invoice;
+
+  /// No description provided for @invoice_share_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to share invoice. Please try again'**
+  String get invoice_share_failed;
+
+  /// No description provided for @my_orders_keys.
+  ///
+  /// In en, this message translates to:
+  /// **'================ My ORDERS KEYS ================'**
+  String get my_orders_keys;
+
+  /// No description provided for @order_id.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Id: #'**
+  String get order_id;
+
+  /// No description provided for @accepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Accepted'**
+  String get accepted;
+
+  /// No description provided for @order_details.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Details'**
+  String get order_details;
+
+  /// No description provided for @cancel_order.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Order'**
+  String get cancel_order;
+
+  /// No description provided for @tracking_detail.
+  ///
+  /// In en, this message translates to:
+  /// **'Tracking Details'**
+  String get tracking_detail;
+
+  /// No description provided for @no_product_selected.
+  ///
+  /// In en, this message translates to:
+  /// **'No product selected'**
+  String get no_product_selected;
 }
 
 class _AppLocalizationsDelegate
@@ -2130,8 +2292,9 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   }
 
   throw FlutterError(
-      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.',
+  );
 }
