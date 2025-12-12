@@ -23,31 +23,31 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
   void initState() {
     super.initState();
     if (!isFromTestEnvironment) {
-      _checkAndShowTour();
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        await _checkAndShowTour();
+      });
     }
   }
 
   Future<void> _checkAndShowTour() async {
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      try {
-        final tourCompleted = await AppTourService.isTourCompleted();
-        if (!tourCompleted && mounted) {
-          await Future.delayed(const Duration(milliseconds: 300));
+    try {
+      final tourCompleted = await AppTourService.isTourCompleted();
+      if (!tourCompleted && mounted) {
+        await Future.delayed(const Duration(milliseconds: 300));
 
-          if (_searchBarKey.currentContext != null) {
-            AppTourService.showTour(
-              context: context,
-              searchBarKey: _searchBarKey,
-              bottomNavKey: widget.bottomNavKey,
-            );
-          } else {
-            debugPrint('Search bar key context is null, cannot show tour');
-          }
+        if (_searchBarKey.currentContext != null) {
+          AppTourService.showTour(
+            context: context,
+            searchBarKey: _searchBarKey,
+            bottomNavKey: widget.bottomNavKey,
+          );
+        } else {
+          debugPrint('Search bar key context is null, cannot show tour');
         }
-      } catch (e) {
-        debugPrint('Error in _checkAndShowTour: $e');
       }
-    });
+    } catch (e) {
+      debugPrint('Error in _checkAndShowTour: $e');
+    }
   }
 
   @override
