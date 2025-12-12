@@ -32,8 +32,8 @@ boiler plate code for rapid application development.
 
 ## Technology Stack
 
-- **Flutter Version:** ^3.32.0
-- **Dart SDK:** ^3.8.0
+- **Flutter Version:** ^3.35.7
+- **Dart SDK:** ^3.9.2
 - **State Management:** BLoC
 - **Navigation:** Auto Route
 - **Backend Integration:** Firebase (Core, Analytics, Crashlytics, Auth)

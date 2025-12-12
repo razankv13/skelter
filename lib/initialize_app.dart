@@ -9,6 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:skelter/constants/constants.dart';
 import 'package:skelter/core/services/injection_container.dart';
@@ -67,6 +68,8 @@ Future<void> initializeApp({
     firebaseAuthService: firebaseAuthService,
     dio: dio,
   );
+
+  await GoogleSignIn.instance.initialize();
 }
 
 Future<void> _initPurchasesConfiguration() async {

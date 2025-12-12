@@ -22,6 +22,11 @@ import 'package:skelter/services/local_auth_services.dart';
 import 'package:skelter/shared_pref/prefs.dart';
 import 'package:skelter/utils/app_flavor_env.dart';
 import 'package:skelter/utils/cache_manager.dart';
+import 'package:skelter/utils/currency_converter/currency_converter_util.dart';
+import 'package:skelter/utils/currency_converter/data/datasources/currency_converter_remote_data_source.dart';
+import 'package:skelter/utils/currency_converter/data/repositories/currency_converter_repository_impl.dart';
+import 'package:skelter/utils/currency_converter/domain/repositories/currency_converter_repository.dart';
+import 'package:skelter/utils/currency_converter/domain/usecases/get_exchange_rate.dart';
 
 final sl = GetIt.instance;
 bool _isForceLoggingOutUser = false;
@@ -72,6 +77,14 @@ Future<void> configureDependencies({
     ..registerLazySingleton<ProductDetailRemoteDatasource>(
       () => ProductDetailRemoteDataSrcImpl(sl()),
     )
+    ..registerLazySingleton(() => GetExchangeRate(sl()))
+    ..registerLazySingleton<CurrencyConverterRepository>(
+      () => CurrencyConverterRepositoryImpl(sl()),
+    )
+    ..registerLazySingleton<CurrencyConverterRemoteDatasource>(
+      () => CurrencyConverterRemoteDataSrcImpl(sl()),
+    )
+    ..registerLazySingleton(() => CurrencyConverterUtil(sl()))
     ..registerLazySingleton<Dio>(() => pinnedDio)
     ..registerLazySingleton<AppDeepLinkManager>(() => AppDeepLinkManager())
     ..registerLazySingleton<LocalAuthService>(

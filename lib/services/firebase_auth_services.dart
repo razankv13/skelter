@@ -17,7 +17,7 @@ class FirebaseAuthService {
   final FirebaseAuth _firebaseAuth;
 
   FirebaseAuthService({FirebaseAuth? firebaseAuth})
-      : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
+    : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
 
   int? _phoneResendToken;
 
@@ -122,25 +122,32 @@ class FirebaseAuthService {
   }) async {
     try {
       await _firebaseAuth.signOut();
-      final GoogleSignInAccount? googleUser =
-          await GoogleSignIn(scopes: <String>['email'])
-              .signIn()
-              .catchError((error) {
-        debugPrint('Error signing in with Google: $error');
-        return null;
-      });
-      if (googleUser == null) {
-        debugPrint('googleUser is null');
+      final GoogleSignInAccount googleUser = await GoogleSignIn.instance
+          .authenticate();
+
+      final GoogleSignInAuthentication googleAuth = googleUser.authentication;
+
+      if (googleAuth.idToken == null) {
+        debugPrint('Failed to get ID token');
         return null;
       }
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
+
+      late final GoogleSignInClientAuthorization clientAuth;
+      try {
+        clientAuth = await googleUser.authorizationClient.authorizeScopes([
+          kEmailScope,
+        ]);
+      } catch (e) {
+        debugPrint('Error requesting authorization scopes: $e');
+        return null;
+      }
+
       final OAuthCredential cred = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
+        accessToken: clientAuth.accessToken,
         idToken: googleAuth.idToken,
       );
-      final UserCredential firebaseCred =
-          await _firebaseAuth.signInWithCredential(cred);
+      final UserCredential firebaseCred = await _firebaseAuth
+          .signInWithCredential(cred);
       return firebaseCred;
     } on FirebaseAuthException catch (e, stack) {
       _handleFirebaseError(e, onError, stackTrace: stack);
@@ -158,28 +165,26 @@ class FirebaseAuthService {
       final String rawNonce = generateNonce();
       final AuthorizationCredentialAppleID appleCred =
           await SignInWithApple.getAppleIDCredential(
-        scopes: <AppleIDAuthorizationScopes>[
-          AppleIDAuthorizationScopes.email,
-          AppleIDAuthorizationScopes.fullName,
-        ],
-        nonce: _sha256OfString(rawNonce),
-      );
+            scopes: <AppleIDAuthorizationScopes>[
+              AppleIDAuthorizationScopes.email,
+              AppleIDAuthorizationScopes.fullName,
+            ],
+            nonce: _sha256OfString(rawNonce),
+          );
 
-      debugPrint(
-        '''
+      debugPrint('''
     APPLE CRED = 
     FAMILY_NAME = ${appleCred.familyName}
     GIVEN NAME = ${appleCred.givenName}
-    EMAIL =${appleCred.email}''',
-      );
+    EMAIL =${appleCred.email}''');
       final OAuthCredential cred = OAuthProvider(kProviderApple).credential(
         idToken: appleCred.identityToken,
         accessToken: appleCred.authorizationCode,
         rawNonce: rawNonce,
       );
 
-      final UserCredential firebaseCred =
-          await _firebaseAuth.signInWithCredential(cred);
+      final UserCredential firebaseCred = await _firebaseAuth
+          .signInWithCredential(cred);
       return firebaseCred;
     } on FirebaseAuthException catch (e, stack) {
       _handleFirebaseError(e, onError, stackTrace: stack);
@@ -218,14 +223,15 @@ class FirebaseAuthService {
     if (user == null) return false;
 
     final providerData = user.providerData;
-    return providerData
-        .any((userInfo) => userInfo.providerId == kProviderGoogle);
+    return providerData.any(
+      (userInfo) => userInfo.providerId == kProviderGoogle,
+    );
   }
 
   Future<void> signOut() async {
     if (isSignedInWithGoogle) {
       try {
-        await GoogleSignIn().signOut();
+        await GoogleSignIn.instance.signOut();
       } catch (e) {
         debugPrint('Error during Google sign out: $e');
       }
@@ -330,16 +336,19 @@ class FirebaseAuthService {
   }
 
   Future<void> _reAuthWithGoogle(User user) async {
-    final googleSignIn = GoogleSignIn(scopes: [kEmailScope]);
-    final googleUser = await googleSignIn.signIn();
+    final googleUser = await GoogleSignIn.instance.authenticate();
 
-    if (googleUser == null) {
-      throw Exception('Google sign-in was cancelled by user');
+    final googleAuth = googleUser.authentication;
+    if (googleAuth.idToken == null) {
+      throw Exception('Failed to get ID token');
     }
 
-    final googleAuth = await googleUser.authentication;
+    final GoogleSignInClientAuthorization clientAuth = await googleUser
+        .authorizationClient
+        .authorizeScopes([kEmailScope]);
+
     final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
+      accessToken: clientAuth.accessToken,
       idToken: googleAuth.idToken,
     );
 

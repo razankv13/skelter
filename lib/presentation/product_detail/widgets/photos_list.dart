@@ -28,7 +28,7 @@ class PhotosList extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: photos.length,
         physics: const ClampingScrollPhysics(),
-        separatorBuilder: (_, __) => const SizedBox(width: 10),
+        separatorBuilder: (_, _) => const SizedBox(width: 10),
         itemBuilder: (context, index) {
           final isImageSelected = index == selectedImageIndex;
           final productPhotosUrl = photos[index];

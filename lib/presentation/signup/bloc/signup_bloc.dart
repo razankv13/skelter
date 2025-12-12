@@ -438,7 +438,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   }
 
   FutureOr<void> _onSendEmailVerificationLinkEvent(
-    event,
+      SendEmailVerificationLinkEvent event,
     Emitter<SignupState> emit,
   ) async {
     add(EmailSignUpLoadingEvent(isLoading: true));

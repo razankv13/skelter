@@ -15,8 +15,6 @@ enum CompactFormatType {
 ///
 /// This class provides methods to format numbers as currency strings,
 ///
-/// NOTE: The formatter currently supports only formatting.
-//Todo: Currency conversion will be added soon.
 
 class CurrencyFormatterUtil {
   CurrencyFormatterUtil._();
