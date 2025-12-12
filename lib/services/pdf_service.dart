@@ -510,10 +510,4 @@ class PdfService {
       sharePositionOrigin: sharePositionOrigin,
     );
   }
-
-  static Future<void> previewPdf(Uint8List pdfBytes) async {
-    await Printing.layoutPdf(
-      onLayout: (PdfPageFormat format) async => pdfBytes,
-    );
-  }
 }
