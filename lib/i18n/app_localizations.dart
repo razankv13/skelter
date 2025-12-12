@@ -2020,6 +2020,54 @@ abstract class AppLocalizations {
   /// **'I found this product on Skelter and thought you might like it.\n\nCheck it out here:\n{url}'**
   String share_product_message(String url);
 
+  /// No description provided for @app_tour_keys.
+  ///
+  /// In en, this message translates to:
+  /// **'================ APP TOUR KEYS ================'**
+  String get app_tour_keys;
+
+  /// No description provided for @tour_search_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Search Products'**
+  String get tour_search_title;
+
+  /// No description provided for @tour_search_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the search bar to quickly find the products you\'re looking for. Just type what you need!'**
+  String get tour_search_description;
+
+  /// No description provided for @tour_nav_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Navigate the App'**
+  String get tour_nav_title;
+
+  /// No description provided for @tour_nav_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the bottom navigation to switch between Home, Search, Cart, and Profile sections.'**
+  String get tour_nav_description;
+
+  /// No description provided for @got_it.
+  ///
+  /// In en, this message translates to:
+  /// **'Got it!'**
+  String get got_it;
+
+  /// No description provided for @search_bar_identify.
+  ///
+  /// In en, this message translates to:
+  /// **'search_bar'**
+  String get search_bar_identify;
+
+  /// No description provided for @bottom_nav__bar_identify.
+  ///
+  /// In en, this message translates to:
+  /// **'bottom_nav_bar'**
+  String get bottom_nav__bar_identify;
+
   /// No description provided for @biometric_auth_keys.
   ///
   /// In en, this message translates to:
@@ -2130,8 +2178,9 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   }
 
   throw FlutterError(
-      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.',
+  );
 }
