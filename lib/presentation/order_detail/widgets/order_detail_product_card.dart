@@ -52,7 +52,7 @@ class OrderDetailProductCard extends StatelessWidget {
                 child: Text(
                   context.localization.accepted,
                   style: AppTextStyles.p4Medium
-                      .copyWith(color: context.currentTheme.bgBrandDefault),
+                      .copyWith(color: context.currentTheme.textBrandSecondary),
                 ),
               ),
             ],
@@ -103,6 +103,7 @@ class OrderDetailProductCard extends StatelessWidget {
                           minRating: 1,
                           itemSize: 16,
                           ignoreGestures: true,
+                          allowHalfRating: true,
                           itemPadding:
                               const EdgeInsets.symmetric(horizontal: 1),
                           itemBuilder: (context, _) => Icon(

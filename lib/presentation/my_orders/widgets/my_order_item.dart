@@ -49,8 +49,9 @@ class MyOrderItem extends StatelessWidget {
                   padding: const EdgeInsets.all(8),
                   child: Text(
                     context.localization.accepted,
-                    style: AppTextStyles.p4Medium
-                        .copyWith(color: context.currentTheme.bgBrandDefault),
+                    style: AppTextStyles.p4Medium.copyWith(
+                      color: context.currentTheme.textBrandSecondary,
+                    ),
                   ),
                 ),
               ],
@@ -97,6 +98,7 @@ class MyOrderItem extends StatelessWidget {
                         initialRating: product.rating,
                         minRating: 1,
                         itemSize: 20,
+                        allowHalfRating: true,
                         ignoreGestures: true,
                         itemPadding: const EdgeInsets.symmetric(horizontal: 4),
                         itemBuilder: (context, _) => Icon(
