@@ -495,15 +495,19 @@ class PdfService {
   static Future<void> sharePdf(
     Uint8List pdfBytes,
     String fileName,
+    Rect sharePositionOrigin,
   ) async {
     final directory = await getTemporaryDirectory();
     final filePath = '${directory.path}/$fileName';
     final file = File(filePath);
     await file.writeAsBytes(pdfBytes);
 
+    // share_plus requires iPad users to provide the
+    // sharePositionOrigin parameter.
     await Share.shareXFiles(
       [XFile(filePath)],
       subject: 'Invoice - $fileName',
+      sharePositionOrigin: sharePositionOrigin,
     );
   }
 

@@ -29,7 +29,7 @@ class InvoicePreviewAppBar extends StatelessWidget
         iconData: TablerIcons.arrow_left,
         iconOrTextColorOverride: context.currentTheme.iconNeutralDefault,
         size: AppButtonSize.extraLarge,
-        onPressed: () => context.router.maybePop(),
+        onPressed: () => context.router.pop(),
       ),
       title: Text(
         context.localization.generate_invoice,
@@ -39,11 +39,14 @@ class InvoicePreviewAppBar extends StatelessWidget
       ),
       centerTitle: true,
       actions: [
-        AppButton.icon(
-          iconData: TablerIcons.share_2,
-          iconOrTextColorOverride: context.currentTheme.iconNeutralDefault,
-          size: AppButtonSize.extraLarge,
-          onPressed: () => _shareInvoice(context),
+        // Use Builder to get the widget context
+        Builder(
+          builder: (ctx) => AppButton.icon(
+            iconData: TablerIcons.share_2,
+            iconOrTextColorOverride: context.currentTheme.iconNeutralDefault,
+            size: AppButtonSize.extraLarge,
+            onPressed: () => _shareInvoice(ctx),
+          ),
         ),
       ],
     );
@@ -51,7 +54,16 @@ class InvoicePreviewAppBar extends StatelessWidget
 
   Future<void> _shareInvoice(BuildContext context) async {
     try {
-      await PdfService.sharePdf(pdfBytes, fileName);
+      final box = context.findRenderObject() as RenderBox?;
+      if (box == null) {
+        context.showSnackBar(
+          context.localization.invoice_share_failed,
+          isDisplayingError: true,
+        );
+        return;
+      }
+      final sharePositionOrigin = box.localToGlobal(Offset.zero) & box.size;
+      await PdfService.sharePdf(pdfBytes, fileName, sharePositionOrigin);
     } catch (e) {
       if (context.mounted) {
         context.showSnackBar(
