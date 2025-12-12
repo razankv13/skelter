@@ -63,8 +63,8 @@ class ProductDetailShimmer extends StatelessWidget {
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 itemCount: 4,
-                separatorBuilder: (_, __) => const SizedBox(width: 12),
-                itemBuilder: (_, __) => const ShimmerImage(
+                separatorBuilder: (_, _) => const SizedBox(width: 12),
+                itemBuilder: (_, _) => const ShimmerImage(
                   width: 100,
                   height: 100,
                   radius: 12,
