@@ -62,21 +62,21 @@ void main() {
       await $(keys.signupPage.signupEmailTextField)
           .enterText('newuser@example.com');
       await Future.delayed(const Duration(milliseconds: 500));
-      await $.pumpAndSettle();
+      await $.pump();
       await $(keys.signupPage.signupEmailNextButton).tap();
-      await $.pumpAndSettle();
+      await $.pump();
 
       expect(find.text('Create your password'), findsOneWidget);
 
       await $(keys.signupPage.signupPasswordTextField)
           .enterText('StrongPass123!');
-      await $.pumpAndSettle();
+      await $.pump();
 
       await $(keys.signupPage.signupConfirmPasswordTextField)
           .enterText('StrongPass123!');
 
       await Future.delayed(const Duration(milliseconds: 600));
-      await $.pumpAndSettle();
+      await $.pump();
 
       await $(keys.signupPage.signupPasswordNextButton).tap();
       await $.pumpAndSettle();
@@ -108,26 +108,34 @@ void main() {
 
       await $(keys.signupPage.signupEmailTextField)
           .enterText('existing@example.com');
-      await $.pumpAndSettle(timeout: const Duration(seconds: 2));
+
+      await $.pump(const Duration(milliseconds: 600));
 
       await $(keys.signupPage.signupEmailNextButton).tap();
-      await $.pumpAndSettle();
+      await $.pumpAndSettle(timeout: const Duration(seconds: 2));
 
       await $(keys.signupPage.signupPasswordTextField)
           .enterText('StrongPass123!');
-      await $.pumpAndSettle();
+      await $.pump();
 
       await $(keys.signupPage.signupConfirmPasswordTextField)
           .enterText('StrongPass123!');
       await Future.delayed(const Duration(milliseconds: 600));
-      await $.pumpAndSettle();
+      await $.pump();
 
-      await $(keys.signupPage.signupPasswordNextButton).tap();
+      // Ensure UI is settled and button is enabled
+      await $.pump(const Duration(milliseconds: 600));
 
-      await Future.delayed(const Duration(seconds: 1));
-      await $.pumpAndSettle();
+      await $(keys.signupPage.signupPasswordNextButton)
+          .tap(settlePolicy: SettlePolicy.noSettle);
 
+      // Wait for error to be processed and displayed
+      // without fast-forwarding through the entire SnackBar duration.
+      await $.pump(const Duration(milliseconds: 500));
       expect(find.text('Email already in use'), findsOneWidget);
+
+      await Future.delayed(const Duration(milliseconds: 600));
+      await $.pump();
 
       final NavigatorState navigator = $.tester.state(find.byType(Navigator));
       navigator.pop();
@@ -136,10 +144,10 @@ void main() {
       // SCENARIO 3: Invalid email validation
       await $(keys.signupPage.signupEmailTextField).enterText('invalidemail');
       await Future.delayed(const Duration(milliseconds: 500));
-      await $.pumpAndSettle();
 
+      await $.pump(const Duration(milliseconds: 500));
       await $(keys.signupPage.signupEmailNextButton).tap();
-      await $.pumpAndSettle();
+      await $.pump(const Duration(milliseconds: 500));
       expect(find.text('Please enter a valid email address'), findsOneWidget);
     },
   );
