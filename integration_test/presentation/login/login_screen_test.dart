@@ -78,7 +78,7 @@ void main() {
 
       await $(keys.signInPage.emailTextField).enterText('test@example.com');
       await $(keys.signInPage.passwordTextField).enterText('password123');
-      await $.pumpAndSettle();
+      await $.pump();
 
       await $(keys.signInPage.loginWithEmailButton).tap();
       await $.pumpAndSettle();
@@ -105,7 +105,7 @@ void main() {
       await $(keys.signInPage.emailTextField)
           .enterText('unverified@example.com');
       await $(keys.signInPage.passwordTextField).enterText('password123');
-      await $.pumpAndSettle();
+      await $.pump();
 
       await $(keys.signInPage.loginWithEmailButton).tap();
       await $.pumpAndSettle();
@@ -126,7 +126,7 @@ void main() {
 
       await $(keys.signInPage.emailTextField).enterText('invalid@example.com');
       await $(keys.signInPage.passwordTextField).enterText('wrongpassword');
-      await $.pumpAndSettle();
+      await $.pump();
 
       await $(keys.signInPage.loginWithEmailButton).tap();
       await $.pumpAndSettle();
@@ -144,6 +144,15 @@ void main() {
         dio: mockDio,
       );
       await $.pumpWidgetAndSettle(const MainApp());
+
+      // Ensure a clean login state by signing out any existing user session
+      // so the Google sign-in button is visible and tappable.
+      if (Platform.isIOS) {
+        await $(TablerIcons.user).tap();
+        await $.pumpAndSettle();
+        await $('Sign out').scrollTo().tap();
+        await $.pumpAndSettle();
+      }
 
       mockFirebaseAuthService.loginWithGoogleShouldFail = false;
 
@@ -163,7 +172,7 @@ void main() {
       mockFirebaseAuthService.loginWithGoogleError = 'Google sign-in failed';
 
       await $(keys.signInPage.continueWithGoogleButton).tap();
-      await $.pumpAndSettle();
+      await $.pump();
 
       expect(find.text('Google sign-in failed'), findsOneWidget);
     },
