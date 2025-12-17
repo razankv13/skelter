@@ -149,12 +149,14 @@ void main() {
 
       // Ensure a clean login state by signing out any existing user session
       // so the Google sign-in button is visible and tappable.
-      if (Platform.isIOS) {
-        await $(TablerIcons.user).tap();
-        await $.pumpAndSettle();
-        await $('Sign out').scrollTo().tap();
-        await $.pumpAndSettle();
-      }
+      // TODO: Fix iOS auth persistence issue
+      // TODO: (Google Sign-In session survives between tests).
+      // if (Platform.isIOS) {
+      //   await $(TablerIcons.user).tap();
+      //   await $.pumpAndSettle();
+      //   await $('Sign out').scrollTo().tap();
+      //   await $.pumpAndSettle();
+      // }
 
       mockFirebaseAuthService.loginWithGoogleShouldFail = false;
 
