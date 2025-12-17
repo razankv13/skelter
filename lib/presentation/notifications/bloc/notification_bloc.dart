@@ -33,6 +33,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       if (!isFromTestEnvironment) {
         await Future.delayed(const Duration(seconds: 3));
       }
+      if (isClosed) return;
       List<NotificationModel> notificationList = [];
       notificationList = List.of(dummyNotifications);
       emit(

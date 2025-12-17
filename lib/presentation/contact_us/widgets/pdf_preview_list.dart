@@ -8,6 +8,7 @@ import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/presentation/contact_us/bloc/contact_us_bloc.dart';
 import 'package:skelter/presentation/contact_us/bloc/contact_us_event.dart';
 import 'package:skelter/presentation/contact_us/widgets/remove_file_button.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 import 'package:skelter/widgets/styling/app_colors.dart';
 
 class PdfPreviewList extends StatelessWidget {
@@ -26,7 +27,7 @@ class PdfPreviewList extends StatelessWidget {
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               itemCount: pdfs.length,
-              separatorBuilder: (_, __) => const SizedBox(width: 8),
+              separatorBuilder: (_, _) => const SizedBox(width: 8),
               itemBuilder: (_, index) {
                 final pdf = pdfs[index];
                 return Stack(
@@ -34,7 +35,7 @@ class PdfPreviewList extends StatelessWidget {
                     Container(
                       width: 80,
                       decoration: BoxDecoration(
-                        color: AppColors.redError50,
+                        color: context.currentTheme.bgErrorLight50,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Column(
@@ -51,7 +52,7 @@ class PdfPreviewList extends StatelessWidget {
                             child: Text(
                               path.basename(pdf.path),
                               style: AppTextStyles.p4Regular.copyWith(
-                                color: AppColors.textNeutralPrimary,
+                                color: context.currentTheme.textNeutralPrimary,
                               ),
                               textAlign: TextAlign.center,
                               overflow: TextOverflow.ellipsis,

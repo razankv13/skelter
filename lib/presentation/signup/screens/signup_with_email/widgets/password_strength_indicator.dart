@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skelter/presentation/signup/bloc/signup_bloc.dart';
 import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
-import 'package:skelter/widgets/styling/app_colors.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class PasswordStrengthProgressIndicator extends StatelessWidget {
   const PasswordStrengthProgressIndicator({
@@ -27,17 +27,17 @@ class PasswordStrengthProgressIndicator extends StatelessWidget {
 
     switch (progressValue) {
       case 1.0:
-        progressColor = AppColors.bgBrandDefault;
+        progressColor = context.currentTheme.bgBrandDefault;
       case >= 0.66:
-        progressColor = AppColors.bgWarningDefault;
+        progressColor = context.currentTheme.bgWarningDefault;
       default:
-        progressColor = AppColors.bgNeutralDefault;
+        progressColor = context.currentTheme.bgNeutralDefault;
     }
 
     return LinearProgressIndicator(
       minHeight: 1.5,
       color: progressColor,
-      backgroundColor: AppColors.bgNeutralLight100,
+      backgroundColor: context.currentTheme.bgNeutralLight100,
       value: progressValue,
     );
   }

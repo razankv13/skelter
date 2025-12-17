@@ -10,6 +10,10 @@ import UIKit
     ) -> Bool {
         GeneratedPluginRegistrant.register(with: self)
 
+        if #available(iOS 10.0, *) {
+            UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate
+        }
+
         guard let controller = window?.rootViewController as? FlutterViewController else {
             return super.application(application, didFinishLaunchingWithOptions: launchOptions)
         }

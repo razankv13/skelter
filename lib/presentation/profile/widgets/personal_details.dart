@@ -3,7 +3,7 @@ import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/utils/extensions/build_context_ext.dart';
-import 'package:skelter/widgets/styling/app_colors.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class PersonalDetails extends StatelessWidget {
   const PersonalDetails({super.key});
@@ -13,17 +13,26 @@ class PersonalDetails extends StatelessWidget {
     return Column(
       children: [
         ListTile(
-          leading: const Icon(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(8),
+              topRight: Radius.circular(8),
+            ),
+          ),
+          tileColor: context.currentTheme.bgSurfaceBase2,
+          leading: Icon(
             TablerIcons.user_circle,
-            color: AppColors.iconNeutralDefault,
+            color: context.currentTheme.iconNeutralDefault,
           ),
           title: Text(
             context.localization.personal_details,
-            style: AppTextStyles.h6SemiBold,
+            style: AppTextStyles.h6SemiBold.copyWith(
+              color: context.currentTheme.textNeutralPrimary,
+            ),
           ),
-          trailing: const Icon(
+          trailing: Icon(
             TablerIcons.chevron_right,
-            color: AppColors.iconNeutralDefault,
+            color: context.currentTheme.iconNeutralDefault,
           ),
           onTap: () {
             context.showSnackBar('Show account details');

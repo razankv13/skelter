@@ -14,10 +14,12 @@ import 'package:skelter/presentation/login/widgets/login_app_bar.dart';
 import 'package:skelter/routes.gr.dart';
 import 'package:skelter/utils/extensions/build_context_ext.dart';
 import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 @RoutePage()
 class LoginWithEmailPasswordScreen extends StatelessWidget {
   final bool isFromDeleteAccount;
+
   const LoginWithEmailPasswordScreen({
     super.key,
     required this.loginBloc,
@@ -34,34 +36,38 @@ class LoginWithEmailPasswordScreen extends StatelessWidget {
           loginBloc.add(ResetEmailStateEvent());
         }
       },
-      child: Scaffold(
-        appBar: const LoginAppBar(removeLeading: false),
-        body: BlocProvider<LoginBloc>.value(
-          value: loginBloc,
-          child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: LoginWithPhoneNumberScreen.kHorizontalPadding,
-              ),
-              child: BlocListener<LoginBloc, LoginState>(
-                listener: (context, state) async {
-                  if (state is AuthenticationExceptionState) {
-                    _showAuthenticationError(state, context);
-                  } else if (state is NavigateToHomeScreenState) {
-                    if (isFromDeleteAccount) {
-                      await context.router.replace(const DeleteAccountRoute());
-                    } else {
-                      context.router.popUntilRoot();
+      child: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Scaffold(
+          appBar: const LoginAppBar(removeLeading: false),
+          body: BlocProvider<LoginBloc>.value(
+            value: loginBloc,
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: LoginWithPhoneNumberScreen.kHorizontalPadding,
+                ),
+                child: BlocListener<LoginBloc, LoginState>(
+                  listener: (context, state) async {
+                    if (state is AuthenticationExceptionState) {
+                      _showAuthenticationError(state, context);
+                    } else if (state is NavigateToHomeScreenState) {
+                      if (isFromDeleteAccount) {
+                        await context.router
+                            .replace(const DeleteAccountRoute());
+                      } else {
+                        context.router.popUntilRoot();
+                      }
+                    } else if (state is NavigateToEmailVerifyScreenState) {
+                      await context.router.push(
+                        VerifyEmailRoute(
+                          email: state.emailPasswordLoginState?.email ?? '',
+                        ),
+                      );
                     }
-                  } else if (state is NavigateToEmailVerifyScreenState) {
-                    await context.router.push(
-                      VerifyEmailRoute(
-                        email: state.emailPasswordLoginState?.email ?? '',
-                      ),
-                    );
-                  }
-                },
-                child: const _LoginWithEmailScreenBody(),
+                  },
+                  child: const _LoginWithEmailScreenBody(),
+                ),
               ),
             ),
           ),
@@ -97,7 +103,9 @@ class _LoginWithEmailScreenBody extends StatelessWidget {
           Center(
             child: Text(
               context.localization.login_with_email,
-              style: AppTextStyles.h2Bold,
+              style: AppTextStyles.h2Bold.copyWith(
+                color: context.currentTheme.textNeutralPrimary,
+              ),
             ),
           ),
           const SizedBox(height: 25),

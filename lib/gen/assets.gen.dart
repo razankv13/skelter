@@ -27,8 +27,11 @@ class $AssetsAnimationsGen {
       'assets/animations/success_checkmark_red_bg.json';
 
   /// List of all assets
-  List<String> get values =>
-      [appUnderMaintenance, successCheckmarkBlueBg, successCheckmarkRedBg];
+  List<String> get values => [
+    appUnderMaintenance,
+    successCheckmarkBlueBg,
+    successCheckmarkRedBg,
+  ];
 }
 
 class $AssetsIconsGen {
@@ -46,6 +49,14 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/close.svg
   String get close => 'assets/icons/close.svg';
+
+  /// File path: assets/icons/company_logo_dt.png
+  AssetGenImage get companyLogoDt =>
+      const AssetGenImage('assets/icons/company_logo_dt.png');
+
+  /// File path: assets/icons/company_logo_lt.png
+  AssetGenImage get companyLogoLt =>
+      const AssetGenImage('assets/icons/company_logo_lt.png');
 
   /// File path: assets/icons/coupon.svg
   String get coupon => 'assets/icons/coupon.svg';
@@ -74,9 +85,6 @@ class $AssetsIconsGen {
   /// File path: assets/icons/google.png
   AssetGenImage get google => const AssetGenImage('assets/icons/google.png');
 
-  /// File path: assets/icons/icon.png
-  AssetGenImage get icon => const AssetGenImage('assets/icons/icon.png');
-
   /// File path: assets/icons/lock.svg
   String get lock => 'assets/icons/lock.svg';
 
@@ -91,6 +99,12 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/no_notifications.svg
   String get noNotifications => 'assets/icons/no_notifications.svg';
+
+  /// File path: assets/icons/no_product_detail_found.svg
+  String get noProductDetailFound => 'assets/icons/no_product_detail_found.svg';
+
+  /// File path: assets/icons/pro_icon.png
+  AssetGenImage get proIcon => const AssetGenImage('assets/icons/pro_icon.png');
 
   /// File path: assets/icons/search_outline.svg
   String get searchOutline => 'assets/icons/search_outline.svg';
@@ -115,33 +129,36 @@ class $AssetsIconsGen {
 
   /// List of all assets
   List<dynamic> get values => [
-        accountDeletedSuccess,
-        appUnderMaintenance,
-        apple,
-        close,
-        coupon,
-        deliveryParcel,
-        email,
-        emailNotification,
-        emptyCart,
-        emptySavedCards,
-        emptyWishlist,
-        forceUpdate,
-        google,
-        icon,
-        lock,
-        mdiTick,
-        noChats,
-        noInternetConnection,
-        noNotifications,
-        searchOutline,
-        send,
-        serverError,
-        tick,
-        userNotFound,
-        userPlaceholder,
-        waveforms
-      ];
+    accountDeletedSuccess,
+    appUnderMaintenance,
+    apple,
+    close,
+    companyLogoDt,
+    companyLogoLt,
+    coupon,
+    deliveryParcel,
+    email,
+    emailNotification,
+    emptyCart,
+    emptySavedCards,
+    emptyWishlist,
+    forceUpdate,
+    google,
+    lock,
+    mdiTick,
+    noChats,
+    noInternetConnection,
+    noNotifications,
+    noProductDetailFound,
+    proIcon,
+    searchOutline,
+    send,
+    serverError,
+    tick,
+    userNotFound,
+    userPlaceholder,
+    waveforms,
+  ];
 }
 
 class $AssetsImagesGen {
@@ -171,15 +188,19 @@ class $AssetsImagesGen {
   AssetGenImage get sgSkelterLogo =>
       const AssetGenImage('assets/images/sg_skelter_logo.png');
 
+  /// File path: assets/images/success.png
+  AssetGenImage get success => const AssetGenImage('assets/images/success.png');
+
   /// List of all assets
   List<AssetGenImage> get values => [
-        cartItem1,
-        cartItem2,
-        demoUser,
-        mastercard,
-        sgSkelterBoilerplate,
-        sgSkelterLogo
-      ];
+    cartItem1,
+    cartItem2,
+    demoUser,
+    mastercard,
+    sgSkelterBoilerplate,
+    sgSkelterLogo,
+    success,
+  ];
 }
 
 class $AssetsTestGen {
@@ -293,15 +314,8 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider({
-    AssetBundle? bundle,
-    String? package,
-  }) {
-    return AssetImage(
-      _assetName,
-      bundle: bundle,
-      package: package,
-    );
+  ImageProvider provider({AssetBundle? bundle, String? package}) {
+    return AssetImage(_assetName, bundle: bundle, package: package);
   }
 
   String get path => _assetName;

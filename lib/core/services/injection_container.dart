@@ -4,7 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http_certificate_pinning/http_certificate_pinning.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:skelter/constants/constants.dart';
+import 'package:skelter/core/deep_link/app_deep_link_manager.dart';
 import 'package:skelter/main.dart';
 import 'package:skelter/presentation/home/data/datasources/product_remote_data_source.dart';
 import 'package:skelter/presentation/home/data/repositories/product_repository_impl.dart';
@@ -16,15 +18,22 @@ import 'package:skelter/presentation/product_detail/domain/repositories/product_
 import 'package:skelter/presentation/product_detail/domain/usecases/get_product_detail.dart';
 import 'package:skelter/routes.gr.dart';
 import 'package:skelter/services/firebase_auth_services.dart';
+import 'package:skelter/services/local_auth_services.dart';
 import 'package:skelter/shared_pref/prefs.dart';
 import 'package:skelter/utils/app_flavor_env.dart';
 import 'package:skelter/utils/cache_manager.dart';
+import 'package:skelter/utils/currency_converter/currency_converter_util.dart';
+import 'package:skelter/utils/currency_converter/data/datasources/currency_converter_remote_data_source.dart';
+import 'package:skelter/utils/currency_converter/data/repositories/currency_converter_repository_impl.dart';
+import 'package:skelter/utils/currency_converter/domain/repositories/currency_converter_repository.dart';
+import 'package:skelter/utils/currency_converter/domain/usecases/get_exchange_rate.dart';
 
 final sl = GetIt.instance;
 bool _isForceLoggingOutUser = false;
 
 Future<void> configureDependencies({
   FirebaseAuth? firebaseAuth,
+  FirebaseAuthService? firebaseAuthService,
   Dio? dio,
 }) async {
   sl.registerLazySingleton<FirebaseAuth>(
@@ -32,7 +41,9 @@ Future<void> configureDependencies({
   );
 
   sl.registerLazySingleton<FirebaseAuthService>(
-    () => FirebaseAuthService(firebaseAuth: sl<FirebaseAuth>()),
+    () =>
+        firebaseAuthService ??
+        FirebaseAuthService(firebaseAuth: sl<FirebaseAuth>()),
   );
 
   final cacheManager = CacheManager();
@@ -66,7 +77,19 @@ Future<void> configureDependencies({
     ..registerLazySingleton<ProductDetailRemoteDatasource>(
       () => ProductDetailRemoteDataSrcImpl(sl()),
     )
-    ..registerLazySingleton<Dio>(() => pinnedDio);
+    ..registerLazySingleton(() => GetExchangeRate(sl()))
+    ..registerLazySingleton<CurrencyConverterRepository>(
+      () => CurrencyConverterRepositoryImpl(sl()),
+    )
+    ..registerLazySingleton<CurrencyConverterRemoteDatasource>(
+      () => CurrencyConverterRemoteDataSrcImpl(sl()),
+    )
+    ..registerLazySingleton(() => CurrencyConverterUtil(sl()))
+    ..registerLazySingleton<Dio>(() => pinnedDio)
+    ..registerLazySingleton<AppDeepLinkManager>(() => AppDeepLinkManager())
+    ..registerLazySingleton<LocalAuthService>(
+      () => LocalAuthService(LocalAuthentication()),
+    );
 }
 
 void _registerDioInterceptor(Dio dio) {

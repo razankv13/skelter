@@ -748,7 +748,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get choose_app_theme => 'Choose App Theme';
 
   @override
-  String get account_and_privacy => 'Account & Privacy';
+  String get account_security => 'Account security';
+
+  @override
+  String get biometric_authentication => 'Biometric Authentication';
+
+  @override
+  String get privacy_policy => 'Privacy Policy';
 
   @override
   String get saved_cards_keys =>
@@ -781,6 +787,129 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get empty_order_title => 'No Orders Found';
+
+  @override
+  String get subscription_keys =>
+      '================ SUBSCRIPTION KEYS ================';
+
+  @override
+  String get upgrade_to_pro => 'Upgrade to PRO';
+
+  @override
+  String get cancel_subscription => 'Cancel Subscription';
+
+  @override
+  String get manage_subscription => 'Manage Subscription';
+
+  @override
+  String get no_subscription_available => 'No subscription plans available.';
+
+  @override
+  String get failed_to_load_subscriptions =>
+      'Failed to load subscription plans.';
+
+  @override
+  String get store_login_required =>
+      'Please log into your App Store or Play Store account.';
+
+  @override
+  String get unexpected_error_occurred => 'An unexpected error occurred.';
+
+  @override
+  String get user_purchase_cancelled => 'You cancelled the purchase.';
+
+  @override
+  String get restore_subscription => 'Restore Subscription';
+
+  @override
+  String get restore_success =>
+      'Your purchases have been restored successfully.';
+
+  @override
+  String get no_active_subscriptions =>
+      'No active subscriptions were found on your account.';
+
+  @override
+  String get restore_error => 'Error restoring purchases: ';
+
+  @override
+  String get monthly_plan => 'Monthly Plan';
+
+  @override
+  String get yearly_plan => 'Yearly Plan';
+
+  @override
+  String get monthly_duration => 'per month';
+
+  @override
+  String get monthly_renewal => 'Auto-renews every month';
+
+  @override
+  String get yearly_duration => 'per year';
+
+  @override
+  String get yearly_renewal => 'Best value – Auto-renews yearly';
+
+  @override
+  String get subscription_renew =>
+      'Your subscription will automatically renew unless canceled at least 24 hours before the end of the current period';
+
+  @override
+  String get continue_to_payment => 'Continue to Payment';
+
+  @override
+  String get unlock_access => 'Unlock Full Access to';
+
+  @override
+  String get app_name => 'Skelter Pro';
+
+  @override
+  String get plan_description => '🚀 Get unlimited access to skelter';
+
+  @override
+  String get processing_your_payment => 'Processing Your Payment';
+
+  @override
+  String get payment_processing_message =>
+      'Please wait while we process your payment. This may take a few seconds.';
+
+  @override
+  String get subscription_activated_title => 'Subscription Activated!';
+
+  @override
+  String get subscription_activated_message =>
+      'Your subscription is now active.\nYou can explore the premium features.';
+
+  @override
+  String get payment_failed => 'Payment failed!';
+
+  @override
+  String get payment_failed_message => 'Please try again after sometime.';
+
+  @override
+  String get retry_payment => 'Retry Payment';
+
+  @override
+  String get go_to_home => 'Go to Home';
+
+  @override
+  String get subscription_management_url_unavailable =>
+      'We couldn’t load your subscription settings. Please try again later.';
+
+  @override
+  String get subscription_invalid_url => 'Invalid subscription URL.';
+
+  @override
+  String get purchase_cancelled => 'Purchase cancelled';
+
+  @override
+  String get already_subscribed => 'Already subscribed';
+
+  @override
+  String get receipt_already_in_use => 'Receipt already in use';
+
+  @override
+  String get something_went_wrong => 'Something went wrong';
 
   @override
   String get force_update_keys =>
@@ -885,4 +1014,133 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get view_product_reviews => 'View Product Reviews';
+
+  @override
+  String get no_product_detail_found => 'No Product Detail Found!';
+
+  @override
+  String get product_details => 'Product Details';
+
+  @override
+  String get reminder_keys => '================ REMINDER KEYS ================';
+
+  @override
+  String get reminder => 'Reminder';
+
+  @override
+  String get reminder_title => 'Title';
+
+  @override
+  String get reminder_description => 'Description (Optional)';
+
+  @override
+  String get reminder_title_hint => 'Enter reminder title';
+
+  @override
+  String get reminder_description_hint => 'Enter description';
+
+  @override
+  String get date_and_time => 'Date & Time';
+
+  @override
+  String get schedule_reminder => 'Schedule Reminder';
+
+  @override
+  String get reminder_title_required => 'Please enter a title';
+
+  @override
+  String get reminder_future_date_required =>
+      'Please select a future date and time';
+
+  @override
+  String get reminder_scheduled_successfully =>
+      'Reminder scheduled successfully!';
+
+  @override
+  String get reminder_schedule_failed => 'Failed to schedule reminder';
+
+  @override
+  String get share_product_subject => 'Product on Skelter';
+
+  @override
+  String share_product_message(String url) {
+    return 'I found this product on Skelter and thought you might like it.\n\nCheck it out here:\n$url';
+  }
+
+  @override
+  String get app_tour_keys => '================ APP TOUR KEYS ================';
+
+  @override
+  String get tour_search_title => 'Search Products';
+
+  @override
+  String get tour_search_description =>
+      'Use the search bar to quickly find the products you\'re looking for. Just type what you need!';
+
+  @override
+  String get tour_nav_title => 'Navigate the App';
+
+  @override
+  String get tour_nav_description =>
+      'Use the bottom navigation to switch between Home, Search, Cart, and Profile sections.';
+
+  @override
+  String get got_it => 'Got it!';
+
+  @override
+  String get search_bar_identify => 'search_bar';
+
+  @override
+  String get bottom_nav__bar_identify => 'bottom_nav_bar';
+
+  @override
+  String get biometric_auth_keys =>
+      '================ BIOMETRIC AUTH KEYS ================';
+
+  @override
+  String get biometric_auth_desc_for_enrollment =>
+      'Biometric authentication is not set up on your device. Please either enable Touch ID or Face ID on your phone.';
+
+  @override
+  String get go_to_settings => 'Go to settings';
+
+  @override
+  String get biometric_auth_reason_access_app =>
+      'Please authenticate to access the app';
+
+  @override
+  String get biometric_auth_not_setup =>
+      'Biometric authentication is not set up on your device.';
+
+  @override
+  String get biometric_setup_enable_instruction =>
+      'Biometric authentication is not set up on your device. Please enable Touch ID or Face ID (iPhone) or Fingerprint/Face Unlock (Android) to continue.';
+
+  @override
+  String get ok => 'OK';
+
+  @override
+  String get enable_or_disable => 'Enable/ Disable';
+
+  @override
+  String get biometric_auth_description =>
+      'Use the toggle to activate or deactivate biometric verification.';
+
+  @override
+  String get biometric_auth_enabled_success =>
+      'Biometric authentication enabled successfully';
+
+  @override
+  String get biometric_auth_disabled => 'Biometric authentication disabled';
+
+  @override
+  String get auth_failed => 'Authentication failed';
+
+  @override
+  String get biometric_auth_not_available =>
+      'Biometric authentication is not available on this device';
+
+  @override
+  String get biometric_auth_too_many_attempts =>
+      'Too many attempts. Please try again later.';
 }

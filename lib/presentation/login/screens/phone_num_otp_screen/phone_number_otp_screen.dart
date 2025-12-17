@@ -10,6 +10,7 @@ import 'package:skelter/presentation/login/screens/phone_num_otp_screen/widgets/
 import 'package:skelter/presentation/login/screens/phone_num_otp_screen/widgets/otp_verification_button.dart';
 import 'package:skelter/presentation/login/widgets/login_app_bar.dart';
 import 'package:skelter/routes.gr.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 @RoutePage()
 class PhoneNumberOTPScreen extends StatefulWidget {
@@ -41,14 +42,17 @@ class PhoneNumberOTPScreenState extends State<PhoneNumberOTPScreen> {
           widget.loginBloc.add(PhoneNumLoginLoadingEvent(isLoading: false));
         }
       },
-      child: Scaffold(
-        appBar: const LoginAppBar(removeLeading: false),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: BlocProvider<LoginBloc>.value(
-            value: widget.loginBloc,
-            child: _PhoneNumberOTPScreenBody(
-              isFromDeleteAccount: widget.isFromDeleteAccount,
+      child: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Scaffold(
+          appBar: const LoginAppBar(removeLeading: false),
+          body: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: BlocProvider<LoginBloc>.value(
+              value: widget.loginBloc,
+              child: _PhoneNumberOTPScreenBody(
+                isFromDeleteAccount: widget.isFromDeleteAccount,
+              ),
             ),
           ),
         ),
@@ -80,8 +84,8 @@ class _PhoneNumberOTPScreenBody extends StatelessWidget {
             context.router.popUntilRoot();
           }
         } else if (state is NavigateToVerifiedScreenState) {
-          await context.router.replace(
-            PhoneNumberVerifiedRoute(loginBloc: context.read<LoginBloc>()),
+          await context.router.replaceAll(
+            [PhoneNumberVerifiedRoute(loginBloc: context.read<LoginBloc>())],
           );
         }
       },
@@ -90,14 +94,18 @@ class _PhoneNumberOTPScreenBody extends StatelessWidget {
           Text(
             context.localization.enter_otp,
             textAlign: TextAlign.center,
-            style: AppTextStyles.h2Bold,
+            style: AppTextStyles.h2Bold.copyWith(
+              color: context.currentTheme.textNeutralPrimary,
+            ),
           ),
           const SizedBox(height: 10),
           Text(
             '${context.localization.sent_code_info} '
             '$phoneNumber',
             textAlign: TextAlign.center,
-            style: AppTextStyles.p2Medium,
+            style: AppTextStyles.p2Medium.copyWith(
+              color: context.currentTheme.textNeutralSecondary,
+            ),
           ),
           const SizedBox(height: 20),
           const OTPCodeInputField(),

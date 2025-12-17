@@ -14,10 +14,13 @@ import 'package:skelter/presentation/signup/bloc/signup_state.dart';
 import 'package:skelter/presentation/signup/screens/signup_with_email/widgets/email_next_button.dart';
 import 'package:skelter/presentation/signup/screens/signup_with_email/widgets/email_text_field.dart';
 import 'package:skelter/routes.gr.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 @RoutePage()
 class SignupWithEmailPasswordScreen extends StatefulWidget {
-  const SignupWithEmailPasswordScreen({super.key});
+  const SignupWithEmailPasswordScreen({super.key, this.signupBloc});
+
+  final SignupBloc? signupBloc;
 
   @override
   State<SignupWithEmailPasswordScreen> createState() =>
@@ -31,33 +34,38 @@ class _SignupWithEmailPasswordScreenState
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SignupBloc(localizations: appLocalizations),
-      child: Builder(
-        builder: (context) {
-          return PopScope(
-            onPopInvokedWithResult: (didPop, result) {
-              if (didPop) {
-                context
-                    .read<SignupBloc>()
-                    .add(ResetSignUpStateOnScreenClosedEvent());
-              }
-            },
-            child: Scaffold(
-              appBar: const LoginAppBar(removeLeading: false),
-              body: SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: LoginWithPhoneNumberScreen.kHorizontalPadding,
-                  ),
-                  child: BlocListener<SignupBloc, SignupState>(
-                    listener: _onListener,
-                    child: const _SignupWithEmailPasswordScreenBody(),
+      create: widget.signupBloc != null
+          ? (_) => widget.signupBloc!
+          : (context) => SignupBloc(localizations: appLocalizations),
+      child: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Builder(
+          builder: (context) {
+            return PopScope(
+              onPopInvokedWithResult: (didPop, result) {
+                if (didPop) {
+                  context
+                      .read<SignupBloc>()
+                      .add(ResetSignUpStateOnScreenClosedEvent());
+                }
+              },
+              child: Scaffold(
+                appBar: const LoginAppBar(removeLeading: false),
+                body: SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: LoginWithPhoneNumberScreen.kHorizontalPadding,
+                    ),
+                    child: BlocListener<SignupBloc, SignupState>(
+                      listener: _onListener,
+                      child: const _SignupWithEmailPasswordScreenBody(),
+                    ),
                   ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
@@ -95,7 +103,9 @@ class _SignupWithEmailPasswordScreenBody extends StatelessWidget {
           Center(
             child: Text(
               context.localization.sign_up_with_email,
-              style: AppTextStyles.h2Bold,
+              style: AppTextStyles.h2Bold.copyWith(
+                color: context.currentTheme.textNeutralPrimary,
+              ),
             ),
           ),
           const SizedBox(height: 25),

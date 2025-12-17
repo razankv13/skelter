@@ -41,20 +41,24 @@ class _LoginWithPhoneNumberScreenState
       create: (context) => LoginBloc(
         localizations: appLocalizations,
       ),
-      child: Scaffold(
-        body: _LoginWithPhoneNumberBody(
-          isFromDeleteAccount: widget.isFromDeleteAccount,
+      child: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Scaffold(
+          body: LoginWithPhoneNumberBody(
+            isFromDeleteAccount: widget.isFromDeleteAccount,
+          ),
         ),
       ),
     );
   }
 }
 
-class _LoginWithPhoneNumberBody extends StatelessWidget {
+class LoginWithPhoneNumberBody extends StatelessWidget {
   final bool isFromDeleteAccount;
 
-  const _LoginWithPhoneNumberBody({
+  const LoginWithPhoneNumberBody({
     required this.isFromDeleteAccount,
+    super.key,
   });
 
   @override

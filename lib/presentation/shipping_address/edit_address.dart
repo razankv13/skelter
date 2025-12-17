@@ -6,6 +6,7 @@ import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/shipping_address/widgets/address_app_bar.dart';
 import 'package:skelter/presentation/shipping_address/widgets/address_tile.dart';
 import 'package:skelter/routes.gr.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 import 'package:skelter/widgets/app_button/app_button.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_size_enum.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_style_enum.dart';
@@ -39,7 +40,9 @@ class EditAddressScreen extends StatelessWidget {
                 children: [
                   Text(
                     context.localization.deliver_to,
-                    style: AppTextStyles.p2Bold,
+                    style: AppTextStyles.p2Bold.copyWith(
+                      color: context.currentTheme.textNeutralPrimary,
+                    ),
                   ),
                   const Spacer(flex: 2),
                   Flexible(
@@ -48,6 +51,7 @@ class EditAddressScreen extends StatelessWidget {
                       label: context.localization.add,
                       leftIcon: TablerIcons.plus,
                       isLeftIconAttachedToText: true,
+                      foregroundColor: context.currentTheme.textBrandSecondary,
                       onPressed: () {
                         context.router.push(const AddAddressRoute());
                       },

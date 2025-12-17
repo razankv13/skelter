@@ -8,7 +8,7 @@ import 'package:skelter/presentation/login/bloc/login_bloc.dart';
 import 'package:skelter/presentation/login/bloc/login_events.dart';
 import 'package:skelter/presentation/login/bloc/login_state.dart';
 import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
-import 'package:skelter/widgets/styling/app_colors.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
 class OTPCodeInputField extends StatefulWidget {
@@ -28,7 +28,11 @@ class _OTPCodeInputFieldState extends State<OTPCodeInputField>
 
   @override
   void initState() {
-    _pinController = TextEditingController();
+    _pinController = TextEditingController(
+      text:
+          context.read<LoginBloc>().state.phoneNumberLoginState?.phoneOTPText ??
+              '',
+    );
     super.initState();
     // TODO: prevent in test environment
     SmsAutoFill().listenForCode();
@@ -95,7 +99,7 @@ class _OTPCodeInputFieldState extends State<OTPCodeInputField>
             forceErrorState: true,
             errorText: errorText.isNullOrEmpty() ? null : errorText,
             errorTextStyle: AppTextStyles.p4Regular.copyWith(
-              color: AppColors.textErrorSecondary,
+              color: context.currentTheme.textErrorSecondary,
             ),
             onChanged: (pin) {
               if (errorText.haveContent()) {
@@ -123,7 +127,8 @@ class _OTPCodeInputFieldState extends State<OTPCodeInputField>
       width: pinWidth,
       height: pinHeight,
       decoration: _pinInputBoxDecoration(),
-      textStyle: AppTextStyles.h2Bold,
+      textStyle: AppTextStyles.h2Bold
+          .copyWith(color: context.currentTheme.textNeutralPrimary),
     );
   }
 
@@ -132,7 +137,7 @@ class _OTPCodeInputFieldState extends State<OTPCodeInputField>
       width: pinWidth,
       height: pinHeight,
       decoration: _pinInputBoxDecoration().copyWith(
-        border: Border.all(color: AppColors.strokeBrandDefault),
+        border: Border.all(color: context.currentTheme.strokeBrandDefault),
       ),
       textStyle: AppTextStyles.h2Bold,
     );
@@ -143,7 +148,7 @@ class _OTPCodeInputFieldState extends State<OTPCodeInputField>
       width: pinWidth,
       height: pinHeight,
       decoration: _pinInputBoxDecoration().copyWith(
-        border: Border.all(color: AppColors.strokeNeutralDefault),
+        border: Border.all(color: context.currentTheme.strokeNeutralDefault),
       ),
       textStyle: AppTextStyles.h2Bold,
     );
@@ -154,7 +159,7 @@ class _OTPCodeInputFieldState extends State<OTPCodeInputField>
       width: pinWidth,
       height: pinHeight,
       decoration: _pinInputBoxDecoration().copyWith(
-        border: Border.all(color: AppColors.strokeErrorDefault),
+        border: Border.all(color: context.currentTheme.strokeErrorDefault),
       ),
       textStyle: AppTextStyles.h2Bold,
     );
@@ -162,8 +167,8 @@ class _OTPCodeInputFieldState extends State<OTPCodeInputField>
 
   BoxDecoration _pinInputBoxDecoration() {
     return BoxDecoration(
-      border: Border.all(color: AppColors.strokeNeutralLight200),
-      color: AppColors.bgShadesWhite,
+      border: Border.all(color: context.currentTheme.strokeNeutralLight200),
+      color: context.currentTheme.bgSurfaceBase2,
       borderRadius: BorderRadius.circular(8),
     );
   }

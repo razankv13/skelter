@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:skelter/gen/assets.gen.dart';
 import 'package:skelter/utils/app_environment.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 import 'package:skelter/widgets/styling/app_colors.dart';
 
 class PhotosList extends StatelessWidget {
@@ -27,7 +28,7 @@ class PhotosList extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: photos.length,
         physics: const ClampingScrollPhysics(),
-        separatorBuilder: (_, __) => const SizedBox(width: 10),
+        separatorBuilder: (_, _) => const SizedBox(width: 10),
         itemBuilder: (context, index) {
           final isImageSelected = index == selectedImageIndex;
           final productPhotosUrl = photos[index];
@@ -40,7 +41,7 @@ class PhotosList extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
                   color: isImageSelected
-                      ? AppColors.bgBrandDefault
+                      ? context.currentTheme.bgBrandDefault
                       : AppColors.transparent,
                   width: isImageSelected ? 2 : 1,
                 ),
@@ -58,16 +59,16 @@ class PhotosList extends StatelessWidget {
                         imageUrl: productPhotosUrl,
                         fit: BoxFit.cover,
                         placeholder: (context, url) => Shimmer.fromColors(
-                          baseColor: AppColors.bgNeutralLight100,
-                          highlightColor:
-                              AppColors.bgNeutralLight100.withOpacity(0.6),
-                          child: const ColoredBox(
-                            color: AppColors.bgNeutralLight100,
+                          baseColor: context.currentTheme.bgNeutralLight100,
+                          highlightColor: context.currentTheme.bgNeutralLight100
+                              .withOpacity(0.6),
+                          child: ColoredBox(
+                            color: context.currentTheme.bgNeutralLight100,
                           ),
                         ),
-                        errorWidget: (context, url, error) => const ColoredBox(
-                          color: AppColors.bgNeutralLight100,
-                          child: Icon(
+                        errorWidget: (context, url, error) => ColoredBox(
+                          color: context.currentTheme.bgNeutralLight100,
+                          child: const Icon(
                             Icons.error_outline,
                             color: AppColors.redError500,
                           ),

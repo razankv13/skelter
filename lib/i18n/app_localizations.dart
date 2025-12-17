@@ -1438,11 +1438,23 @@ abstract class AppLocalizations {
   /// **'Choose App Theme'**
   String get choose_app_theme;
 
-  /// No description provided for @account_and_privacy.
+  /// No description provided for @account_security.
   ///
   /// In en, this message translates to:
-  /// **'Account & Privacy'**
-  String get account_and_privacy;
+  /// **'Account security'**
+  String get account_security;
+
+  /// No description provided for @biometric_authentication.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric Authentication'**
+  String get biometric_authentication;
+
+  /// No description provided for @privacy_policy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacy_policy;
 
   /// No description provided for @saved_cards_keys.
   ///
@@ -1497,6 +1509,234 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No Orders Found'**
   String get empty_order_title;
+
+  /// No description provided for @subscription_keys.
+  ///
+  /// In en, this message translates to:
+  /// **'================ SUBSCRIPTION KEYS ================'**
+  String get subscription_keys;
+
+  /// No description provided for @upgrade_to_pro.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade to PRO'**
+  String get upgrade_to_pro;
+
+  /// No description provided for @cancel_subscription.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Subscription'**
+  String get cancel_subscription;
+
+  /// No description provided for @manage_subscription.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage Subscription'**
+  String get manage_subscription;
+
+  /// No description provided for @no_subscription_available.
+  ///
+  /// In en, this message translates to:
+  /// **'No subscription plans available.'**
+  String get no_subscription_available;
+
+  /// No description provided for @failed_to_load_subscriptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load subscription plans.'**
+  String get failed_to_load_subscriptions;
+
+  /// No description provided for @store_login_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Please log into your App Store or Play Store account.'**
+  String get store_login_required;
+
+  /// No description provided for @unexpected_error_occurred.
+  ///
+  /// In en, this message translates to:
+  /// **'An unexpected error occurred.'**
+  String get unexpected_error_occurred;
+
+  /// No description provided for @user_purchase_cancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'You cancelled the purchase.'**
+  String get user_purchase_cancelled;
+
+  /// No description provided for @restore_subscription.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Subscription'**
+  String get restore_subscription;
+
+  /// No description provided for @restore_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Your purchases have been restored successfully.'**
+  String get restore_success;
+
+  /// No description provided for @no_active_subscriptions.
+  ///
+  /// In en, this message translates to:
+  /// **'No active subscriptions were found on your account.'**
+  String get no_active_subscriptions;
+
+  /// No description provided for @restore_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Error restoring purchases: '**
+  String get restore_error;
+
+  /// No description provided for @monthly_plan.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly Plan'**
+  String get monthly_plan;
+
+  /// No description provided for @yearly_plan.
+  ///
+  /// In en, this message translates to:
+  /// **'Yearly Plan'**
+  String get yearly_plan;
+
+  /// No description provided for @monthly_duration.
+  ///
+  /// In en, this message translates to:
+  /// **'per month'**
+  String get monthly_duration;
+
+  /// No description provided for @monthly_renewal.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-renews every month'**
+  String get monthly_renewal;
+
+  /// No description provided for @yearly_duration.
+  ///
+  /// In en, this message translates to:
+  /// **'per year'**
+  String get yearly_duration;
+
+  /// No description provided for @yearly_renewal.
+  ///
+  /// In en, this message translates to:
+  /// **'Best value – Auto-renews yearly'**
+  String get yearly_renewal;
+
+  /// No description provided for @subscription_renew.
+  ///
+  /// In en, this message translates to:
+  /// **'Your subscription will automatically renew unless canceled at least 24 hours before the end of the current period'**
+  String get subscription_renew;
+
+  /// No description provided for @continue_to_payment.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue to Payment'**
+  String get continue_to_payment;
+
+  /// No description provided for @unlock_access.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock Full Access to'**
+  String get unlock_access;
+
+  /// No description provided for @app_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Skelter Pro'**
+  String get app_name;
+
+  /// No description provided for @plan_description.
+  ///
+  /// In en, this message translates to:
+  /// **'🚀 Get unlimited access to skelter'**
+  String get plan_description;
+
+  /// No description provided for @processing_your_payment.
+  ///
+  /// In en, this message translates to:
+  /// **'Processing Your Payment'**
+  String get processing_your_payment;
+
+  /// No description provided for @payment_processing_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait while we process your payment. This may take a few seconds.'**
+  String get payment_processing_message;
+
+  /// No description provided for @subscription_activated_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription Activated!'**
+  String get subscription_activated_title;
+
+  /// No description provided for @subscription_activated_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Your subscription is now active.\nYou can explore the premium features.'**
+  String get subscription_activated_message;
+
+  /// No description provided for @payment_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment failed!'**
+  String get payment_failed;
+
+  /// No description provided for @payment_failed_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Please try again after sometime.'**
+  String get payment_failed_message;
+
+  /// No description provided for @retry_payment.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry Payment'**
+  String get retry_payment;
+
+  /// No description provided for @go_to_home.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to Home'**
+  String get go_to_home;
+
+  /// No description provided for @subscription_management_url_unavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn’t load your subscription settings. Please try again later.'**
+  String get subscription_management_url_unavailable;
+
+  /// No description provided for @subscription_invalid_url.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid subscription URL.'**
+  String get subscription_invalid_url;
+
+  /// No description provided for @purchase_cancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase cancelled'**
+  String get purchase_cancelled;
+
+  /// No description provided for @already_subscribed.
+  ///
+  /// In en, this message translates to:
+  /// **'Already subscribed'**
+  String get already_subscribed;
+
+  /// No description provided for @receipt_already_in_use.
+  ///
+  /// In en, this message translates to:
+  /// **'Receipt already in use'**
+  String get receipt_already_in_use;
+
+  /// No description provided for @something_went_wrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong'**
+  String get something_went_wrong;
 
   /// No description provided for @force_update_keys.
   ///
@@ -1683,6 +1923,234 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'View Product Reviews'**
   String get view_product_reviews;
+
+  /// No description provided for @no_product_detail_found.
+  ///
+  /// In en, this message translates to:
+  /// **'No Product Detail Found!'**
+  String get no_product_detail_found;
+
+  /// No description provided for @product_details.
+  ///
+  /// In en, this message translates to:
+  /// **'Product Details'**
+  String get product_details;
+
+  /// No description provided for @reminder_keys.
+  ///
+  /// In en, this message translates to:
+  /// **'================ REMINDER KEYS ================'**
+  String get reminder_keys;
+
+  /// No description provided for @reminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder'**
+  String get reminder;
+
+  /// No description provided for @reminder_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get reminder_title;
+
+  /// No description provided for @reminder_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Description (Optional)'**
+  String get reminder_description;
+
+  /// No description provided for @reminder_title_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter reminder title'**
+  String get reminder_title_hint;
+
+  /// No description provided for @reminder_description_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter description'**
+  String get reminder_description_hint;
+
+  /// No description provided for @date_and_time.
+  ///
+  /// In en, this message translates to:
+  /// **'Date & Time'**
+  String get date_and_time;
+
+  /// No description provided for @schedule_reminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule Reminder'**
+  String get schedule_reminder;
+
+  /// No description provided for @reminder_title_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a title'**
+  String get reminder_title_required;
+
+  /// No description provided for @reminder_future_date_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a future date and time'**
+  String get reminder_future_date_required;
+
+  /// No description provided for @reminder_scheduled_successfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder scheduled successfully!'**
+  String get reminder_scheduled_successfully;
+
+  /// No description provided for @reminder_schedule_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to schedule reminder'**
+  String get reminder_schedule_failed;
+
+  /// Subject line used when sharing a product
+  ///
+  /// In en, this message translates to:
+  /// **'Product on Skelter'**
+  String get share_product_subject;
+
+  /// Share body with product name and product URL
+  ///
+  /// In en, this message translates to:
+  /// **'I found this product on Skelter and thought you might like it.\n\nCheck it out here:\n{url}'**
+  String share_product_message(String url);
+
+  /// No description provided for @app_tour_keys.
+  ///
+  /// In en, this message translates to:
+  /// **'================ APP TOUR KEYS ================'**
+  String get app_tour_keys;
+
+  /// No description provided for @tour_search_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Search Products'**
+  String get tour_search_title;
+
+  /// No description provided for @tour_search_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the search bar to quickly find the products you\'re looking for. Just type what you need!'**
+  String get tour_search_description;
+
+  /// No description provided for @tour_nav_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Navigate the App'**
+  String get tour_nav_title;
+
+  /// No description provided for @tour_nav_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the bottom navigation to switch between Home, Search, Cart, and Profile sections.'**
+  String get tour_nav_description;
+
+  /// No description provided for @got_it.
+  ///
+  /// In en, this message translates to:
+  /// **'Got it!'**
+  String get got_it;
+
+  /// No description provided for @search_bar_identify.
+  ///
+  /// In en, this message translates to:
+  /// **'search_bar'**
+  String get search_bar_identify;
+
+  /// No description provided for @bottom_nav__bar_identify.
+  ///
+  /// In en, this message translates to:
+  /// **'bottom_nav_bar'**
+  String get bottom_nav__bar_identify;
+
+  /// No description provided for @biometric_auth_keys.
+  ///
+  /// In en, this message translates to:
+  /// **'================ BIOMETRIC AUTH KEYS ================'**
+  String get biometric_auth_keys;
+
+  /// No description provided for @biometric_auth_desc_for_enrollment.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric authentication is not set up on your device. Please either enable Touch ID or Face ID on your phone.'**
+  String get biometric_auth_desc_for_enrollment;
+
+  /// No description provided for @go_to_settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to settings'**
+  String get go_to_settings;
+
+  /// No description provided for @biometric_auth_reason_access_app.
+  ///
+  /// In en, this message translates to:
+  /// **'Please authenticate to access the app'**
+  String get biometric_auth_reason_access_app;
+
+  /// No description provided for @biometric_auth_not_setup.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric authentication is not set up on your device.'**
+  String get biometric_auth_not_setup;
+
+  /// No description provided for @biometric_setup_enable_instruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric authentication is not set up on your device. Please enable Touch ID or Face ID (iPhone) or Fingerprint/Face Unlock (Android) to continue.'**
+  String get biometric_setup_enable_instruction;
+
+  /// No description provided for @ok.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get ok;
+
+  /// No description provided for @enable_or_disable.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable/ Disable'**
+  String get enable_or_disable;
+
+  /// No description provided for @biometric_auth_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the toggle to activate or deactivate biometric verification.'**
+  String get biometric_auth_description;
+
+  /// No description provided for @biometric_auth_enabled_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric authentication enabled successfully'**
+  String get biometric_auth_enabled_success;
+
+  /// No description provided for @biometric_auth_disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric authentication disabled'**
+  String get biometric_auth_disabled;
+
+  /// No description provided for @auth_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Authentication failed'**
+  String get auth_failed;
+
+  /// No description provided for @biometric_auth_not_available.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric authentication is not available on this device'**
+  String get biometric_auth_not_available;
+
+  /// No description provided for @biometric_auth_too_many_attempts.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many attempts. Please try again later.'**
+  String get biometric_auth_too_many_attempts;
 }
 
 class _AppLocalizationsDelegate
@@ -1710,8 +2178,9 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   }
 
   throw FlutterError(
-      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.',
+  );
 }

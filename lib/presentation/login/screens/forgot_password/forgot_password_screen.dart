@@ -10,29 +10,33 @@ import 'package:skelter/presentation/login/screens/forgot_password/widgets/send_
 import 'package:skelter/presentation/login/screens/login_with_phone_number/login_with_phone_number_screen.dart';
 import 'package:skelter/presentation/login/widgets/login_app_bar.dart';
 import 'package:skelter/routes.gr.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 @RoutePage()
-class ForgotPasswordV2Screen extends StatelessWidget {
-  const ForgotPasswordV2Screen({super.key, required this.loginBloc});
+class ForgotPasswordScreen extends StatelessWidget {
+  const ForgotPasswordScreen({super.key, required this.loginBloc});
 
   final LoginBloc loginBloc;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const LoginAppBar(removeLeading: false),
-      body: SafeArea(
-        child: BlocProvider<LoginBloc>.value(
-          value: loginBloc,
-          child: BlocListener<LoginBloc, LoginState>(
-            listener: (context, state) {
-              if (state is ResetPasswordLinkSentState) {
-                context.router.replace(
-                  CheckYourEmailRoute(loginBloc: loginBloc),
-                );
-              }
-            },
-            child: const ForgotPasswordV2ScreenBody(),
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        appBar: const LoginAppBar(removeLeading: false),
+        body: SafeArea(
+          child: BlocProvider<LoginBloc>.value(
+            value: loginBloc,
+            child: BlocListener<LoginBloc, LoginState>(
+              listener: (context, state) {
+                if (state is ResetPasswordLinkSentState) {
+                  context.router.replace(
+                    CheckYourEmailRoute(loginBloc: loginBloc),
+                  );
+                }
+              },
+              child: const ForgotPasswordScreenBody(),
+            ),
           ),
         ),
       ),
@@ -40,8 +44,8 @@ class ForgotPasswordV2Screen extends StatelessWidget {
   }
 }
 
-class ForgotPasswordV2ScreenBody extends StatelessWidget {
-  const ForgotPasswordV2ScreenBody({super.key});
+class ForgotPasswordScreenBody extends StatelessWidget {
+  const ForgotPasswordScreenBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +60,8 @@ class ForgotPasswordV2ScreenBody extends StatelessWidget {
           Center(
             child: Text(
               context.localization.forgot_password,
-              style: AppTextStyles.h2Bold,
+              style: AppTextStyles.h2Bold
+                  .copyWith(color: context.currentTheme.textNeutralPrimary),
             ),
           ),
           const SizedBox(height: 16),

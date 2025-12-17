@@ -10,8 +10,9 @@ import 'package:skelter/gen/assets.gen.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/login/bloc/login_bloc.dart';
 import 'package:skelter/presentation/login/bloc/login_events.dart';
+import 'package:skelter/utils/app_environment.dart';
 import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
-import 'package:skelter/widgets/styling/app_colors.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class PhoneNumberTextField extends StatefulWidget {
   const PhoneNumberTextField({
@@ -33,7 +34,11 @@ class _PhoneNumberTextFieldState extends State<PhoneNumberTextField> {
   @override
   void initState() {
     super.initState();
-    _phoneInputController = TextEditingController();
+    _phoneInputController = TextEditingController(
+      text:
+          context.read<LoginBloc>().state.phoneNumberLoginState?.phoneNumber ??
+              '',
+    );
     _focusNode.addListener(() {
       context
           .read<LoginBloc>()
@@ -81,28 +86,33 @@ class _PhoneNumberTextFieldState extends State<PhoneNumberTextField> {
         children: [
           Text(
             context.localization.mobile_number,
-            style: AppTextStyles.p3Medium,
+            style: AppTextStyles.p3Medium.copyWith(
+              color: context.currentTheme.textNeutralPrimary,
+            ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 6),
           ClarityMask(
             child: InternationalPhoneNumberInput(
               key: keys.signInPage.mobileNoTextField,
               textFieldController: _phoneInputController,
               focusNode: _focusNode,
               textStyle: AppTextStyles.p3Medium
-                  .copyWith(color: AppColors.textNeutralPrimary),
-              selectorTextStyle: const TextStyle(fontWeight: FontWeight.w500),
+                  .copyWith(color: context.currentTheme.textNeutralPrimary),
+              selectorTextStyle: AppTextStyles.p3Medium
+                  .copyWith(color: context.currentTheme.textNeutralPrimary),
               initialValue: phoneNumberData,
               inputDecoration: InputDecoration(
                 hintText: context.localization.enter_phone_number,
                 hintStyle: AppTextStyles.p3Medium
-                    .copyWith(color: AppColors.textNeutralDisable),
+                    .copyWith(color: context.currentTheme.textNeutralDisable),
                 errorStyle: AppTextStyles.p4Regular
-                    .copyWith(color: AppColors.textErrorSecondary),
+                    .copyWith(color: context.currentTheme.textErrorSecondary),
                 border: buildOutlineInputBorder(hasFocus: hasFocus),
                 enabledBorder: buildOutlineInputBorder(hasFocus: hasFocus),
                 focusedBorder: buildOutlineInputBorder(hasFocus: hasFocus),
                 errorBorder: buildOutlineInputBorder(isErrorBorder: true),
+                filled: true,
+                fillColor: context.currentTheme.bgSurfaceBase2,
               ),
               searchBoxDecoration: _bottomSheatInputDecoration,
               validator: (_) {
@@ -112,11 +122,11 @@ class _PhoneNumberTextFieldState extends State<PhoneNumberTextField> {
                   _updatePhoneNumberEvent(number),
               ignoreBlank: true,
               hintText: null,
-              selectorConfig: const SelectorConfig(
+              selectorConfig: SelectorConfig(
                 leadingPadding: 12,
                 selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
                 trailingSpace: false,
-                useEmoji: true,
+                useEmoji: !AppEnvironment.isTestEnvironment,
                 setSelectorButtonAsPrefixIcon: true,
                 useBottomSheetSafeArea: true,
               ),
@@ -136,10 +146,10 @@ class _PhoneNumberTextFieldState extends State<PhoneNumberTextField> {
       borderRadius: BorderRadius.circular(8),
       borderSide: BorderSide(
         color: isErrorBorder ?? false
-            ? AppColors.strokeErrorDefault
+            ? context.currentTheme.strokeErrorDefault
             : hasFocus ?? false
-                ? AppColors.strokeBrandHover
-                : AppColors.strokeNeutralLight200,
+                ? context.currentTheme.strokeBrandHover
+                : context.currentTheme.strokeNeutralLight200,
       ),
     );
   }
@@ -151,8 +161,8 @@ class _PhoneNumberTextFieldState extends State<PhoneNumberTextField> {
 
     return InputDecoration(
       hintText: context.localization.search_by_name_or_code,
-      hintStyle:
-          AppTextStyles.p3Medium.copyWith(color: AppColors.textNeutralDisable),
+      hintStyle: AppTextStyles.p3Medium
+          .copyWith(color: context.currentTheme.textNeutralDisable),
       border: buildOutlineInputBorder(),
       floatingLabelBehavior: FloatingLabelBehavior.always,
       enabledBorder: buildOutlineInputBorder(),
@@ -161,8 +171,8 @@ class _PhoneNumberTextFieldState extends State<PhoneNumberTextField> {
         padding: const EdgeInsets.all(14.0),
         child: SvgPicture.asset(
           Assets.icons.searchOutline,
-          colorFilter: const ColorFilter.mode(
-            AppColors.strokeNeutralDisabled,
+          colorFilter: ColorFilter.mode(
+            context.currentTheme.strokeNeutralDisabled,
             BlendMode.srcIn,
           ),
         ),

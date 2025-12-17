@@ -4,9 +4,9 @@ import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/presentation/chat/model/chat_model.dart';
 import 'package:skelter/presentation/chat/widgets/user_avatar.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 import 'package:skelter/widgets/app_button/app_button.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_size_enum.dart';
-import 'package:skelter/widgets/styling/app_colors.dart';
 
 class ChatConversationAppBar extends StatelessWidget
     implements PreferredSizeWidget {
@@ -19,6 +19,7 @@ class ChatConversationAppBar extends StatelessWidget
     return AppBar(
       leading: AppButton.icon(
         iconData: TablerIcons.arrow_left,
+        iconOrTextColorOverride: context.currentTheme.iconNeutralDefault,
         size: AppButtonSize.extraLarge,
         onPressed: () {
           context.router.maybePop();
@@ -32,11 +33,17 @@ class ChatConversationAppBar extends StatelessWidget
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(chatUser.name, style: AppTextStyles.p3SemiBold),
+                Text(
+                  chatUser.name,
+                  style: AppTextStyles.p3SemiBold.copyWith(
+                    color: context.currentTheme.textNeutralPrimary,
+                  ),
+                ),
                 Text(
                   'Last seen 04:00 pm',
-                  style: AppTextStyles.p4Medium
-                      .copyWith(color: AppColors.textNeutralSecondary),
+                  style: AppTextStyles.p4Medium.copyWith(
+                    color: context.currentTheme.textNeutralSecondary,
+                  ),
                 ),
               ],
             ),

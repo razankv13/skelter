@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_fgbg/flutter_fgbg.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
+import 'package:skelter/core/services/injection_container.dart';
 import 'package:skelter/gen/assets.gen.dart';
 import 'package:skelter/i18n/app_localizations.dart';
 import 'package:skelter/i18n/localization.dart';
@@ -20,6 +21,7 @@ import 'package:skelter/presentation/verify_email/bloc/verify_email_state.dart';
 import 'package:skelter/presentation/verify_email/screens/widgets/entered_wrong_email.dart';
 import 'package:skelter/presentation/verify_email/screens/widgets/resend_verification_mail_button.dart';
 import 'package:skelter/routes.gr.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 @RoutePage()
 class VerifyEmailScreen extends StatefulWidget {
@@ -75,9 +77,9 @@ class _VerifyEmailScreenBody extends StatefulWidget {
 
 class _VerifyEmailScreenBodyState extends State<_VerifyEmailScreenBody> {
   Timer? _verificationListenTimer, _resendVerificationMailTimer;
+  late final FirebaseAuth _firebaseAuth = sl<FirebaseAuth>();
 
-  bool _isEmailVerified() =>
-      FirebaseAuth.instance.currentUser?.emailVerified ?? false;
+  bool _isEmailVerified() => _firebaseAuth.currentUser?.emailVerified ?? false;
 
   @override
   void initState() {
@@ -123,7 +125,9 @@ class _VerifyEmailScreenBodyState extends State<_VerifyEmailScreenBody> {
                 const SizedBox(height: 18),
                 Text(
                   context.localization.verify_your_email,
-                  style: AppTextStyles.h2Bold,
+                  style: AppTextStyles.h2Bold.copyWith(
+                    color: context.currentTheme.textNeutralPrimary,
+                  ),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 18),
@@ -131,7 +135,9 @@ class _VerifyEmailScreenBodyState extends State<_VerifyEmailScreenBody> {
                   context.localization.link_verify_info(
                     widget.email,
                   ),
-                  style: AppTextStyles.p2Medium,
+                  style: AppTextStyles.p2Medium.copyWith(
+                    color: context.currentTheme.textNeutralSecondary,
+                  ),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 25),
@@ -148,7 +154,7 @@ class _VerifyEmailScreenBodyState extends State<_VerifyEmailScreenBody> {
 
   void checkIfEmailVerified(BuildContext context) async {
     _verificationListenTimer?.cancel();
-    await FirebaseAuth.instance.currentUser?.reload();
+    await _firebaseAuth.currentUser?.reload();
     if (_isEmailVerified()) {
       context.read<VerifyEmailBloc>().add(
             const ChangeUserDetailsInputStatusEvent(
@@ -157,7 +163,7 @@ class _VerifyEmailScreenBodyState extends State<_VerifyEmailScreenBody> {
           );
       if (widget.isSignUp) {
         await context.read<VerifyEmailBloc>().storeLoginDetailsInPrefs(
-              FirebaseAuth.instance.currentUser,
+              _firebaseAuth.currentUser,
             );
         context.read<VerifyEmailBloc>().add(NavigateToHomeEvent());
       }

@@ -4,19 +4,27 @@ import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:skelter/core/services/injection_container.dart';
 import 'package:skelter/firebase_options_dev.dart' as dev;
 import 'package:skelter/firebase_options_prod.dart' as prod;
 import 'package:skelter/firebase_options_stage.dart' as stage;
+import 'package:skelter/services/firebase_auth_services.dart';
+import 'package:skelter/services/notification_service.dart';
 import 'package:skelter/services/remote_config_service.dart';
 import 'package:skelter/utils/app_environment.dart';
 import 'package:skelter/utils/app_flavor_env.dart';
 
-Future<void> initializeApp({FirebaseAuth? firebaseAuth, Dio? dio}) async {
+Future<void> initializeApp({
+  FirebaseAuth? firebaseAuth,
+  FirebaseAuthService? firebaseAuthService,
+  Dio? dio,
+}) async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final firebaseOptions = switch (AppConfig.appFlavor) {
@@ -27,8 +35,11 @@ Future<void> initializeApp({FirebaseAuth? firebaseAuth, Dio? dio}) async {
 
   await Firebase.initializeApp(options: firebaseOptions);
 
-  await FirebaseCrashlytics.instance
-      .setCrashlyticsCollectionEnabled(!kDebugMode);
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+
+  await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(
+    !kDebugMode,
+  );
 
   final bool isTestEnvironment = AppEnvironment.isTestEnvironment;
 
@@ -50,5 +61,11 @@ Future<void> initializeApp({FirebaseAuth? firebaseAuth, Dio? dio}) async {
 
   await dotenv.load();
 
-  await configureDependencies(firebaseAuth: firebaseAuth, dio: dio);
+  await configureDependencies(
+    firebaseAuth: firebaseAuth,
+    firebaseAuthService: firebaseAuthService,
+    dio: dio,
+  );
+
+  await GoogleSignIn.instance.initialize();
 }

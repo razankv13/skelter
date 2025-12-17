@@ -3,11 +3,12 @@ import 'package:debounce_throttle/debounce_throttle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
+import 'package:skelter/constants/integration_test_keys.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/signup/bloc/signup_bloc.dart';
 import 'package:skelter/presentation/signup/bloc/signup_event.dart';
 import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
-import 'package:skelter/widgets/styling/app_colors.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class EmailTextField extends StatefulWidget {
   const EmailTextField({super.key});
@@ -54,22 +55,27 @@ class _EmailTextFieldState extends State<EmailTextField> {
       children: [
         Text(
           context.localization.email,
-          style: AppTextStyles.p3Medium,
+          style: AppTextStyles.p3Medium.copyWith(
+            color: context.currentTheme.textNeutralPrimary,
+          ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 6),
         ClarityMask(
           child: TextField(
+            key: keys.signupPage.signupEmailTextField,
             controller: _emailController,
             style: AppTextStyles.p3Medium
-                .copyWith(color: AppColors.textNeutralPrimary),
+                .copyWith(color: context.currentTheme.textNeutralPrimary),
             decoration: InputDecoration(
               hintText: context.localization.email_hint,
               hintStyle: AppTextStyles.p3Medium
-                  .copyWith(color: AppColors.textNeutralDisable),
+                  .copyWith(color: context.currentTheme.textNeutralDisable),
+              filled: true,
+              fillColor: context.currentTheme.bgSurfaceBase2,
               errorText:
                   emailErrorMessage.isNullOrEmpty() ? null : emailErrorMessage,
               errorStyle: AppTextStyles.p3Regular
-                  .copyWith(color: AppColors.textErrorSecondary),
+                  .copyWith(color: context.currentTheme.textErrorSecondary),
               border: buildOutlineInputBorder(),
               enabledBorder: buildOutlineInputBorder(),
               focusedBorder: buildOutlineInputBorder(hasFocus: true),
@@ -95,10 +101,10 @@ class _EmailTextFieldState extends State<EmailTextField> {
       borderRadius: BorderRadius.circular(8),
       borderSide: BorderSide(
         color: isErrorBorder ?? false
-            ? AppColors.strokeErrorDefault
+            ? context.currentTheme.strokeErrorDefault
             : hasFocus ?? false
-                ? AppColors.strokeBrandHover
-                : AppColors.strokeNeutralLight200,
+                ? context.currentTheme.strokeBrandHover
+                : context.currentTheme.strokeNeutralLight200,
       ),
     );
   }

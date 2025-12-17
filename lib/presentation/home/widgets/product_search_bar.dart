@@ -5,12 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/home/bloc/home_bloc.dart';
 import 'package:skelter/presentation/home/bloc/home_event.dart';
 import 'package:skelter/presentation/home/bloc/home_state.dart';
 import 'package:skelter/presentation/home/constants/analytics_constant.dart';
 import 'package:skelter/utils/extensions/build_context_ext.dart';
+import 'package:skelter/utils/haptic_feedback_util.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 import 'package:skelter/widgets/styling/app_colors.dart';
 
 class ProductSearchBar extends StatefulWidget {
@@ -68,18 +71,23 @@ class _ProductSearchBarState extends State<ProductSearchBar> {
       },
       child: TextField(
         controller: searchController,
+        style: AppTextStyles.p3Medium.copyWith(
+          color: context.currentTheme.textNeutralPrimary,
+        ),
         decoration: InputDecoration(
           hintText: context.localization.search,
-          prefixIcon: const Icon(
+          prefixIcon: Icon(
             TablerIcons.search,
-            color: AppColors.strokeNeutralDisabled,
+            color: context.currentTheme.strokeNeutralDisabled,
           ),
+          filled: true,
+          fillColor: context.currentTheme.bgSurfaceBase2,
           suffixIcon: searchQuery.isEmpty
               ? AvatarGlow(
                   animate: isAnimatingListenIcon,
                   glowColor: isAnimatingListenIcon
-                      ? AppColors.strokeNeutralDisabled
-                      : AppColors.white,
+                      ? context.currentTheme.strokeNeutralDisabled
+                      : context.currentTheme.bgShadesWhite,
                   child: IconButton(
                     onPressed: () => _onMicrophoneButtonPressed(
                       isAnimatingListenIcon: isAnimatingListenIcon,
@@ -90,19 +98,39 @@ class _ProductSearchBarState extends State<ProductSearchBar> {
                           : TablerIcons.microphone,
                       color: isAnimatingListenIcon
                           ? AppColors.red
-                          : AppColors.strokeNeutralDisabled,
+                          : context.currentTheme.strokeNeutralDisabled,
                     ),
                   ),
                 )
               : IconButton(
                   onPressed: () => searchController.clear(),
-                  icon: const Icon(
+                  icon: Icon(
                     TablerIcons.x,
-                    color: AppColors.strokeNeutralDisabled,
+                    color: context.currentTheme.strokeNeutralDisabled,
                   ),
                 ),
+          border: buildOutlineInputBorder(hasFocus: false),
+          enabledBorder: buildOutlineInputBorder(hasFocus: false),
+          focusedBorder: buildOutlineInputBorder(hasFocus: true),
+          errorBorder: buildOutlineInputBorder(isErrorBorder: true),
           contentPadding: const EdgeInsets.symmetric(vertical: 15),
         ),
+      ),
+    );
+  }
+
+  OutlineInputBorder buildOutlineInputBorder({
+    bool? hasFocus,
+    bool? isErrorBorder,
+  }) {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8),
+      borderSide: BorderSide(
+        color: isErrorBorder ?? false
+            ? context.currentTheme.strokeErrorDefault
+            : hasFocus ?? false
+                ? context.currentTheme.strokeBrandHover
+                : context.currentTheme.strokeNeutralLight200,
       ),
     );
   }
@@ -117,6 +145,7 @@ class _ProductSearchBarState extends State<ProductSearchBar> {
       );
       return;
     }
+    await HapticFeedbackUtil.tap();
     if (isAnimatingListenIcon) {
       context.read<HomeBloc>().add(const StopSpeechToTextEvent());
       Clarity.sendCustomEvent(kClarityCustomEventSpeechToTextStopped);

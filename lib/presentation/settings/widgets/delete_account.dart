@@ -4,7 +4,7 @@ import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/routes.gr.dart';
-import 'package:skelter/widgets/styling/app_colors.dart';
+import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class DeleteAccount extends StatelessWidget {
   const DeleteAccount({super.key});
@@ -13,22 +13,31 @@ class DeleteAccount extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: AppColors.strokeNeutralLight200),
+        border: Border.all(color: context.currentTheme.strokeNeutralLight200),
         borderRadius: BorderRadius.circular(12.0),
       ),
       child: ListTile(
-        leading: const Icon(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(8),
+            topRight: Radius.circular(8),
+            bottomLeft: Radius.circular(8),
+            bottomRight: Radius.circular(8),
+          ),
+        ),
+        tileColor: context.currentTheme.bgSurfaceBase2,
+        leading: Icon(
           TablerIcons.trash,
-          color: AppColors.bgErrorDefault,
+          color: context.currentTheme.bgErrorHover,
         ),
         title: Text(
           context.localization.delete_account,
           style: AppTextStyles.p2Regular
-              .copyWith(color: AppColors.textErrorSecondary),
+              .copyWith(color: context.currentTheme.textErrorSecondary),
         ),
-        trailing: const Icon(
+        trailing: Icon(
           TablerIcons.chevron_right,
-          color: AppColors.iconNeutralDefault,
+          color: context.currentTheme.iconNeutralDefault,
         ),
         onTap: () {
           context.router.push(const DeleteAccountRoute());

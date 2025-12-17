@@ -13,6 +13,7 @@ import 'package:skelter/presentation/delete_account/bloc/delete_account_state.da
 import 'package:skelter/presentation/delete_account/delete_account_screen.dart';
 import 'package:skelter/presentation/delete_account/enum/delete_account_reasons.dart';
 import 'package:skelter/services/firebase_auth_services.dart';
+import 'package:skelter/widgets/styling/app_theme_data.dart';
 
 import '../../../integration_test/mock_firebase_auth.dart';
 import '../../flutter_test_config.dart';
@@ -70,9 +71,20 @@ void main() {
                   const FixedColumnWidth(pixel5DeviceWidth),
               children: [
                 createTestScenario(
-                  name: 'No reason selected',
+                  name: 'No reason selected Light Theme',
                   addScaffold: true,
                   child: const DeleteAccountScreen(),
+                  providers: [
+                    BlocProvider<DeleteAccountBloc>.value(
+                      value: deleteAccountBloc,
+                    ),
+                  ],
+                ),
+                createTestScenario(
+                  name: 'No reason selected Dark Theme',
+                  addScaffold: true,
+                  child: const DeleteAccountScreen(),
+                  theme: AppThemeEnum.DarkTheme,
                   providers: [
                     BlocProvider<DeleteAccountBloc>.value(
                       value: deleteAccountBloc,

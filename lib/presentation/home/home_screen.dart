@@ -25,13 +25,20 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class HomeScreenWrapper extends StatelessWidget {
+class HomeScreenWrapper extends StatefulWidget {
   const HomeScreenWrapper({super.key});
+
+  @override
+  State<HomeScreenWrapper> createState() => HomeScreenWrapperState();
+}
+
+class HomeScreenWrapperState extends State<HomeScreenWrapper> {
+  final GlobalKey bottomNavKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     final List<Widget> pages = [
-      const HomeScreenBody(),
+      HomeScreenBody(bottomNavKey: bottomNavKey),
       const SearchScreen(),
       const InitialCheckoutScreen(),
       const ProfileScreen(),
@@ -43,12 +50,22 @@ class HomeScreenWrapper extends StatelessWidget {
     final String screenName = pages[currentIndex].runtimeType.toString();
     Clarity.setCurrentScreenName(screenName);
 
-    return Scaffold(
-      bottomNavigationBar: const BottomNavBar(),
-      body: SafeArea(
-        child: IndexedStack(
-          index: currentIndex,
-          children: pages,
+    return PopScope(
+      canPop: currentIndex == 0,
+      onPopInvokedWithResult: (didPop, result) {
+        if (!didPop && currentIndex != 0) {
+          context
+              .read<HomeBloc>()
+              .add(const BottomNavBarIndexChangedEvent(index: 0));
+        }
+      },
+      child: Scaffold(
+        bottomNavigationBar: BottomNavBar(key: bottomNavKey),
+        body: SafeArea(
+          child: IndexedStack(
+            index: currentIndex,
+            children: pages,
+          ),
         ),
       ),
     );
