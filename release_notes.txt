@@ -1,13 +1,30 @@
 🌟 What's New
-   * Add Apple signing capability
-   * Integrate Product Detail API with Clean Architecture
-   * Add utility extensions
-   * Create product detail screen ui and add related golden test cases
-   * Remove unused date time extension and move string null check in primitive extension
-   * Add Unit/Widget test and patrol test info in README file
-   * Force Logout on Auth Errors
-   * Update localization keys by removing signup/login prefixes and sort feature wise
+   * Implement the app tour functionality
+   * Upgrade Flutter SDK to 3.35.7 and apply required dependency changes
+   * Add currency converter utility
+   * Add the golden tests for the subscription flow
+   * Implement biometric authentication support
+   * Implement the RevenueCat in the app
+   * Implement Currency formatter utility
+   * Integrate FCM push notifications with Awesome Notifications
+   * prevent exit from non home tabs
+   * dismiss keyboard on tap outside input fields across login and signup screens
+   * Implement Haptic Feedback Utility
+   * Add ThemeBloc unit test coverage
+   * Implement product sharing option
+   * implement deep linking
+   * Add integration tests using patrol for sign up with email
+   * Theme implement for dark mode across entire app
+   * Add integration tests using Patrol for login with email/password and Google
+   * Add golden tests for the login and signup
+   * add product detail not found widget
+   * Remove cache options parameter and add smart and basic caching technique notes
+   * Add unit tests for login bloc
+   * Refactor the code by removing unnecessary code
+   * enhance notification image loading animation
 
 🐛 What's Fixed
-   * Mock API result not showing in patrol test due to missing options parameter in test
-   * Update dependency to resolve missing meta import issue
+   * Test store Api key freezing the iOS app at the configure step
+   * Unable to navigate back from the no internet screen
+   * prevent state emission after BLoC is closed
+   * Fixed the inconsistent space between heading and Text field
