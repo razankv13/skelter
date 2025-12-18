@@ -59,7 +59,8 @@ void main() {
     ).thenAnswer((_) async => true);
     sl.registerLazySingleton<LocalAuthService>(() => mockLocalAuthService);
 
-    // Mock SharedPreferencesAsync to avoid LateInitializationError in Bloc
+    // Mocks SharedPreferencesAsync to prevent LateInitializationError
+    // in the BLoC during tests.
     final mockPrefs = MockSharedPreferencesAsync();
     when(() => mockPrefs.getBool(any())).thenAnswer((_) async => null);
     Prefs.setMockPrefs(mockPrefs);
