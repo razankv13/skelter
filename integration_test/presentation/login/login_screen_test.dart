@@ -18,8 +18,10 @@ class MockDio extends Mock implements Dio {}
 class MockDioResponse<T> extends Mock implements Response<T> {}
 
 void main() {
-  final mockDio = MockDio();
   final mockFirebaseAuthService = MockFirebaseAuthService();
+  final mockFirebaseAuth = MockFirebaseAuth();
+  final mockDio = MockDio();
+
   setUpAll(() {
     final mockResponse = MockDioResponse<List<dynamic>>();
 
@@ -34,40 +36,21 @@ void main() {
     when(() => mockDio.interceptors).thenReturn(Interceptors());
   });
 
-  patrolTest(
-    'open app, login with mobile number, verify products are displayed',
-    framePolicy: LiveTestWidgetsFlutterBindingFramePolicy.fullyLive,
-    ($) async {
-      final mockFirebaseAuth = MockFirebaseAuth();
-
-      await initializeApp(firebaseAuth: mockFirebaseAuth, dio: mockDio);
-      await $.pumpWidgetAndSettle(const MainApp());
-
-      await $(keys.signInPage.mobileNoTextField).enterText('9999988888');
-      await $(keys.signInPage.sendOTPButton).tap();
-      await $.pumpAndSettle();
-      expect(find.text('Invalid mobile number'), findsNothing);
-
-      await $(keys.signInPage.otpTextField).waitUntilVisible();
-      await $(keys.signInPage.otpTextField).enterText('123456');
-
-      await $.pumpAndSettle();
-
-      expect(find.text('Premium Wireless Headphones'), findsOneWidget);
-      expect(find.text('Smart Fitness Watch'), findsOneWidget);
-      expect(find.byKey(keys.homePage.productCardKey), findsExactly(2));
-    },
-  );
 
   patrolTest(
     'login with email and password test',
     framePolicy: LiveTestWidgetsFlutterBindingFramePolicy.fullyLive,
     ($) async {
+
+      // Initialise the App
       await initializeApp(
+        firebaseAuth: mockFirebaseAuth,
         firebaseAuthService: mockFirebaseAuthService,
         dio: mockDio,
       );
       await $.pumpWidgetAndSettle(const MainApp());
+
+      // Login with email
 
       mockFirebaseAuthService.signInWithEmailShouldFail = false;
       mockFirebaseAuthService.signInWithEmailUserEmail = 'test@example.com';
@@ -134,32 +117,35 @@ void main() {
       await $.pumpAndSettle();
 
       expect(find.text('Invalid email or password'), findsOneWidget);
-    },
-  );
 
-  patrolTest(
-    'sign in with google test',
-    framePolicy: LiveTestWidgetsFlutterBindingFramePolicy.fullyLive,
-    ($) async {
-      await initializeApp(
-        firebaseAuthService: mockFirebaseAuthService,
-        dio: mockDio,
-      );
-      await $.pumpWidgetAndSettle(const MainApp());
+      await $(find.byIcon(TablerIcons.arrow_left)).tap();
 
-      // Ensure a clean login state by signing out any existing user session
-      // so the Google sign-in button is visible and tappable.
-      // TODO: Fix iOS auth persistence issue
-      // TODO: (Google Sign-In session survives between tests).
-      // if (Platform.isIOS) {
-      //   await $(TablerIcons.user).tap();
-      //   await $.pumpAndSettle();
-      //   await $('Sign out').scrollTo().tap();
-      //   await $.pumpAndSettle();
-      // }
+    //  Login with Mobile Number
+
+      await $(keys.signInPage.mobileNoTextField).enterText('9999988888');
+      await $(keys.signInPage.sendOTPButton).tap();
+      await $.pumpAndSettle();
+      expect(find.text('Invalid mobile number'), findsNothing);
+
+      await $(keys.signInPage.otpTextField).waitUntilVisible();
+      await $(keys.signInPage.otpTextField).enterText('123456');
+
+      await $.pumpAndSettle();
+
+      expect(find.text('Premium Wireless Headphones'), findsOneWidget);
+      expect(find.text('Smart Fitness Watch'), findsOneWidget);
+      expect(find.byKey(keys.homePage.productCardKey), findsExactly(2));
+
+      await $(TablerIcons.user).tap();
+      await $.pumpAndSettle();
+      await $('Sign out').scrollTo().tap();
+      await $.pumpAndSettle();
+
+    //  Login with Google
 
       mockFirebaseAuthService.loginWithGoogleShouldFail = false;
 
+      await $(keys.signInPage.continueWithGoogleButton).tap();
       await $(keys.signInPage.continueWithGoogleButton).tap();
       await $.pumpAndSettle();
 
@@ -179,6 +165,8 @@ void main() {
       await $.pump();
 
       expect(find.text('Google sign-in failed'), findsOneWidget);
+
     },
   );
+
 }
