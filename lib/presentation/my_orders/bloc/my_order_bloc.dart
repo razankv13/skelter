@@ -5,7 +5,7 @@ import 'package:skelter/presentation/home/domain/usecases/get_products.dart';
 import 'package:skelter/presentation/my_orders/bloc/my_order_event.dart';
 import 'package:skelter/presentation/my_orders/bloc/my_order_state.dart';
 import 'package:skelter/presentation/product_detail/domain/usecases/get_product_detail.dart';
-import 'package:skelter/services/pdf_service.dart';
+import 'package:skelter/presentation/my_orders/services/pdf_service.dart';
 import 'package:skelter/utils/permission_util.dart';
 
 class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
@@ -15,9 +15,9 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
     required GetProducts getProducts,
     required GetProductDetail getProductDetail,
     required this.localizations,
-  })  : _getProducts = getProducts,
-        _getProductDetail = getProductDetail,
-        super(const MyOrderState.initial()) {
+  }) : _getProducts = getProducts,
+       _getProductDetail = getProductDetail,
+       super(const MyOrderState.initial()) {
     _setupEventListener();
   }
 
@@ -40,12 +40,9 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
     final result = await _getProducts();
 
     result.fold(
-      (failure) => emit(
-        MyOrderErrorState(state, errorMessage: failure.errorMessage),
-      ),
-      (products) => emit(
-        MyOrderLoadedState(state, products: products),
-      ),
+      (failure) =>
+          emit(MyOrderErrorState(state, errorMessage: failure.errorMessage)),
+      (products) => emit(MyOrderLoadedState(state, products: products)),
     );
   }
 
@@ -63,9 +60,8 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
       (failure) => emit(
         ProductDetailErrorState(state, errorMessage: failure.errorMessage),
       ),
-      (productDetail) => emit(
-        ProductDetailLoadedState(state, productDetail: productDetail),
-      ),
+      (productDetail) =>
+          emit(ProductDetailLoadedState(state, productDetail: productDetail)),
     );
   }
 
@@ -104,8 +100,10 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
         localization: localizations,
       );
 
-      final pdfBytes =
-          await PdfService.generateInvoicePdf(invoice, localizations);
+      final pdfBytes = await PdfService.generateInvoicePdf(
+        invoice,
+        localizations,
+      );
       final fileName = '${invoice.invoiceNumber}.pdf';
 
       emit(

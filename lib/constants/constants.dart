@@ -72,7 +72,5 @@ const revenueCatGoogleReleaseApiKey = 'REVENEUCAT_GOOGLE_RELEASE_API_KEY';
 const revenueCatMonthly = 'monthly';
 
 // Invoice constants
-const kDownload = '/storage/emulated/0/Download/';
-const kDownloads = '/storage/emulated/0/Downloads/';
 const String expectedDeliveryDate = '9:00 am, Sat, 15 Apr';
 const String paymentMethodAxis = 'Axis Bank **** **** **** 8395';

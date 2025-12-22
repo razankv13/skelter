@@ -8,7 +8,6 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:skelter/constants/constants.dart';
 import 'package:skelter/i18n/app_localizations.dart';
 import 'package:skelter/presentation/checkout/model/invoice_model.dart';
 
@@ -49,11 +48,7 @@ class PdfService {
                 interMedium,
               ),
               pw.SizedBox(height: 24),
-              _buildProductTableCard(
-                invoice,
-                localization,
-                interMedium,
-              ),
+              _buildProductTableCard(invoice, localization, interMedium),
               pw.SizedBox(height: 24),
               _buildTotalsCard(
                 invoice,
@@ -84,9 +79,7 @@ class PdfService {
       decoration: pw.BoxDecoration(
         color: PdfColors.white,
         borderRadius: pw.BorderRadius.circular(12),
-        border: pw.Border.all(
-          color: const PdfColor.fromInt(0xFFE1E4EA),
-        ),
+        border: pw.Border.all(color: const PdfColor.fromInt(0xFFE1E4EA)),
       ),
       child: pw.Column(
         crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -242,21 +235,15 @@ class PdfService {
       decoration: pw.BoxDecoration(
         color: PdfColors.white,
         borderRadius: pw.BorderRadius.circular(12),
-        border: pw.Border.all(
-          color: const PdfColor.fromInt(0xFFE1E4EA),
-        ),
+        border: pw.Border.all(color: const PdfColor.fromInt(0xFFE1E4EA)),
       ),
       child: pw.ClipRRect(
         horizontalRadius: 12,
         verticalRadius: 12,
         child: pw.Table(
           border: pw.TableBorder.symmetric(
-            inside: const pw.BorderSide(
-              color: PdfColor.fromInt(0xFFE1E4EA),
-            ),
-            outside: const pw.BorderSide(
-              color: PdfColor.fromInt(0xFFE1E4EA),
-            ),
+            inside: const pw.BorderSide(color: PdfColor.fromInt(0xFFE1E4EA)),
+            outside: const pw.BorderSide(color: PdfColor.fromInt(0xFFE1E4EA)),
           ),
           columnWidths: {
             0: const pw.FlexColumnWidth(3),
@@ -266,8 +253,9 @@ class PdfService {
           },
           children: [
             pw.TableRow(
-              decoration:
-                  const pw.BoxDecoration(color: PdfColor.fromInt(0xFFF5F7FA)),
+              decoration: const pw.BoxDecoration(
+                color: PdfColor.fromInt(0xFFF5F7FA),
+              ),
               children: [
                 _buildTableHeaderCell(
                   localization.product,
@@ -334,11 +322,7 @@ class PdfService {
       child: pw.Text(
         text,
         textAlign: align,
-        style: pw.TextStyle(
-          fontSize: 14,
-          font: font,
-          color: PdfColors.grey600,
-        ),
+        style: pw.TextStyle(fontSize: 14, font: font, color: PdfColors.grey600),
       ),
     );
   }
@@ -373,9 +357,7 @@ class PdfService {
       decoration: pw.BoxDecoration(
         color: PdfColors.white,
         borderRadius: pw.BorderRadius.circular(12),
-        border: pw.Border.all(
-          color: const PdfColor.fromInt(0xFFE1E4EA),
-        ),
+        border: pw.Border.all(color: const PdfColor.fromInt(0xFFE1E4EA)),
       ),
       child: pw.Column(
         children: [
@@ -462,36 +444,10 @@ class PdfService {
     );
   }
 
-  static Future<String> savePdfToDevice(
-    Uint8List pdfBytes,
-    String fileName,
-  ) async {
-    final filePath = await getFilePath(fileName);
-    final file = File(filePath);
-    await file.writeAsBytes(pdfBytes);
-    return filePath;
-  }
-
-  static Future<String> getFilePath(String filename) async {
-    Directory? dir;
-
-    try {
-      if (Platform.isIOS) {
-        dir = await getApplicationDocumentsDirectory();
-        return '${dir.path}/$filename';
-      } else {
-        dir = Directory(kDownload);
-        if (!await dir.exists()) {
-          dir = Directory(kDownloads);
-        }
-        if (!await dir.exists()) dir = (await getExternalStorageDirectory())!;
-      }
-    } catch (e) {
-      debugPrint('Error while getting the path $e ');
-    }
-    return '${dir?.path}/$filename';
-  }
-
+  /// Shares the PDF file using the system share dialog.
+  /// This is the only way to export the invoice as saving to device
+  /// has issues on Android where files end up in app-specific storage
+  /// that users cannot easily access.
   static Future<void> sharePdf(
     Uint8List pdfBytes,
     String fileName,
