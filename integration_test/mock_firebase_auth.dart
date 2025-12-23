@@ -205,9 +205,6 @@ class MockGoogleSignIn extends Mock implements GoogleSignIn {
 
   @override
   Future<void> signOut() async {}
-
-  @override
-  Future<void> disconnect() async {}
 }
 
 class MockFirebaseAuthService extends Mock
