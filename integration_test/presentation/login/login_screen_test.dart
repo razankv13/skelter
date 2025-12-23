@@ -41,12 +41,51 @@ void main() {
     when(() => mockDio.interceptors).thenReturn(Interceptors());
   });
 
-
   patrolTest(
-    'login with email-password and Google test',
+    'open app, login with mobile number, verify products are displayed',
     framePolicy: LiveTestWidgetsFlutterBindingFramePolicy.fullyLive,
     ($) async {
+      final mockFirebaseAuth = MockFirebaseAuth();
 
+      await initializeApp(firebaseAuth: mockFirebaseAuth, dio: mockDio);
+      await $.pumpWidgetAndSettle(const MainApp());
+
+      when(() => mockFirebaseAuth.signInWithCredential(any())).thenAnswer((
+        _,
+      ) async {
+        final phoneUser = MockUser(
+          phoneNumber: '9999988888',
+          email: 'phone@example.com',
+        );
+        mockFirebaseAuth.setMockUser(phoneUser);
+        return MockUserCredential(phoneUser);
+      });
+
+      await $(keys.signInPage.mobileNoTextField).enterText('9999988888');
+      await $(keys.signInPage.sendOTPButton).tap();
+      await $.pumpAndSettle();
+      expect(find.text('Invalid mobile number'), findsNothing);
+
+      await $(keys.signInPage.otpTextField).waitUntilVisible();
+      await $(keys.signInPage.otpTextField).enterText('123456');
+
+      await $.pumpAndSettle();
+
+      expect(find.text('Premium Wireless Headphones'), findsOneWidget);
+      expect(find.text('Smart Fitness Watch'), findsOneWidget);
+      expect(find.byKey(keys.homePage.productCardKey), findsExactly(2));
+
+      await $(TablerIcons.user).tap();
+      await $.pumpAndSettle();
+      await $('Sign out').scrollTo().tap();
+      await $.pumpAndSettle();
+    },
+  );
+
+  patrolTest(
+    'login with email and password test',
+    framePolicy: LiveTestWidgetsFlutterBindingFramePolicy.fullyLive,
+    ($) async {
       // Initialise the App
       await initializeApp(
         firebaseAuth: mockFirebaseAuth,
@@ -159,38 +198,6 @@ void main() {
       );
 
       await $(find.byIcon(TablerIcons.arrow_left)).tap();
-
-      //  Login with Mobile Number
-
-      when(() => mockFirebaseAuth.signInWithCredential(any())).thenAnswer((
-        _,
-      ) async {
-        final phoneUser = MockUser(
-          phoneNumber: '9999988888',
-          email: 'phone@example.com',
-        );
-        mockFirebaseAuth.setMockUser(phoneUser);
-        return MockUserCredential(phoneUser);
-      });
-
-      await $(keys.signInPage.mobileNoTextField).enterText('9999988888');
-      await $(keys.signInPage.sendOTPButton).tap();
-      await $.pumpAndSettle();
-      expect(find.text('Invalid mobile number'), findsNothing);
-
-      await $(keys.signInPage.otpTextField).waitUntilVisible();
-      await $(keys.signInPage.otpTextField).enterText('123456');
-
-      await $.pumpAndSettle();
-
-      expect(find.text('Premium Wireless Headphones'), findsOneWidget);
-      expect(find.text('Smart Fitness Watch'), findsOneWidget);
-      expect(find.byKey(keys.homePage.productCardKey), findsExactly(2));
-
-      await $(TablerIcons.user).tap();
-      await $.pumpAndSettle();
-      await $('Sign out').scrollTo().tap();
-      await $.pumpAndSettle();
 
       //  Login with Google
 
