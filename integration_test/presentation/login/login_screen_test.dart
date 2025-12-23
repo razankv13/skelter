@@ -45,8 +45,6 @@ void main() {
     'open app, login with mobile number, verify products are displayed',
     framePolicy: LiveTestWidgetsFlutterBindingFramePolicy.fullyLive,
     ($) async {
-      final mockFirebaseAuth = MockFirebaseAuth();
-
       await initializeApp(firebaseAuth: mockFirebaseAuth, dio: mockDio);
       await $.pumpWidgetAndSettle(const MainApp());
 
@@ -198,17 +196,35 @@ void main() {
       );
 
       await $(find.byIcon(TablerIcons.arrow_left)).tap();
+    },
+  );
 
-      //  Login with Google
+  patrolTest(
+    'sign in with Google test',
+    framePolicy: LiveTestWidgetsFlutterBindingFramePolicy.fullyLive,
+    ($) async {
+      await initializeApp(
+        firebaseAuth: mockFirebaseAuth,
+        googleSignIn: mockGoogleSignIn,
+        dio: mockDio,
+      );
+      await $.pumpWidgetAndSettle(const MainApp());
 
       // Ensure Google login is NOT cancelled
       mockGoogleSignIn.setIsCancelled(value: false);
+
+      when(() => mockGoogleSignIn.authenticate()).thenAnswer((_) async {
+        return MockGoogleSignInAccount();
+      });
 
       // Mock FirebaseAuth signInWithCredential
       when(() => mockFirebaseAuth.signInWithCredential(any())).thenAnswer((
         _,
       ) async {
-        final googleUser = MockUser(email: 'google@example.com');
+        final googleUser = MockUser(
+          email: 'google@example.com',
+          emailVerified: true,
+        );
         mockFirebaseAuth.setMockUser(googleUser);
         return MockUserCredential(googleUser);
       });
@@ -234,11 +250,12 @@ void main() {
       await $('Sign out').scrollTo().tap();
       await $.pumpAndSettle();
 
-      // Login with Google (FAILURE / CANCEL)
+      // FAILED / CANCELLED GOOGLE LOGIN
+
       // Simulate user cancelling Google login
       mockGoogleSignIn.setIsCancelled(value: true);
 
-      // Tap again
+      // Tap "Continue with Google" again
       await $(keys.signInPage.continueWithGoogleButton).tap();
       await $.pumpAndSettle();
 
