@@ -80,6 +80,9 @@ class MockUser extends Mock implements User {
   bool _emailVerified;
   final String? _phoneNumber;
 
+  bool sendVerificationShouldFail = false;
+  String? sendVerificationError;
+
   @override
   String? get email => _email;
 
@@ -108,7 +111,12 @@ class MockUser extends Mock implements User {
   Future<void> sendEmailVerification([
     ActionCodeSettings? actionCodeSettings,
   ]) async {
-    debugPrint('Mock sendEmailVerification called');
+    if (sendVerificationShouldFail) {
+      throw FirebaseAuthException(
+        code: 'too-many-requests',
+        message: sendVerificationError ?? 'Failed to send verification',
+      );
+    }
   }
 }
 
