@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:patrol/patrol.dart';
+import 'package:skelter/constants/constants.dart';
 import 'package:skelter/constants/integration_test_keys.dart';
 import 'package:skelter/initialize_app.dart';
 import 'package:skelter/main.dart';
@@ -17,7 +19,6 @@ class MockDioResponse<T> extends Mock implements Response<T> {}
 
 void main() {
   final mockDio = MockDio();
-  final mockFirebaseAuthService = MockFirebaseAuthService();
   final mockFirebaseAuth = MockFirebaseAuth();
 
   setUpAll(() {
@@ -38,18 +39,23 @@ void main() {
     'sign up with email test',
     framePolicy: LiveTestWidgetsFlutterBindingFramePolicy.fullyLive,
     ($) async {
-      await initializeApp(
-        firebaseAuth: mockFirebaseAuth,
-        firebaseAuthService: mockFirebaseAuthService,
-        dio: mockDio,
-      );
+      await initializeApp(firebaseAuth: mockFirebaseAuth, dio: mockDio);
       await $.pumpWidgetAndSettle(const MainApp());
 
       // SCENARIO 1: Successful signup with email verification
-      mockFirebaseAuthService.signupWithEmailShouldFail = false;
-      mockFirebaseAuthService.sendVerificationShouldFail = false;
-      mockFirebaseAuthService.signupWithEmailUserEmail = 'newuser@example.com';
-      mockFirebaseAuthService.signupWithEmailUserVerified = false;
+      final newUser = MockUser(
+        email: 'newuser@example.com',
+      );
+
+      when(
+        () => mockFirebaseAuth.createUserWithEmailAndPassword(
+          email: any(named: 'email'),
+          password: any(named: 'password'),
+        ),
+      ).thenAnswer((_) async {
+        mockFirebaseAuth.setMockUser(newUser);
+        return MockUserCredential(newUser);
+      });
 
       await $('Sign up').tap();
       await $.pumpAndSettle();
@@ -59,8 +65,9 @@ void main() {
 
       expect(find.text('Sign up with Email'), findsOneWidget);
 
-      await $(keys.signupPage.signupEmailTextField)
-          .enterText('newuser@example.com');
+      await $(
+        keys.signupPage.signupEmailTextField,
+      ).enterText('newuser@example.com');
       await Future.delayed(const Duration(milliseconds: 500));
       await $.pump();
       await $(keys.signupPage.signupEmailNextButton).tap();
@@ -68,12 +75,14 @@ void main() {
 
       expect(find.text('Create your password'), findsOneWidget);
 
-      await $(keys.signupPage.signupPasswordTextField)
-          .enterText('StrongPass123!');
+      await $(
+        keys.signupPage.signupPasswordTextField,
+      ).enterText('StrongPass123!');
       await $.pump();
 
-      await $(keys.signupPage.signupConfirmPasswordTextField)
-          .enterText('StrongPass123!');
+      await $(
+        keys.signupPage.signupConfirmPasswordTextField,
+      ).enterText('StrongPass123!');
 
       await Future.delayed(const Duration(milliseconds: 600));
       await $.pump();
@@ -83,7 +92,7 @@ void main() {
 
       expect(find.text('Verify your email'), findsOneWidget);
 
-      mockFirebaseAuth.testUser.setEmailVerified(isEmailVerified: true);
+      newUser.setEmailVerified(isEmailVerified: true);
       await $.pump(const Duration(seconds: 6));
       await $.pumpAndSettle();
 
@@ -97,8 +106,17 @@ void main() {
       await $.pumpAndSettle();
 
       // SCENARIO 2: Email already in use error
-      mockFirebaseAuthService.signupWithEmailShouldFail = true;
-      mockFirebaseAuthService.signupWithEmailError = 'Email already in use';
+      when(
+        () => mockFirebaseAuth.createUserWithEmailAndPassword(
+          email: any(named: 'email'),
+          password: any(named: 'password'),
+        ),
+      ).thenThrow(
+        FirebaseAuthException(
+          code: kFirebaseAuthSessionEmailAlreadyInUse,
+          message: 'Email already in use, please login to continue.',
+        ),
+      );
 
       await $('Sign up').tap();
       await $.pumpAndSettle();
@@ -106,33 +124,40 @@ void main() {
       await $(keys.signupPage.signupWithEmailButton).tap();
       await $.pumpAndSettle();
 
-      await $(keys.signupPage.signupEmailTextField)
-          .enterText('existing@example.com');
+      await $(
+        keys.signupPage.signupEmailTextField,
+      ).enterText('existing@example.com');
 
       await $.pump(const Duration(milliseconds: 600));
 
       await $(keys.signupPage.signupEmailNextButton).tap();
       await $.pumpAndSettle(timeout: const Duration(seconds: 2));
 
-      await $(keys.signupPage.signupPasswordTextField)
-          .enterText('StrongPass123!');
+      await $(
+        keys.signupPage.signupPasswordTextField,
+      ).enterText('StrongPass123!');
       await $.pump();
 
-      await $(keys.signupPage.signupConfirmPasswordTextField)
-          .enterText('StrongPass123!');
+      await $(
+        keys.signupPage.signupConfirmPasswordTextField,
+      ).enterText('StrongPass123!');
       await Future.delayed(const Duration(milliseconds: 600));
       await $.pump();
 
       // Ensure UI is settled and button is enabled
       await $.pump(const Duration(milliseconds: 600));
 
-      await $(keys.signupPage.signupPasswordNextButton)
-          .tap(settlePolicy: SettlePolicy.noSettle);
+      await $(
+        keys.signupPage.signupPasswordNextButton,
+      ).tap(settlePolicy: SettlePolicy.noSettle);
 
       // Wait for error to be processed and displayed
-      // without fast-forwarding through the entire SnackBar duration.
-      await $.pump(const Duration(milliseconds: 500));
-      expect(find.text('Email already in use'), findsOneWidget);
+      await $(find.text('Email already in use, please login to continue.'))
+          .waitUntilVisible();
+      expect(
+        find.text('Email already in use, please login to continue.'),
+        findsOneWidget,
+      );
 
       await Future.delayed(const Duration(milliseconds: 600));
       await $.pump();
