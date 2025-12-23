@@ -210,12 +210,13 @@ void main() {
       );
       await $.pumpWidgetAndSettle(const MainApp());
 
+      // Stub signOut to reset mock state
+      when(() => mockFirebaseAuth.signOut()).thenAnswer((_) async {
+        mockFirebaseAuth.setMockUser(null);
+      });
+
       // Ensure Google login is NOT cancelled
       mockGoogleSignIn.setIsCancelled(value: false);
-
-      when(() => mockGoogleSignIn.authenticate()).thenAnswer((_) async {
-        return MockGoogleSignInAccount();
-      });
 
       // Mock FirebaseAuth signInWithCredential
       when(() => mockFirebaseAuth.signInWithCredential(any())).thenAnswer((
