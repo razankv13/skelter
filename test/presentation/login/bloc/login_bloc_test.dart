@@ -57,9 +57,7 @@ void main() {
       'should enable signup mode',
       build: () => LoginBloc(localizations: l10n),
       act: (bloc) => bloc.add(EnableSignupModeEvent(isSignup: true)),
-      expect: () => [
-        predicate<LoginState>((state) => state.isSignup),
-      ],
+      expect: () => [predicate<LoginState>((state) => state.isSignup)],
     );
 
     blocTest<LoginBloc, LoginState>(
@@ -135,15 +133,21 @@ void main() {
       },
       act: (bloc) => bloc.add(LoginWithPhoneNumEvent('+91abc')),
       expect: () => [
-        isA<PhoneNumLoginLoadingState>()
-            .having((state) => state.isLoading, 'isLoading', true),
+        isA<PhoneNumLoginLoadingState>().having(
+          (state) => state.isLoading,
+          'isLoading',
+          true,
+        ),
         predicate<LoginState>(
           (state) =>
               state.phoneNumberLoginState?.phoneNumErrorMessage ==
               'Invalid number',
         ),
-        isA<PhoneNumLoginLoadingState>()
-            .having((state) => state.isLoading, 'isLoading', false),
+        isA<PhoneNumLoginLoadingState>().having(
+          (state) => state.isLoading,
+          'isLoading',
+          false,
+        ),
       ],
     );
 
@@ -181,10 +185,16 @@ void main() {
       },
       expect: () => [
         predicate<LoginState>((state) => state.isSignup),
-        isA<PhoneNumLoginLoadingState>()
-            .having((state) => state.isLoading, 'isLoading', true),
-        isA<PhoneNumLoginLoadingState>()
-            .having((state) => state.isLoading, 'isLoading', false),
+        isA<PhoneNumLoginLoadingState>().having(
+          (state) => state.isLoading,
+          'isLoading',
+          true,
+        ),
+        isA<PhoneNumLoginLoadingState>().having(
+          (state) => state.isLoading,
+          'isLoading',
+          false,
+        ),
         isA<NavigateToOTPScreenState>(),
       ],
     );
@@ -490,9 +500,42 @@ void main() {
       ],
     );
 
-    // Note: Test for 'verification link fails'
-    // removed because MockUser.sendEmailVerification
-    // has a concrete implementation and cannot be stubbed to throw.
+    blocTest<LoginBloc, LoginState>(
+      'should emit AuthenticationExceptionState when verification link fails',
+      build: () {
+        final mockUser = MockUser(email: 'user@example.com');
+        mockUser.sendVerificationShouldFail = true;
+        mockUser.sendVerificationError =
+            'Too many requests, please try again later.';
+        mockFirebaseAuth.setMockUser(mockUser);
+        return LoginBloc(localizations: l10n);
+      },
+      act: (bloc) => bloc.add(SendEmailVerificationLinkEvent()),
+      expect: () => [
+        isA<EmailLoginLoadingState>().having(
+          (state) => state.isLoading,
+          'isLoading',
+          true,
+        ),
+        isA<EmailLoginLoadingState>().having(
+          (state) => state.isLoading,
+          'isLoading',
+          false,
+        ),
+        isA<LoginState>().having(
+          (state) => state.emailPasswordLoginState?.authenticationErrorMessage,
+          'authenticationErrorMessage',
+          'Too many requests, please try again later.',
+        ),
+        isA<AuthenticationExceptionState>(),
+        isA<EmailLoginLoadingState>().having(
+          (state) => state.isLoading,
+          'isLoading',
+          false,
+        ),
+        isA<RestartVerificationMailResendTimerState>(),
+      ],
+    );
   });
 
   group('LoginBloc Password Reset', () {
@@ -547,7 +590,9 @@ void main() {
         isA<LoginState>().having(
           (state) => state.emailPasswordLoginState?.emailErrorMessage,
           'emailErrorMessage',
-          'Invalid email',
+          // NOTE: App-specific error message mapped from
+          // FirebaseAuthUserNotFound handled in FirebaseAuthService
+          'No user found with this email.',
         ),
         isA<EmailLoginLoadingState>().having(
           (state) => state.isLoading,
