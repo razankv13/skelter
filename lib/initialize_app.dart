@@ -22,6 +22,7 @@ import 'package:skelter/utils/app_flavor_env.dart';
 
 Future<void> initializeApp({
   FirebaseAuth? firebaseAuth,
+  GoogleSignIn? googleSignIn,
   FirebaseAuthService? firebaseAuthService,
   Dio? dio,
 }) async {
@@ -63,6 +64,7 @@ Future<void> initializeApp({
 
   await configureDependencies(
     firebaseAuth: firebaseAuth,
+    googleSignIn: googleSignIn,
     firebaseAuthService: firebaseAuthService,
     dio: dio,
   );

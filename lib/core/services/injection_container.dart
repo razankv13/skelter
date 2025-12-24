@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http_certificate_pinning/http_certificate_pinning.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:skelter/constants/constants.dart';
@@ -33,6 +34,7 @@ bool _isForceLoggingOutUser = false;
 
 Future<void> configureDependencies({
   FirebaseAuth? firebaseAuth,
+  GoogleSignIn? googleSignIn,
   FirebaseAuthService? firebaseAuthService,
   Dio? dio,
 }) async {
@@ -40,10 +42,17 @@ Future<void> configureDependencies({
     () => firebaseAuth ?? FirebaseAuth.instance,
   );
 
+  sl.registerLazySingleton<GoogleSignIn>(
+    () => googleSignIn ?? GoogleSignIn.instance,
+  );
+
   sl.registerLazySingleton<FirebaseAuthService>(
     () =>
         firebaseAuthService ??
-        FirebaseAuthService(firebaseAuth: sl<FirebaseAuth>()),
+        FirebaseAuthService(
+          firebaseAuth: sl<FirebaseAuth>(),
+          googleSignIn: sl<GoogleSignIn>(),
+        ),
   );
 
   final cacheManager = CacheManager();
