@@ -70,3 +70,7 @@ const String kHome = 'home';
 const revenueCatGoogleApiKey = 'REVENEUCAT_GOOGLE_API_KEY';
 const revenueCatGoogleReleaseApiKey = 'REVENEUCAT_GOOGLE_RELEASE_API_KEY';
 const revenueCatMonthly = 'monthly';
+
+// Invoice constants
+const String expectedDeliveryDate = '9:00 am, Sat, 15 Apr';
+const String paymentMethodAxis = 'Axis Bank **** **** **** 8395';
