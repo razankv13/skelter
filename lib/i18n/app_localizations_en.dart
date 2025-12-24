@@ -337,7 +337,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get activity => 'Activity';
 
   @override
-  String get history => 'History';
+  String get my_orders => 'My Orders';
 
   @override
   String get done => 'Done';
@@ -1143,4 +1143,89 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get biometric_auth_too_many_attempts =>
       'Too many attempts. Please try again later.';
+
+  @override
+  String get invoice_keys => '================ INVOICE KEYS ================';
+
+  @override
+  String get share_invoice => 'Share';
+
+  @override
+  String get download => 'Download';
+
+  @override
+  String get invoice_saved_success => 'Invoice saved successfully';
+
+  @override
+  String get invoice_generation_failed =>
+      'Failed to generate invoice. Please try again.';
+
+  @override
+  String get storage_permission_required =>
+      'Storage permission required to save invoice';
+
+  @override
+  String get online_payment_method => 'Online Payment';
+
+  @override
+  String get generate_invoice => 'Generate Invoice';
+
+  @override
+  String get invoice => 'INVOICE';
+
+  @override
+  String get invoice_details => 'Invoice Details:';
+
+  @override
+  String get invoice_number => 'Invoice Number';
+
+  @override
+  String get invoice_date => 'Invoice Date';
+
+  @override
+  String get bill_to => 'Bill To:';
+
+  @override
+  String get product => 'Product';
+
+  @override
+  String get quantity => 'Quantity';
+
+  @override
+  String get total => 'Total';
+
+  @override
+  String get subtotal => 'Subtotal';
+
+  @override
+  String get payment_method => 'Payment Method';
+
+  @override
+  String get download_invoice => 'Download Invoice';
+
+  @override
+  String get invoice_share_failed =>
+      'Failed to share invoice. Please try again';
+
+  @override
+  String get my_orders_keys =>
+      '================ My ORDERS KEYS ================';
+
+  @override
+  String get order_id => 'Order Id: #';
+
+  @override
+  String get accepted => 'Accepted';
+
+  @override
+  String get order_details => 'Order Details';
+
+  @override
+  String get cancel_order => 'Cancel Order';
+
+  @override
+  String get tracking_detail => 'Tracking Details';
+
+  @override
+  String get no_product_selected => 'No product selected';
 }
