@@ -19,6 +19,7 @@ import 'package:skelter/services/notification_service.dart';
 import 'package:skelter/services/remote_config_service.dart';
 import 'package:skelter/utils/app_environment.dart';
 import 'package:skelter/utils/app_flavor_env.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 Future<void> initializeApp({
   FirebaseAuth? firebaseAuth,
@@ -26,6 +27,7 @@ Future<void> initializeApp({
   Dio? dio,
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
+  tz.initializeTimeZones();
 
   final firebaseOptions = switch (AppConfig.appFlavor) {
     AppFlavor.dev => dev.DefaultFirebaseOptions.currentPlatform,
