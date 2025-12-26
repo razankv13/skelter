@@ -79,6 +79,8 @@ dependencies:
   local_auth: ^2.3.0
   flutter_exit_app: ^2.0.0
   open_settings_plus: ^0.4.0
+  pdf: ^3.11.1
+  printing: ^5.14.0
   timezone: ^0.10.1
 
 dev_dependencies:
