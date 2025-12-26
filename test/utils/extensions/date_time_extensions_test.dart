@@ -239,7 +239,7 @@ void main() {
       );
     });
 
-    group('dateTimeInTimezone Conversion Tests', () {
+    group('convertDateTimeToTimezone Tests', () {
       test('should convert UTC date to New York, Tokyo, London, '
           'and India timezones with correct hour offsets', () {
         final utcDate = DateTime.utc(2025, 1, 15, 12);
