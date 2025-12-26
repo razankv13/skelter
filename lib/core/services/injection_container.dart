@@ -13,11 +13,16 @@ import 'package:skelter/presentation/home/data/datasources/product_remote_data_s
 import 'package:skelter/presentation/home/data/repositories/product_repository_impl.dart';
 import 'package:skelter/presentation/home/domain/repositories/product_repository.dart';
 import 'package:skelter/presentation/home/domain/usecases/get_products.dart';
+import 'package:skelter/presentation/product_detail/data/datasources/ai_product_description_remote_data_source.dart';
 import 'package:skelter/presentation/product_detail/data/datasources/product_detail_remote_data_source.dart';
+import 'package:skelter/presentation/product_detail/data/repositories/ai_product_description_repository_impl.dart';
 import 'package:skelter/presentation/product_detail/data/repositories/product_detail_repository_impl.dart';
+import 'package:skelter/presentation/product_detail/domain/repositories/ai_product_description_repository.dart';
 import 'package:skelter/presentation/product_detail/domain/repositories/product_detail_repository.dart';
+import 'package:skelter/presentation/product_detail/domain/usecases/generate_ai_product_description.dart';
 import 'package:skelter/presentation/product_detail/domain/usecases/get_product_detail.dart';
 import 'package:skelter/routes.gr.dart';
+import 'package:skelter/services/ai/gemini_service.dart';
 import 'package:skelter/services/firebase_auth_services.dart';
 import 'package:skelter/services/local_auth_services.dart';
 import 'package:skelter/shared_pref/prefs.dart';
@@ -86,6 +91,14 @@ Future<void> configureDependencies({
     ..registerLazySingleton<ProductDetailRemoteDatasource>(
       () => ProductDetailRemoteDataSrcImpl(sl()),
     )
+    ..registerLazySingleton(() => GenerateAiProductDescription(sl()))
+    ..registerLazySingleton<AiProductDescriptionRepository>(
+      () => AiProductDescriptionRepositoryImpl(sl()),
+    )
+    ..registerLazySingleton<AiProductDescriptionRemoteDataSource>(
+      () => AiProductDescriptionRemoteDataSourceImpl(sl()),
+    )
+    ..registerLazySingleton(() => GeminiService())
     ..registerLazySingleton(() => GetExchangeRate(sl()))
     ..registerLazySingleton<CurrencyConverterRepository>(
       () => CurrencyConverterRepositoryImpl(sl()),

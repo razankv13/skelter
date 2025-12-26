@@ -14,6 +14,7 @@ import 'package:skelter/core/services/injection_container.dart';
 import 'package:skelter/firebase_options_dev.dart' as dev;
 import 'package:skelter/firebase_options_prod.dart' as prod;
 import 'package:skelter/firebase_options_stage.dart' as stage;
+import 'package:skelter/services/ai/gemini_service.dart';
 import 'package:skelter/services/firebase_auth_services.dart';
 import 'package:skelter/services/notification_service.dart';
 import 'package:skelter/services/remote_config_service.dart';
@@ -70,6 +71,14 @@ Future<void> initializeApp({
     firebaseAuthService: firebaseAuthService,
     dio: dio,
   );
+
+  // Initialize Gemini AI Service
+  try {
+    sl<GeminiService>().initialize();
+  } catch (e) {
+    debugPrint('[Gemini] Initialization warning: $e');
+    // Non-critical error, app can continue without AI features
+  }
 
   await GoogleSignIn.instance.initialize();
 }
