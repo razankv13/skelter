@@ -81,6 +81,7 @@ dependencies:
   open_settings_plus: ^0.4.0
   pdf: ^3.11.1
   printing: ^5.14.0
+  timezone: ^0.10.1
 
 dev_dependencies:
   flutter_test:
