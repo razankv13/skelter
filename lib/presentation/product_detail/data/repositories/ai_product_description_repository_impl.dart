@@ -6,7 +6,6 @@ import 'package:skelter/presentation/product_detail/domain/entities/ai_product_d
 import 'package:skelter/presentation/product_detail/domain/entities/product_detail.dart';
 import 'package:skelter/presentation/product_detail/domain/repositories/ai_product_description_repository.dart';
 
-/// Implementation of AI product description repository
 class AIProductDescriptionRepositoryImpl
     implements AIProductDescriptionRepository {
   const AIProductDescriptionRepositoryImpl(this._remoteDataSource);

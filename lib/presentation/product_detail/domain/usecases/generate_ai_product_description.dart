@@ -5,7 +5,6 @@ import 'package:skelter/presentation/product_detail/domain/entities/product_deta
 import 'package:skelter/presentation/product_detail/domain/repositories/ai_product_description_repository.dart';
 import 'package:skelter/utils/typedef.dart';
 
-/// Use case for generating AI-powered product descriptions
 class GenerateAIProductDescription
     with
         UseCaseWithParams<

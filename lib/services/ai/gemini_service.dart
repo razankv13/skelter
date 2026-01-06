@@ -4,10 +4,6 @@ import 'package:firebase_ai/firebase_ai.dart';
 import 'package:flutter/foundation.dart';
 import 'package:skelter/services/ai/gemini_constants.dart';
 
-/// Service class to handle Firebase AI (Gemini) operations
-/// Uses Firebase AI SDK which requires Firebase project setup with Vertex AI 
-/// API enabled
-
 class GeminiService {
   factory GeminiService() {
     _instance ??= GeminiService._();
@@ -20,15 +16,11 @@ class GeminiService {
 
   GenerativeModel? _model;
   GenerativeModel? _visionModel;
-
-  /// Initialize Gemini models via Firebase AI
-  /// Requires Firebase to be initialized first
+  
   void initialize() {
     try {
       debugPrint('[Gemini] Initializing Firebase AI Gemini Service...');
-
-      // Initialize text generation model using Firebase AI
-      // Firebase AI uses the Developer API backend (no API key needed in code)
+      
       _model = FirebaseAI.googleAI().generativeModel(
         model: GeminiConstants.geminiProModel,
         generationConfig: GenerationConfig(
@@ -43,8 +35,7 @@ class GeminiService {
       debugPrint(
         '[Gemini] Text model initialized: ${GeminiConstants.geminiProModel}',
       );
-
-      // Initialize vision model for image analysis
+      
       _visionModel = FirebaseAI.googleAI().generativeModel(
         model: GeminiConstants.geminiProVisionModel,
         generationConfig: GenerationConfig(
@@ -63,7 +54,6 @@ class GeminiService {
     }
   }
 
-  /// Generate text content using Gemini via Firebase AI
   Future<String> generateContent({
     required String prompt,
     Duration? timeout,
@@ -103,7 +93,6 @@ class GeminiService {
     }
   }
 
-  /// Generate content with image analysis
   Future<String> generateContentWithImages({
     required String prompt,
     required List<String> imageUrls,
@@ -120,9 +109,6 @@ class GeminiService {
       final content = <Content>[
         Content.multi([
           TextPart(prompt),
-          // Note: For production, you'd need to download and convert images to
-          // InlineDataPart using FileData or InlineData
-          // This is a simplified version
         ]),
       ];
 
@@ -141,7 +127,6 @@ class GeminiService {
     }
   }
 
-  /// Generate streaming content (for real-time responses)
   Stream<String> generateContentStream({required String prompt}) async* {
     if (_model == null) {
       throw Exception(
@@ -163,7 +148,6 @@ class GeminiService {
     }
   }
 
-  /// Dispose resources
   void dispose() {
     _model = null;
     _visionModel = null;

@@ -5,20 +5,18 @@ import 'package:skelter/presentation/product_detail/domain/entities/product_deta
 import 'package:skelter/services/ai/gemini_service.dart';
 
 abstract class AIProductDescriptionRemoteDataSource {
-  /// Generate AI product description using Gemini
   Future<AIProductDescriptionModel> generateProductDescription({
     required ProductDetail productDetail,
     List<String>? userOrderHistory,
   });
 
-  /// Generate AI description with streaming
+
   Stream<String> generateProductDescriptionStream({
     required ProductDetail productDetail,
     List<String>? userOrderHistory,
   });
 }
 
-/// Implementation of AI product description remote data source
 class AIProductDescriptionRemoteDataSourceImpl
     implements AIProductDescriptionRemoteDataSource {
   AIProductDescriptionRemoteDataSourceImpl(this._geminiService);
@@ -81,7 +79,6 @@ class AIProductDescriptionRemoteDataSourceImpl
     }
   }
 
-  /// Build comprehensive prompt for Gemini AI
   String _buildPrompt({
     required ProductDetail productDetail,
     List<String>? userOrderHistory,

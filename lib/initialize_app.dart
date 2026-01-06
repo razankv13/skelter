@@ -71,13 +71,11 @@ Future<void> initializeApp({
     firebaseAuthService: firebaseAuthService,
     dio: dio,
   );
-
-  // Initialize Gemini AI Service
+  
   try {
     sl<GeminiService>().initialize();
   } catch (e) {
     debugPrint('[Gemini] Initialization warning: $e');
-    // Non-critical error, app can continue without AI features
   }
 
   await GoogleSignIn.instance.initialize();
