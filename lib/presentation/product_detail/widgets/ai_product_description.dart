@@ -36,16 +36,16 @@ class AIProductDescription extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AiDescriptionHeader(
+            AIDescriptionHeader(
               hasAIDescription: hasAIDescription,
               isGenerating: isGenerating,
               userOrderHistory: userOrderHistory,
             ),
             const SizedBox(height: 12),
             if (isGenerating)
-              const AiDescriptionShimmer()
+              const AIDescriptionShimmer()
             else if (hasError)
-              AiDescriptionErrorWidget(
+              AIDescriptionErrorWidget(
                 state: state,
                 onTap: () => context.read<ProductDetailBloc>().add(
                   GenerateAIDescriptionEvent(
@@ -55,7 +55,7 @@ class AIProductDescription extends StatelessWidget {
                 ),
               )
             else if (hasAIDescription)
-              AiDescriptionContent(
+              AIDescriptionContent(
                 state: state,
                 onTap: () => context.read<ProductDetailBloc>().add(
                   GenerateAIDescriptionEvent(
@@ -65,7 +65,7 @@ class AIProductDescription extends StatelessWidget {
                 ),
               )
             else
-              AiDescriptionGenerateButton(
+              AIDescriptionGenerateButton(
                 onTap: () => context.read<ProductDetailBloc>().add(
                   GenerateAIDescriptionEvent(
                     productDetail: productDetail,

@@ -3,8 +3,8 @@ import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
-class AiDescriptionHeader extends StatelessWidget {
-  const AiDescriptionHeader({
+class AIDescriptionHeader extends StatelessWidget {
+  const AIDescriptionHeader({
     super.key,
     this.hasAIDescription = false,
     this.isGenerating = false,

@@ -4,8 +4,8 @@ import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/product_detail/bloc/product_detail_state.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
-class AiDescriptionContent extends StatelessWidget {
-  const AiDescriptionContent({
+class AIDescriptionContent extends StatelessWidget {
+  const AIDescriptionContent({
     super.key,
     required this.state,
     required this.onTap,

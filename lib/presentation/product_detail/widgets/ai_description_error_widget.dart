@@ -4,8 +4,8 @@ import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/product_detail/bloc/product_detail_state.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
-class AiDescriptionErrorWidget extends StatelessWidget {
-  const AiDescriptionErrorWidget({
+class AIDescriptionErrorWidget extends StatelessWidget {
+  const AIDescriptionErrorWidget({
     super.key,
     required this.state,
     required this.onTap,

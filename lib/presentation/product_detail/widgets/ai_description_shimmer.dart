@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
-class AiDescriptionShimmer extends StatelessWidget {
-  const AiDescriptionShimmer({super.key});
+class AIDescriptionShimmer extends StatelessWidget {
+  const AIDescriptionShimmer({super.key});
 
   @override
   Widget build(BuildContext context) {

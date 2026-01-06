@@ -3,8 +3,8 @@ import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
-class AiDescriptionGenerateButton extends StatelessWidget {
-  const AiDescriptionGenerateButton({super.key,required this.onTap});
+class AIDescriptionGenerateButton extends StatelessWidget {
+  const AIDescriptionGenerateButton({super.key,required this.onTap});
   final void Function() onTap;
   @override
   Widget build(BuildContext context) {
