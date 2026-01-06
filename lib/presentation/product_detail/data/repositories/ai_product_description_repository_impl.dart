@@ -7,14 +7,14 @@ import 'package:skelter/presentation/product_detail/domain/entities/product_deta
 import 'package:skelter/presentation/product_detail/domain/repositories/ai_product_description_repository.dart';
 
 /// Implementation of AI product description repository
-class AiProductDescriptionRepositoryImpl
-    implements AiProductDescriptionRepository {
-  const AiProductDescriptionRepositoryImpl(this._remoteDataSource);
+class AIProductDescriptionRepositoryImpl
+    implements AIProductDescriptionRepository {
+  const AIProductDescriptionRepositoryImpl(this._remoteDataSource);
 
-  final AiProductDescriptionRemoteDataSource _remoteDataSource;
+  final AIProductDescriptionRemoteDataSource _remoteDataSource;
 
   @override
-  Future<Either<Failure, AiProductDescription>> generateProductDescription({
+  Future<Either<Failure, AIProductDescription>> generateProductDescription({
     required ProductDetail productDetail,
     List<String>? userOrderHistory,
   }) async {

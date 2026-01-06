@@ -6,19 +6,19 @@ import 'package:skelter/presentation/product_detail/domain/repositories/ai_produ
 import 'package:skelter/utils/typedef.dart';
 
 /// Use case for generating AI-powered product descriptions
-class GenerateAiProductDescription
+class GenerateAIProductDescription
     with
         UseCaseWithParams<
-          AiProductDescription,
-          GenerateAiProductDescriptionParams
+          AIProductDescription,
+          GenerateAIProductDescriptionParams
         > {
-  const GenerateAiProductDescription(this._repository);
+  const GenerateAIProductDescription(this._repository);
 
-  final AiProductDescriptionRepository _repository;
+  final AIProductDescriptionRepository _repository;
 
   @override
-  ResultFuture<AiProductDescription> call(
-    GenerateAiProductDescriptionParams params,
+  ResultFuture<AIProductDescription> call(
+    GenerateAIProductDescriptionParams params,
   ) async {
     return _repository.generateProductDescription(
       productDetail: params.productDetail,
@@ -28,8 +28,8 @@ class GenerateAiProductDescription
 }
 
 /// Parameters for generating AI product description
-class GenerateAiProductDescriptionParams extends Equatable {
-  const GenerateAiProductDescriptionParams({
+class GenerateAIProductDescriptionParams extends Equatable {
+  const GenerateAIProductDescriptionParams({
     required this.productDetail,
     this.userOrderHistory,
   });

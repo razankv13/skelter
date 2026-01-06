@@ -8,20 +8,20 @@ import 'package:skelter/presentation/product_detail/domain/usecases/get_product_
 class ProductDetailBloc extends Bloc<ProductDetailEvent, ProductDetailState> {
   ProductDetailBloc({
     required GetProductDetail getProductDetail,
-    required GenerateAiProductDescription generateAiProductDescription,
+    required GenerateAIProductDescription generateAIProductDescription,
   })  : _getProductDetail = getProductDetail,
-        _generateAiProductDescription = generateAiProductDescription,
+        _generateAIProductDescription = generateAIProductDescription,
         super(const ProductDetailState.initial()) {
     _setupEventListeners();
   }
 
   final GetProductDetail _getProductDetail;
-  final GenerateAiProductDescription _generateAiProductDescription;
+  final GenerateAIProductDescription _generateAIProductDescription;
 
   void _setupEventListeners() {
     on<GetProductDetailDataEvent>(_onGetProductDetailDataEvent);
     on<ProductImageSelectedEvent>(_onProductImageSelectedEvent);
-    on<GenerateAiDescriptionEvent>(_onGenerateAiDescriptionEvent);
+    on<GenerateAIDescriptionEvent>(_onGenerateAIDescriptionEvent);
   }
 
   void _onGetProductDetailDataEvent(
@@ -56,16 +56,16 @@ class ProductDetailBloc extends Bloc<ProductDetailEvent, ProductDetailState> {
     );
   }
 
-  void _onGenerateAiDescriptionEvent(
-    GenerateAiDescriptionEvent event,
+  void _onGenerateAIDescriptionEvent(
+    GenerateAIDescriptionEvent event,
     Emitter<ProductDetailState> emit,
   ) async {
     debugPrint('[AI Description] Starting generation...');
-    emit(AiDescriptionGenerating(state));
+    emit(AIDescriptionGenerating(state));
 
     try {
-      final result = await _generateAiProductDescription(
-        GenerateAiProductDescriptionParams(
+      final result = await _generateAIProductDescription(
+        GenerateAIProductDescriptionParams(
           productDetail: event.productDetail,
           userOrderHistory: event.userOrderHistory,
         ),
@@ -75,13 +75,13 @@ class ProductDetailBloc extends Bloc<ProductDetailEvent, ProductDetailState> {
         (failure) {
           debugPrint('[AI Description] Error: ${failure.errorMessage}');
           emit(
-            AiDescriptionError(state, errorMessage: failure.errorMessage),
+            AIDescriptionError(state, errorMessage: failure.errorMessage),
           );
         },
         (aiDescription) {
           debugPrint('[AI Description] Success: Generated description');
           emit(
-            AiDescriptionGenerated(
+            AIDescriptionGenerated(
               state,
               aiDescription: aiDescription,
             ),
@@ -91,7 +91,7 @@ class ProductDetailBloc extends Bloc<ProductDetailEvent, ProductDetailState> {
     } catch (e) {
       debugPrint('[AI Description] Exception: $e');
       emit(
-        AiDescriptionError(
+        AIDescriptionError(
           state,
           errorMessage: 'Failed to generate AI description: $e',
         ),

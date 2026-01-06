@@ -7,15 +7,15 @@ class ProductDetailState with EquatableMixin {
   final int selectedImageIndex;
   final ProductDetail? productDetail;
   final String? errorMessage;
-  final AiProductDescription? aiDescription;
-  final bool isGeneratingAiDescription;
+  final AIProductDescription? aiDescription;
+  final bool isGeneratingAIDescription;
 
   const ProductDetailState({
     required this.selectedImageIndex,
     this.productDetail,
     this.errorMessage,
     this.aiDescription,
-    this.isGeneratingAiDescription = false,
+    this.isGeneratingAIDescription = false,
   });
 
   const ProductDetailState.initial()
@@ -23,29 +23,29 @@ class ProductDetailState with EquatableMixin {
         productDetail = null,
         errorMessage = null,
         aiDescription = null,
-        isGeneratingAiDescription = false;
+        isGeneratingAIDescription = false;
 
   ProductDetailState.copy(ProductDetailState state)
       : selectedImageIndex = state.selectedImageIndex,
         productDetail = state.productDetail,
         errorMessage = state.errorMessage,
         aiDescription = state.aiDescription,
-        isGeneratingAiDescription = state.isGeneratingAiDescription;
+        isGeneratingAIDescription = state.isGeneratingAIDescription;
 
   ProductDetailState copyWith({
     int? selectedImageIndex,
     ProductDetail? productDetail,
     String? errorMessage,
-    AiProductDescription? aiDescription,
-    bool? isGeneratingAiDescription,
+    AIProductDescription? aiDescription,
+    bool? isGeneratingAIDescription,
   }) {
     return ProductDetailState(
       selectedImageIndex: selectedImageIndex ?? this.selectedImageIndex,
       productDetail: productDetail ?? this.productDetail,
       errorMessage: errorMessage ?? this.errorMessage,
       aiDescription: aiDescription ?? this.aiDescription,
-      isGeneratingAiDescription:
-          isGeneratingAiDescription ?? this.isGeneratingAiDescription,
+      isGeneratingAIDescription:
+      isGeneratingAIDescription ?? this.isGeneratingAIDescription,
     );
   }
 
@@ -55,7 +55,7 @@ class ProductDetailState with EquatableMixin {
     this.productDetail,
     this.errorMessage,
     this.aiDescription,
-    this.isGeneratingAiDescription = false,
+    this.isGeneratingAIDescription = false,
   });
 
   @override
@@ -64,7 +64,7 @@ class ProductDetailState with EquatableMixin {
         productDetail,
         errorMessage,
         aiDescription,
-        isGeneratingAiDescription,
+        isGeneratingAIDescription,
       ];
 }
 
@@ -95,33 +95,33 @@ class ProductDetailErrorState extends ProductDetailState {
         );
 }
 
-class AiDescriptionGenerating extends ProductDetailState {
-  AiDescriptionGenerating(ProductDetailState state)
+class AIDescriptionGenerating extends ProductDetailState {
+  AIDescriptionGenerating(ProductDetailState state)
       : super.copy(
-          state.copyWith(isGeneratingAiDescription: true),
+          state.copyWith(isGeneratingAIDescription: true),
         );
 }
 
-class AiDescriptionGenerated extends ProductDetailState {
-  AiDescriptionGenerated(
+class AIDescriptionGenerated extends ProductDetailState {
+  AIDescriptionGenerated(
     ProductDetailState state, {
-    required AiProductDescription aiDescription,
+    required AIProductDescription aiDescription,
   }) : super.copy(
           state.copyWith(
             aiDescription: aiDescription,
-            isGeneratingAiDescription: false,
+            isGeneratingAIDescription: false,
           ),
         );
 }
 
-class AiDescriptionError extends ProductDetailState {
-  AiDescriptionError(
+class AIDescriptionError extends ProductDetailState {
+  AIDescriptionError(
     ProductDetailState state, {
     required String errorMessage,
   }) : super.copy(
           state.copyWith(
             errorMessage: errorMessage,
-            isGeneratingAiDescription: false,
+            isGeneratingAIDescription: false,
           ),
         );
 }

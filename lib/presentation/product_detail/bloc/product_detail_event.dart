@@ -23,11 +23,11 @@ class GetProductDetailDataEvent extends ProductDetailEvent {
   List<Object> get props => [productId];
 }
 
-class GenerateAiDescriptionEvent extends ProductDetailEvent {
+class GenerateAIDescriptionEvent extends ProductDetailEvent {
   final ProductDetail productDetail;
   final List<String>? userOrderHistory;
 
-  const GenerateAiDescriptionEvent({
+  const GenerateAIDescriptionEvent({
     required this.productDetail,
     this.userOrderHistory,
   });

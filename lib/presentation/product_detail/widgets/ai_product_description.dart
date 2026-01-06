@@ -9,11 +9,11 @@ import 'package:skelter/presentation/product_detail/bloc/product_detail_state.da
 import 'package:skelter/presentation/product_detail/domain/entities/product_detail.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
-class AiProductDescription extends StatelessWidget {
+class AIProductDescription extends StatelessWidget {
   final ProductDetail productDetail;
   final List<String>? userOrderHistory;
 
-  const AiProductDescription({
+  const AIProductDescription({
     super.key,
     required this.productDetail,
     this.userOrderHistory,
@@ -23,26 +23,26 @@ class AiProductDescription extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ProductDetailBloc, ProductDetailState>(
       buildWhen: (previous, current) =>
-          previous.isGeneratingAiDescription !=
-              current.isGeneratingAiDescription ||
+          previous.isGeneratingAIDescription !=
+              current.isGeneratingAIDescription ||
           previous.aiDescription != current.aiDescription ||
           previous.errorMessage != current.errorMessage,
       builder: (context, state) {
-        final hasAiDescription = state.aiDescription != null;
-        final isGenerating = state.isGeneratingAiDescription;
-        final hasError = state is AiDescriptionError;
+        final hasAIDescription = state.aiDescription != null;
+        final isGenerating = state.isGeneratingAIDescription;
+        final hasError = state is AIDescriptionError;
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildHeader(context, hasAiDescription, isGenerating),
+            _buildHeader(context, hasAIDescription, isGenerating),
             const SizedBox(height: 12),
             if (isGenerating)
               _buildLoadingShimmer(context)
             else if (hasError)
               _buildErrorState(context, state)
-            else if (hasAiDescription)
-              _buildAiDescriptionContent(context, state)
+            else if (hasAIDescription)
+              _buildAIDescriptionContent(context, state)
             else
               _buildGenerateButton(context),
           ],
@@ -53,7 +53,7 @@ class AiProductDescription extends StatelessWidget {
 
   Widget _buildHeader(
     BuildContext context,
-    bool hasAiDescription,
+    bool hasAIDescription,
     bool isGenerating,
   ) {
     return Row(
@@ -65,7 +65,7 @@ class AiProductDescription extends StatelessWidget {
         ),
         const SizedBox(width: 8),
         Text(
-          hasAiDescription
+          hasAIDescription
               ? context.localization.ai_powered_description
               : context.localization.get_ai_description,
           style: AppTextStyles.p2Bold.copyWith(
@@ -95,7 +95,7 @@ class AiProductDescription extends StatelessWidget {
 
   Widget _buildGenerateButton(BuildContext context) {
     return InkWell(
-      onTap: () => _generateAiDescription(context),
+      onTap: () => _generateAIDescription(context),
       borderRadius: BorderRadius.circular(12),
       child: Container(
         width: double.infinity,
@@ -209,7 +209,7 @@ class AiProductDescription extends StatelessWidget {
           ],
           const SizedBox(height: 12),
           InkWell(
-            onTap: () => _generateAiDescription(context),
+            onTap: () => _generateAIDescription(context),
             borderRadius: BorderRadius.circular(8),
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -241,7 +241,7 @@ class AiProductDescription extends StatelessWidget {
     );
   }
 
-  Widget _buildAiDescriptionContent(
+  Widget _buildAIDescriptionContent(
     BuildContext context,
     ProductDetailState state,
   ) {
@@ -277,7 +277,7 @@ class AiProductDescription extends StatelessWidget {
               ),
             ),
             TextButton.icon(
-              onPressed: () => _generateAiDescription(context),
+              onPressed: () => _generateAIDescription(context),
               icon: Icon(
                 Icons.refresh,
                 size: 16,
@@ -296,9 +296,9 @@ class AiProductDescription extends StatelessWidget {
     );
   }
 
-  void _generateAiDescription(BuildContext context) {
+  void _generateAIDescription(BuildContext context) {
     context.read<ProductDetailBloc>().add(
-          GenerateAiDescriptionEvent(
+          GenerateAIDescriptionEvent(
             productDetail: productDetail,
             userOrderHistory: userOrderHistory,
           ),

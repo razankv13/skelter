@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-class AiProductDescription extends Equatable {
-  const AiProductDescription({
+class AIProductDescription extends Equatable {
+  const AIProductDescription({
     required this.productId,
     required this.generatedDescription,
     required this.generatedAt,
@@ -21,13 +21,13 @@ class AiProductDescription extends Equatable {
         isPersonalized,
       ];
 
-  AiProductDescription copyWith({
+  AIProductDescription copyWith({
     String? productId,
     String? generatedDescription,
     DateTime? generatedAt,
     bool? isPersonalized,
   }) {
-    return AiProductDescription(
+    return AIProductDescription(
       productId: productId ?? this.productId,
       generatedDescription: generatedDescription ?? this.generatedDescription,
       generatedAt: generatedAt ?? this.generatedAt,

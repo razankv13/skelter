@@ -91,12 +91,12 @@ Future<void> configureDependencies({
     ..registerLazySingleton<ProductDetailRemoteDatasource>(
       () => ProductDetailRemoteDataSrcImpl(sl()),
     )
-    ..registerLazySingleton(() => GenerateAiProductDescription(sl()))
-    ..registerLazySingleton<AiProductDescriptionRepository>(
-      () => AiProductDescriptionRepositoryImpl(sl()),
+    ..registerLazySingleton(() => GenerateAIProductDescription(sl()))
+    ..registerLazySingleton<AIProductDescriptionRepository>(
+      () => AIProductDescriptionRepositoryImpl(sl()),
     )
-    ..registerLazySingleton<AiProductDescriptionRemoteDataSource>(
-      () => AiProductDescriptionRemoteDataSourceImpl(sl()),
+    ..registerLazySingleton<AIProductDescriptionRemoteDataSource>(
+      () => AIProductDescriptionRemoteDataSourceImpl(sl()),
     )
     ..registerLazySingleton(() => GeminiService())
     ..registerLazySingleton(() => GetExchangeRate(sl()))

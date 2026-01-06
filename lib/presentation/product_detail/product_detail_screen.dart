@@ -37,7 +37,7 @@ class ProductDetailScreen extends StatelessWidget {
     return BlocProvider<ProductDetailBloc>(
       create: (_) => ProductDetailBloc(
         getProductDetail: sl(),
-        generateAiProductDescription: sl(),
+        generateAIProductDescription: sl(),
       )..add(
           GetProductDetailDataEvent(productId: productId),
         ),
@@ -56,7 +56,7 @@ class ProductDetailScreen extends StatelessWidget {
     }
     
     // Handle AI description errors
-    if (state is AiDescriptionError) {
+    if (state is AIDescriptionError) {
       context.showSnackBar(
         state.errorMessage ?? 'Failed to generate AI description',
       );
@@ -161,7 +161,7 @@ class ProductDetailBody extends StatelessWidget {
                             description: productDetail.description,
                           ),
                           const SizedBox(height: 24),
-                          AiProductDescription(
+                          AIProductDescription(
                             productDetail: productDetail,
                             userOrderHistory: _getMockUserOrderHistory(
                               productDetail.category,

@@ -4,9 +4,9 @@ import 'package:skelter/presentation/product_detail/data/models/ai_product_descr
 import 'package:skelter/presentation/product_detail/domain/entities/product_detail.dart';
 import 'package:skelter/services/ai/gemini_service.dart';
 
-abstract class AiProductDescriptionRemoteDataSource {
+abstract class AIProductDescriptionRemoteDataSource {
   /// Generate AI product description using Gemini
-  Future<AiProductDescriptionModel> generateProductDescription({
+  Future<AIProductDescriptionModel> generateProductDescription({
     required ProductDetail productDetail,
     List<String>? userOrderHistory,
   });
@@ -19,14 +19,14 @@ abstract class AiProductDescriptionRemoteDataSource {
 }
 
 /// Implementation of AI product description remote data source
-class AiProductDescriptionRemoteDataSourceImpl
-    implements AiProductDescriptionRemoteDataSource {
-  AiProductDescriptionRemoteDataSourceImpl(this._geminiService);
+class AIProductDescriptionRemoteDataSourceImpl
+    implements AIProductDescriptionRemoteDataSource {
+  AIProductDescriptionRemoteDataSourceImpl(this._geminiService);
 
   final GeminiService _geminiService;
 
   @override
-  Future<AiProductDescriptionModel> generateProductDescription({
+  Future<AIProductDescriptionModel> generateProductDescription({
     required ProductDetail productDetail,
     List<String>? userOrderHistory,
   }) async {
@@ -43,7 +43,7 @@ class AiProductDescriptionRemoteDataSourceImpl
       );
 
       debugPrint('[AI DataSource] Creating model from response...');
-      return AiProductDescriptionModel.fromGeneratedText(
+      return AIProductDescriptionModel.fromGeneratedText(
         productId: productDetail.id,
         generatedText: generatedText,
         isPersonalized: userOrderHistory != null && userOrderHistory.isNotEmpty,

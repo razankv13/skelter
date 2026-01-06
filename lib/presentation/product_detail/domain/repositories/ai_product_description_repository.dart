@@ -4,9 +4,9 @@ import 'package:skelter/presentation/product_detail/domain/entities/ai_product_d
 import 'package:skelter/presentation/product_detail/domain/entities/product_detail.dart';
 
 /// Repository interface for AI product description operations
-abstract class AiProductDescriptionRepository {
+abstract class AIProductDescriptionRepository {
   /// Generate AI-powered product description
-  Future<Either<Failure, AiProductDescription>> generateProductDescription({
+  Future<Either<Failure, AIProductDescription>> generateProductDescription({
     required ProductDetail productDetail,
     List<String>? userOrderHistory,
   });
