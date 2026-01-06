@@ -1,62 +1,36 @@
 import 'dart:async';
 
+import 'package:firebase_ai/firebase_ai.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:skelter/services/ai/gemini_constants.dart';
-import 'package:skelter/utils/app_flavor_env.dart';
 
-/// Service class to handle Google Gemini AI operations
+/// Service class to handle Firebase AI (Gemini) operations
+/// Uses Firebase AI SDK which requires Firebase project setup with Vertex AI 
+/// API enabled
+
 class GeminiService {
-
   factory GeminiService() {
     _instance ??= GeminiService._();
     return _instance!;
   }
+
   GeminiService._();
 
   static GeminiService? _instance;
 
-
   GenerativeModel? _model;
   GenerativeModel? _visionModel;
 
-  /// Get Gemini API Key based on current environment
-  String get _apiKey {
-    final flavor = AppConfig.appFlavor;
-    final String envKey = switch (flavor) {
-      AppFlavor.dev => 'GEMINI_API_KEY_DEV',
-      AppFlavor.stage => 'GEMINI_API_KEY_STAGE',
-      AppFlavor.prod => 'GEMINI_API_KEY_PROD',
-    };
-
-    debugPrint('[Gemini] Looking for key: $envKey');
-    final apiKey = dotenv.env[envKey];
-
-    if (apiKey == null || apiKey.isEmpty || apiKey.contains('your_')) {
-      debugPrint('[Gemini] API key not found or invalid for $envKey');
-      throw Exception(
-        'Gemini API key not configured for ${flavor.name} environment. '
-        'Please add $envKey to .env file',
-      );
-    }
-
-    debugPrint('[Gemini] API key found (length: ${apiKey.length})');
-    return apiKey;
-  }
-
-  /// Initialize Gemini models
+  /// Initialize Gemini models via Firebase AI
+  /// Requires Firebase to be initialized first
   void initialize() {
     try {
-      debugPrint('[Gemini] Initializing Gemini Service...');
-      final apiKey = _apiKey;
+      debugPrint('[Gemini] Initializing Firebase AI Gemini Service...');
 
-      // Initialize text generation model
-      // Note: Using simple initialization without systemInstruction
-      // as it may not be supported in all API versions
-      _model = GenerativeModel(
+      // Initialize text generation model using Firebase AI
+      // Firebase AI uses the Developer API backend (no API key needed in code)
+      _model = FirebaseAI.googleAI().generativeModel(
         model: GeminiConstants.geminiProModel,
-        apiKey: apiKey,
         generationConfig: GenerationConfig(
           temperature: GeminiConstants.temperature,
           maxOutputTokens: GeminiConstants.maxOutputTokens,
@@ -71,9 +45,8 @@ class GeminiService {
       );
 
       // Initialize vision model for image analysis
-      _visionModel = GenerativeModel(
+      _visionModel = FirebaseAI.googleAI().generativeModel(
         model: GeminiConstants.geminiProVisionModel,
-        apiKey: apiKey,
         generationConfig: GenerationConfig(
           temperature: GeminiConstants.temperature,
           maxOutputTokens: GeminiConstants.maxOutputTokens,
@@ -83,14 +56,14 @@ class GeminiService {
         ),
       );
 
-      debugPrint('[Gemini] Service initialized successfully');
+      debugPrint('[Gemini] Firebase AI Service initialized successfully');
     } catch (e) {
       debugPrint('[Gemini] Initialization failed: $e');
-      throw Exception('Failed to initialize Gemini Service: $e');
+      throw Exception('Failed to initialize Firebase AI Gemini Service: $e');
     }
   }
 
-  /// Generate text content using Gemini
+  /// Generate text content using Gemini via Firebase AI
   Future<String> generateContent({
     required String prompt,
     Duration? timeout,
@@ -101,12 +74,12 @@ class GeminiService {
     if (_model == null) {
       debugPrint('[Gemini] ERROR: Model not initialized!');
       throw Exception(
-        'Gemini Service not initialized. Call initialize() first.',
+        'Firebase AI Gemini Service not initialized. Call initialize() first.',
       );
     }
 
     try {
-      debugPrint('[Gemini] Sending request to Gemini API...');
+      debugPrint('[Gemini] Sending request to Firebase AI Gemini API...');
       final response = await _model!
           .generateContent([Content.text(prompt)])
           .timeout(timeout ?? GeminiConstants.apiTimeout);
@@ -116,7 +89,7 @@ class GeminiService {
 
       if (text == null || text.isEmpty) {
         debugPrint('[Gemini] ERROR: Empty response from API');
-        throw Exception('Empty response from Gemini API');
+        throw Exception('Empty response from Firebase AI Gemini API');
       }
 
       debugPrint('[Gemini] Success: Generated ${text.length} characters');
@@ -138,7 +111,8 @@ class GeminiService {
   }) async {
     if (_visionModel == null) {
       throw Exception(
-        'Gemini Vision Service not initialized. Call initialize() first.',
+        'Firebase AI Gemini Vision Service not initialized. '
+        'Call initialize() first.',
       );
     }
 
@@ -146,8 +120,8 @@ class GeminiService {
       final content = <Content>[
         Content.multi([
           TextPart(prompt),
-          // Note: For production, you'd need to download and convert images to 
-          // DataPart
+          // Note: For production, you'd need to download and convert images to
+          // InlineDataPart using FileData or InlineData
           // This is a simplified version
         ]),
       ];
@@ -158,7 +132,7 @@ class GeminiService {
 
       final text = response.text;
       if (text == null || text.isEmpty) {
-        throw Exception('Empty response from Gemini Vision API');
+        throw Exception('Empty response from Firebase AI Gemini Vision API');
       }
 
       return text;
@@ -171,7 +145,7 @@ class GeminiService {
   Stream<String> generateContentStream({required String prompt}) async* {
     if (_model == null) {
       throw Exception(
-        'Gemini Service not initialized. Call initialize() first.',
+        'Firebase AI Gemini Service not initialized. Call initialize() first.',
       );
     }
 
