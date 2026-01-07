@@ -82,6 +82,8 @@ dependencies:
   pdf: ^3.11.1
   printing: ^5.14.0
   timezone: ^0.10.1
+  firebase_ai: ^3.6.1
+  
 
 dev_dependencies:
   flutter_test:
