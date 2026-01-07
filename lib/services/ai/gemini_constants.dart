@@ -14,7 +14,7 @@ class GeminiConstants {
   static const double temperature = 0.7;
 
   /// Maximum tokens in the response
-  static const int maxOutputTokens = 1536/**/;
+  static const int maxOutputTokens = 1536;
 
   /// Top P for nucleus sampling
   static const double topP = 0.9;

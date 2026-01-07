@@ -82,7 +82,6 @@ dependencies:
   pdf: ^3.11.1
   printing: ^5.14.0
   timezone: ^0.10.1
-  # With:
   firebase_ai: ^3.6.1
   
 
