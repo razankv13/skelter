@@ -52,11 +52,11 @@ class SubscriptionService {
         debugPrint('RevenueCat API key is missing!');
         return;
       }
-      // NOTE: REVENUECAT RELEASE BYPASS
+      
       // We are bypassing RevenueCat initialization in release mode because
       // the production stores (App Store/Google Play) are not yet fully implemented.
       //
-      // CRITICAL PRODUCTION CHECKLIST BEFORE RELEASE:
+      // IMPORTANT PRODUCTION CHECKLIST BEFORE RELEASE:
       // (To prevent crashes and unexpected behavior):
       // - Never submit apps to App Store or Google Play using a Test Store key.
       // - Ensure platform-specific Production Keys (iOS/Android) are used.
