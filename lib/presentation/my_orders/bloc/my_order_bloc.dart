@@ -4,8 +4,8 @@ import 'package:skelter/presentation/checkout/model/invoice_model.dart';
 import 'package:skelter/presentation/home/domain/usecases/get_products.dart';
 import 'package:skelter/presentation/my_orders/bloc/my_order_event.dart';
 import 'package:skelter/presentation/my_orders/bloc/my_order_state.dart';
-import 'package:skelter/presentation/product_detail/domain/usecases/get_product_detail.dart';
 import 'package:skelter/presentation/my_orders/services/pdf_service.dart';
+import 'package:skelter/presentation/product_detail/domain/usecases/get_product_detail.dart';
 import 'package:skelter/utils/permission_util.dart';
 
 class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
