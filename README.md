@@ -28,7 +28,7 @@ boiler plate code for rapid application development.
 - For **detailed guides, configuration setup, and best practices**, visit our documentation:
 
 ## 🔗 Get Started
-👉 [**Explore the Skelter Docs**](https://docs.solz.me/docs/intro)
+👉 [**Explore the Skelter Docs**](https://skelter.solguruz.com/docs/intro)
 
 ## Technology Stack
 
